@@ -1,25 +1,33 @@
-// SW NUCLEAR — deletes itself and all caches, forces fresh load
+const CACHE = 'ai-net-eng-v1';
+const ASSETS = [
+  './pwa.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
+];
+
 self.addEventListener('install', function(e) {
   self.skipWaiting();
+  e.waitUntil(
+    caches.open(CACHE).then(function(c) { return c.addAll(ASSETS); })
+  );
 });
+
 self.addEventListener('activate', function(e) {
   e.waitUntil(
     caches.keys().then(function(keys) {
-      return Promise.all(keys.map(function(k) {
-        console.log('[SW] Deleting cache:', k);
-        return caches.delete(k);
-      }));
-    }).then(function() {
-      return self.registration.unregister();
-    }).then(function() {
-      return self.clients.matchAll({ type: 'window' });
-    }).then(function(clients) {
-      clients.forEach(function(c) {
-        c.navigate(c.url);
-      });
-    })
+      return Promise.all(
+        keys.filter(function(k) { return k !== CACHE; })
+            .map(function(k) { return caches.delete(k); })
+      );
+    }).then(function() { return self.clients.claim(); })
   );
 });
+
 self.addEventListener('fetch', function(e) {
-  // No caching — pass everything through
+  e.respondWith(
+    caches.match(e.request).then(function(cached) {
+      return cached || fetch(e.request);
+    })
+  );
 });
