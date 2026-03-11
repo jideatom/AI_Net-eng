@@ -14,7 +14,7 @@
 <body>
 <div class='app-header'>
   <div><h1>🎯 AI Network Engineer</h1><p>Zero to Hero · Phase 1 + AWS + Azure · 2026</p></div>
-  <button class='dark-btn' id='dark-btn' onclick='toggleDark()'>🌙 Dark</button>
+  <button class='dark-btn' id='dark-btn' data-action='dark'>🌙 Dark</button>
 </div>
 <div id='home' class='page active'>
 <div id='today-widget'></div>
@@ -67,328 +67,328 @@
 </div>
 <div class='mlabel'>Month 1 — Foundation (Weeks 1–4)</div>
 <div class='wcard' id='w1'>
-      <div class='whdr' style='background:#306998' onclick='tw(1)'>
+      <div class='whdr' style='background:#306998' data-week='1'>
         <span>W1 — Foundation <span id='wp1' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv1'>▼</span>
       </div>
       <div class='wbody' id='wb1' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w1-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w1-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux File System</span><span class='ei' style='color:#4a148c'>🌙 Python Variables & Data Types</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w1-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w1-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux Permissions</span><span class='ei' style='color:#4a148c'>🌙 Python Control Flow</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w1-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w1-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux User Management</span><span class='ei' style='color:#4a148c'>🌙 Python Functions</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w1-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w1-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux Package Management</span><span class='ei' style='color:#4a148c'>🌙 Python Lists/Dicts/Sets</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w1-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w1-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux Processes</span><span class='ei' style='color:#4a148c'>🌙 Python Modules</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 Python reads Linux system info</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w2'>
-      <div class='whdr' style='background:#306998' onclick='tw(2)'>
+      <div class='whdr' style='background:#306998' data-week='2'>
         <span>W2 — CLI Power <span id='wp2' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv2'>▼</span>
       </div>
       <div class='wbody' id='wb2' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w2-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w2-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux Networking</span><span class='ei' style='color:#4a148c'>🌙 Python File I/O</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w2-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w2-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux Shell Navigation</span><span class='ei' style='color:#4a148c'>🌙 Python Exceptions</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w2-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w2-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux grep</span><span class='ei' style='color:#4a148c'>🌙 Python Comprehensions</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w2-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w2-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux sed & awk</span><span class='ei' style='color:#4a148c'>🌙 Python Strings</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w2-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w2-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux Pipes</span><span class='ei' style='color:#4a148c'>🌙 Python Recursion</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 Parse /etc/passwd</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w3'>
-      <div class='whdr' style='background:#306998' onclick='tw(3)'>
+      <div class='whdr' style='background:#306998' data-week='3'>
         <span>W3 — OOP Begins <span id='wp3' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv3'>▼</span>
       </div>
       <div class='wbody' id='wb3' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w3-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w3-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux Bash Variables</span><span class='ei' style='color:#4a148c'>🌙 Python Classes & Objects</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w3-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w3-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux find & xargs</span><span class='ei' style='color:#4a148c'>🌙 Python Inheritance</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w3-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w3-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux Env Variables</span><span class='ei' style='color:#4a148c'>🌙 Python Polymorphism</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w3-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w3-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux Loops</span><span class='ei' style='color:#4a148c'>🌙 Python Magic Methods</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w3-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w3-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux Bash Functions</span><span class='ei' style='color:#4a148c'>🌙 Python Abstract Classes</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 NetworkDevice OOP class</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w4'>
-      <div class='whdr' style='background:#306998' onclick='tw(4)'>
+      <div class='whdr' style='background:#306998' data-week='4'>
         <span>W4 — Bash Automation <span id='wp4' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv4'>▼</span>
       </div>
       <div class='wbody' id='wb4' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w4-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w4-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux Bash Functions</span><span class='ei' style='color:#4a148c'>🌙 Python Decorators</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w4-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w4-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux Regex</span><span class='ei' style='color:#4a148c'>🌙 Python Iterators</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w4-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w4-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux Cron Jobs</span><span class='ei' style='color:#4a148c'>🌙 Python Async/Await</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w4-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w4-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux Debug</span><span class='ei' style='color:#4a148c'>🌙 Python Context Managers</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w4-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w4-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux Exit Codes</span><span class='ei' style='color:#4a148c'>🌙 Python pytest</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 Automated backup script</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>🏁 M1 CHECKPOINT</span></div></div>
     </div>
 <div class='mlabel'>Month 2 — Network Automation + Claude (Weeks 5–8)</div>
 <div class='wcard' id='w5'>
-      <div class='whdr' style='background:#2e7d32' onclick='tw(5)'>
+      <div class='whdr' style='background:#2e7d32' data-week='5'>
         <span>W5 — Storage + Netmiko <span id='wp5' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv5'>▼</span>
       </div>
       <div class='wbody' id='wb5' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w5-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w5-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux LVM</span><span class='ei' style='color:#4a148c'>🌙 Python Sockets</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w5-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w5-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux Partitioning</span><span class='ei' style='color:#4a148c'>🌙 Python Venv & Types</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w5-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w5-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux SELinux</span><span class='ei' style='color:#4a148c'>🌙 Python Regex</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w5-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w5-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux SELinux Policies</span><span class='ei' style='color:#4a148c'>🌙 Python Netmiko</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w5-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w5-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux Systemd</span><span class='ei' style='color:#e65100;font-weight:bold'>🌙 🟠 CLAUDE #1: API + Messages API</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 Netmiko pull router config</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w6'>
-      <div class='whdr' style='background:#2e7d32' onclick='tw(6)'>
+      <div class='whdr' style='background:#2e7d32' data-week='6'>
         <span>W6 — Security + NAPALM <span id='wp6' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv6'>▼</span>
       </div>
       <div class='wbody' id='wb6' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w6-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w6-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux Firewalld</span><span class='ei' style='color:#4a148c'>🌙 Python NAPALM</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w6-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w6-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux nmcli</span><span class='ei' style='color:#4a148c'>🌙 Python NAPALM Getters</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w6-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w6-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux Podman</span><span class='ei' style='color:#4a148c'>🌙 Python REST APIs</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w6-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w6-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux Podman Images</span><span class='ei' style='color:#4a148c'>🌙 Python Paramiko SSH</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w6-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w6-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux Boot Process</span><span class='ei' style='color:#e65100;font-weight:bold'>🌙 🟠 CLAUDE #2: Prompt Engineering</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 5-device stats → CSV</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w7'>
-      <div class='whdr' style='background:#2e7d32' onclick='tw(7)'>
+      <div class='whdr' style='background:#2e7d32' data-week='7'>
         <span>W7 — Performance + Nornir <span id='wp7' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv7'>▼</span>
       </div>
       <div class='wbody' id='wb7' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w7-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w7-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux Memory</span><span class='ei' style='color:#4a148c'>🌙 Python Nornir Setup</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w7-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w7-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux Perf Tuning</span><span class='ei' style='color:#4a148c'>🌙 Python Nornir Tasks</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w7-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w7-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux Kernel</span><span class='ei' style='color:#4a148c'>🌙 Python Ansible-runner</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w7-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w7-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux Systemd Timers</span><span class='ei' style='color:#4a148c'>🌙 Python Logging</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w7-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w7-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux RHCSA Mock</span><span class='ei' style='color:#e65100;font-weight:bold'>🌙 🟠 CLAUDE #3: Extended Thinking</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 Nornir parallel backup</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w8'>
-      <div class='whdr' style='background:#2e7d32' onclick='tw(8)'>
+      <div class='whdr' style='background:#2e7d32' data-week='8'>
         <span>W8 — Ansible <span id='wp8' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv8'>▼</span>
       </div>
       <div class='wbody' id='wb8' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w8-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w8-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Ansible Playbooks</span><span class='ei' style='color:#4a148c'>🌙 GitHub Copilot</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w8-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w8-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Ansible Roles</span><span class='ei' style='color:#4a148c'>🌙 ChatGPT for Code</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w8-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w8-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Ansible Vault</span><span class='ei' style='color:#4a148c'>🌙 Prompt Engineering</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w8-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w8-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Ansible Modules</span><span class='ei' style='color:#4a148c'>🌙 Jinja2 Templates</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w8-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w8-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Ansible Error Handling</span><span class='ei' style='color:#e65100;font-weight:bold'>🌙 🟠 CLAUDE #4: Tool Use</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 Ansible deploy + verify</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>🏁 M2 CHECKPOINT</span></div></div>
     </div>
 <div class='mlabel'>Month 3 — Production + AI Engineering (Weeks 9–12)</div>
 <div class='wcard' id='w9'>
-      <div class='whdr' style='background:#7b1fa2' onclick='tw(9)'>
+      <div class='whdr' style='background:#7b1fa2' data-week='9'>
         <span>W9 — RHCSA Push + LLMs <span id='wp9' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv9'>▼</span>
       </div>
       <div class='wbody' id='wb9' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w9-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w9-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 RHCSA Mock – Users</span><span class='ei' style='color:#4a148c'>🌙 AI: Transformers</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w9-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w9-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 RHCSA Mock – SELinux</span><span class='ei' style='color:#4a148c'>🌙 AI: Tokenization</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w9-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w9-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 RHCSA Mock – Containers</span><span class='ei' style='color:#4a148c'>🌙 AI: Attention</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w9-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w9-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 RHCSA Mock – Network</span><span class='ei' style='color:#4a148c'>🌙 AI: LLM Params</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w9-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w9-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux GPU & CUDA</span><span class='ei' style='color:#e65100;font-weight:bold'>🌙 🟠 CLAUDE #5: Vision API</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 RHCSA Mock + DeepLearning.AI</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w10'>
-      <div class='whdr' style='background:#7b1fa2' onclick='tw(10)'>
+      <div class='whdr' style='background:#7b1fa2' data-week='10'>
         <span>W10 — Linux for AI + RAG <span id='wp10' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv10'>▼</span>
       </div>
       <div class='wbody' id='wb10' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w10-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w10-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux Docker for AI</span><span class='ei' style='color:#4a148c'>🌙 AI: LangChain</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w10-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w10-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux venv & conda</span><span class='ei' style='color:#4a148c'>🌙 AI: Vector DBs</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w10-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w10-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux ML Env</span><span class='ei' style='color:#4a148c'>🌙 AI: Chunking & RAG</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w10-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w10-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux Kernel for AI</span><span class='ei' style='color:#4a148c'>🌙 AI: Reranking</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w10-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w10-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux Hardening</span><span class='ei' style='color:#e65100;font-weight:bold'>🌙 🟠 CLAUDE #6: CLAUDE.md + Memory</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 RAG chatbot — ChromaDB</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w11'>
-      <div class='whdr' style='background:#7b1fa2' onclick='tw(11)'>
+      <div class='whdr' style='background:#7b1fa2' data-week='11'>
         <span>W11 — Agents + MCP <span id='wp11' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv11'>▼</span>
       </div>
       <div class='wbody' id='wb11' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w11-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w11-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux Advanced Net</span><span class='ei' style='color:#4a148c'>🌙 AI: LangGraph Agents</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w11-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w11-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 Linux Monitoring</span><span class='ei' style='color:#4a148c'>🌙 AI: Tool Use</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w11-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w11-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Linux CI/CD</span><span class='ei' style='color:#4a148c'>🌙 AI: CrewAI Multi-Agent</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w11-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w11-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Linux Automation</span><span class='ei' style='color:#4a148c'>🌙 AI: Letta Memory</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w11-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w11-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux Profiling</span><span class='ei' style='color:#e65100;font-weight:bold'>🌙 🟠 CLAUDE #7: Claude Code Hooks</span></div>
         </div><div class='prow'><span class='dlbl'>Sat</span><span>🔨 AI Agent via MCP + network</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>😴 Rest</span></div></div>
     </div><div class='wcard' id='w12'>
-      <div class='whdr' style='background:#7b1fa2' onclick='tw(12)'>
+      <div class='whdr' style='background:#7b1fa2' data-week='12'>
         <span>W12 — Final + Capstone <span id='wp12' style='font-size:10px;opacity:.7'></span></span>
         <span id='chv12'>▼</span>
       </div>
       <div class='wbody' id='wb12' style='display:none'><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w12-mo' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w12-mo' data-chk='1'>
           <span class='dlbl'>Mon</span>
           <div class='di'><span class='mi'>🌅 Linux Review</span><span class='ei' style='color:#4a148c'>🌙 AI: Production Arch</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w12-tu' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w12-tu' data-chk='1'>
           <span class='dlbl'>Tue</span>
           <div class='di'><span class='mi'>🌅 RHCSA Final</span><span class='ei' style='color:#4a148c'>🌙 AI: LangSmith</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w12-we' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w12-we' data-chk='1'>
           <span class='dlbl'>Wed</span>
           <div class='di'><span class='mi'>🌅 Net Auto Review</span><span class='ei' style='color:#4a148c'>🌙 AI: MCP + Tools</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w12-th' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w12-th' data-chk='1'>
           <span class='dlbl'>Thu</span>
           <div class='di'><span class='mi'>🌅 Ansible Review</span><span class='ei' style='color:#4a148c'>🌙 AI: Guardrails</span></div>
         </div><div class='day-row'>
-          <input type='checkbox' class='dc' id='c-w12-fr' onchange='sv(this.id,this.checked)'>
+          <input type='checkbox' class='dc' id='c-w12-fr' data-chk='1'>
           <span class='dlbl'>Fri</span>
           <div class='di'><span class='mi'>🌅 Linux + Ansible Mock</span><span class='ei' style='color:#e65100;font-weight:bold'>🌙 🟠 CLAUDE #8: Network MCP Server</span></div>
         </div><div class='caprow'><span class='dlbl'>Sat</span><span>🏆 CAPSTONE: AI Net Agent</span></div><div class='sunrow'><span class='dlbl'>Sun</span><span>🎓 HERO DAY</span></div></div>
     </div></div>
 <div id='toolkit' class='page'>
 <div class='tktabs'>
-  <button class='tktab active' onclick=\"showTk('tk-setup',this)\">🛠️ Setup</button>
-  <button class='tktab' onclick=\"showTk('tk-vsc',this)\">🖥️ VS Code</button>
-  <button class='tktab' onclick=\"showTk('tk-linux',this)\">⚡ Linux</button>
-  <button class='tktab' onclick=\"showTk('tk-py',this)\">🐍 Python</button>
+  <button class='tktab active' data-tk='tk-setup'>🛠️ Setup</button>
+  <button class='tktab' data-tk='tk-vsc'>🖥️ VS Code</button>
+  <button class='tktab' data-tk='tk-linux'>⚡ Linux</button>
+  <button class='tktab' data-tk='tk-py'>🐍 Python</button>
 </div>
 <div id='tk-setup' class='tkc active'><div class='card'><div class='ct'>🛠️ Day Zero Setup — 7 Steps</div><div style='border-left:3px solid #306998;background:white;border-radius:6px;padding:10px;margin-bottom:10px'>
   <div style='background:#306998;color:white;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:8px;display:inline-block;margin-bottom:5px'>Step 1</div>
@@ -445,7 +445,7 @@ aws --version</pre>
 <pre style='font-size:9.5px'>code --install-extension ms-python.python ms-python.pylance ms-python.debugpy ms-toolsai.jupyter njpwerner.autodocstring GitHub.copilot GitHub.copilot-chat continue.continue saoudrizwan.claude-dev ms-vscode-remote.remote-ssh ms-vscode-remote.remote-wsl ms-vscode.remote-explorer timonwong.shellcheck redhat.ansible redhat.vscode-yaml ms-azuretools.vscode-docker humao.rest-client usernamehw.errorlens eamodio.gitlens oderwat.indent-rainbow aaron-bond.better-comments zhuangtongfa.material-theme PKief.material-icon-theme yzhang.markdown-all-in-one</pre>
 <div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>Python + Pylance</b> <span style='color:#888;font-size:10px'>(Microsoft)</span><br><span style='color:#555;font-size:11.5px'>Core IntelliSense, type checking, autocomplete</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>GitHub Copilot + Chat</b> <span style='color:#888;font-size:10px'>(GitHub)</span><br><span style='color:#555;font-size:11.5px'>AI pair programming — autocomplete + sidebar chat</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>Continue.dev</b> <span style='color:#888;font-size:10px'>(Continue)</span><br><span style='color:#555;font-size:11.5px'>FREE — plug Claude API directly, supports MCP</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>Cline (Claude Dev)</b> <span style='color:#888;font-size:10px'>(Community)</span><br><span style='color:#555;font-size:11.5px'>Agentic AI — Claude reads/writes files, runs terminal</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>Remote SSH + WSL</b> <span style='color:#888;font-size:10px'>(Microsoft)</span><br><span style='color:#555;font-size:11.5px'>Edit Linux/VM files directly in VS Code over SSH</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>ShellCheck</b> <span style='color:#888;font-size:10px'>(Timon Wong)</span><br><span style='color:#555;font-size:11.5px'>Lints Bash scripts in real time</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>Ansible + YAML</b> <span style='color:#888;font-size:10px'>(Red Hat)</span><br><span style='color:#555;font-size:11.5px'>Full Ansible support + smart YAML schema validation</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>Error Lens</b> <span style='color:#888;font-size:10px'>(Alexander)</span><br><span style='color:#555;font-size:11.5px'>Shows errors inline on exact line</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>GitLens</b> <span style='color:#888;font-size:10px'>(GitKraken)</span><br><span style='color:#555;font-size:11.5px'>Full Git history, blame, comparisons inline</span></div><div style='padding:7px 0;border-bottom:1px solid #eee;font-size:12px'><b>One Dark Pro + Material Icons</b> <span style='color:#888;font-size:10px'>(Various)</span><br><span style='color:#555;font-size:11.5px'>Best dark theme + file icons for long sessions</span></div></div></div>
 <div id='tk-linux' class='tkc'><div class='card'><div class='ct'>⚡ Linux Commands (50)</div>
-<div style='margin-bottom:8px'><input type='text' id='lsrch' oninput='fc()' placeholder='🔍 Search...' style='width:100%;padding:8px;border-radius:8px;border:1px solid #ddd;font-size:14px'></div>
+<div style='margin-bottom:8px'><input type='text' id='lsrch' data-action='search' placeholder='🔍 Search...' style='width:100%;padding:8px;border-radius:8px;border:1px solid #ddd;font-size:14px'></div>
 <div id='cmdlist'><div class='ci' data-k='nav pwd print working directory'>
   <span class='ccat'>Nav</span><code class='ccode'>pwd</code><span class='cdesc'>Print working directory</span></div><div class='ci' data-k='nav ls -lah list all with size + hidden'>
   <span class='ccat'>Nav</span><code class='ccode'>ls -lah</code><span class='cdesc'>List all with size + hidden</span></div><div class='ci' data-k='nav cd - go to previous dir'>
@@ -544,8 +544,8 @@ print(result.content[0].text)</pre>
   </div>
 </div>
 <div class='ctabs'>
-  <button class='ctab aws active' onclick=\"showCloud('cld-aws',this)\">🟠 AWS</button>
-  <button class='ctab azure' onclick=\"showCloud('cld-azure',this)\">🔷 Azure</button>
+  <button class='ctab aws active' data-cc='cld-aws'>🟠 AWS</button>
+  <button class='ctab azure' data-cc='cld-azure'>🔷 Azure</button>
 </div>
 <div id='cld-aws' class='cc active'><div style='background:white;border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07)'>
           <div style='background:linear-gradient(135deg,#c7511f,#c7511fcc);color:white;padding:12px 14px'>
@@ -777,10 +777,10 @@ print(result.content[0].text)</pre>
               </div></div></div></div></div></div>
 <div id='more' class='page'>
 <div class='tktabs' style='flex-wrap:wrap'>
-  <button class='tktab active' onclick=\"showMore('mk-claude',this)\">🟠 Claude</button>
-  <button class='tktab' onclick=\"showMore('mk-certs',this)\">🏆 Certs</button>
-  <button class='tktab' onclick=\"showMore('mk-li',this)\">💼 LinkedIn</button>
-  <button class='tktab' onclick=\"showMore('mk-comm',this)\">🤝 Community</button>
+  <button class='tktab active' data-mk='mk-claude'>🟠 Claude</button>
+  <button class='tktab' data-mk='mk-certs'>🏆 Certs</button>
+  <button class='tktab' data-mk='mk-li'>💼 LinkedIn</button>
+  <button class='tktab' data-mk='mk-comm'>🤝 Community</button>
 </div>
 <div id='mk-claude' class='mkc active'><div class='card'><div class='ct' style='color:#e65100'>🟠 Claude Track — 8 Friday Sessions</div>
 <div style='font-size:12px;color:#666;margin-bottom:10px'>Every Friday evening. Goal: build a Claude agent that queries your live network devices via MCP.</div><div style='background:white;border-radius:8px;border-left:3px solid #e65100;padding:10px;margin-bottom:8px'>
@@ -931,11 +931,11 @@ print(result.content[0].text)</pre>
 <a href="https://youtube.com/@DavidBombal" target="_blank" style="display:block;background:white;padding:8px 10px;border-radius:6px;margin-bottom:4px;font-size:12px;color:#1565c0;border:1px solid #e8eaf6">David Bombal — CCNP+Cloud →</a><a href="https://youtube.com/@NetworkChuck" target="_blank" style="display:block;background:white;padding:8px 10px;border-radius:6px;margin-bottom:4px;font-size:12px;color:#1565c0;border:1px solid #e8eaf6">NetworkChuck — AWS+Linux →</a><a href="https://youtube.com/@TechWorldwithNana" target="_blank" style="display:block;background:white;padding:8px 10px;border-radius:6px;margin-bottom:4px;font-size:12px;color:#1565c0;border:1px solid #e8eaf6">TechWorld with Nana — Cloud/DevOps →</a><a href="https://youtube.com/@samwitteveenmre" target="_blank" style="display:block;background:white;padding:8px 10px;border-radius:6px;margin-bottom:4px;font-size:12px;color:#1565c0;border:1px solid #e8eaf6">Sam Witteveen — Claude/AI →</a>
 </div></div></div></div>
 <nav class='bottom-nav'>
-  <button class='nbtn active' id='nav-home' onclick='showPage("home")'>🏠<span>Home</span></button>
-  <button class='nbtn' id='nav-plan' onclick='showPage("plan")'>📅<span>Plan</span></button>
-  <button class='nbtn' id='nav-toolkit' onclick='showPage("toolkit")'>🛠️<span>Toolkit</span></button>
-  <button class='nbtn' id='nav-cloud' onclick='showPage("cloud")'>☁️<span>Cloud</span></button>
-  <button class='nbtn' id='nav-more' onclick='showPage("more")'>📚<span>More</span></button>
+  <button class='nbtn active' id='nav-home' data-page='home'>🏠<span>Home</span></button>
+  <button class='nbtn' id='nav-plan' data-page='plan'>📅<span>Plan</span></button>
+  <button class='nbtn' id='nav-toolkit' data-page='toolkit'>🛠️<span>Toolkit</span></button>
+  <button class='nbtn' id='nav-cloud' data-page='cloud'>☁️<span>Cloud</span></button>
+  <button class='nbtn' id='nav-more' data-page='more'>📚<span>More</span></button>
 </nav>
 <script src="./app.js"></script>
 </body>
