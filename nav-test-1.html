@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nav Test</title>
+<style>
+body{background:#1a1a2e;color:white;font-family:Arial;padding:20px;max-width:400px;margin:0 auto}
+h2{color:#e65100;margin-bottom:20px}
+.btn{display:block;width:100%;padding:20px;margin:10px 0;background:#306998;border:none;color:white;font-size:18px;border-radius:10px;cursor:pointer}
+.btn.active{background:#e65100}
+.page{display:none;padding:20px;background:#2d3561;border-radius:10px;margin-top:10px}
+.page.show{display:block}
+#log{background:#0d0d1a;padding:10px;border-radius:8px;margin-top:20px;font-size:13px;min-height:60px;color:#4CAF50}
+</style>
+</head>
+<body>
+<h2>Navigation Test</h2>
+<p style="font-size:13px;color:#aaa;margin-bottom:15px">Tap the buttons below. They should turn orange and show content.</p>
+
+<button class="btn active" id="b1">Page 1 (Home)</button>
+<button class="btn" id="b2">Page 2 (Plan)</button>
+<button class="btn" id="b3">Page 3 (Toolkit)</button>
+
+<div class="page show" id="p1">HOME content is visible</div>
+<div class="page" id="p2">PLAN content is visible</div>
+<div class="page" id="p3">TOOLKIT content is visible</div>
+
+<div id="log">Waiting for taps...</div>
+
+<script>
+var taps = 0;
+var pages = ['p1','p2','p3'];
+var btns  = ['b1','b2','b3'];
+
+function goPage(n) {
+  taps++;
+  pages.forEach(function(id) { document.getElementById(id).classList.remove('show'); });
+  btns.forEach(function(id)  { document.getElementById(id).classList.remove('active'); });
+  document.getElementById('p' + n).classList.add('show');
+  document.getElementById('b' + n).classList.add('active');
+  document.getElementById('log').textContent = 'Tap #' + taps + ': Page ' + n + ' activated at ' + new Date().toLocaleTimeString();
+}
+
+document.getElementById('b1').addEventListener('click', function(){ goPage(1); });
+document.getElementById('b2').addEventListener('click', function(){ goPage(2); });
+document.getElementById('b3').addEventListener('click', function(){ goPage(3); });
+
+document.getElementById('log').textContent = 'JS loaded. addEventListener bound. Tap a button.';
+</script>
+</body>
+</html>
