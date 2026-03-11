@@ -1,4 +1,4 @@
-const CACHE = 'ai-net-eng-v4';
+const CACHE = 'ai-net-eng-v5';
 const ASSETS = [
   './pwa.html',
   './manifest.json',
