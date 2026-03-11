@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a1a2e">
 <title>AI Network Engineer</title>
+  <link rel="manifest" href="manifest.json">
 <style>
 :root{--bg:#f0f2f7;--card:#fff;--hdr:#1a1a2e;--txt:#1a1a2e;--sub:#666;--brd:#e8eaf6;--inp:#f0f2f7;--sh:rgba(0,0,0,.07)}
 body.dark{--bg:#121212;--card:#1e1e2e;--hdr:#0d0d1a;--txt:#e0e0e0;--sub:#aaa;--brd:#333;--inp:#2a2a3e;--sh:rgba(0,0,0,.3)}
@@ -655,6 +656,15 @@ function renderMore() {
   for (var w = 1; w <= 12; w++) loadChks(w);
   updateProg();
 })();
+</script>
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(r){ console.log('[SW] registered', r.scope); })
+      .catch(function(e){ console.log('[SW] failed', e); });
+  });
+}
 </script>
 </body>
 </html>
