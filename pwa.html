@@ -13,7 +13,8 @@
 body.dark{--bg:#121212;--card:#1e1e2e;--hdr:#0d0d1a;--txt:#e0e0e0;--sub:#aaa;--brd:#333;--inp:#2a2a3e;--sh:rgba(0,0,0,.3)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--txt);padding-bottom:72px;max-width:480px;margin:0 auto;transition:background .3s,color .3s}
-header{background:var(--hdr);color:#fff;padding:12px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header{background:var(--hdr);color:#fff;padding:12px 16px;position:246
+  sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 header h1{font-size:15px;font-weight:700}header p{font-size:10px;color:#aaa;margin-top:1px}
 .dbtn{background:none;border:1px solid #444;color:#fff;border-radius:16px;padding:4px 10px;font-size:11px;cursor:pointer}
 nav#botnav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:var(--hdr);display:flex;justify-content:space-around;padding:6px 0 env(safe-area-inset-bottom,6px);z-index:200;border-top:1px solid #2d3561}
@@ -248,7 +249,6 @@ function renderNav() {
     {id:'plan',    icon:'\uD83D\uDCC5', label:'Plan'},
     {id:'toolkit', icon:'\uD83D\uDEE0\uFE0F', label:'Toolkit'},
     {id:'cloud',   icon:'\u2601\uFE0F',  label:'Cloud'},
-    {id:'courses', icon:'\uD83D\uDCDA',  label:'Courses'},
     {id:'more',    icon:'\u22EF',        label:'More'}
   ];
   tabs.forEach(function(t) {
@@ -621,7 +621,7 @@ function renderCourses() {
 
 function renderMore() {
   var pg = document.getElementById('more');
-  var tabs = [{id:'m-claude',lbl:'Claude'},{id:'m-certs',lbl:'Certs'},{id:'m-li',lbl:'LinkedIn'},{id:'m-comm',lbl:'Community'}];
+  var tabs = [{id:'m-claude',lbl:'Claude'},{id:'m-certs',lbl:'Certs'},{id:'m-li',lbl:'LinkedIn'},{id:'m-comm',lbl:'Community'},{id:'m-courses',lbl:'Courses'}];
   var tabBar = div('tabs');
   tabs.forEach(function(t, i) {
     var btn = el('button', 'tab' + (i===0?' on':''));
@@ -690,6 +690,7 @@ function renderMore() {
     commc.innerHTML += s;
   });
   comm.appendChild(commc); pg.appendChild(comm);
+    var mcourses = div('tpane'); mcourses.id = 'm-courses'; var mchdr = div('card','<div style="font-size:13px;font-weight:700;margin-bottom:2px">📚 My Course Library</div><div style="font-size:11px;color:var(--sub)">Tap any category to expand. '+COURSES.reduce(function(a,c){return a+c.items.length;},0)+' courses total.</div>'); mcourses.appendChild(mchdr); COURSES.forEach(function(sec,i){var w=div('');w.style.cssText='background:var(--card);border-radius:12px;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 4px var(--sh)';var colors=['#2e7d32','#1565c0','#7b1fa2','#e65100','#00695c','#4527a0','#283593','#37474f','#bf360c','#1b5e20','#0d47a1','#4a148c','#e65100','#006064','#33691e','#4e342e'];var col=colors[i%colors.length];var h=div('');h.style.cssText='padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none';h.innerHTML='<div><span style="font-size:14px;font-weight:700;color:'+col+'">'+sec.cat+'</span><span style="font-size:11px;color:var(--sub);margin-left:8px">'+sec.items.length+' courses</span></div><span style="font-size:16px;color:var(--sub)" class="carr">►</span>';var b=div('');b.style.cssText='display:none;padding:0 14px 8px;max-height:320px;overflow-y:auto';sec.items.forEach(function(name,idx){b.innerHTML+='<div style="padding:7px 0;border-bottom:1px solid var(--brd);font-size:12px;color:var(--txt)">'+(idx+1)+'. '+name+'</div>';});h.addEventListener('click',function(){var open=b.style.display!=='none';b.style.display=open?'none':'block';h.querySelector('.carr').textContent=open?'►':'▼';});w.appendChild(h);w.appendChild(b);mcourses.appendChild(w);}); pg.appendChild(mcourses);
 }
 
 // ── INIT — runs directly, DOM already ready at bottom of body ──────
