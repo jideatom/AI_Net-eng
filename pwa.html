@@ -296,7 +296,7 @@ function pomReset() {
 }
 
 // ── Progress ─────────────────────────────────────────────────────────
-function sv(id, v) { try { localStorage.setItem(id, v ? '1' : ''); } catch(e) {} updateProg(); }
+var WEBHOOK_URL = 'https://hook.eu1.make.com/n3iqiwnhctfdc2mpt81o4u4waidgp73e'; function sendToNotion(taskName, week, category, completed) { if (!completed) return; fetch(WEBHOOK_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({taskName: taskName, week: 'Week ' + week, category: category, completed: completed})}).catch(function(){}); } function sv(id, v) { try { localStorage.setItem(id, v ? '1' : ''); } catch(e) {} updateProg(); if (v) { var parts = id.split('-'); if (parts.length === 3) { var wn = parseInt(parts[1]); var dn = parseInt(parts[2]); var wData = WEEKS[wn-1]; if (wData) { var days = ['Mon','Tue','Wed','Thu','Fri']; var mi = wData[2 + dn*2]; var ei = wData[3 + dn*2]; var dayName = days[dn] || ''; sendToNotion(mi + ' / ' + ei, wn, wData[1], dayName + ' W' + wn); } } } }
 function loadChks(n) {
   document.querySelectorAll('#wb' + n + ' .dchk').forEach(function(c) {
     try { if (localStorage.getItem(c.id) === '1') c.checked = true; } catch(e) {}
