@@ -283,12 +283,12 @@ function renderHome() {
   var tracks = div('card');
     tracks.innerHTML = '<div class="ct">Your Learning Tracks</div><div style="line-height:2.2" id="track-btns"></div>';
     var trackList = [
-      {n:'Linux (RHCSA)', bg:'#e3f0ff', col:'#306998', page:'plan'},
-      {n:'Claude Track', bg:'#fff3e0', col:'#e65100', page:'more', sub:'m-claude'},
-      {n:'Python', bg:'#e8f5e9', col:'#2e7d32', page:'plan'},
-      {n:'AWS SAP + ANS', bg:'#fbe9e7', col:'#c7511f', page:'cloud', sub:'cp-aws'},
-      {n:'Azure AZ-700 + AZ-305', bg:'#e3f2fd', col:'#0078d4', page:'cloud', sub:'cp-az'},
-      {n:'AI Engineering', bg:'#f3e5f5', col:'#7b1fa2', page:'courses'}
+            {n:'Linux (RHCSA)', bg:'#e3f0ff', col:'#306998', page:'plan'},
+      {n:'Python',         bg:'#e8f5e9', col:'#2e7d32', page:'plan'},
+      {n:'AI Engineering', bg:'#f3e5f5', col:'#7b1fa2', page:'courses'},
+      {n:'Claude Track',   bg:'#fff3e0', col:'#e65100', page:'more', sub:'m-claude'},
+      {n:'AWS SAP + ANS',  bg:'#fbe9e7', col:'#c7511f', page:'cloud', sub:'cp-aws'},
+      {n:'Azure AZ-700 + AZ-305', bg:'#e3f2fd', col:'#0078d4', page:'cloud', sub:'cp-az'}
     ];
     pg.appendChild(tracks);
     var tbDiv = tracks.querySelector('#track-btns');
