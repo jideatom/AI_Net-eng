@@ -281,12 +281,27 @@ function renderHome() {
 
   // Tracks
   var tracks = div('card');
-  tracks.innerHTML = '<div class="ct">Your Learning Tracks</div><div style="line-height:2.2">' +
-    ['Linux (RHCSA)','Claude Track','Python','AWS SAP + ANS','Azure AZ-700 + AZ-305','AI Engineering'].map(function(n,i) {
-      var colors = [['#e3f0ff','#306998'],['#fff3e0','#e65100'],['#e8f5e9','#2e7d32'],['#fbe9e7','#c7511f'],['#e3f2fd','#0078d4'],['#f3e5f5','#7b1fa2']];
-      return '<span style="background:'+colors[i][0]+';color:'+colors[i][1]+';padding:3px 10px;border-radius:12px;margin:2px;display:inline-block;font-size:12px">'+n+'</span>';
-    }).join('') + '</div>';
-  pg.appendChild(tracks);
+    tracks.innerHTML = '<div class="ct">Your Learning Tracks</div><div style="line-height:2.2" id="track-btns"></div>';
+    var trackList = [
+      {n:'Linux (RHCSA)', bg:'#e3f0ff', col:'#306998', page:'plan'},
+      {n:'Claude Track', bg:'#fff3e0', col:'#e65100', page:'more', sub:'m-claude'},
+      {n:'Python', bg:'#e8f5e9', col:'#2e7d32', page:'plan'},
+      {n:'AWS SAP + ANS', bg:'#fbe9e7', col:'#c7511f', page:'cloud', sub:'cp-aws'},
+      {n:'Azure AZ-700 + AZ-305', bg:'#e3f2fd', col:'#0078d4', page:'cloud', sub:'cp-az'},
+      {n:'AI Engineering', bg:'#f3e5f5', col:'#7b1fa2', page:'courses'}
+    ];
+    pg.appendChild(tracks);
+    var tbDiv = tracks.querySelector('#track-btns');
+    trackList.forEach(function(t) {
+      var btn = el('button','');
+      btn.textContent = t.n;
+      btn.style.cssText = 'background:'+t.bg+';color:'+t.col+';padding:5px 12px;border-radius:12px;margin:3px;display:inline-block;font-size:12px;border:none;cursor:pointer;font-weight:600';
+      btn.addEventListener('click', function(){
+        showPage(t.page);
+        if(t.sub){ var s=document.getElementById(t.sub); if(s){ s.closest('.page').querySelectorAll('.tab,.tpane').forEach(function(x){x.classList.remove('on');}); s.classList.add('on'); var btn2=s.previousElementSibling; while(btn2&&!btn2.classList.contains('tab')){btn2=btn2.previousElementSibling;} if(btn2)btn2.classList.add('on'); } }
+      });
+      tbDiv.appendChild(btn);
+    });
 }
 
 // ── Render PLAN ──────────────────────────────────────────────────────
