@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>NaijaFast - Plans</title>
+    <link rel="manifest" href="fasting-manifest.json">
+    <style>
+        :root { --bg:#F0F4F8; --surface:#fff; --primary:#5D5FEF; --text:#1E293B; --sub:#64748B; --border:#E2E8F0; }
+        * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; min-height:100vh; }
+        .app { width:100%; max-width:450px; background:var(--surface); min-height:100vh; display:flex; flex-direction:column; padding-bottom:80px; overflow-y:auto; }
+        .page-hdr { padding:40px 20px 15px; display:flex; justify-content:space-between; align-items:center; }
+        .tab-row { display:flex; border-bottom:2px solid var(--border); padding:0 20px; margin-bottom:5px; }
+        .tab { padding:10px 20px; font-size:0.85rem; font-weight:700; cursor:pointer; color:var(--sub); border-bottom:3px solid transparent; margin-bottom:-2px; }
+        .tab.on { color:var(--primary); border-color:var(--primary); }
+        
+        /* Tailored Plan banner */
+        .tailored { margin:15px 20px; background:#F0FDF4; border-radius:16px; padding:18px; display:flex; justify-content:space-between; align-items:center; }
+        .tailored-text { font-size:1rem; font-weight:800; color:#15803D; }
+        .tailored-sub { font-size:0.75rem; color:#4ADE80; margin-top:3px; }
+        .tailored-btn { background:#16A34A; color:white; border:none; border-radius:12px; padding:8px 18px; font-size:0.8rem; font-weight:700; cursor:pointer; }
+
+        /* Plans grid */
+        .plans-section { padding:0 20px 10px; }
+        .plans-section-title { font-size:0.85rem; font-weight:800; color:var(--text); margin:12px 0 5px; }
+        .plans-section-sub { font-size:0.72rem; color:var(--sub); margin-bottom:12px; }
+        .plans-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:5px; }
+        .plan-card { padding:16px; border-radius:16px; cursor:pointer; transition:transform 0.15s; position:relative; }
+        .plan-card:active { transform:scale(0.97); }
+        .plan-card.active-plan { position:relative; }
+        .plan-card.active-plan::after { content:'\2713'; position:absolute; top:10px; right:10px; font-size:1rem; background:#fff; border-radius:50%; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-weight:800; }
+        .plan-num { font-size:1.4rem; font-weight:900; color:var(--text); display:flex; align-items:center; gap:6px; }
+        .pro-tag { font-size:0.58rem; font-weight:800; padding:2px 6px; border-radius:6px; background:#E0E7FF; color:var(--primary); }
+        .plan-info { font-size:0.72rem; color:var(--sub); margin:6px 0 4px; line-height:1.6; }
+        .plan-label { font-size:0.68rem; font-weight:700; }
+
+        /* Nav */
+        .nav { position:fixed; bottom:0; width:100%; max-width:450px; background:white; display:flex; justify-content:space-around; padding:12px 0; border-top:1px solid var(--border); }
+        .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; color:var(--sub); font-size:0.7rem; font-weight:600; flex:1; }
+        .nav-item.active { color:var(--primary); }
+        .nav-icon { font-size:1.4rem; }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="page-hdr">
+        <div style="font-size:1.5rem;font-weight:800;">Plan</div>
+    </div>
+    <div class="tab-row">
+        <div class="tab on">Daily</div>
+        <div class="tab">Weekly</div>
+    </div>
+
+    <div class="tailored">
+        <div>
+            <div class="tailored-text">Tailored Plan</div>
+            <div class="tailored-sub">Reach your goal faster</div>
+        </div>
+        <button class="tailored-btn">Check</button>
+    </div>
+
+    <div class="plans-section">
+        <div class="plans-section-title">Hot plans</div>
+        <div class="plans-grid">
+            <div class="plan-card" style="background:#EEF2FF;" onclick="selectPlan(16,'16:8')">
+                <div class="plan-num">16:8</div>
+                <div class="plan-info">&#x2702; 16h fasting<br>&#x1F967; 8h eating</div>
+                <div class="plan-label" style="color:#E11D48;">Most popular</div>
+            </div>
+            <div class="plan-card" style="background:#FFF7ED;" onclick="selectPlan(23,'23:1')">
+                <div class="plan-num">23:1 <span class="pro-tag">PRO</span></div>
+                <div class="plan-info">&#x2702; 23h fasting<br>&#x1F967; 1h eating</div>
+                <div class="plan-label" style="color:#3B82F6;">OMAD</div>
+            </div>
+            <div class="plan-card active-plan" style="background:#F97316;" onclick="selectPlan(20,'20:4')">
+                <div class="plan-num" style="color:#fff;">20:4</div>
+                <div class="plan-info" style="color:rgba(255,255,255,0.8);">&#x2702; 20h fasting<br>&#x1F967; 4h eating</div>
+                <div class="plan-label" style="color:#fff;">Warrior diet</div>
+            </div>
+            <div class="plan-card" style="background:#F0FDF4;" onclick="selectPlan(14,'14:10')">
+                <div class="plan-num">14:10</div>
+                <div class="plan-info">&#x2702; 14h fasting<br>&#x1F967; 10h eating</div>
+                <div class="plan-label" style="color:#16A34A;">Easy to start</div>
+            </div>
+            <div class="plan-card" style="background:#F1F5F9;" onclick="selectPlan(18,'18:6')">
+                <div class="plan-num">18:6 <span class="pro-tag">PRO</span></div>
+                <div class="plan-info">&#x2702; 18h fasting<br>&#x1F967; 6h eating</div>
+                <div class="plan-label" style="color:#F97316;">Fat burning</div>
+            </div>
+            <div class="plan-card" style="background:#FFF1F2;" onclick="selectPlan(72,'72h')">
+                <div class="plan-num">72h <span class="pro-tag">PRO</span></div>
+                <div class="plan-info">&#x2702; 3 days fasting<br>&#x1F967; No eating</div>
+                <div class="plan-label" style="color:#00D4AA;">Autophagy</div>
+            </div>
+        </div>
+
+        <div class="plans-section-title">Basic plans</div>
+        <div class="plans-section-sub">Easy to get started for beginners</div>
+        <div class="plans-grid">
+            <div class="plan-card" style="background:#EEF2FF;" onclick="selectPlan(12,'12:12')">
+                <div class="plan-num">12:12</div>
+                <div class="plan-info">&#x2702; 12h fasting<br>&#x1F967; 12h eating</div>
+            </div>
+            <div class="plan-card" style="background:#F0FDF4;" onclick="selectPlan(13,'13:11')">
+                <div class="plan-num">13:11</div>
+                <div class="plan-info">&#x2702; 13h fasting<br>&#x1F967; 11h eating</div>
+            </div>
+            <div class="plan-card" style="background:#FFF7ED;" onclick="selectPlan(14,'14:10')">
+                <div class="plan-num">14:10</div>
+                <div class="plan-info">&#x2702; 14h fasting<br>&#x1F967; 10h eating</div>
+            </div>
+            <div class="plan-card" style="background:#F1F5F9;" onclick="selectPlan(15,'15:9')">
+                <div class="plan-num">15:9 <span class="pro-tag">PRO</span></div>
+                <div class="plan-info">&#x2702; 15h fasting<br>&#x1F967; 9h eating</div>
+            </div>
+        </div>
+
+        <div class="plans-section-title">Advanced plans</div>
+        <div class="plans-section-sub">Challenging and professional solutions</div>
+        <div class="plans-grid">
+            <div class="plan-card" style="background:#FFF7ED;" onclick="selectPlan(20,'20:4')">
+                <div class="plan-num">20:4</div>
+                <div class="plan-info">&#x2702; 20h fasting<br>&#x1F967; 4h eating</div>
+            </div>
+            <div class="plan-card" style="background:#F0FDF4;" onclick="selectPlan(21,'21:3')">
+                <div class="plan-num">21:3 <span class="pro-tag">PRO</span></div>
+                <div class="plan-info">&#x2702; 21h fasting<br>&#x1F967; 3h eating</div>
+            </div>
+            <div class="plan-card" style="background:#F1F5F9;" onclick="selectPlan(22,'22:2')">
+                <div class="plan-num">22:2 <span class="pro-tag">PRO</span></div>
+                <div class="plan-info">&#x2702; 22h fasting<br>&#x1F967; 2h eating</div>
+            </div>
+            <div class="plan-card" style="background:#FFF1F2;" onclick="selectPlan(23,'23:1')">
+                <div class="plan-num">23:1 <span class="pro-tag">PRO</span></div>
+                <div class="plan-info">&#x2702; 23h fasting<br>&#x1F967; 1h eating</div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav">
+        <a href="fasting-index.html" class="nav-item"><span class="nav-icon">&#9203;&#65039;</span><span>Fasting</span></a>
+        <a href="fasting-plans.html" class="nav-item active"><span class="nav-icon">&#128214;</span><span>Plan</span></a>
+        <a href="fasting-learn.html" class="nav-item"><span class="nav-icon">&#128161;</span><span>Learn</span></a>
+        <a href="fasting-food.html" class="nav-item"><span class="nav-icon">&#127859;</span><span>Recipes</span></a>
+        <a href="fasting-history.html" class="nav-item"><span class="nav-icon">&#128100;</span><span>Me</span></a>
+    </nav>
+</div>
+<script>
+function selectPlan(hrs, name) {
+    localStorage.setItem('selPlan', hrs);
+    localStorage.setItem('selPlanName', name);
+    alert('Plan ' + name + ' selected! Go to Fasting tab to start.');
+}
+</script>
+</body>
+</html>
