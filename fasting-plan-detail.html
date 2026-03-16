@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>JydFasting - Plan Detail</title>
+    <style>
+        :root { --bg:#F0F4F8; --surface:#fff; --primary:#5D5FEF; --accent:#00D4AA; --text:#1E293B; --sub:#64748B; --border:#E2E8F0; }
+        * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; }
+        .app { width:100%; max-width:450px; background:var(--surface); min-height:100vh; display:flex; flex-direction:column; padding-bottom:40px; }
+        
+        .page-hdr { padding:40px 20px 20px; display:flex; align-items:center; gap:15px; }
+        .back-btn { color:var(--text); text-decoration:none; font-size:1.2rem; transition:transform 0.2s ease; }
+        .back-btn:hover { transform:translateX(-3px); }
+        .page-title { font-size:1.3rem; font-weight:800; }
+
+        .content { padding:0 20px; flex:1; }
+        .plan-header-card { padding:24px; border-radius:24px; background:linear-gradient(135deg, var(--primary), #8E91FF); color:white; margin-bottom:24px; text-align:center; box-shadow:0 10px 20px rgba(93,95,239,0.2); }
+        .plan-header-card h1 { font-size:2.2rem; margin-bottom:4px; }
+        .plan-header-card p { font-size:0.9rem; opacity:0.9; font-weight:600; }
+
+        .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:30px; }
+        .stat-card { background:#F8FAFC; padding:15px; border-radius:16px; border:1px solid var(--border); }
+        .stat-label { font-size:0.7rem; color:var(--sub); font-weight:700; text-transform:uppercase; display:block; margin-bottom:4px; }
+        .stat-val { font-size:1.1rem; font-weight:800; color:var(--text); }
+
+        .section { margin-bottom:24px; }
+        .section-title { font-size:1rem; font-weight:800; margin-bottom:12px; }
+        .info-box { background:white; padding:16px; border-radius:16px; border:1px solid var(--border); line-height:1.5; font-size:0.9rem; color:var(--text); }
+        
+        .action-btn { background:var(--primary); color:white; border:none; width:100%; padding:18px; border-radius:18px; font-weight:700; font-size:1rem; cursor:pointer; transition:all 0.3s ease; box-shadow:0 8px 16px rgba(93,95,239,0.25); margin-top:20px; }
+        .action-btn:hover { transform:translateY(-2px); box-shadow:0 12px 24px rgba(93,95,239,0.3); }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="app">
+    <div class="page-hdr">
+        <a href="fasting-plans.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+        <h2 class="page-title">Plan Detail</h2>
+    </div>
+
+    <div class="content">
+        <div class="plan-header-card">
+            <h1 id="planTitle">16:8</h1>
+            <p id="planSubtitle">Leangains Method</p>
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <span class="stat-label">Fast Window</span>
+                <span class="stat-val" id="fastTime">16 Hours</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Eat Window</span>
+                <span class="stat-val" id="eatTime">8 Hours</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">What is it?</h2>
+            <div class="info-box" id="planInfo">
+                Loading...
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Health Benefits</h2>
+            <div class="info-box" id="planBenefits">
+                Loading...
+            </div>
+        </div>
+
+        <button class="action-btn" onclick="alert('Fast Started!')">Start This Plan</button>
+    </div>
+</div>
+
+<script>
+    const plans = {
+        "13-11": { title: "13:11", sub: "Circadian Rhythm", fast: "13h", eat: "11h", info: "Aligns your eating habits with your body's internal clock. Great for beginners.", benefits: "Improved sleep, better digestion, and steady energy levels." },
+        "16-8": { title: "16:8", sub: "Leangains Method", fast: "16h", eat: "8h", info: "The most popular intermittent fasting protocol. Simple and effective.", benefits: "Weight loss, fat burning, and improved insulin sensitivity." },
+        "18-6": { title: "18:6", sub: "The 6-hour window", fast: "18h", eat: "6h", info: "A more rigorous daily fast for consistent fat loss.", benefits: "Increased autophagy and deeper focus during the day." },
+        "20-4": { title: "20:4", sub: "Warrior Diet", fast: "20h", eat: "4h", info: "Simulates the eating patterns of ancient warriors with one large evening meal.", benefits: "Enhanced growth hormone production and simplified eating." },
+        "36h": { title: "36h", sub: "Monk Fast", fast: "36h", eat: "N/A", info: "A full day and two nights without food. Resets the metabolic system.", benefits: "Intense fat burning and immune system rejuvenation." },
+        "72h": { title: "72h", sub: "Immune Reset", fast: "72h", eat: "N/A", info: "Prolonged fast that triggers stem cell production and old cell recycling.", benefits: "Complete immune system reboot and profound cellular repair." },
+        "120h": { title: "120h", sub: "Advanced Healing", fast: "120h", eat: "N/A", info: "The ultimate fast for experienced practitioners seeking maximum recovery.", benefits: "Deep anti-inflammatory effects and metabolic flexibility." },
+        "5-2": { title: "5:2", sub: "Weekly Challenge", fast: "2 Days", eat: "5 Days", info: "Eat normally for 5 days, then restrict calories heavily for 2 non-consecutive days.", benefits: "Long-term health longevity and flexible lifestyle." },
+        "omad": { title: "OMAD", sub: "One Meal A Day", fast: "23h", eat: "1h", info: "The ultimate simplicity. You eat all your daily calories in a single hour window.", benefits: "Maximum time-saving and powerful fat-loss results." }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id') || '16-8';
+    const plan = plans[id] || plans["16-8"];
+
+    document.getElementById('planTitle').textContent = plan.title;
+    document.getElementById('planSubtitle').textContent = plan.sub;
+    document.getElementById('fastTime').textContent = plan.fast;
+    document.getElementById('eatTime').textContent = plan.eat;
+    document.getElementById('planInfo').textContent = plan.info;
+    document.getElementById('planBenefits').textContent = plan.benefits;
+</script>
+</body>
+</html>
