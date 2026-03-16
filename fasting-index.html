@@ -1,198 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>NaijaFast</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    :root {
-      --bg: #F0F4F8;
-      --surface: #FFFFFF;
-      --primary: #5D5FEF;
-      --accent: #00D4AA;
-      --text: #1E293B;
-      --sub: #64748B;
-      --border: #E2E8F0;
-      --card-1: #E0E7FF;
-      --card-2: #FFF7ED;
-      --card-3: #F0FDF4;
-      --card-4: #F5F3FF;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; }
-    .app { width: 100%; max-width: 450px; background: var(--surface); min-height: 100vh; display: flex; flex-direction: column; position: relative; padding-bottom: 80px; }
-    
-    .header { padding: 40px 20px 20px; text-align: center; }
-    .header h1 { font-size: 1.5rem; font-weight: 800; color: #1E293B; }
-    .header .subtitle { font-size: 0.9rem; color: var(--sub); margin-top: 4px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>JydFasting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #F0F4F8;
+            --surface: #FFFFFF;
+            --primary: #5D5FEF;
+            --accent: #00D4AA;
+            --text: #1E293B;
+            --sub: #64748B;
+            --border: #E2E8F0;
+            --card-1: #E0E7FF;
+            --card-2: #FFF7ED;
+            --card-3: #F0FDF4;
+            --card-4: #F5F3FF;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; }
+        .app { width: 100%; max-width: 450px; background: var(--surface); min-height: 100vh; display: flex; flex-direction: column; position: relative; padding-bottom: 80px; }
+        
+        .header { padding: 40px 20px 20px; text-align: center; }
+        .header h1 { font-size: 1.5rem; font-weight: 800; color: #1E293B; }
+        .header .subtitle { font-size: 0.9rem; color: var(--sub); margin-top: 4px; }
 
-    .timer-container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
-    .ring { position: relative; width: 280px; height: 280px; cursor: pointer; transition: transform 0.3s ease; }
-    .ring:hover { transform: scale(1.02); }
-    .ring svg { transform: rotate(-90deg); }
-    .ring-bg { fill: none; stroke: #E2E8F0; stroke-width: 10; }
-    .ring-progress { fill: none; stroke: #FF8C00; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
-    .ring-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-    .timer-val { font-size: 2.5rem; font-weight: 800; color: #1E293B; }
-    .timer-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sub); margin-top: 5px; }
+        .timer-container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .ring { position: relative; width: 280px; height: 280px; cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .ring:hover { transform: scale(1.05); }
+        .ring svg { transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: #E2E8F0; stroke-width: 10; }
+        .ring-progress { fill: none; stroke: #FF8C00; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+        .ring-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .time { font-size: 3rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+        .label { font-size: 0.8rem; font-weight: 600; color: var(--sub); text-transform: uppercase; margin-top: 4px; }
 
-    .btn-main { width: 80%; background: var(--primary); color: white; border: none; border-radius: 25px; padding: 15px; font-size: 1rem; font-weight: 700; margin-top: 20px; cursor: pointer; box-shadow: 0 4px 12px rgba(93, 95, 239, 0.3); transition: all 0.2s; }
-    .btn-main:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(93, 95, 239, 0.4); }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 20px; }
+        .stat-card { background: var(--bg); padding: 16px; border-radius: 16px; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); border: 1px solid transparent; }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: var(--primary); }
+        .stat-val { font-weight: 700; font-size: 1.1rem; display: block; }
+        .stat-lab { font-size: 0.75rem; color: var(--sub); }
 
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
-    .stat-card { background: var(--bg); padding: 15px; border-radius: 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s; }
-    .stat-card:hover { transform: translateY(-2px); background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .action-btn { background: #1E293B; color: white; border: none; padding: 18px; border-radius: 20px; font-weight: 700; font-size: 1rem; margin: 0 20px; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .action-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(0,0,0,0.2); background: #000; }
+        .action-btn.stop { background: #ef4444; }
+        .action-btn.stop:hover { background: #dc2626; }
 
-    .protocols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px 20px; }
-    .proto-card { padding: 15px; border-radius: 16px; border: 1px solid transparent; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; color: inherit; display: block; }
-    .proto-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--primary); background: #fff; }
-    .proto-time { font-size: 1.2rem; font-weight: 800; }
-    .proto-desc { font-size: 0.7rem; color: var(--sub); margin: 4px 0; }
-    .proto-tag { font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-top: 5px; }
-
-    .nav { position: fixed; bottom: 0; width: 100%; max-width: 450px; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); }
-    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: var(--sub); font-size: 0.7rem; font-weight: 600; flex: 1; transition: color 0.2s; }
-    .nav-item:hover { color: var(--primary); }
-    .nav-item.active { color: var(--primary); }
-    .nav-icon { font-size: 1.4rem; }
-  </style>
+        .nav { position: fixed; bottom: 0; width: 100%; max-width: 450px; background: white; border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 12px 0 24px; z-index: 100; }
+        .nav-item { color: var(--sub); text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.2s ease; padding: 8px 12px; border-radius: 12px; }
+        .nav-item:hover { color: var(--primary); background: var(--card-1); transform: translateY(-2px); }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 1.2rem; }
+        .nav-item span { font-size: 0.7rem; font-weight: 600; }
+    </style>
 </head>
 <body>
-  <div class="app">
-    <div class="header">
-      <h1>Get ready to fast</h1>
-      <p class="subtitle" id="next-fast-label">Next fasting starts at 10:01 PM</p>
-    </div>
-
-    <div class="timer-container">
-      <div class="ring" onclick="location.href='fasting-plans.html'">
-        <svg width="280" height="280">
-          <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
-          <circle class="ring-progress" id="progress" cx="140" cy="140" r="130" style="stroke-dasharray: 816.8; stroke-dashoffset: 816.8;"></circle>
-        </svg>
-        <div class="ring-content">
-          <div class="timer-label" id="timer-status">Starts in</div>
-          <div class="timer-val" id="timer-display">00:00:00</div>
-          <div class="proto-tag" style="background:var(--card-1); color:var(--primary);" id="proto-label">16:8 &gt;</div>
+    <div class="app">
+        <div class="header">
+            <h1>JydFasting</h1>
+            <p class="subtitle">Intermittent Fasting Tracker</p>
         </div>
-      </div>
-      <button class="btn-main" id="start-btn" onclick="startFast()">Start Fasting</button>
-    </div>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon" style="background:#E0F2FE; color:#0EA5E9;">💧</div>
-        <div class="stat-info" onclick="addWater()">
-          <div class="stat-val" id="water-val">0 / 2500 ml</div>
-          <div class="stat-label">Water (Tap +250ml)</div>
+        <div class="timer-container">
+            <div class="ring" id="timerRing">
+                <svg width="280" height="280">
+                    <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
+                    <circle class="ring-progress" id="progress" cx="140" cy="140" r="130"></circle>
+                </svg>
+                <div class="ring-content">
+                    <span class="label" id="statusLabel">Fasting</span>
+                    <span class="time" id="timerDisplay">16:00:00</span>
+                    <span class="label" id="targetLabel">Goal: 16h</span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon" style="background:#FEE2E2; color:#EF4444;">⚖️</div>
-        <div class="stat-info">
-          <div class="stat-val">232.9 lbs</div>
-          <div class="stat-label">Weight</div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-val" id="startTime">--:--</span>
+                <span class="stat-lab">Started</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-val" id="endTime">--:--</span>
+                <span class="stat-lab">Target</span>
+            </div>
         </div>
-      </div>
+
+        <button class="action-btn" id="mainBtn">Start Fasting</button>
+
+        <nav class="nav">
+            <a href="fasting-index.html" class="nav-item active">
+                <i class="fas fa-clock"></i>
+                <span>Fast</span>
+            </a>
+            <a href="fasting-plans.html" class="nav-item">
+                <i class="fas fa-fire"></i>
+                <span>Plans</span>
+            </a>
+            <a href="fasting-food.html" class="nav-item">
+                <i class="fas fa-utensils"></i>
+                <span>Food</span>
+            </a>
+            <a href="fasting-history.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>History</span>
+            </a>
+        </nav>
     </div>
 
-    <div class="section-title">
-      <span>Hot plans</span>
-    </div>
-    <div class="protocols">
-      <a href="fasting-plans.html" class="proto-card" style="background:var(--card-1);">
-        <div class="proto-time">16:8</div>
-        <div class="proto-desc">16h fasting • 8h eating</div>
-        <div class="proto-tag" style="background:#fff; color:var(--primary);">Most popular</div>
-      </a>
-      <a href="fasting-plans.html" class="proto-card" style="background:var(--card-2);">
-        <div class="proto-time">18:6</div>
-        <div class="proto-desc">18h fasting • 6h eating</div>
-        <div class="proto-tag" style="background:#fff; color:#F59E0B;">Fat burning</div>
-      </a>
-      <a href="fasting-plans.html" class="proto-card" style="background:var(--card-3);">
-        <div class="proto-time">20:4</div>
-        <div class="proto-desc">20h fasting • 4h eating</div>
-        <div class="proto-tag" style="background:#fff; color:var(--accent);">Warrior diet</div>
-      </a>
-      <a href="fasting-plans.html#advanced" class="proto-card" style="background:var(--card-4);">
-        <div class="proto-time">36-120h</div>
-        <div class="proto-desc">Advanced fasting</div>
-        <div class="proto-tag" style="background:#fff; color:#8B5CF6;">Extended</div>
-      </a>
-    </div>
+    <script>
+        let isFasting = false;
+        let timer;
+        const mainBtn = document.getElementById('mainBtn');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const progress = document.getElementById('progress');
+        const circumference = 2 * Math.PI * 130;
 
-    <nav class="nav">
-      <a href="fasting-index.html" class="nav-item active"><span class="nav-icon">⏱️</span><span>Fasting</span></a>
-      <a href="fasting-plans.html" class="nav-item"><span class="nav-icon">📖</span><span>Plan</span></a>
-      <a href="fasting-veg.html" class="nav-item"><span class="nav-icon">🥗</span><span>Veg</span></a>
-      <a href="fasting-food.html" class="nav-item"><span class="nav-icon">🍳</span><span>Recipes</span></a>
-      <a href="fasting-history.html" class="nav-item"><span class="nav-icon">👤</span><span>Me</span></a>
-    </nav>
-  </div>
+        progress.style.strokeDasharray = circumference;
+        progress.style.strokeDashoffset = circumference;
 
-  <script>
-    let fasting = false;
-    let selectedHours = 16;
-    const CIRC = 816.8;
+        mainBtn.onclick = () => {
+            isFasting = !isFasting;
+            if (isFasting) {
+                mainBtn.textContent = 'Stop Fasting';
+                mainBtn.classList.add('stop');
+                startTimer();
+            } else {
+                mainBtn.textContent = 'Start Fasting';
+                mainBtn.classList.remove('stop');
+                clearInterval(timer);
+            }
+        };
 
-    function startFast() {
-      fasting = !fasting;
-      const btn = document.getElementById('start-btn');
-      const status = document.getElementById('timer-status');
-      if (fasting) {
-        btn.innerText = "End Fast";
-        btn.style.background = "#F43F5E";
-        status.innerText = "Elapsed";
-        localStorage.setItem('fStart', Date.now());
-      } else {
-        btn.innerText = "Start Fasting";
-        btn.style.background = "var(--primary)";
-        status.innerText = "Starts in";
-        localStorage.removeItem('fStart');
-        document.getElementById('timer-display').innerText = "00:00:00";
-        document.getElementById('progress').style.strokeDashoffset = CIRC;
-      }
-    }
-
-    function addWater() {
-      let current = parseInt(localStorage.getItem('water') || 0);
-      current += 250;
-      localStorage.setItem('water', current);
-      updateWaterDisplay();
-    }
-
-    function updateWaterDisplay() {
-      let current = localStorage.getItem('water') || 0;
-      document.getElementById('water-val').innerText = current + ' / 2500 ml';
-    }
-
-    setInterval(() => {
-      const start = localStorage.getItem('fStart');
-      if (start) {
-        const elapsed = Date.now() - start;
-        const h = Math.floor(elapsed / 3600000);
-        const m = Math.floor((elapsed % 3600000) / 60000);
-        const s = Math.floor((elapsed % 60000) / 1000);
-        document.getElementById('timer-display').innerText = 
-          `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-        
-        const pct = Math.min(elapsed / (selectedHours * 3600000), 1);
-        document.getElementById('progress').style.strokeDashoffset = CIRC * (1 - pct);
-      }
-    }, 1000);
-
-    document.addEventListener('DOMContentLoaded', () => {
-      updateWaterDisplay();
-      if(localStorage.getItem('fStart')) {
-        fasting = true;
-        const btn = document.getElementById('start-btn');
-        btn.innerText = "End Fast";
-        btn.style.background = "#F43F5E";
-        document.getElementById('timer-status').innerText = "Elapsed";
-      }
-    });
-  </script>
+        function startTimer() {
+            let seconds = 16 * 3600;
+            timer = setInterval(() => {
+                seconds--;
+                const h = Math.floor(seconds / 3600);
+                const m = Math.floor((seconds % 3600) / 60);
+                const s = seconds % 60;
+                timerDisplay.textContent = `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+                
+                const percent = (seconds / (16 * 3600));
+                progress.style.strokeDashoffset = circumference * (1 - percent);
+                
+                if (seconds <= 0) clearInterval(timer);
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
