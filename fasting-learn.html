@@ -6,145 +6,317 @@
     <title>NaijaFast - Learn</title>
     <link rel="manifest" href="fasting-manifest.json">
     <style>
-        :root { --bg:#F0F4F8; --surface:#fff; --primary:#5D5FEF; --text:#1E293B; --sub:#64748B; --border:#E2E8F0; }
-        * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; min-height:100vh; }
-        .app { width:100%; max-width:450px; background:var(--surface); min-height:100vh; display:flex; flex-direction:column; padding-bottom:80px; overflow-y:auto; }
-        .page-hdr { padding:40px 20px 15px; }
-        .page-title { font-size:1.5rem; font-weight:800; }
-
+        :root {
+            --bg: #F0F4F8;
+            --surface: #FFFFFF;
+            --primary: #5D5FEF;
+            --text: #1E293B;
+            --sub: #64748B;
+            --border: #E2E8F0;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .app {
+            width: 100%;
+            max-width: 450px;
+            background: var(--surface);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 80px;
+            overflow-y: auto;
+        }
+        
+        .page-hdr {
+            padding: 40px 20px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .back-btn {
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text);
+        }
+        
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+        
         /* Search */
-        .search-wrap { padding:0 20px 15px; }
-        .search-box { display:flex; align-items:center; gap:10px; background:var(--bg); border-radius:14px; padding:12px 16px; }
-        .search-box input { flex:1; background:none; border:none; font-size:0.9rem; color:var(--text); outline:none; }
-        .search-box input::placeholder { color:var(--sub); }
-
+        .search-wrap { padding: 0 20px 15px; }
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg);
+            border-radius: 14px;
+            padding: 12px 16px;
+        }
+        .search-box input {
+            flex: 1;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            color: var(--text);
+            outline: none;
+        }
+        .search-box input::placeholder { color: var(--sub); }
+        
         /* Category chips */
-        .chips { display:flex; gap:8px; padding:0 20px 15px; overflow-x:auto; scrollbar-width:none; }
-        .chips::-webkit-scrollbar { display:none; }
-        .chip { padding:8px 14px; border-radius:20px; background:var(--bg); border:1.5px solid var(--border); font-size:0.78rem; font-weight:600; white-space:nowrap; cursor:pointer; }
-        .chip.on { background:#EEF2FF; border-color:var(--primary); color:var(--primary); }
-
+        .chips {
+            display: flex;
+            gap: 8px;
+            padding: 0 20px 15px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .chips::-webkit-scrollbar { display: none; }
+        .chip {
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .chip.on {
+            background: #EEF2FF;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
         /* Featured article */
-        .featured { margin:0 20px 15px; border-radius:20px; overflow:hidden; position:relative; height:180px; background:linear-gradient(135deg,#667EEA,#764BA2); display:flex; align-items:flex-end; cursor:pointer; }
-        .featured-emoji { position:absolute; right:20px; top:50%; transform:translateY(-50%); font-size:5rem; opacity:0.3; }
-        .featured-content { padding:20px; z-index:1; }
-        .featured-tag { background:rgba(255,255,255,0.2); color:#fff; font-size:0.65rem; font-weight:800; padding:3px 8px; border-radius:8px; display:inline-block; margin-bottom:6px; letter-spacing:0.5px; }
-        .featured-title { color:#fff; font-size:1.1rem; font-weight:800; line-height:1.3; }
-        .featured-mins { color:rgba(255,255,255,0.75); font-size:0.72rem; margin-top:6px; }
-
-        /* Article card */
-        .sec-wrap { padding:0 20px 10px; }
-        .sec-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-        .sec-name { font-size:1.05rem; font-weight:800; }
-        .see-all { font-size:0.78rem; color:var(--primary); font-weight:600; cursor:pointer; }
-        .article-card { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); cursor:pointer; align-items:center; }
-        .article-card:last-child { border-bottom:none; }
-        .article-img { width:80px; height:70px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:2rem; flex-shrink:0; }
-        .article-info { flex:1; }
-        .article-tags { display:flex; gap:6px; margin-bottom:5px; }
-        .article-tag { font-size:0.6rem; font-weight:700; padding:2px 8px; border-radius:6px; }
-        .article-title { font-size:0.88rem; font-weight:700; line-height:1.4; }
-        .article-meta { font-size:0.7rem; color:var(--sub); margin-top:4px; }
-
+        .featured {
+            margin: 0 20px 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            height: 180px;
+            background: linear-gradient(135deg, #667EEA, #764BA2);
+            display: flex;
+            align-items: flex-end;
+            cursor: pointer;
+        }
+        .featured-emoji {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 5rem;
+            opacity: 0.3;
+        }
+        .featured-content {
+            padding: 20px;
+            z-index: 1;
+        }
+        .featured-tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .featured-title {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+        .featured-mins {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.72rem;
+            margin-top: 6px;
+        }
+        
+        /* Article cards */
+        .articles-wrap { padding: 0 20px; }
+        .section-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .section-title { font-size: 1.05rem; font-weight: 800; }
+        .article-card {
+            background: var(--bg);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .article-hdr {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .article-emoji {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        .article-info { flex: 1; }
+        .article-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+        .article-meta {
+            font-size: 0.72rem;
+            color: var(--sub);
+        }
+        
         /* Nav */
-        .nav { position:fixed; bottom:0; width:100%; max-width:450px; background:white; display:flex; justify-content:space-around; padding:12px 0; border-top:1px solid var(--border); }
-        .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; color:var(--sub); font-size:0.7rem; font-weight:600; flex:1; }
-        .nav-item.active { color:var(--primary); }
-        .nav-icon { font-size:1.4rem; }
+        .nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: var(--sub);
+            font-size: 0.7rem;
+            font-weight: 600;
+            flex: 1;
+        }
+        .nav-item.active { color: var(--primary); }
+        .nav-icon { font-size: 1.4rem; }
     </style>
 </head>
 <body>
 <div class="app">
     <div class="page-hdr">
-        <div class="page-title">Learn</div>
+        <a href="fasting-history.html" class="back-btn">←</a>
+        <h1 class="page-title">Knowledge Base</h1>
     </div>
+    
     <div class="search-wrap">
         <div class="search-box">
-            <span>&#128269;</span>
-            <input type="text" placeholder="Search articles...">
+            <span>🔍</span>
+            <input type="text" placeholder="Search fasting tips...">
         </div>
     </div>
+    
     <div class="chips">
         <div class="chip on">All</div>
-        <div class="chip">Diet</div>
-        <div class="chip">Beginner</div>
-        <div class="chip">Weight Loss</div>
+        <div class="chip">Breakfast</div>
+        <div class="chip">Lunch</div>
+        <div class="chip">Dinner</div>
         <div class="chip">Health</div>
-        <div class="chip">Science</div>
+        <div class="chip">Recipes</div>
     </div>
-
+    
     <div class="featured">
-        <div class="featured-emoji">&#x1F9E0;</div>
+        <div class="featured-emoji">📚</div>
         <div class="featured-content">
-            <div class="featured-tag">BEGINNER</div>
-            <div class="featured-title">Beginner's Complete<br>Guide to Fasting</div>
-            <div class="featured-mins">8 min read &middot; 12,400 views</div>
+            <div class="featured-tag">FEATURED</div>
+            <div class="featured-title">Benefits of Intermittent Fasting for Nigerians</div>
+            <div class="featured-mins">5 min read</div>
         </div>
     </div>
-
-    <div class="sec-wrap">
-        <div class="sec-hdr"><span class="sec-name">Benefits of Fasting</span><span class="see-all">See all &rsaquo;</span></div>
+    
+    <div class="articles-wrap">
+        <div class="section-hdr">
+            <span class="section-title">Popular Articles</span>
+        </div>
+        
         <div class="article-card">
-            <div class="article-img" style="background:#EEF2FF;">&#x1F525;</div>
-            <div class="article-info">
-                <div class="article-tags"><span class="article-tag" style="background:#FFF7ED;color:#F97316;">Weight Loss</span></div>
-                <div class="article-title">Intermittent Fasting and Fat Loss: The Science</div>
-                <div class="article-meta">5 min read</div>
+            <div class="article-hdr">
+                <div class="article-emoji">💧</div>
+                <div class="article-info">
+                    <div class="article-title">What to drink while fasting?</div>
+                    <div class="article-meta">3 min read • Health</div>
+                </div>
             </div>
         </div>
+        
         <div class="article-card">
-            <div class="article-img" style="background:#F0FDF4;">&#x1F9EC;</div>
-            <div class="article-info">
-                <div class="article-tags"><span class="article-tag" style="background:#DCFCE7;color:#16A34A;">Health</span></div>
-                <div class="article-title">How Fasting Triggers Autophagy and Cellular Repair</div>
-                <div class="article-meta">7 min read</div>
+            <div class="article-hdr">
+                <div class="article-emoji">🍽️</div>
+                <div class="article-info">
+                    <div class="article-title">How to break your fast safely</div>
+                    <div class="article-meta">4 min read • Tips</div>
+                </div>
             </div>
         </div>
+        
         <div class="article-card">
-            <div class="article-img" style="background:#F5F3FF;">&#x1F9E0;</div>
-            <div class="article-info">
-                <div class="article-tags"><span class="article-tag" style="background:#EDE9FE;color:#7C3AED;">Science</span></div>
-                <div class="article-title">Ketosis Explained: What Happens After 16 Hours</div>
-                <div class="article-meta">6 min read</div>
+            <div class="article-hdr">
+                <div class="article-emoji">🥗</div>
+                <div class="article-info">
+                    <div class="article-title">Best Nigerian foods for breaking fast</div>
+                    <div class="article-meta">6 min read • Recipes</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="article-card">
+            <div class="article-hdr">
+                <div class="article-emoji">⏰</div>
+                <div class="article-info">
+                    <div class="article-title">16:8 vs 18:6 - Which is better?</div>
+                    <div class="article-meta">5 min read • Guide</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="article-card">
+            <div class="article-hdr">
+                <div class="article-emoji">💪</div>
+                <div class="article-info">
+                    <div class="article-title">Exercise during fasting: Do's and Don'ts</div>
+                    <div class="article-meta">7 min read • Fitness</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="article-card">
+            <div class="article-hdr">
+                <div class="article-emoji">😴</div>
+                <div class="article-info">
+                    <div class="article-title">Fasting and sleep quality</div>
+                    <div class="article-meta">4 min read • Health</div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="sec-wrap">
-        <div class="sec-hdr"><span class="sec-name">Getting Started</span><span class="see-all">See all &rsaquo;</span></div>
-        <div class="article-card">
-            <div class="article-img" style="background:#FFF7ED;">&#x23F0;</div>
-            <div class="article-info">
-                <div class="article-tags"><span class="article-tag" style="background:#FEF9C3;color:#CA8A04;">Beginner</span></div>
-                <div class="article-title">How to Pick the Right Fasting Protocol for You</div>
-                <div class="article-meta">4 min read</div>
-            </div>
-        </div>
-        <div class="article-card">
-            <div class="article-img" style="background:#E0F2FE;">&#x1F4A7;</div>
-            <div class="article-info">
-                <div class="article-tags"><span class="article-tag" style="background:#E0F2FE;color:#0284C7;">Diet</span></div>
-                <div class="article-title">What Can You Drink During a Fast? Full Guide</div>
-                <div class="article-meta">3 min read</div>
-            </div>
-        </div>
-        <div class="article-card">
-            <div class="article-img" style="background:#FFF1F2;">&#x2764;&#xFE0F;</div>
-            <div class="article-info">
-                <div class="article-tags"><span class="article-tag" style="background:#FFE4E6;color:#E11D48;">Health</span></div>
-                <div class="article-title">Managing Hunger Pangs: Practical Tips</div>
-                <div class="article-meta">5 min read</div>
-            </div>
-        </div>
-    </div>
-
+    
     <nav class="nav">
-        <a href="fasting-index.html" class="nav-item"><span class="nav-icon">&#9203;&#65039;</span><span>Fasting</span></a>
-        <a href="fasting-plans.html" class="nav-item"><span class="nav-icon">&#128214;</span><span>Plan</span></a>
-        <a href="fasting-learn.html" class="nav-item active"><span class="nav-icon">&#128161;</span><span>Learn</span></a>
-        <a href="fasting-food.html" class="nav-item"><span class="nav-icon">&#127859;</span><span>Recipes</span></a>
-        <a href="fasting-history.html" class="nav-item"><span class="nav-icon">&#128100;</span><span>Me</span></a>
+        <a href="fasting-index.html" class="nav-item"><span class="nav-icon">⏱️</span><span>Fasting</span></a>
+        <a href="fasting-plans.html" class="nav-item"><span class="nav-icon">📖</span><span>Plan</span></a>
+        <a href="fasting-learn.html" class="nav-item active"><span class="nav-icon">💡</span><span>Learn</span></a>
+        <a href="fasting-food.html" class="nav-item"><span class="nav-icon">🍳</span><span>Recipes</span></a>
+        <a href="fasting-history.html" class="nav-item"><span class="nav-icon">👤</span><span>Me</span></a>
     </nav>
 </div>
 </body>
