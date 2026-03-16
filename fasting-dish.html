@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>JydFasting - Recipe Detail</title>
+    <style>
+        :root { --bg:#F0F4F8; --surface:#fff; --primary:#5D5FEF; --accent:#00D4AA; --text:#1E293B; --sub:#64748B; --border:#E2E8F0; }
+        * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; }
+        .app { width:100%; max-width:450px; background:var(--surface); min-height:100vh; display:flex; flex-direction:column; position:relative; }
+        
+        .hero { width:100%; height:250px; position:relative; background:#e8e8e8; display:flex; align-items:center; justify-content:center; font-size:5rem; }
+        .back-btn { position:absolute; top:40px; left:20px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center; color:var(--text); text-decoration:none; box-shadow:0 4px 10px rgba(0,0,0,0.1); transition:all 0.2s ease; z-index:10; }
+        .back-btn:hover { transform:translateX(-3px); background:#fff; }
+
+        .content { padding:24px; background:var(--surface); border-radius:30px 30px 0 0; margin-top:-30px; position:relative; flex:1; }
+        .recipe-title { font-size:1.6rem; font-weight:800; margin-bottom:8px; }
+        .recipe-meta { display:flex; gap:15px; margin-bottom:20px; color:var(--sub); font-size:0.85rem; font-weight:600; }
+        .recipe-meta i { color:var(--primary); margin-right:4px; }
+
+        .section { margin-bottom:24px; }
+        .section-title { font-size:1rem; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+        .section-title i { color:var(--primary); }
+
+        .ingredient-list { list-style:none; }
+        .ingredient-item { padding:10px 0; border-bottom:1px solid var(--border); font-size:0.9rem; display:flex; justify-content:space-between; }
+        .ingredient-item:last-child { border:none; }
+        
+        .instruction-step { margin-bottom:15px; font-size:0.9rem; line-height:1.5; color:var(--text); display:flex; gap:12px; }
+        .step-num { min-width:24px; height:24px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; margin-top:2px; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="app">
+    <a href="fasting-food.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+    <div class="hero" id="dishEmoji">🍲</div>
+
+    <div class="content">
+        <h1 class="recipe-title" id="dishName">Recipe</h1>
+        <div class="recipe-meta">
+            <span><i class="fas fa-fire-alt"></i> <span id="dishKcal">0</span> kcal</span>
+            <span><i class="fas fa-clock"></i> <span id="dishTime">20</span> mins</span>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-list-ul"></i> Ingredients</h2>
+            <div class="ingredient-list" id="ingredients">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-tasks"></i> Instructions</h2>
+            <div id="instructions">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const data = {
+        jollof: {
+            name: "Smoky Jollof Rice",
+            emoji: "🍛",
+            kcal: 450,
+            time: 45,
+            ingredients: ["2 cups Parboiled Rice", "Red Bell Peppers", "Scotch Bonnet", "Onions", "Tomato Paste", "Thyme & Curry", "Bay Leaves"],
+            steps: ["Blend peppers and onions, then fry with tomato paste.", "Add washed rice and stock, season to taste.", "Cover tightly and cook on low heat for that smoky flavor."]
+        },
+        pounded: {
+            name: "Pounded Yam & Egusi",
+            emoji: "🍲",
+            kcal: 650,
+            time: 60,
+            ingredients: ["Yam tubers", "Melon seeds (Egusi)", "Spinach or Ugu", "Palm oil", "Stock fish", "Assorted meat"],
+            steps: ["Boil yam until soft and pound till smooth.", "Fry egusi in palm oil, add stock and meat.", "Add greens and simmer for 5 minutes."]
+        },
+        moinmoin: {
+            name: "Oven-baked Moin Moin",
+            emoji: "🪴",
+            kcal: 320,
+            time: 40,
+            ingredients: ["Honey beans", "Red peppers", "Onions", "Vegetable oil", "Fish or Boiled eggs"],
+            steps: ["Peel and blend beans with peppers.", "Mix in oil and seasoning.", "Pour into tins and bake in a water bath."]
+        },
+        suya: {
+            name: "Beef Suya Platter",
+            emoji: "🥩",
+            kcal: 400,
+            time: 25,
+            ingredients: ["Thinly sliced beef", "Yaji spice (Suya pepper)", "Peanut oil", "Onions & Tomatoes"],
+            steps: ["Coat beef strips in oil and Yaji spice.", "Grill over high heat until charred.", "Serve with fresh onions and extra pepper."]
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const dishId = params.get('id') || 'jollof';
+    const dish = data[dishId] || data.jollof;
+
+    document.getElementById('dishName').textContent = dish.name;
+    document.getElementById('dishEmoji').textContent = dish.emoji;
+    document.getElementById('dishKcal').textContent = dish.kcal;
+    document.getElementById('dishTime').textContent = dish.time;
+
+    const ingDiv = document.getElementById('ingredients');
+    dish.ingredients.forEach(ing => {
+        const item = document.createElement('div');
+        item.className = 'ingredient-item';
+        item.innerHTML = `<span>${ing}</span><i class="fas fa-check-circle" style="color:var(--accent)"></i>`;
+        ingDiv.appendChild(item);
+    });
+
+    const instDiv = document.getElementById('instructions');
+    dish.steps.forEach((step, i) => {
+        const div = document.createElement('div');
+        div.className = 'instruction-step';
+        div.innerHTML = `<div class="step-num">${i+1}</div><div>${step}</div>`;
+        instDiv.appendChild(div);
+    });
+</script>
+</body>
+</html>
