@@ -1,154 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>JydFasting</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #F0F4F8;
-            --surface: #FFFFFF;
-            --primary: #5D5FEF;
-            --accent: #00D4AA;
-            --text: #1E293B;
-            --sub: #64748B;
-            --border: #E2E8F0;
-            --card-1: #E0E7FF;
-            --card-2: #FFF7ED;
-            --card-3: #F0FDF4;
-            --card-4: #F5F3FF;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; }
-        .app { width: 100%; max-width: 450px; background: var(--surface); min-height: 100vh; display: flex; flex-direction: column; position: relative; padding-bottom: 80px; }
-        
-        .header { padding: 40px 20px 20px; text-align: center; }
-        .header h1 { font-size: 1.5rem; font-weight: 800; color: #1E293B; }
-        .header .subtitle { font-size: 0.9rem; color: var(--sub); margin-top: 4px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F0F4F8">
+  <title>NaijaFast – Timer</title>
+  <link rel="manifest" href="fasting-manifest.json">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #F0F4F8;
+      --surface: #FFFFFF;
+      --primary: #5D5FEF;
+      --accent: #00D4AA;
+      --text: #1E293B;
+      --sub: #64748B;
+      --border: #E2E8F0;
+      --card-1: #E0E7FF;
+      --card-2: #FFF7ED;
+      --card-3: #F0FDF4;
+      --card-4: #F5F3FF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html { background: var(--bg); min-height: 100vh; display:flex; justify-content:center; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      width:100%;
+    }
+    .app {
+      width: 100%;
+      max-width: 450px;
+      background: var(--surface);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    }
+    .header {
+      padding: 40px 20px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .h-left { text-align:left; }
+    .header h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #0F172A;
+    }
+    .header .subtitle {
+      font-size: 0.8rem;
+      color: var(--sub);
+      margin-top: 2px;
+    }
+    .h-right { display:flex; gap:8px; }
+    .h-icon {
+      width:34px; height:34px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.9rem;
+      color:var(--sub);
+      background:#F8FAFC;
+      cursor:pointer;
+    }
 
-        .timer-container { display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .ring { position: relative; width: 280px; height: 280px; cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .ring:hover { transform: scale(1.05); }
-        .ring svg { transform: rotate(-90deg); }
-        .ring-bg { fill: none; stroke: #E2E8F0; stroke-width: 10; }
-        .ring-progress { fill: none; stroke: #FF8C00; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
-        .ring-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .time { font-size: 3rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
-        .label { font-size: 0.8rem; font-weight: 600; color: var(--sub); text-transform: uppercase; margin-top: 4px; }
+    .timer-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 20px 16px;
+    }
+    .ring {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .ring:hover { transform: scale(1.03); }
+    .ring svg { transform: rotate(-90deg); }
+    .ring-bg { fill: none; stroke: #E2E8F0; stroke-width: 10; }
+    .ring-progress {
+      fill: none;
+      stroke: #FF8C00;
+      stroke-width: 10;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.8s linear;
+    }
+    .ring-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .time {
+      font-size: 2.6rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--sub);
+      text-transform: uppercase;
+      margin-top: 4px;
+      letter-spacing: 0.1em;
+    }
+    .target-label {
+      font-size: 0.8rem;
+      color: var(--sub);
+      margin-top: 6px;
+    }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 20px; }
-        .stat-card { background: var(--bg); padding: 16px; border-radius: 16px; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); border: 1px solid transparent; }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: var(--primary); }
-        .stat-val { font-weight: 700; font-size: 1.1rem; display: block; }
-        .stat-lab { font-size: 0.75rem; color: var(--sub); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 0 20px 12px;
+    }
+    .stat-card {
+      background: #F8FAFC;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      transition: all 0.25s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 18px rgba(15,23,42,0.06);
+      border-color: var(--primary);
+    }
+    .stat-val {
+      font-weight: 700;
+      font-size: 1rem;
+      display: block;
+      color:#0F172A;
+    }
+    .stat-lab {
+      font-size: 0.7rem;
+      color: var(--sub);
+      text-transform: uppercase;
+      letter-spacing:0.08em;
+      margin-top:3px;
+    }
 
-        .action-btn { background: #1E293B; color: white; border: none; padding: 18px; border-radius: 20px; font-weight: 700; font-size: 1rem; margin: 0 20px; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .action-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(0,0,0,0.2); background: #000; }
-        .action-btn.stop { background: #ef4444; }
-        .action-btn.stop:hover { background: #dc2626; }
+    .action-btn {
+      background: #111827;
+      color: white;
+      border: none;
+      padding: 16px 18px;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin: 4px 20px 12px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 12px rgba(15,23,42,0.2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .action-btn span.icon { font-size:1rem; }
+    .action-btn:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 8px 20px rgba(15,23,42,0.25);
+      background: #020617;
+    }
+    .action-btn.stop {
+      background: #ef4444;
+      box-shadow: 0 8px 20px rgba(239,68,68,0.4);
+    }
+    .action-btn.stop:hover { background: #dc2626; }
 
-        .nav { position: fixed; bottom: 0; width: 100%; max-width: 450px; background: white; border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 12px 0 24px; z-index: 100; }
-        .nav-item { color: var(--sub); text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.2s ease; padding: 8px 12px; border-radius: 12px; }
-        .nav-item:hover { color: var(--primary); background: var(--card-1); transform: translateY(-2px); }
-        .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 1.2rem; }
-        .nav-item span { font-size: 0.7rem; font-weight: 600; }
-    </style>
+    .chips-row {
+      display:flex;
+      gap:8px;
+      padding: 4px 20px 10px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+    .chips-row::-webkit-scrollbar { display:none; }
+    .chip {
+      font-size:0.7rem;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid #E2E8F0;
+      color:var(--sub);
+      background:#F8FAFC;
+      white-space:nowrap;
+    }
+    .chip.active {
+      background:#1E293B;
+      color:white;
+      border-color:#020617;
+    }
+
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left:50%;
+      transform:translateX(-50%);
+      width: 100%;
+      max-width: 450px;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 calc(16px + env(safe-area-inset-bottom));
+      z-index: 100;
+    }
+    .nav-item {
+      color: var(--sub);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+    .nav-item.active { color: var(--primary); background: var(--card-1); }
+    .nav-item i { font-size: 1.1rem; }
+    .nav-item span { font-size: 0.7rem; font-weight: 600; }
+
+    .toast {
+      position:fixed;
+      bottom:90px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#111827;
+      color:#E5E7EB;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:0.75rem;
+      box-shadow:0 8px 20px rgba(15,23,42,0.4);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 0.25s;
+      z-index:300;
+    }
+    .toast.show { opacity:1; }
+  </style>
 </head>
 <body>
-    <div class="app">
-        <div class="header">
-            <h1>JydFasting</h1>
-            <p class="subtitle">Intermittent Fasting Tracker</p>
+  <div class="app">
+    <div class="header">
+      <div class="h-left">
+        <h1>JydFasting</h1>
+        <p class="subtitle">Intermittent Fasting Tracker</p>
+      </div>
+      <div class="h-right">
+        <div class="h-icon" id="reminderBtn" title="Fasting reminders">
+          <i class="far fa-bell"></i>
         </div>
-
-        <div class="timer-container">
-            <div class="ring" id="timerRing">
-                <svg width="280" height="280">
-                    <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
-                    <circle class="ring-progress" id="progress" cx="140" cy="140" r="130"></circle>
-                </svg>
-                <div class="ring-content">
-                    <span class="label" id="statusLabel">Fasting</span>
-                    <span class="time" id="timerDisplay">16:00:00</span>
-                    <span class="label" id="targetLabel">Goal: 16h</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="stat-val" id="startTime">--:--</span>
-                <span class="stat-lab">Started</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-val" id="endTime">--:--</span>
-                <span class="stat-lab">Target</span>
-            </div>
-        </div>
-
-        <button class="action-btn" id="mainBtn">Start Fasting</button>
-
-        <nav class="nav">
-            <a href="fasting-index.html" class="nav-item active">
-                <i class="fas fa-clock"></i>
-                <span>Fast</span>
-            </a>
-            <a href="fasting-plans.html" class="nav-item">
-                <i class="fas fa-fire"></i>
-                <span>Plans</span>
-            </a>
-            <a href="fasting-food.html" class="nav-item">
-                <i class="fas fa-utensils"></i>
-                <span>Food</span>
-            </a>
-            <a href="fasting-history.html" class="nav-item">
-                <i class="fas fa-calendar-alt"></i>
-                <span>History</span>
-            </a>
-        </nav>
+        <a class="h-icon" href="fasting-settings.html" title="Settings">
+          <i class="fas fa-cog"></i>
+        </a>
+      </div>
     </div>
 
-    <script>
-        let isFasting = false;
-        let timer;
-        const mainBtn = document.getElementById('mainBtn');
-        const timerDisplay = document.getElementById('timerDisplay');
-        const progress = document.getElementById('progress');
-        const circumference = 2 * Math.PI * 130;
+    <div class="timer-container">
+      <div class="ring" id="timerRing">
+        <svg width="260" height="260">
+          <circle class="ring-bg" cx="130" cy="130" r="120"></circle>
+          <circle class="ring-progress" id="progress" cx="130" cy="130" r="120"></circle>
+        </svg>
+        <div class="ring-content">
+          <span class="label" id="statusLabel">Ready</span>
+          <span class="time" id="timerDisplay">00:00:00</span>
+          <span class="target-label" id="targetLabel">Goal: 16:8</span>
+        </div>
+      </div>
+    </div>
 
-        progress.style.strokeDasharray = circumference;
-        progress.style.strokeDashoffset = circumference;
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-val" id="startTime">--:--</span>
+        <span class="stat-lab">Started</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-val" id="endTime">--:--</span>
+        <span class="stat-lab">Target End</span>
+      </div>
+    </div>
 
-        mainBtn.onclick = () => {
-            isFasting = !isFasting;
-            if (isFasting) {
-                mainBtn.textContent = 'Stop Fasting';
-                mainBtn.classList.add('stop');
-                startTimer();
-            } else {
-                mainBtn.textContent = 'Start Fasting';
-                mainBtn.classList.remove('stop');
-                clearInterval(timer);
-            }
-        };
+    <div class="chips-row" id="protoChips"></div>
 
-        function startTimer() {
-            let seconds = 16 * 3600;
-            timer = setInterval(() => {
-                seconds--;
-                const h = Math.floor(seconds / 3600);
-                const m = Math.floor((seconds % 3600) / 60);
-                const s = seconds % 60;
-                timerDisplay.textContent = `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-                
-                const percent = (seconds / (16 * 3600));
-                progress.style.strokeDashoffset = circumference * (1 - percent);
-                
-                if (seconds <= 0) clearInterval(timer);
-            }, 1000);
+    <button class="action-btn" id="mainBtn">
+      <span class="icon">▶</span>
+      <span id="btnText">Start Fasting</span>
+    </button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <nav class="nav">
+    <a href="fasting-index.html" class="nav-item active">
+      <i class="fas fa-clock"></i><span>Fast</span>
+    </a>
+    <a href="fasting-plans.html" class="nav-item">
+      <i class="fas fa-fire"></i><span>Plans</span>
+    </a>
+    <a href="fasting-food.html" class="nav-item">
+      <i class="fas fa-utensils"></i><span>Food</span>
+    </a>
+    <a href="fasting-history.html" class="nav-item">
+      <i class="fas fa-calendar-alt"></i><span>History</span>
+    </a>
+  </nav>
+
+  <script>
+    const RADIUS = 120;
+    const CIRC = 2 * Math.PI * RADIUS;
+    const progress = document.getElementById('progress');
+    progress.style.strokeDasharray = CIRC;
+    progress.style.strokeDashoffset = CIRC;
+
+    const btn = document.getElementById('mainBtn');
+    const btnText = document.getElementById('btnText');
+    const statusLabel = document.getElementById('statusLabel');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const targetLabel = document.getElementById('targetLabel');
+    const startTimeEl = document.getElementById('startTime');
+    const endTimeEl = document.getElementById('endTime');
+    const toast = document.getElementById('toast');
+    const reminderBtn = document.getElementById('reminderBtn');
+    const protoChips = document.getElementById('protoChips');
+
+    const PROTOCOLS = [
+      {key:'16_8', label:'16:8', hours:16},
+      {key:'18_6', label:'18:6', hours:18},
+      {key:'20_4', label:'20:4', hours:20},
+      {key:'24',   label:'24h',  hours:24},
+      {key:'36',   label:'36h',  hours:36},
+      {key:'48',   label:'48h',  hours:48}
+    ];
+
+    let currentProto = localStorage.getItem('nf_proto') || '16_8';
+    let isFasting = false;
+    let timer = null;
+    let startMs = 0;
+    let goalMs = 16 * 3600 * 1000;
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function(){ toast.classList.remove('show'); }, 2500);
+    }
+
+    function formatTime(ms){
+      let s = Math.floor(ms/1000);
+      if(s < 0) s = 0;
+      const h = Math.floor(s/3600);
+      const m = Math.floor((s%3600)/60);
+      const sec = s%60;
+      return h.toString().padStart(2,'0') + ':' +
+             m.toString().padStart(2,'0') + ':' +
+             sec.toString().padStart(2,'0');
+    }
+
+    function formatClock(d){
+      return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    }
+
+    function setProtocol(key){
+      const p = PROTOCOLS.find(function(x){return x.key===key;}) || PROTOCOLS[0];
+      currentProto = p.key;
+      localStorage.setItem('nf_proto', currentProto);
+      goalMs = p.hours * 3600 * 1000;
+      targetLabel.textContent = 'Goal: ' + p.label;
+      Array.prototype.forEach.call(protoChips.children, function(ch){
+        ch.classList.toggle('active', ch.getAttribute('data-key')===key);
+      });
+    }
+
+    function buildProtoChips(){
+      protoChips.innerHTML = PROTOCOLS.map(function(p){
+        return '<button class="chip" data-key="'+p.key+'">'+p.label+'</button>';
+      }).join('');
+      protoChips.addEventListener('click', function(e){
+        if(e.target.classList.contains('chip')){
+          var key = e.target.getAttribute('data-key');
+          setProtocol(key);
+          if(isFasting) showToast('New goal will apply to next fast');
         }
-    </script>
+      });
+      setProtocol(currentProto);
+    }
+
+    function updateProgress(){
+      if(!isFasting) return;
+      const elapsed = Date.now() - startMs;
+      timerDisplay.textContent = formatTime(elapsed);
+      const remaining = goalMs - elapsed;
+      const pct = Math.min(elapsed / goalMs, 1);
+      progress.style.strokeDashoffset = CIRC * (1 - pct);
+      if(remaining <= 0){
+        clearInterval(timer);
+        isFasting=false;
+        btn.classList.remove('stop');
+        btnText.textContent='Start Fasting';
+        statusLabel.textContent = 'Completed';
+        showToast('Fast complete');
+        saveFast(elapsed);
+      }
+    }
+
+    function saveFast(elapsed){
+      const history = JSON.parse(localStorage.getItem('fastHistory')||'[]');
+      history.unshift({
+        date: new Date().toLocaleDateString(),
+        elapsed: elapsed,
+        name: currentProto,
+        startTime: startMs,
+        endTime: Date.now()
+      });
+      localStorage.setItem('fastHistory', JSON.stringify(history.slice(0,50)));
+    }
+
+    btn.addEventListener('click', function(){
+      isFasting = !isFasting;
+      if(isFasting){
+        startMs = Date.now();
+        statusLabel.textContent = 'Fasting';
+        btn.classList.add('stop');
+        btnText.textContent='Stop Fasting';
+        startTimeEl.textContent = formatClock(new Date(startMs));
+        endTimeEl.textContent = formatClock(new Date(startMs + goalMs));
+        timer = setInterval(updateProgress, 1000);
+        showToast('Fast started');
+      } else {
+        clearInterval(timer);
+        btn.classList.remove('stop');
+        btnText.textContent='Start Fasting';
+        statusLabel.textContent = 'Paused';
+        showToast('Fast stopped');
+      }
+    });
+
+    reminderBtn.addEventListener('click', function(){
+      const enabled = localStorage.getItem('nf_reminder') === 'on';
+      const next = enabled ? 'off' : 'on';
+      localStorage.setItem('nf_reminder', next);
+      reminderBtn.style.background = next==='on' ? '#E0F2FE' : '#F8FAFC';
+      reminderBtn.style.color = next==='on' ? '#0EA5E9' : '#64748B';
+      showToast(next==='on'
+        ? 'Reminders enabled (configure in Settings)'
+        : 'Reminders disabled');
+    });
+
+    buildProtoChips();
+    if(localStorage.getItem('nf_reminder') === 'on'){
+      reminderBtn.style.background='#E0F2FE';
+      reminderBtn.style.color='#0EA5E9';
+    }
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('fasting-sw.js');
+    }
+  </script>
 </body>
 </html>
