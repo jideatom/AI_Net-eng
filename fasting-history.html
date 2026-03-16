@@ -3,168 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>NaijaFast - Me</title>
-    <link rel="manifest" href="fasting-manifest.json">
+    <title>JydFasting - History</title>
     <style>
-        :root { --bg:#F0F4F8; --surface:#fff; --primary:#5D5FEF; --accent:#00D4AA; --text:#1E293B; --sub:#64748B; --border:#E2E8F0; }
+        :root { --bg:#F0F4F8; --surface:#fff; --primary:#5D5FEF; --text:#1E293B; --sub:#64748B; --border:#E2E8F0; }
         * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; min-height:100vh; }
-        .app { width:100%; max-width:450px; background:var(--surface); min-height:100vh; display:flex; flex-direction:column; padding-bottom:80px; overflow-y:auto; }
+        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; }
+        .app { width:100%; max-width:450px; background:var(--surface); min-height:100vh; display:flex; flex-direction:column; padding-bottom:80px; }
         
-        /* Profile */
-        .profile-wrap { padding:40px 20px 20px; }
-        .profile-card { background:var(--bg); border-radius:20px; padding:20px; position:relative; }
-        .profile-top { display:flex; align-items:center; gap:15px; }
-        .avatar { width:70px; height:70px; border-radius:50%; background:linear-gradient(135deg,#e0e7ff,#c7d2fe); display:flex; align-items:center; justify-content:center; font-size:2rem; border:3px solid #a5b4fc; flex-shrink:0; }
-        .profile-name { font-size:1.2rem; font-weight:800; }
-        .profile-bio { font-size:0.8rem; color:var(--sub); margin-top:2px; }
-        .share-btn { position:absolute; top:20px; right:20px; background:none; border:none; font-size:1.2rem; cursor:pointer; }
-        .settings-btn { position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--sub); }
+        .page-hdr { padding:40px 20px 20px; }
+        .page-title { font-size:1.5rem; font-weight:800; }
+
+        .content-area { padding:0 20px; flex:1; overflow-y:auto; }
         
-        .stats-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:15px; }
-        .stat-box { display:flex; align-items:center; gap:10px; }
-        .stat-icon { font-size:1.4rem; }
-        .stat-value { font-size:1rem; font-weight:800; }
-        .stat-label { font-size:0.7rem; color:var(--sub); }
+        .history-item { 
+            background:var(--bg); 
+            padding:16px; 
+            border-radius:16px; 
+            margin-bottom:12px; 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid transparent;
+        }
+        .history-item:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0,0,0,0.05); border-color: var(--primary); }
+        .h-info { display:flex; flex-direction:column; gap:2px; }
+        .h-date { font-size:0.75rem; color:var(--sub); font-weight:600; }
+        .h-plan { font-size:0.9rem; font-weight:800; }
+        .h-time { font-size:0.8rem; color:var(--primary); font-weight:700; }
 
-        /* VIP Banner */
-        .vip-banner { margin:0 20px 15px; border-radius:16px; background:linear-gradient(135deg,#1E293B,#334155); padding:18px 20px; display:flex; justify-content:space-between; align-items:center; }
-        .vip-text { color:#F59E0B; font-size:0.8rem; font-weight:800; letter-spacing:1px; }
-        .vip-status { color:#94A3B8; font-size:0.75rem; margin-top:3px; }
-        .vip-btn { background:#F59E0B; color:#1E293B; border:none; border-radius:12px; padding:8px 18px; font-size:0.8rem; font-weight:800; cursor:pointer; }
-
-        /* Achievements */
-        .section-wrap { padding:0 20px 15px; }
-        .section-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-        .section-title { font-size:1.05rem; font-weight:800; }
-        .section-count { font-size:0.85rem; color:var(--sub); font-weight:600; }
-        .achievements { display:flex; gap:12px; }
-        .ach-badge { width:55px; height:55px; border-radius:12px; background:#E2E8F0; display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:#94A3B8; font-weight:800; }
-
-        /* Recent fasts */
-        .bars-wrap { display:flex; align-items:flex-end; gap:5px; height:80px; padding:0 20px; margin-bottom:5px; }
-        .bar { flex:1; background:#DCFCE7; border-radius:4px 4px 0 0; min-height:10px; }
-        .no-record { text-align:center; color:var(--sub); font-size:0.8rem; padding:20px; }
-        .week-nav { display:flex; align-items:center; justify-content:center; gap:15px; font-size:0.8rem; font-weight:600; padding:5px 20px; }
-        .week-nav span { font-size:0.75rem; color:var(--sub); cursor:pointer; }
-
-        /* Nav */
-        .nav { position:fixed; bottom:0; width:100%; max-width:450px; background:white; display:flex; justify-content:space-around; padding:12px 0; border-top:1px solid var(--border); }
-        .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; color:var(--sub); font-size:0.7rem; font-weight:600; flex:1; }
+        .nav { position:fixed; bottom:0; width:100%; max-width:450px; background:#fff; border-top:1px solid var(--border); display:flex; justify-content:space-around; padding:12px 0 24px; }
+        .nav-item { color:var(--sub); text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:0.7rem; font-weight:600; transition: all 0.2s ease; }
+        .nav-item:hover { color: var(--primary); transform: translateY(-2px); }
         .nav-item.active { color:var(--primary); }
-        .nav-icon { font-size:1.4rem; }
+        .nav-item i { font-size:1.1rem; }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<div class="app">
-    <div class="profile-wrap">
-        <button class="settings-btn" onclick="location.href='#settings'">&#9881;&#65039;</button>
-        <div class="profile-card">
-            <div class="profile-top">
-                <div class="avatar">&#x1F464;</div>
-                <div>
-                    <div class="profile-name" id="username">Advanced</div>
-                    <div class="profile-bio">Share your thoughts here</div>
+    <div class="app">
+        <div class="page-hdr">
+            <h2 class="page-title">Fasting History</h2>
+        </div>
+
+        <div class="content-area">
+            <div class="history-item">
+                <div class="h-info">
+                    <span class="h-date">Today, Oct 24</span>
+                    <span class="h-plan">16:8 Fast</span>
                 </div>
-                <button class="share-btn">&#x27A6;</button>
+                <span class="h-time">16h 05m</span>
             </div>
-            <div class="stats-row">
-                <div class="stat-box">
-                    <span class="stat-icon">&#x1F4C5;</span>
-                    <div><div class="stat-value" id="fasting-days">--</div><div class="stat-label">Fasting days</div></div>
+            <div class="history-item">
+                <div class="h-info">
+                    <span class="h-date">Yesterday, Oct 23</span>
+                    <span class="h-plan">18:6 Fast</span>
                 </div>
-                <div class="stat-box">
-                    <span class="stat-icon">&#x2696;&#65039;</span>
-                    <div><div class="stat-value" id="weight-val">232.9 lbs</div><div class="stat-label">Weight</div></div>
+                <span class="h-time">18h 12m</span>
+            </div>
+            <div class="history-item">
+                <div class="h-info">
+                    <span class="h-date">Oct 22, 2023</span>
+                    <span class="h-plan">OMAD Challenge</span>
                 </div>
-                <div class="stat-box">
-                    <span class="stat-icon">&#x23F0;</span>
-                    <div><div class="stat-value" id="fasting-hrs">-- h</div><div class="stat-label">Fasting hours</div></div>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-icon">&#x1F3C6;</span>
-                    <div><div class="stat-value" id="longest-fast">-- h</div><div class="stat-label">Longest fasting</div></div>
-                </div>
+                <span class="h-time">23h 45m</span>
             </div>
         </div>
+
+        <nav class="nav">
+            <a href="fasting-index.html" class="nav-item">
+                <i class="fas fa-clock"></i>
+                <span>Fast</span>
+            </a>
+            <a href="fasting-plans.html" class="nav-item">
+                <i class="fas fa-fire"></i>
+                <span>Plans</span>
+            </a>
+            <a href="fasting-food.html" class="nav-item">
+                <i class="fas fa-utensils"></i>
+                <span>Food</span>
+            </a>
+            <a href="fasting-history.html" class="nav-item active">
+                <i class="fas fa-calendar-alt"></i>
+                <span>History</span>
+            </a>
+        </nav>
     </div>
-
-    <div class="vip-banner">
-        <div>
-            <div class="vip-text">VIP USER</div>
-            <div class="vip-status">Active</div>
-        </div>
-        <button class="vip-btn">Check</button>
-    </div>
-
-    <div class="section-wrap">
-        <div class="section-hdr">
-            <span class="section-title">Achievements</span>
-            <span class="section-count" id="ach-count">0/34</span>
-        </div>
-        <div class="achievements">
-            <div class="ach-badge">1</div>
-            <div class="ach-badge">5</div>
-            <div class="ach-badge">10</div>
-            <div class="ach-badge">20</div>
-            <div class="ach-badge">50</div>
-        </div>
-    </div>
-
-    <div class="section-wrap">
-        <div class="section-hdr">
-            <span class="section-title">Recent fasts</span>
-        </div>
-        <div class="week-nav">
-            <span>&#9664;</span>
-            <span id="week-range">Loading...</span>
-            <span>&#9654;</span>
-        </div>
-        <div id="bars-container" class="bars-wrap"></div>
-        <div class="no-record" id="no-record">No record yet</div>
-    </div>
-
-    <nav class="nav">
-        <a href="fasting-index.html" class="nav-item"><span class="nav-icon">&#9203;&#65039;</span><span>Fasting</span></a>
-        <a href="fasting-plans.html" class="nav-item"><span class="nav-icon">&#128214;</span><span>Plan</span></a>
-        <a href="fasting-learn.html" class="nav-item"><span class="nav-icon">&#128161;</span><span>Learn</span></a>
-        <a href="fasting-food.html" class="nav-item"><span class="nav-icon">&#127859;</span><span>Recipes</span></a>
-        <a href="fasting-history.html" class="nav-item active"><span class="nav-icon">&#128100;</span><span>Me</span></a>
-    </nav>
-</div>
-
-<script>
-    function loadStats() {
-        const history = JSON.parse(localStorage.getItem('fastHistory') || '[]');
-        const streak = localStorage.getItem('fastStreak') || 0;
-        document.getElementById('fasting-days').textContent = history.length || '--';
-        const totalMs = history.reduce((s, f) => s + (f.elapsed || 0), 0);
-        const totalH = Math.floor(totalMs / 3600000);
-        document.getElementById('fasting-hrs').textContent = totalH > 0 ? totalH + 'h' : '-- h';
-        const longestMs = history.reduce((mx, f) => Math.max(mx, f.elapsed || 0), 0);
-        const longestH = Math.floor(longestMs / 3600000);
-        document.getElementById('longest-fast').textContent = longestH > 0 ? longestH + 'h' : '-- h';
-        const totalAch = Math.min(Math.floor(history.length / 1), 34);
-        document.getElementById('ach-count').textContent = totalAch + '/34';
-        if (history.length > 0) {
-            document.getElementById('no-record').style.display = 'none';
-            renderBars(history.slice(0, 7));
-        }
-    }
-    function renderBars(data) {
-        const max = Math.max(...data.map(f => f.elapsed || 1));
-        const container = document.getElementById('bars-container');
-        container.innerHTML = data.map(f => {
-            const pct = ((f.elapsed || 0) / max) * 100;
-            return `<div class="bar" style="height:${Math.max(pct,10)}%"></div>`;
-        }).join('');
-    }
-    // Week range display
-    const now = new Date();
-    const start = new Date(now); start.setDate(start.getDate() - 6);
-    const fmt = d => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
-    document.getElementById('week-range').textContent = fmt(start) + ' - ' + fmt(now);
-    loadStats();
-</script>
 </body>
 </html>
