@@ -7,105 +7,145 @@
 <link rel="manifest" href="manifest.json">
 <title>Claude Fast Track</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #0a0a14; color: #e0e0f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
-a { text-decoration: none; }
-header { background: linear-gradient(135deg, #1c0800, #280e00); padding: 16px 18px; border-bottom: 1px solid #f97316; display: flex; align-items: center; gap: 14px; }
-.back { color: #f97316; font-size: 1.4rem; font-weight: 700; }
-.htxt h1 { font-size: 1rem; font-weight: 800; color: #fff; }
-.htxt p  { font-size: 0.72rem; color: #888; margin-top: 3px; }
+
+:root {
+  --bg:         #EBF4FF;
+  --bg-card:    #FFFFFF;
+  --bg-header:  #FFFFFF;
+  --bg-input:   #F0F7FF;
+  --text:       #1A2340;
+  --text-sub:   #7A8FAA;
+  --text-muted: #AAB8CC;
+  --border:     #D0E4F7;
+  --accent:     #1E7BE0;
+  --accent-2:   #0056B8;
+  --accent-bg:  #E3F0FF;
+  --green:      #22c55e;
+  --orange:     #f97316;
+  --shadow:     0 2px 12px rgba(30,123,224,0.08);
+}
+body.dark {
+  --bg:         #0a0a14;
+  --bg-card:    #111120;
+  --bg-header:  #0d0d22;
+  --bg-input:   #16162a;
+  --text:       #e0e0f0;
+  --text-sub:   #6a6a8a;
+  --text-muted: #3a3a5a;
+  --border:     #1e1e38;
+  --accent:     #8b5cf6;
+  --accent-2:   #a78bfa;
+  --accent-bg:  #13093a;
+  --shadow:     0 2px 12px rgba(0,0,0,0.4);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.25s, border-color 0.25s, color 0.15s; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+a { text-decoration: none; color: inherit; }
+
+header { background: var(--bg-header); padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 10; }
+.back { color: var(--accent); font-size: 1.4rem; font-weight: 700; -webkit-tap-highlight-color: transparent; }
+.htxt { flex: 1; }
+.htxt h1 { font-size: 0.95rem; font-weight: 800; color: var(--text); }
+.htxt p  { font-size: 0.7rem; color: var(--text-sub); margin-top: 2px; }
+.theme-btn { background: var(--bg-input); border: 1px solid var(--border); border-radius: 20px; padding: 5px 10px; font-size: 0.85rem; cursor: pointer; flex-shrink: 0; }
 main { padding: 18px; max-width: 520px; margin: 0 auto; padding-bottom: 40px; }
-.tip { background: #0d1828; border-left: 3px solid #60a5fa; border-radius: 0 10px 10px 0; padding: 11px 15px; margin-bottom: 18px; font-size: 0.77rem; color: #7cb9f0; line-height: 1.5; }
-.sprint-badge { background: #f97316; color: #000; font-size: 10px; font-weight: 900; padding: 3px 10px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; }
-.sprint-title { color: #fff; font-size: 1.2rem; font-weight: 800; margin: 10px 0 3px; }
-.sprint-sub { color: #777; font-size: 0.78rem; margin-bottom: 16px; }
-.bar-wrap { background: #181828; border-radius: 10px; height: 30px; position: relative; overflow: hidden; margin-bottom: 20px; }
-.bar-fill { background: linear-gradient(90deg, #f97316, #fbbf24); height: 100%; border-radius: 10px; transition: width 0.4s ease; }
-.bar-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; }
-.card { background: #100f1e; border: 1px solid #222238; border-radius: 14px; padding: 15px; margin-bottom: 11px; cursor: pointer; transition: border-color 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
-.card:hover { border-color: #f97316; }
-.card.done { background: #081810; border-color: #22c55e; }
-.card-row { display: flex; align-items: flex-start; gap: 12px; }
-.num { font-size: 1.7rem; font-weight: 900; color: #f97316; line-height: 1; min-width: 36px; }
-.card.done .num { color: #22c55e; }
-.info { flex: 1; }
-.tag { display: inline-block; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-.tag-f { background:#0c1e3a; color:#60a5fa; }
-.tag-c { background:#280e00; color:#f97316; }
-.tag-p { background:#081e10; color:#4ade80; }
-.ctitle { color: #dde; font-size: 0.88rem; font-weight: 600; line-height: 1.3; margin-bottom: 3px; }
-.csub   { color: #555; font-size: 0.71rem; }
-.chk { font-size: 1.4rem; padding-top: 2px; min-width: 24px; text-align: center; }
-.card.done .chk { color: #22c55e; }
-.cnote { color: #555; font-size: 0.75rem; line-height: 1.55; margin-top: 9px; padding-top: 9px; border-top: 1px solid #1a1a2e; }
-.next-box { background: #0c0c1c; border: 1px dashed #252540; border-radius: 12px; padding: 15px 17px; margin-top: 18px; }
-.next-title { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 11px; }
-.next-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #181828; }
-.next-row:last-child { border-bottom: none; }
-.next-name { color: #4a4a6a; font-size: 0.78rem; }
-.next-size { color: #333; font-size: 0.71rem; }
+.tip { background: var(--accent-bg); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; padding: 11px 15px; margin-bottom: 18px; font-size: 0.77rem; color: var(--accent); line-height: 1.5; }
+.section { margin-bottom: 24px; }
+.sec-hdr { font-size: 0.67rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; padding-bottom: 7px; border-bottom: 2px solid var(--border); margin-bottom: 10px; }
+.item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 13px 14px; margin-bottom: 7px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--shadow); transition: border-color 0.15s; user-select: none; -webkit-tap-highlight-color: transparent; }
+.item:hover { border-color: var(--accent); }
+.item.done { background: #f0fff4; border-color: #22c55e; }
+body.dark .item.done { background: #08180f; border-color: #22c55e; }
+.iname { flex: 1; font-size: 0.82rem; color: var(--text); line-height: 1.3; }
+.item.done .iname { color: #16a34a; }
+body.dark .item.done .iname { color: #4ade80; }
+.isize { font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; margin-right: 6px; }
+.ichk  { font-size: 1.1rem; min-width: 20px; text-align: center; color: var(--text-muted); }
+.item.done .ichk { color: #22c55e; }
 </style>
 </head>
 <body>
 <header>
   <a href="index.html" class="back">&#8592;</a>
-  <div class="htxt"><h1>🟠 Claude Track — Fast Track</h1><p>March 2026 · Beginner Sprint · 5 Courses</p></div>
+  <div class="htxt"><h1>🟠 Claude Track — Fast Track</h1><p>March 2026 · 5 Courses</p></div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
 <main>
-  <div class="tip">💡 Tap any course card to mark it complete. Progress saves automatically on your device.</div>
-  <div>
-    <span class="sprint-badge">🚀 March 2026</span>
-    <h2 class="sprint-title">Claude Fast Track</h2>
-    <p class="sprint-sub">5 courses · 2.97 GB · IT pro → Claude practitioner</p>
-  </div>
-  <div class="bar-wrap">
-    <div class="bar-fill" id="barFill" style="width:0%"></div>
-    <div class="bar-label" id="barLabel">0% Complete (0/5)</div>
-  </div>
-  <div class="card" data-id="c1" onclick="tog('c1')">
-    <div class="card-row"><span class="num" id="n-c1">01</span><div class="info"><span class="tag tag-f">Foundation</span><p class="ctitle">AI for Everyday IT, Video Edition (2025)</p><p class="csub">Mar 16–18 &nbsp;·&nbsp; 1.68 GB</p></div><span class="chk" id="chk-c1">○</span></div>
-    <p class="cnote">Bridges your 20-year IT background into AI. Watch this first — everything Claude clicks faster afterwards.</p>
-  </div>
-  <div class="card" data-id="c2" onclick="tog('c2')">
-    <div class="card-row"><span class="num" id="n-c2">02</span><div class="info"><span class="tag tag-c">Claude Intro</span><p class="ctitle">PLS – First Look: Claude Cowork 2026</p><p class="csub">Mar 19 (Evening) &nbsp;·&nbsp; 99.2 MB</p></div><span class="chk" id="chk-c2">○</span></div>
-    <p class="cnote">Freshest 2026 Claude content in your library. Only 99 MB — finish in a single evening.</p>
-  </div>
-  <div class="card" data-id="c3" onclick="tog('c3')">
-    <div class="card-row"><span class="num" id="n-c3">03</span><div class="info"><span class="tag tag-c">Claude Code</span><p class="ctitle">PLS – Introduction to Claude Code</p><p class="csub">Mar 20 &nbsp;·&nbsp; 103 MB</p></div><span class="chk" id="chk-c3">○</span></div>
-    <p class="cnote">Official Pluralsight intro. Pair with Course 2 same evening — combined under 210 MB, done in 2 hours.</p>
-  </div>
-  <div class="card" data-id="c4" onclick="tog('c4')">
-    <div class="card-row"><span class="num" id="n-c4">04</span><div class="info"><span class="tag tag-c">Claude Code</span><p class="ctitle">FASTER – Claude Code from Scratch</p><p class="csub">Mar 21–25 &nbsp;·&nbsp; 317 MB</p></div><span class="chk" id="chk-c4">○</span></div>
-    <p class="cnote">Best zero-to-working Claude Code course in your library. Systematic, beginner-focused.</p>
-  </div>
-  <div class="card" data-id="c5" onclick="tog('c5')">
-    <div class="card-row"><span class="num" id="n-c5">05</span><div class="info"><span class="tag tag-p">Practical</span><p class="ctitle">LINKd – Claude Code 101: Prompt to Product</p><p class="csub">Mar 26–31 &nbsp;·&nbsp; 770 MB</p></div><span class="chk" id="chk-c5">○</span></div>
-    <p class="cnote">Close March with a real deliverable — not just courses watched.</p>
-  </div>
-  <div class="next-box">
-    <div class="next-title">⏭ April — Claude Deepdive</div>
-    <div class="next-row"><span class="next-name">FASTER – Claude Skills</span><span class="next-size">585 MB</span></div>
-    <div class="next-row"><span class="next-name">COURSERA – Mastering Claude AI: Prompting, APIs, RAG & MCP</span><span class="next-size">2.95 GB</span></div>
-    <div class="next-row"><span class="next-name">UD – Mastering Claude AI: Build AI Apps, Agents & MCP</span><span class="next-size">3.56 GB</span></div>
-  </div>
+<style>
+.bar-wrap { background: var(--bg-input); border-radius: 10px; height: 28px; position: relative; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); }
+.bar-fill { background: linear-gradient(90deg, #f97316, #fbbf24); height: 100%; border-radius: 10px; transition: width 0.4s ease; }
+.bar-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--text); }
+.sprint-badge { background: #f97316; color: #fff; font-size: 9px; font-weight: 900; padding: 3px 10px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; display: inline-block; }
+.sprint-title { color: var(--text); font-size: 1.1rem; font-weight: 800; margin: 8px 0 3px; }
+.sprint-sub { color: var(--text-sub); font-size: 0.77rem; margin-bottom: 14px; }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 15px; margin-bottom: 11px; cursor: pointer; box-shadow: var(--shadow); transition: border-color 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+.card:hover { border-color: #f97316; }
+.card.done { background: #f0fff4; border-color: #22c55e; }
+body.dark .card.done { background: #081810; border-color: #22c55e; }
+.card-row { display: flex; align-items: flex-start; gap: 12px; }
+.num { font-size: 1.6rem; font-weight: 900; color: #f97316; line-height: 1; min-width: 36px; }
+.card.done .num { color: #22c55e; }
+.info { flex: 1; }
+.tag { display: inline-block; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.tag-f { background: var(--accent-bg); color: var(--accent); }
+.tag-c { background: #fff3e8; color: #f97316; } body.dark .tag-c { background: #280e00; color: #fb923c; }
+.tag-p { background: #f0fff4; color: #16a34a; } body.dark .tag-p { background: #081e10; color: #4ade80; }
+.ctitle { color: var(--text); font-size: 0.87rem; font-weight: 600; line-height: 1.3; margin-bottom: 3px; }
+.csub   { color: var(--text-sub); font-size: 0.7rem; }
+.chk { font-size: 1.3rem; padding-top: 2px; min-width: 24px; text-align: center; color: var(--text-muted); }
+.card.done .chk { color: #22c55e; }
+.cnote { color: var(--text-sub); font-size: 0.75rem; line-height: 1.55; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
+.next-box { background: var(--bg-card); border: 1px dashed var(--border); border-radius: 14px; padding: 15px 17px; margin-top: 18px; }
+.next-title { font-size: 0.68rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 11px; }
+.next-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.next-row:last-child { border-bottom: none; }
+.next-name { color: var(--text-sub); font-size: 0.78rem; }
+.next-size { color: var(--text-muted); font-size: 0.7rem; }
+</style>
+<div class="tip">💡 Tap any course card to mark it complete. Progress saves automatically.</div>
+<div>
+  <span class="sprint-badge">🚀 March 2026</span>
+  <h2 class="sprint-title">Claude Fast Track</h2>
+  <p class="sprint-sub">5 courses · 2.97 GB · IT pro → Claude practitioner</p>
+</div>
+<div class="bar-wrap"><div class="bar-fill" id="barFill" style="width:0%"></div><div class="bar-label" id="barLabel">0% Complete (0/5)</div></div>
+<div class="card" data-id="c1" onclick="tog('c1')"><div class="card-row"><span class="num" id="n-c1">01</span><div class="info"><span class="tag tag-f">Foundation</span><p class="ctitle">AI for Everyday IT, Video Edition (2025)</p><p class="csub">Mar 16–18 · 1.68 GB</p></div><span class="chk" id="chk-c1">○</span></div><p class="cnote">Bridges your 20-year IT background into AI. Watch this first — Claude content clicks much faster afterwards.</p></div>
+<div class="card" data-id="c2" onclick="tog('c2')"><div class="card-row"><span class="num" id="n-c2">02</span><div class="info"><span class="tag tag-c">Claude Intro</span><p class="ctitle">PLS – First Look: Claude Cowork 2026</p><p class="csub">Mar 19 (Evening) · 99.2 MB</p></div><span class="chk" id="chk-c2">○</span></div><p class="cnote">Freshest 2026 Claude content. Only 99 MB — finish in a single evening.</p></div>
+<div class="card" data-id="c3" onclick="tog('c3')"><div class="card-row"><span class="num" id="n-c3">03</span><div class="info"><span class="tag tag-c">Claude Code</span><p class="ctitle">PLS – Introduction to Claude Code</p><p class="csub">Mar 20 · 103 MB</p></div><span class="chk" id="chk-c3">○</span></div><p class="cnote">Pair with Course 2 same evening — both under 210 MB, done in 2 hours.</p></div>
+<div class="card" data-id="c4" onclick="tog('c4')"><div class="card-row"><span class="num" id="n-c4">04</span><div class="info"><span class="tag tag-c">Claude Code</span><p class="ctitle">FASTER – Claude Code from Scratch</p><p class="csub">Mar 21–25 · 317 MB</p></div><span class="chk" id="chk-c4">○</span></div><p class="cnote">Best zero-to-working Claude Code course in your library. Systematic and beginner-focused.</p></div>
+<div class="card" data-id="c5" onclick="tog('c5')"><div class="card-row"><span class="num" id="n-c5">05</span><div class="info"><span class="tag tag-p">Practical</span><p class="ctitle">LINKd – Claude Code 101: Prompt to Product</p><p class="csub">Mar 26–31 · 770 MB</p></div><span class="chk" id="chk-c5">○</span></div><p class="cnote">Close March with a real deliverable — not just courses watched.</p></div>
+<div class="next-box"><div class="next-title">⏭ April — Claude Deepdive</div><div class="next-row"><span class="next-name">FASTER – Claude Skills</span><span class="next-size">585 MB</span></div><div class="next-row"><span class="next-name">COURSERA – Mastering Claude AI: Prompting, APIs, RAG & MCP</span><span class="next-size">2.95 GB</span></div><div class="next-row"><span class="next-name">UD – Mastering Claude AI: Build AI Apps, Agents & MCP</span><span class="next-size">3.56 GB</span></div></div>
 </main>
 <script>
+
+function initTheme() {
+  var t = localStorage.getItem('theme') || 'light';
+  if (t === 'dark') document.body.classList.add('dark');
+  updateToggle(t);
+}
+function toggleTheme() {
+  var isDark = document.body.classList.toggle('dark');
+  var t = isDark ? 'dark' : 'light';
+  localStorage.setItem('theme', t);
+  updateToggle(t);
+}
+function updateToggle(t) {
+  var btn = document.getElementById('themeBtn');
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+}
+initTheme();
+
 var KEY='claudeSprint_Mar2026';
-function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){return{};}}
-function save(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
-function tog(id){var s=load();s[id]=!s[id];save(s);render();}
-function render(){
+function load(){{try{{return JSON.parse(localStorage.getItem(KEY)||'{{}}');}}catch(e){{return{{}};}}}}
+function save(s){{try{{localStorage.setItem(KEY,JSON.stringify(s));}}catch(e){{}}}}
+function tog(id){{var s=load();s[id]=!s[id];save(s);render();}}
+function render(){{
   var s=load(),done=0;
-  for(var i=1;i<=5;i++){
-    var id='c'+i,card=document.querySelector('[data-id="'+id+'"]'),chk=document.getElementById('chk-'+id);
-    if(!card||!chk)continue;
-    if(s[id]){card.className='card done';chk.textContent='✓';done++;}
-    else{card.className='card';chk.textContent='○';}
-  }
+  for(var i=1;i<=5;i++){{var id='c'+i,card=document.querySelector('[data-id="'+id+'"]'),chk=document.getElementById('chk-'+id);if(!card||!chk)continue;if(s[id]){{card.className='card done';chk.textContent='✓';done++;}}else{{card.className='card';chk.textContent='○';}}}}
   var pct=Math.round(done/5*100);
   document.getElementById('barFill').style.width=pct+'%';
   document.getElementById('barLabel').textContent=pct+'% Complete ('+done+'/5)';
-}
+}}
 render();
 </script>
 </body>

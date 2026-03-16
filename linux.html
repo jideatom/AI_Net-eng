@@ -5,98 +5,125 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#3b82f6">
 <link rel="manifest" href="manifest.json">
-<title>Linux RHCSA Track</title>
+<title>Linux RHCSA</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #0a0a14; color: #e0e0f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
-a { text-decoration: none; }
-header { background: linear-gradient(135deg, #071428, #0a1e40); padding: 16px 18px; border-bottom: 1px solid #3b82f6; display: flex; align-items: center; gap: 14px; }
-.back { color: #3b82f6; font-size: 1.4rem; font-weight: 700; }
-.htxt h1 { font-size: 1rem; font-weight: 800; color: #fff; }
-.htxt p  { font-size: 0.72rem; color: #888; margin-top: 3px; }
+
+:root {
+  --bg:         #EBF4FF;
+  --bg-card:    #FFFFFF;
+  --bg-header:  #FFFFFF;
+  --bg-input:   #F0F7FF;
+  --text:       #1A2340;
+  --text-sub:   #7A8FAA;
+  --text-muted: #AAB8CC;
+  --border:     #D0E4F7;
+  --accent:     #1E7BE0;
+  --accent-2:   #0056B8;
+  --accent-bg:  #E3F0FF;
+  --green:      #22c55e;
+  --orange:     #f97316;
+  --shadow:     0 2px 12px rgba(30,123,224,0.08);
+}
+body.dark {
+  --bg:         #0a0a14;
+  --bg-card:    #111120;
+  --bg-header:  #0d0d22;
+  --bg-input:   #16162a;
+  --text:       #e0e0f0;
+  --text-sub:   #6a6a8a;
+  --text-muted: #3a3a5a;
+  --border:     #1e1e38;
+  --accent:     #8b5cf6;
+  --accent-2:   #a78bfa;
+  --accent-bg:  #13093a;
+  --shadow:     0 2px 12px rgba(0,0,0,0.4);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.25s, border-color 0.25s, color 0.15s; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+a { text-decoration: none; color: inherit; }
+
+header { background: var(--bg-header); padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); position: sticky; top: 0; z-index: 10; }
+.back { color: var(--accent); font-size: 1.4rem; font-weight: 700; -webkit-tap-highlight-color: transparent; }
+.htxt { flex: 1; }
+.htxt h1 { font-size: 0.95rem; font-weight: 800; color: var(--text); }
+.htxt p  { font-size: 0.7rem; color: var(--text-sub); margin-top: 2px; }
+.theme-btn { background: var(--bg-input); border: 1px solid var(--border); border-radius: 20px; padding: 5px 10px; font-size: 0.85rem; cursor: pointer; flex-shrink: 0; }
 main { padding: 18px; max-width: 520px; margin: 0 auto; padding-bottom: 40px; }
-.tip { background: #071828; border-left: 3px solid #3b82f6; border-radius: 0 10px 10px 0; padding: 11px 15px; margin-bottom: 18px; font-size: 0.77rem; color: #60a5fa; line-height: 1.5; }
+.tip { background: var(--accent-bg); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; padding: 11px 15px; margin-bottom: 18px; font-size: 0.77rem; color: var(--accent); line-height: 1.5; }
 .section { margin-bottom: 24px; }
-.sec-hdr { font-size: 0.68rem; color: #3b82f6; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; padding-bottom: 7px; border-bottom: 1px solid #0f1e38; margin-bottom: 10px; }
-.item { background: #0c1422; border: 1px solid #152238; border-radius: 10px; padding: 12px 14px; margin-bottom: 7px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: border-color 0.15s; user-select: none; -webkit-tap-highlight-color: transparent; }
-.item:hover { border-color: #3b82f6; }
-.item.done { background: #08180f; border-color: #22c55e; }
-.iname { flex: 1; font-size: 0.82rem; color: #ccc; line-height: 1.3; }
-.item.done .iname { color: #4ade80; }
-.ichk  { font-size: 1rem; min-width: 20px; text-align: center; color: #334; }
+.sec-hdr { font-size: 0.67rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; padding-bottom: 7px; border-bottom: 2px solid var(--border); margin-bottom: 10px; }
+.item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 13px 14px; margin-bottom: 7px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--shadow); transition: border-color 0.15s; user-select: none; -webkit-tap-highlight-color: transparent; }
+.item:hover { border-color: var(--accent); }
+.item.done { background: #f0fff4; border-color: #22c55e; }
+body.dark .item.done { background: #08180f; border-color: #22c55e; }
+.iname { flex: 1; font-size: 0.82rem; color: var(--text); line-height: 1.3; }
+.item.done .iname { color: #16a34a; }
+body.dark .item.done .iname { color: #4ade80; }
+.isize { font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; margin-right: 6px; }
+.ichk  { font-size: 1.1rem; min-width: 20px; text-align: center; color: var(--text-muted); }
 .item.done .ichk { color: #22c55e; }
-.cert-box { background: linear-gradient(135deg, #071428, #0a1030); border: 1px solid #3b82f6; border-radius: 14px; padding: 18px; margin-bottom: 20px; }
-.cert-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
-.cert-note { font-size: 0.78rem; color: #666; line-height: 1.6; }
-.cert-badge { display: inline-block; background: #1e3a5f; color: #60a5fa; font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
 </style>
 </head>
 <body>
 <header>
   <a href="index.html" class="back">&#8592;</a>
   <div class="htxt"><h1>🐧 Linux (RHCSA)</h1><p>RedHat Certified System Administrator</p></div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
 <main>
-  <div class="tip">💡 Tap a topic to mark it complete. Your networking background maps directly to Linux firewall and network config topics.</div>
-
-  <div class="cert-box">
-    <span class="cert-badge">Target Cert</span>
-    <div class="cert-title">EX200 — RHCSA</div>
-    <p class="cert-note">RedHat Certified System Administrator. Covers file systems, user management, SELinux, networking, and systemd. Your Linux CLI experience gives you a strong head start.</p>
-  </div>
-
-  <div class="section">
-    <div class="sec-hdr">Domain 1 — Essential Tools</div>
-    <div class="item" data-k="l1a" onclick="tog('l1a')"><span class="iname">Shell basics, I/O redirection, grep, awk, sed</span><span class="ichk" id="k-l1a">○</span></div>
-    <div class="item" data-k="l1b" onclick="tog('l1b')"><span class="iname">File permissions, ownership, ACLs</span><span class="ichk" id="k-l1b">○</span></div>
-    <div class="item" data-k="l1c" onclick="tog('l1c')"><span class="iname">SSH key management and remote access</span><span class="ichk" id="k-l1c">○</span></div>
-    <div class="item" data-k="l1d" onclick="tog('l1d')"><span class="iname">Archive and compression — tar, gzip, zip</span><span class="ichk" id="k-l1d">○</span></div>
-  </div>
-
-  <div class="section">
-    <div class="sec-hdr">Domain 2 — System Operations</div>
-    <div class="item" data-k="l2a" onclick="tog('l2a')"><span class="iname">Boot process, GRUB2, systemd targets</span><span class="ichk" id="k-l2a">○</span></div>
-    <div class="item" data-k="l2b" onclick="tog('l2b')"><span class="iname">Process management — ps, top, kill, nice</span><span class="ichk" id="k-l2b">○</span></div>
-    <div class="item" data-k="l2c" onclick="tog('l2c')"><span class="iname">Scheduling — cron, at, systemd timers</span><span class="ichk" id="k-l2c">○</span></div>
-    <div class="item" data-k="l2d" onclick="tog('l2d')"><span class="iname">Log management — journalctl, rsyslog</span><span class="ichk" id="k-l2d">○</span></div>
-  </div>
-
-  <div class="section">
-    <div class="sec-hdr">Domain 3 — Storage</div>
-    <div class="item" data-k="l3a" onclick="tog('l3a')"><span class="iname">Partitioning — fdisk, gdisk, parted</span><span class="ichk" id="k-l3a">○</span></div>
-    <div class="item" data-k="l3b" onclick="tog('l3b')"><span class="iname">LVM — pvcreate, vgcreate, lvcreate, resize</span><span class="ichk" id="k-l3b">○</span></div>
-    <div class="item" data-k="l3c" onclick="tog('l3c')"><span class="iname">File systems — ext4, XFS, mount, /etc/fstab</span><span class="ichk" id="k-l3c">○</span></div>
-    <div class="item" data-k="l3d" onclick="tog('l3d')"><span class="iname">NFS and autofs configuration</span><span class="ichk" id="k-l3d">○</span></div>
-  </div>
-
-  <div class="section">
-    <div class="sec-hdr">Domain 4 — Networking (Your Strength)</div>
-    <div class="item" data-k="l4a" onclick="tog('l4a')"><span class="iname">NetworkManager — nmcli, nmtui config</span><span class="ichk" id="k-l4a">○</span></div>
-    <div class="item" data-k="l4b" onclick="tog('l4b')"><span class="iname">Static IP, routing, DNS (/etc/resolv.conf)</span><span class="ichk" id="k-l4b">○</span></div>
-    <div class="item" data-k="l4c" onclick="tog('l4c')"><span class="iname">firewalld — zones, rules, services</span><span class="ichk" id="k-l4c">○</span></div>
-    <div class="item" data-k="l4d" onclick="tog('l4d')"><span class="iname">SELinux — modes, contexts, troubleshooting</span><span class="ichk" id="k-l4d">○</span></div>
-  </div>
-
-  <div class="section">
-    <div class="sec-hdr">Domain 5 — Users & Security</div>
-    <div class="item" data-k="l5a" onclick="tog('l5a')"><span class="iname">User and group management, sudo config</span><span class="ichk" id="k-l5a">○</span></div>
-    <div class="item" data-k="l5b" onclick="tog('l5b')"><span class="iname">Password policies, PAM, /etc/security</span><span class="ichk" id="k-l5b">○</span></div>
-    <div class="item" data-k="l5c" onclick="tog('l5c')"><span class="iname">Containers — podman basics (RHCSA 9)</span><span class="ichk" id="k-l5c">○</span></div>
-  </div>
+<style>
+.cert-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow); }
+.cert-badge { display: inline-block; background: var(--accent-bg); color: var(--accent); font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+.cert-title { font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+.cert-note { font-size: 0.78rem; color: var(--text-sub); line-height: 1.6; }
+</style>
+<div class="tip">💡 Your networking knowledge maps directly to Domain 4 — that's your fastest domain.</div>
+<div class="cert-card"><span class="cert-badge">Target Cert</span><div class="cert-title">EX200 — RHCSA (RedHat 9)</div><p class="cert-note">RedHat Certified System Administrator. Covers file systems, user management, SELinux, networking, systemd, and containers (Podman).</p></div>
+<div class="section"><div class="sec-hdr">Domain 1 — Essential Tools</div><div class="item" data-k="l1a" onclick="tog('l1a')"><span class="iname">Shell basics, I/O redirection, grep, awk, sed</span><span class="isize"></span><span class="ichk" id="k-l1a">○</span></div>
+<div class="item" data-k="l1b" onclick="tog('l1b')"><span class="iname">File permissions, ownership, ACLs</span><span class="isize"></span><span class="ichk" id="k-l1b">○</span></div>
+<div class="item" data-k="l1c" onclick="tog('l1c')"><span class="iname">SSH key management and remote access</span><span class="isize"></span><span class="ichk" id="k-l1c">○</span></div>
+<div class="item" data-k="l1d" onclick="tog('l1d')"><span class="iname">Archive and compression — tar, gzip, zip</span><span class="isize"></span><span class="ichk" id="k-l1d">○</span></div>
+</div><div class="section"><div class="sec-hdr">Domain 2 — System Operations</div><div class="item" data-k="l2a" onclick="tog('l2a')"><span class="iname">Boot process, GRUB2, systemd targets</span><span class="isize"></span><span class="ichk" id="k-l2a">○</span></div>
+<div class="item" data-k="l2b" onclick="tog('l2b')"><span class="iname">Process management — ps, top, kill, nice</span><span class="isize"></span><span class="ichk" id="k-l2b">○</span></div>
+<div class="item" data-k="l2c" onclick="tog('l2c')"><span class="iname">Scheduling — cron, at, systemd timers</span><span class="isize"></span><span class="ichk" id="k-l2c">○</span></div>
+<div class="item" data-k="l2d" onclick="tog('l2d')"><span class="iname">Log management — journalctl, rsyslog</span><span class="isize"></span><span class="ichk" id="k-l2d">○</span></div>
+</div><div class="section"><div class="sec-hdr">Domain 3 — Storage</div><div class="item" data-k="l3a" onclick="tog('l3a')"><span class="iname">Partitioning — fdisk, gdisk, parted</span><span class="isize"></span><span class="ichk" id="k-l3a">○</span></div>
+<div class="item" data-k="l3b" onclick="tog('l3b')"><span class="iname">LVM — pvcreate, vgcreate, lvcreate, resize</span><span class="isize"></span><span class="ichk" id="k-l3b">○</span></div>
+<div class="item" data-k="l3c" onclick="tog('l3c')"><span class="iname">File systems — ext4, XFS, mount, /etc/fstab</span><span class="isize"></span><span class="ichk" id="k-l3c">○</span></div>
+<div class="item" data-k="l3d" onclick="tog('l3d')"><span class="iname">NFS and autofs configuration</span><span class="isize"></span><span class="ichk" id="k-l3d">○</span></div>
+</div><div class="section"><div class="sec-hdr">Domain 4 — Networking ⭐ Your Strength</div><div class="item" data-k="l4a" onclick="tog('l4a')"><span class="iname">NetworkManager — nmcli, nmtui config</span><span class="isize"></span><span class="ichk" id="k-l4a">○</span></div>
+<div class="item" data-k="l4b" onclick="tog('l4b')"><span class="iname">Static IP, routing, DNS (/etc/resolv.conf)</span><span class="isize"></span><span class="ichk" id="k-l4b">○</span></div>
+<div class="item" data-k="l4c" onclick="tog('l4c')"><span class="iname">firewalld — zones, rules, services</span><span class="isize"></span><span class="ichk" id="k-l4c">○</span></div>
+<div class="item" data-k="l4d" onclick="tog('l4d')"><span class="iname">SELinux — modes, contexts, troubleshooting</span><span class="isize"></span><span class="ichk" id="k-l4d">○</span></div>
+</div><div class="section"><div class="sec-hdr">Domain 5 — Users & Security</div><div class="item" data-k="l5a" onclick="tog('l5a')"><span class="iname">User and group management, sudo config</span><span class="isize"></span><span class="ichk" id="k-l5a">○</span></div>
+<div class="item" data-k="l5b" onclick="tog('l5b')"><span class="iname">Password policies, PAM, /etc/security</span><span class="isize"></span><span class="ichk" id="k-l5b">○</span></div>
+<div class="item" data-k="l5c" onclick="tog('l5c')"><span class="iname">Containers — podman basics (RHCSA 9)</span><span class="isize"></span><span class="ichk" id="k-l5c">○</span></div>
+</div>
 </main>
 <script>
+
+function initTheme() {
+  var t = localStorage.getItem('theme') || 'light';
+  if (t === 'dark') document.body.classList.add('dark');
+  updateToggle(t);
+}
+function toggleTheme() {
+  var isDark = document.body.classList.toggle('dark');
+  var t = isDark ? 'dark' : 'light';
+  localStorage.setItem('theme', t);
+  updateToggle(t);
+}
+function updateToggle(t) {
+  var btn = document.getElementById('themeBtn');
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+}
+initTheme();
+
 var K='rhcsaProgress';
 function load(){try{return JSON.parse(localStorage.getItem(K)||'{}');}catch(e){return{};}}
 function save(s){try{localStorage.setItem(K,JSON.stringify(s));}catch(e){}}
 function tog(id){var s=load();s[id]=!s[id];save(s);render();}
-function render(){
-  var s=load();
-  document.querySelectorAll('.item').forEach(function(el){
-    var k=el.dataset.k,chk=document.getElementById('k-'+k);
-    if(s[k]){el.className='item done';if(chk)chk.textContent='✓';}
-    else{el.className='item';if(chk)chk.textContent='○';}
-  });
-}
+function render(){var s=load();document.querySelectorAll('.item').forEach(function(el){var k=el.dataset.k,chk=document.getElementById('k-'+k);if(s[k]){el.className='item done';if(chk)chk.textContent='✓';}else{el.className='item';if(chk)chk.textContent='○';}});}
 render();
 </script>
 </body>
