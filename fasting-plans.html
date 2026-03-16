@@ -1,182 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>NaijaFast - Plans</title>
-  <style>
-    :root { --bg:#F0F4F8; --surface:#fff; --primary:#5D5FEF; --text:#1E293B; --sub:#64748B; --border:#E2E8F0; }
-    * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; min-height:100vh; }
-    .app { width:100%; max-width:450px; background:var(--surface); min-height:100vh; display:flex; flex-direction:column; padding-bottom:80px; overflow-y:auto; }
-    
-    .page-hdr { padding:40px 20px 15px; display:flex; justify-content:space-between; align-items:center; }
-    .tab-row { display:flex; border-bottom:2px solid var(--border); padding:0 20px; margin-bottom:15px; }
-    .tab { padding:12px 20px; font-size:0.85rem; font-weight:700; cursor:pointer; color:var(--sub); border-bottom:3px solid transparent; margin-bottom:-2px; transition: all 0.2s; }
-    .tab.on { color:var(--primary); border-color:var(--primary); }
-    .tab:hover { color: var(--primary); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>JydFasting - Plans</title>
+    <style>
+        :root { --bg:#F0F4F8; --surface:#fff; --primary:#5D5FEF; --text:#1E293B; --sub:#64748B; --border:#E2E8F0; }
+        * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+        body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); display:flex; justify-content:center; min-height:100vh; }
+        .app { width:100%; max-width:450px; background:var(--surface); min-height:100vh; display:flex; flex-direction:column; padding-bottom:80px; overflow-y:auto; }
+        
+        .page-hdr { padding:40px 20px 15px; display:flex; justify-content:space-between; align-items:center; }
+        .tab-row { display:flex; border-bottom:2px solid var(--border); padding:0 20px; margin-bottom:15px; }
+        .tab { padding:12px 20px; font-size:0.85rem; font-weight:700; cursor:pointer; color:var(--sub); border-bottom:3px solid transparent; margin-bottom:-2px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .tab.on { color:var(--primary); border-color:var(--primary); }
+        .tab:hover { color: var(--primary); transform: translateY(-1px); }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-    /* Plans section styling */
-    .plans-section { padding:0 20px 20px; }
-    .plans-section-title { font-size:0.85rem; font-weight:800; color:var(--text); margin:12px 0 5px; }
-    .plans-section-sub { font-size:0.72rem; color:var(--sub); margin-bottom:12px; }
-    
-    .plans-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px; }
-    
-    /* Reduced size plan cards with Jay-Z hover effects */
-    .plan-card { 
-      padding:12px; 
-      border-radius:12px; 
-      cursor:pointer; 
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-      position:relative; 
-      border: 1px solid #F1F5F9;
-      background: #F8FAFC;
-    }
-    .plan-card:hover { 
-      transform: translateY(-4px); 
-      box-shadow: 0 8px 16px rgba(0,0,0,0.08); 
-      border-color: var(--primary);
-      background: #fff;
-    }
-    .plan-card:active { transform:scale(0.97); }
+        .plans-section { padding:0 20px 20px; }
+        .plans-section-title { font-size:0.85rem; font-weight:800; color:var(--text); margin:12px 0 5px; }
+        .plans-section-sub { font-size:0.72rem; color:var(--sub); margin-bottom:12px; }
 
-    .plan-num { font-size:1.1rem; font-weight:900; color:var(--text); display:flex; align-items:center; gap:6px; }
-    .pro-tag { font-size:0.55rem; font-weight:800; padding:1px 6px; border-radius:6px; background:#E0E7FF; color:var(--primary); }
-    .plan-info { font-size:0.68rem; color:var(--sub); margin:4px 0; line-height:1.4; }
-    .plan-label { font-size:0.65rem; font-weight:700; }
-
-    /* Nav bar at the bottom */
-    .nav { position:fixed; bottom:0; width:100%; max-width:450px; background:white; display:flex; justify-content:space-around; padding:12px 0; border-top:1px solid var(--border); }
-    .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; color:var(--sub); font-size:0.7rem; font-weight:600; flex:1; }
-    .nav-item.active { color:var(--primary); }
-    .nav-icon { font-size:1.4rem; }
-    
-    /* Custom input area */
-    .custom-input-card { padding: 15px; background: #F5F3FF; border-radius: 12px; margin-top: 10px; border: 1px dashed #DDD6FE; cursor: pointer; text-align: center; transition: all 0.2s; }
-    .custom-input-card:hover { background: #EDE9FE; border-style: solid; }
-  </style>
+        .plans-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px; }
+        
+        .plan-card { padding:12px; border-radius:12px; cursor:pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position:relative; border: 1px solid #F1F5F9; }
+        .plan-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.06); border-color: var(--primary); }
+        .plan-card.c1 { background:#E0E7FF; }
+        .plan-card.c2 { background:#FFF7ED; }
+        .plan-card.c3 { background:#F0FDF4; }
+        .plan-card.c4 { background:#F5F3FF; }
+        
+        .plan-title { font-size:0.85rem; font-weight:800; display:block; margin-bottom:2px; }
+        .plan-desc { font-size:0.65rem; color:var(--sub); line-height:1.2; }
+        
+        .nav { position:fixed; bottom:0; width:100%; max-width:450px; background:#fff; border-top:1px solid var(--border); display:flex; justify-content:space-around; padding:12px 0 24px; }
+        .nav-item { color:var(--sub); text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:0.7rem; font-weight:600; transition: all 0.2s ease; }
+        .nav-item:hover { color: var(--primary); transform: translateY(-2px); }
+        .nav-item.active { color:var(--primary); }
+        .nav-item i { font-size:1.1rem; margin-bottom:2px; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <div class="app">
-    <div class="page-hdr">
-      <div style="font-size:1.5rem;font-weight:800;">Plan</div>
-    </div>
-
-    <div class="tab-row">
-      <div class="tab on" onclick="switchTab('daily', this)">Daily</div>
-      <div class="tab" onclick="switchTab('weekly', this)">Weekly</div>
-    </div>
-
-    <!-- Daily Tab Content -->
-    <div id="daily" class="tab-content active">
-      <div class="plans-section">
-        <div class="plans-section-title">Intermittent Fasting</div>
-        <div class="plans-section-sub">Standard daily protocols</div>
-        <div class="plans-grid">
-          <div class="plan-card" onclick="selectPlan(16, '16:8')">
-            <div class="plan-num">16:8 <span class="pro-tag">Popular</span></div>
-            <div class="plan-info">16h fast • 8h eating</div>
-            <div class="plan-label">Balanced</div>
-          </div>
-          <div class="plan-card" onclick="selectPlan(18, '18:6')">
-            <div class="plan-num">18:6</div>
-            <div class="plan-info">18h fast • 6h eating</div>
-            <div class="plan-label">Fat Burning</div>
-          </div>
-          <div class="plan-card" onclick="selectPlan(20, '20:4')">
-            <div class="plan-num">20:4</div>
-            <div class="plan-info">20h fast • 4h eating</div>
-            <div class="plan-label">Warrior</div>
-          </div>
-          <div class="plan-card" onclick="selectPlan(23, '23:1')">
-            <div class="plan-num">23:1</div>
-            <div class="plan-info">23h fast • 1h eating</div>
-            <div class="plan-label">OMAD</div>
-          </div>
+    <div class="app">
+        <div class="page-hdr">
+            <h2 style="font-size:1.3rem; font-weight:800;">Fasting Plans</h2>
+            <i class="fas fa-plus-circle" style="color:var(--primary); font-size:1.4rem; cursor:pointer;" onclick="prompt('Enter Custom Fast Name:')"></i>
         </div>
 
-        <div class="plans-section-title" id="advanced">Advanced Fasting</div>
-        <div class="plans-section-sub">Extended fasting (36h - 120h)</div>
-        <div class="plans-grid">
-          <div class="plan-card" onclick="window.location.href='fasting-36hrs.html'">
-            <div class="plan-num">36h</div>
-            <div class="plan-info">Monk fast</div>
-            <div class="plan-label">Reset</div>
-          </div>
-          <div class="plan-card" onclick="window.location.href='fasting-72hrs.html'">
-            <div class="plan-num">72h</div>
-            <div class="plan-info">Autophagy peak</div>
-            <div class="plan-label">Renewal</div>
-          </div>
-          <div class="plan-card" onclick="window.location.href='fasting-120hrs.html'">
-            <div class="plan-num">120h</div>
-            <div class="plan-info">Prolonged fast</div>
-            <div class="plan-label">Deep Repair</div>
-          </div>
-          <div class="plan-card" onclick="showCustomPrompt()">
-            <div class="plan-num">Custom</div>
-            <div class="plan-info">Set own duration</div>
-            <div class="plan-label">Flexible</div>
-          </div>
+        <div class="tab-row">
+            <div class="tab on" id="dailyTab">Daily</div>
+            <div class="tab" id="weeklyTab">Weekly</div>
         </div>
-      </div>
+
+        <div id="dailyContent" class="tab-content active">
+            <div class="plans-section">
+                <p class="plans-section-title">Starter Plans</p>
+                <p class="plans-section-sub">Perfect for beginners</p>
+                <div class="plans-grid">
+                    <div class="plan-card c1" onclick="location.href='fasting-index.html'">
+                        <span class="plan-title">13:11</span>
+                        <span class="plan-desc">Circadian Rhythm</span>
+                    </div>
+                    <div class="plan-card c2" onclick="location.href='fasting-index.html'">
+                        <span class="plan-title">16:8</span>
+                        <span class="plan-desc">Leangains Method</span>
+                    </div>
+                </div>
+
+                <p class="plans-section-title">Intermediate</p>
+                <p class="plans-section-sub">Step up your fasting game</p>
+                <div class="plans-grid">
+                    <div class="plan-card c3" onclick="location.href='fasting-index.html'">
+                        <span class="plan-title">18:6</span>
+                        <span class="plan-desc">The 6-hour window</span>
+                    </div>
+                    <div class="plan-card c4" onclick="location.href='fasting-index.html'">
+                        <span class="plan-title">20:4</span>
+                        <span class="plan-desc">Warrior Diet</span>
+                    </div>
+                </div>
+
+                <p class="plans-section-title">Advanced</p>
+                <p class="plans-section-sub">Deep cellular cleanup</p>
+                <div class="plans-grid">
+                    <div class="plan-card c1" onclick="location.href='fasting-36hrs.html'">
+                        <span class="plan-title">36h</span>
+                        <span class="plan-desc">Monk Fast</span>
+                    </div>
+                    <div class="plan-card c2" onclick="location.href='fasting-72hrs.html'">
+                        <span class="plan-title">72h</span>
+                        <span class="plan-desc">Immune Reset</span>
+                    </div>
+                    <div class="plan-card c3" onclick="location.href='fasting-120hrs.html'">
+                        <span class="plan-title">120h</span>
+                        <span class="plan-desc">Advanced Healing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="weeklyContent" class="tab-content">
+            <div class="plans-section">
+                <p class="plans-section-title">Weekly Challenges</p>
+                <div class="plan-card c4" style="margin-bottom:15px; display:flex; align-items:center; gap:12px;">
+                    <div style="background:white; padding:10px; border-radius:10px;"><i class="fas fa-calendar-check" style="color:var(--primary);"></i></div>
+                    <div>
+                        <span class="plan-title">5:2 Diet</span>
+                        <span class="plan-desc">5 days normal, 2 days fasting</span>
+                    </div>
+                </div>
+                <div class="plan-card c1" style="display:flex; align-items:center; gap:12px;">
+                    <div style="background:white; padding:10px; border-radius:10px;"><i class="fas fa-moon" style="color:#5D5FEF;"></i></div>
+                    <div>
+                        <span class="plan-title">OMAD</span>
+                        <span class="plan-desc">One Meal A Day challenge</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="fasting-index.html" class="nav-item">
+                <i class="fas fa-clock"></i>
+                <span>Fast</span>
+            </a>
+            <a href="fasting-plans.html" class="nav-item active">
+                <i class="fas fa-fire"></i>
+                <span>Plans</span>
+            </a>
+            <a href="fasting-food.html" class="nav-item">
+                <i class="fas fa-utensils"></i>
+                <span>Food</span>
+            </a>
+            <a href="fasting-history.html" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>History</span>
+            </a>
+        </nav>
     </div>
 
-    <!-- Weekly Tab Content -->
-    <div id="weekly" class="tab-content">
-      <div class="plans-section">
-        <div class="plans-section-title">Weekly Schedule</div>
-        <div class="plans-section-sub">Plan your entire week</div>
-        <div style="padding: 20px; text-align: center; color: var(--sub); font-size: 0.8rem;">
-          <p>This feature will allow you to schedule different fasting protocols for each day of the week.</p>
-          <div style="margin-top: 20px; padding: 15px; background: #f1f5f9; border-radius: 8px;">
-            Coming soon in next update!
-          </div>
-        </div>
-      </div>
-    </div>
+    <script>
+        const dTab = document.getElementById('dailyTab');
+        const wTab = document.getElementById('weeklyTab');
+        const dCont = document.getElementById('dailyContent');
+        const wCont = document.getElementById('weeklyContent');
 
-    <nav class="nav">
-      <a href="fasting-index.html" class="nav-item"><span class="nav-icon">⏳️</span><span>Fasting</span></a>
-      <a href="fasting-plans.html" class="nav-item active"><span class="nav-icon">📖</span><span>Plan</span></a>
-      <a href="fasting-learn.html" class="nav-item"><span class="nav-icon">💡</span><span>Learn</span></a>
-      <a href="fasting-food.html" class="nav-item"><span class="nav-icon">🍳</span><span>Recipes</span></a>
-      <a href="fasting-history.html" class="nav-item"><span class="nav-icon">👤</span><span>Me</span></a>
-    </nav>
-  </div>
+        dTab.onclick = () => {
+            dTab.classList.add('on');
+            wTab.classList.remove('on');
+            dCont.classList.add('active');
+            wCont.classList.remove('active');
+        };
 
-  <script>
-    function switchTab(tabId, el) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-      el.classList.add('on');
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-    }
-
-    function selectPlan(hrs, name) {
-      localStorage.setItem('selPlan', hrs);
-      localStorage.setItem('selPlanName', name);
-      alert('Plan ' + name + ' selected! Go to Fasting tab to start.');
-      location.href = 'fasting-index.html';
-    }
-
-    function showCustomPrompt() {
-      const hours = prompt('Enter fasting duration in hours (e.g. 40):');
-      if (!hours) return;
-      const h = parseInt(hours, 10);
-      if (isNaN(h) || h <= 0 || h > 168) {
-        alert('Enter a valid number of hours (1–168).');
-        return;
-      }
-      localStorage.setItem('selPlan', h);
-      localStorage.setItem('selPlanName', h + 'h Custom');
-      alert(`Custom fast set for ${h} hours.`);
-      location.href = 'fasting-index.html';
-    }
-  </script>
+        wTab.onclick = () => {
+            wTab.classList.add('on');
+            dTab.classList.remove('on');
+            wCont.classList.add('active');
+            dCont.classList.remove('active');
+        };
+    </script>
 </body>
 </html>
