@@ -3,82 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#5c35d4">
+<meta name="theme-color" content="#8b5cf6">
 <link rel="manifest" href="manifest.json">
 <title>AI Tracker</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #0a0a14; color: #e0e0f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
 a { text-decoration: none; }
-
-/* ── Header ── */
-header { background: linear-gradient(135deg, #0d0a24, #180a3a); padding: 20px 18px 16px; border-bottom: 1px solid #2a1a6a; }
+header { background: linear-gradient(135deg, #0d0a24, #1a0a45); padding: 20px 18px 16px; border-bottom: 1px solid #4c1d95; }
 .hrow { display: flex; align-items: center; justify-content: space-between; }
-.hrow h1 { font-size: 1.15rem; font-weight: 900; color: #fff; letter-spacing: -0.3px; }
+.hrow h1 { font-size: 1.15rem; font-weight: 900; color: #fff; }
 .live { background: #22c55e; color: #000; font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 20px; letter-spacing: 1px; }
-.hsub { font-size: 0.73rem; color: #555; margin-top: 5px; }
-
-/* ── Main ── */
+.hsub { font-size: 0.73rem; color: #666; margin-top: 5px; }
 main { padding: 18px; max-width: 520px; margin: 0 auto; padding-bottom: 40px; }
 
-/* ── March Banner ── */
-.banner { background: linear-gradient(135deg, #160830, #080e28); border: 1px solid #5c35d4; border-radius: 16px; padding: 18px; margin-bottom: 22px; position: relative; overflow: hidden; }
-.banner::before { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(92,53,212,0.15), transparent 70%); border-radius: 50%; }
-.b-badge { background: #5c35d4; color: #fff; font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; }
+/* Banner */
+.banner { background: linear-gradient(135deg, #1a0a45, #0a1030); border: 1px solid #8b5cf6; border-radius: 16px; padding: 18px; margin-bottom: 22px; position: relative; overflow: hidden; }
+.banner::before { content:''; position:absolute; top:-30px; right:-30px; width:130px; height:130px; background: radial-gradient(circle, rgba(139,92,246,0.2), transparent 70%); border-radius:50%; }
+.b-badge { background: #8b5cf6; color: #fff; font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; }
 .b-title { color: #fff; font-size: 1rem; font-weight: 800; margin: 9px 0 5px; }
-.b-sub { color: #666; font-size: 0.77rem; line-height: 1.5; margin-bottom: 14px; }
-.b-btn { display: inline-block; background: #5c35d4; color: #fff; font-size: 0.8rem; font-weight: 800; padding: 9px 20px; border-radius: 10px; transition: opacity 0.15s; }
+.b-sub { color: #777; font-size: 0.77rem; line-height: 1.5; margin-bottom: 14px; }
+.b-btn { display: inline-block; background: #8b5cf6; color: #fff; font-size: 0.8rem; font-weight: 800; padding: 9px 20px; border-radius: 10px; }
 .b-btn:active { opacity: 0.8; }
 
-/* ── Stats ── */
+/* Stats — clickable */
 .stats { display: flex; gap: 10px; margin-bottom: 22px; }
-.stat { flex: 1; background: #0f0f20; border: 1px solid #1c1c38; border-radius: 12px; padding: 14px 8px; text-align: center; }
+.stat { flex: 1; background: #0f0f20; border: 1px solid #1c1c38; border-radius: 12px; padding: 14px 8px; text-align: center; display: block; -webkit-tap-highlight-color: transparent; transition: border-color 0.15s; }
+.stat:active { border-color: #8b5cf6; }
 .snum { font-size: 1.6rem; font-weight: 900; color: #a78bfa; line-height: 1; }
 .slbl { font-size: 0.62rem; color: #444; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-/* ── Section label ── */
-.sec { font-size: 0.67rem; color: #444; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+/* Section label */
+.sec { font-size: 0.67rem; color: #555; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
 
-/* ── Track Grid ── */
+/* Track grid */
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 26px; }
 .track { border-radius: 14px; padding: 17px 14px; border: 1px solid transparent; display: block; transition: opacity 0.15s, transform 0.15s; -webkit-tap-highlight-color: transparent; }
 .track:active { opacity: 0.75; transform: scale(0.97); }
 .ti { font-size: 1.7rem; margin-bottom: 9px; }
 .tn { font-size: 0.84rem; font-weight: 800; color: #fff; margin-bottom: 3px; }
-.ts { font-size: 0.69rem; color: rgba(255,255,255,0.35); }
+.ts { font-size: 0.69rem; color: rgba(255,255,255,0.38); }
 .t-linux  { background: #091c36; border-color: #3b82f6; }
 .t-python { background: #092318; border-color: #22c55e; }
-.t-ai     { background: #140b36; border-color: #7c3aed; }
+.t-ai     { background: #13093a; border-color: #8b5cf6; }
 .t-claude { background: #261100; border-color: #f97316; }
 .t-aws    { background: #1a1000; border-color: #f59e0b; }
 .t-azure  { background: #061624; border-color: #38bdf8; }
 
-/* ── Quick Links ── */
+/* Quick links */
 .quick-box { background: #0f0f20; border: 1px solid #1c1c38; border-radius: 14px; padding: 16px; }
-.quick-title { font-size: 0.67rem; color: #444; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
-.qlink { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #161626; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+.qlink { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #161626; -webkit-tap-highlight-color: transparent; }
 .qlink:last-child { border-bottom: none; }
 .ql-left { display: flex; align-items: center; gap: 11px; }
 .ql-icon { font-size: 1.1rem; }
 .ql-name { font-size: 0.83rem; color: #bbb; font-weight: 600; }
 .ql-sub  { font-size: 0.68rem; color: #444; margin-top: 2px; }
-.ql-arr  { color: #333; font-size: 1rem; }
+.ql-arr  { color: #444; font-size: 1rem; }
 </style>
 </head>
 <body>
 <header>
   <div class="hrow">
-    <div>
-      <h1>⚡ AI Engineer Tracker</h1>
-      <p class="hsub">Jideatom · Lagos · March 2026</p>
-    </div>
+    <div><h1>⚡ AI Engineer Tracker</h1><p class="hsub">Jideatom · Lagos · March 2026</p></div>
     <span class="live">LIVE</span>
   </div>
 </header>
-
 <main>
-
-  <!-- March Sprint Banner -->
   <div class="banner">
     <span class="b-badge">🚀 March 2026</span>
     <h2 class="b-title">Claude Fast Track Sprint</h2>
@@ -86,60 +76,32 @@ main { padding: 18px; max-width: 520px; margin: 0 auto; padding-bottom: 40px; }
     <a href="claude.html" class="b-btn">Open Claude Sprint →</a>
   </div>
 
-  <!-- Stats -->
   <div class="stats">
-    <div class="stat"><div class="snum">6</div><div class="slbl">Tracks</div></div>
-    <div class="stat"><div class="snum">5</div><div class="slbl">March</div></div>
-    <div class="stat"><div class="snum">40</div><div class="slbl">Weeks</div></div>
-    <div class="stat"><div class="snum">6</div><div class="slbl">Phases</div></div>
+    <a href="index.html" class="stat"><div class="snum">6</div><div class="slbl">Tracks</div></a>
+    <a href="claude.html" class="stat"><div class="snum">5</div><div class="slbl">March</div></a>
+    <a href="lp-courses.html" class="stat"><div class="snum">40</div><div class="slbl">Weeks</div></a>
+    <a href="lp-courses.html" class="stat"><div class="snum">6</div><div class="slbl">Phases</div></a>
   </div>
 
-  <!-- Track Cards -->
   <p class="sec">Your Learning Tracks</p>
   <div class="grid">
-    <a href="linux.html" class="track t-linux">
-      <div class="ti">🐧</div><div class="tn">Linux (RHCSA)</div><div class="ts">System admin</div>
-    </a>
-    <a href="python.html" class="track t-python">
-      <div class="ti">🐍</div><div class="tn">Python</div><div class="ts">AI scripting</div>
-    </a>
-    <a href="lp-courses.html" class="track t-ai">
-      <div class="ti">🤖</div><div class="tn">AI Engineering</div><div class="ts">LP · 6 phases</div>
-    </a>
-    <a href="claude.html" class="track t-claude">
-      <div class="ti">🟠</div><div class="tn">Claude Track</div><div class="ts">Fast Track · March</div>
-    </a>
-    <a href="cloud.html" class="track t-aws">
-      <div class="ti">☁️</div><div class="tn">AWS SAP + ANS</div><div class="ts">Cloud certs</div>
-    </a>
-    <a href="cloud.html" class="track t-azure">
-      <div class="ti">🔷</div><div class="tn">Azure AZ-700/305</div><div class="ts">Cloud certs</div>
-    </a>
+    <a href="linux.html"       class="track t-linux" ><div class="ti">🐧</div><div class="tn">Linux (RHCSA)</div><div class="ts">System admin</div></a>
+    <a href="python.html"      class="track t-python"><div class="ti">🐍</div><div class="tn">Python</div><div class="ts">AI scripting</div></a>
+    <a href="lp-courses.html"  class="track t-ai"    ><div class="ti">🤖</div><div class="tn">AI Engineering</div><div class="ts">LP · 6 phases</div></a>
+    <a href="claude.html"      class="track t-claude"><div class="ti">🟠</div><div class="tn">Claude Track</div><div class="ts">Fast Track · March</div></a>
+    <a href="cloud.html"       class="track t-aws"   ><div class="ti">☁️</div><div class="tn">AWS SAP + ANS</div><div class="ts">Cloud certs</div></a>
+    <a href="cloud.html"       class="track t-azure" ><div class="ti">🔷</div><div class="tn">Azure AZ-700/305</div><div class="ts">Cloud certs</div></a>
   </div>
 
-  <!-- Quick Links -->
   <p class="sec">Quick Links</p>
   <div class="quick-box">
-    <a href="claude.html" class="qlink">
-      <div class="ql-left"><span class="ql-icon">🟠</span><div><div class="ql-name">Claude Fast Track</div><div class="ql-sub">March 2026 · 5 courses</div></div></div>
-      <span class="ql-arr">›</span>
-    </a>
-    <a href="lp-courses.html" class="qlink">
-      <div class="ql-left"><span class="ql-icon">📋</span><div><div class="ql-name">LP Courses</div><div class="ql-sub">Full 40-week roadmap</div></div></div>
-      <span class="ql-arr">›</span>
-    </a>
-    <a href="cloud.html" class="qlink">
-      <div class="ql-left"><span class="ql-icon">☁️</span><div><div class="ql-name">Cloud Certifications</div><div class="ql-sub">AWS + Azure tracks</div></div></div>
-      <span class="ql-arr">›</span>
-    </a>
+    <a href="claude.html" class="qlink"><div class="ql-left"><span class="ql-icon">🟠</span><div><div class="ql-name">Claude Fast Track</div><div class="ql-sub">March 2026 · 5 courses</div></div></div><span class="ql-arr">›</span></a>
+    <a href="lp-courses.html" class="qlink"><div class="ql-left"><span class="ql-icon">📋</span><div><div class="ql-name">LP Courses</div><div class="ql-sub">Full 40-week roadmap</div></div></div><span class="ql-arr">›</span></a>
+    <a href="cloud.html" class="qlink"><div class="ql-left"><span class="ql-icon">☁️</span><div><div class="ql-name">Cloud Certifications</div><div class="ql-sub">AWS + Azure tracks</div></div></div><span class="ql-arr">›</span></a>
+    <a href="linux.html" class="qlink"><div class="ql-left"><span class="ql-icon">🐧</span><div><div class="ql-name">Linux (RHCSA)</div><div class="ql-sub">RedHat certification track</div></div></div><span class="ql-arr">›</span></a>
+    <a href="python.html" class="qlink"><div class="ql-left"><span class="ql-icon">🐍</span><div><div class="ql-name">Python</div><div class="ql-sub">AI scripting & automation</div></div></div><span class="ql-arr">›</span></a>
   </div>
-
 </main>
-
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(function(){});
-}
-</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}</script>
 </body>
 </html>

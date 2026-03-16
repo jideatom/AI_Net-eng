@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#22c55e">
+<link rel="manifest" href="manifest.json">
+<title>Python Track</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0a14; color: #e0e0f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+a { text-decoration: none; }
+header { background: linear-gradient(135deg, #071a0e, #0a2818); padding: 16px 18px; border-bottom: 1px solid #22c55e; display: flex; align-items: center; gap: 14px; }
+.back { color: #22c55e; font-size: 1.4rem; font-weight: 700; }
+.htxt h1 { font-size: 1rem; font-weight: 800; color: #fff; }
+.htxt p  { font-size: 0.72rem; color: #888; margin-top: 3px; }
+main { padding: 18px; max-width: 520px; margin: 0 auto; padding-bottom: 40px; }
+.tip { background: #071a0e; border-left: 3px solid #22c55e; border-radius: 0 10px 10px 0; padding: 11px 15px; margin-bottom: 18px; font-size: 0.77rem; color: #4ade80; line-height: 1.5; }
+.section { margin-bottom: 24px; }
+.sec-hdr { font-size: 0.68rem; color: #22c55e; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; padding-bottom: 7px; border-bottom: 1px solid #0e2018; margin-bottom: 10px; }
+.item { background: #0a180e; border: 1px solid #132818; border-radius: 10px; padding: 12px 14px; margin-bottom: 7px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: border-color 0.15s; user-select: none; -webkit-tap-highlight-color: transparent; }
+.item:hover { border-color: #22c55e; }
+.item.done { background: #0a2010; border-color: #22c55e; }
+.iname { flex: 1; font-size: 0.82rem; color: #ccc; line-height: 1.3; }
+.item.done .iname { color: #4ade80; }
+.ichk  { font-size: 1rem; min-width: 20px; text-align: center; color: #334; }
+.item.done .ichk { color: #22c55e; }
+.course-box { background: linear-gradient(135deg, #071a0e, #0a2010); border: 1px solid #22c55e; border-radius: 14px; padding: 18px; margin-bottom: 20px; }
+.course-badge { display: inline-block; background: #0a2a10; color: #4ade80; font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+.course-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.course-note { font-size: 0.78rem; color: #666; line-height: 1.6; }
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="back">&#8592;</a>
+  <div class="htxt"><h1>🐍 Python Track</h1><p>Python for AI Engineering</p></div>
+</header>
+<main>
+  <div class="tip">💡 Tap a topic to mark it complete. You only need practical Python for AI — not maths or data science theory.</div>
+
+  <div class="course-box">
+    <span class="course-badge">Start Here</span>
+    <div class="course-title">TOWARDS_AI – Beginner Python Primer for AI Engineering</div>
+    <p class="course-note">1.12 GB · Designed for AI engineers, not data scientists. Covers exactly what you need to start building AI tools and agents in Python.</p>
+  </div>
+
+  <div class="section">
+    <div class="sec-hdr">Phase 1 — Python Basics</div>
+    <div class="item" data-k="py1a" onclick="tog('py1a')"><span class="iname">Variables, data types, strings, f-strings</span><span class="ichk" id="k-py1a">○</span></div>
+    <div class="item" data-k="py1b" onclick="tog('py1b')"><span class="iname">Lists, dicts, tuples, sets</span><span class="ichk" id="k-py1b">○</span></div>
+    <div class="item" data-k="py1c" onclick="tog('py1c')"><span class="iname">if/else, for/while loops</span><span class="ichk" id="k-py1c">○</span></div>
+    <div class="item" data-k="py1d" onclick="tog('py1d')"><span class="iname">Functions, args, return values</span><span class="ichk" id="k-py1d">○</span></div>
+    <div class="item" data-k="py1e" onclick="tog('py1e')"><span class="iname">Reading/writing files, JSON handling</span><span class="ichk" id="k-py1e">○</span></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hdr">Phase 2 — Practical Python</div>
+    <div class="item" data-k="py2a" onclick="tog('py2a')"><span class="iname">pip, virtual environments (venv)</span><span class="ichk" id="k-py2a">○</span></div>
+    <div class="item" data-k="py2b" onclick="tog('py2b')"><span class="iname">Classes and OOP basics</span><span class="ichk" id="k-py2b">○</span></div>
+    <div class="item" data-k="py2c" onclick="tog('py2c')"><span class="iname">Error handling — try/except</span><span class="ichk" id="k-py2c">○</span></div>
+    <div class="item" data-k="py2d" onclick="tog('py2d')"><span class="iname">HTTP requests — requests library, APIs</span><span class="ichk" id="k-py2d">○</span></div>
+    <div class="item" data-k="py2e" onclick="tog('py2e')"><span class="iname">Environment variables, .env files</span><span class="ichk" id="k-py2e">○</span></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hdr">Phase 3 — Python for AI</div>
+    <div class="item" data-k="py3a" onclick="tog('py3a')"><span class="iname">OpenAI / Anthropic SDK — API calls</span><span class="ichk" id="k-py3a">○</span></div>
+    <div class="item" data-k="py3b" onclick="tog('py3b')"><span class="iname">Streaming responses from LLMs</span><span class="ichk" id="k-py3b">○</span></div>
+    <div class="item" data-k="py3c" onclick="tog('py3c')"><span class="iname">Building a simple chatbot CLI</span><span class="ichk" id="k-py3c">○</span></div>
+    <div class="item" data-k="py3d" onclick="tog('py3d')"><span class="iname">Reading docs and GitHub repos</span><span class="ichk" id="k-py3d">○</span></div>
+    <div class="item" data-k="py3e" onclick="tog('py3e')"><span class="iname">First AI script — network ping + LLM summary</span><span class="ichk" id="k-py3e">○</span></div>
+  </div>
+</main>
+<script>
+var K='pythonProgress';
+function load(){try{return JSON.parse(localStorage.getItem(K)||'{}');}catch(e){return{};}}
+function save(s){try{localStorage.setItem(K,JSON.stringify(s));}catch(e){}}
+function tog(id){var s=load();s[id]=!s[id];save(s);render();}
+function render(){
+  var s=load();
+  document.querySelectorAll('.item').forEach(function(el){
+    var k=el.dataset.k,chk=document.getElementById('k-'+k);
+    if(s[k]){el.className='item done';if(chk)chk.textContent='✓';}
+    else{el.className='item';if(chk)chk.textContent='○';}
+  });
+}
+render();
+</script>
+</body>
+</html>

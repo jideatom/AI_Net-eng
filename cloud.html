@@ -14,13 +14,22 @@ header { background: linear-gradient(135deg, #071428, #081a20); padding: 16px 18
 .back { color: #38bdf8; font-size: 1.4rem; font-weight: 700; }
 .htxt h1 { font-size: 1rem; font-weight: 800; color: #fff; }
 .htxt p  { font-size: 0.72rem; color: #888; margin-top: 3px; }
-main { padding: 18px; max-width: 520px; margin: 0 auto; }
+main { padding: 18px; max-width: 520px; margin: 0 auto; padding-bottom: 40px; }
 .cert { background: #0e0e1e; border: 1px solid #1c1c34; border-radius: 14px; padding: 20px; margin-bottom: 14px; }
 .cbadge { display: inline-block; font-size: 9px; font-weight: 900; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
 .aws-b   { background: #1c1200; color: #f59e0b; }
 .azure-b { background: #071428; color: #38bdf8; }
 .ctitle { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
 .cnote  { font-size: 0.79rem; color: #666; line-height: 1.6; }
+.section { margin-bottom: 24px; }
+.sec-hdr { font-size: 0.68rem; color: #38bdf8; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; padding-bottom: 7px; border-bottom: 1px solid #0d1e2e; margin-bottom: 10px; margin-top: 18px; }
+.item { background: #0c1422; border: 1px solid #122030; border-radius: 10px; padding: 12px 14px; margin-bottom: 7px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: border-color 0.15s; user-select: none; -webkit-tap-highlight-color: transparent; }
+.item:hover { border-color: #38bdf8; }
+.item.done { background: #08180f; border-color: #22c55e; }
+.iname { flex: 1; font-size: 0.82rem; color: #ccc; line-height: 1.3; }
+.item.done .iname { color: #4ade80; }
+.ichk  { font-size: 1rem; min-width: 20px; text-align: center; color: #334; }
+.item.done .ichk { color: #22c55e; }
 </style>
 </head>
 <body>
@@ -34,11 +43,41 @@ main { padding: 18px; max-width: 520px; margin: 0 auto; }
     <div class="ctitle">SAP-C02 + ANS-C01</div>
     <p class="cnote">Solutions Architect Professional + Advanced Networking Specialty. Your 20+ year network background is a massive ANS advantage — BGP, routing, VPNs, firewalls map directly.</p>
   </div>
-  <div class="cert">
+
+  <div class="sec-hdr">AWS Key Topics</div>
+  <div class="item" data-k="a1" onclick="tog('a1')"><span class="iname">VPC design — subnets, route tables, NACLs, SGs</span><span class="ichk" id="k-a1">○</span></div>
+  <div class="item" data-k="a2" onclick="tog('a2')"><span class="iname">Transit Gateway, VPN, Direct Connect</span><span class="ichk" id="k-a2">○</span></div>
+  <div class="item" data-k="a3" onclick="tog('a3')"><span class="iname">Route 53, CloudFront, Global Accelerator</span><span class="ichk" id="k-a3">○</span></div>
+  <div class="item" data-k="a4" onclick="tog('a4')"><span class="iname">IAM roles, policies, cross-account access</span><span class="ichk" id="k-a4">○</span></div>
+  <div class="item" data-k="a5" onclick="tog('a5')"><span class="iname">Well-Architected Framework, HA patterns</span><span class="ichk" id="k-a5">○</span></div>
+
+  <div class="cert" style="margin-top:20px">
     <span class="cbadge azure-b">Azure</span>
     <div class="ctitle">AZ-700 + AZ-305</div>
-    <p class="cnote">Azure Network Engineer Associate + Solutions Architect Expert. AZ-700 mirrors your Cisco/Fortinet expertise perfectly. Natural companion to AWS ANS for dual-cloud credibility.</p>
+    <p class="cnote">Azure Network Engineer Associate + Solutions Architect Expert. AZ-700 mirrors your Cisco/Fortinet expertise. Natural companion to AWS ANS for dual-cloud credibility.</p>
   </div>
+
+  <div class="sec-hdr">Azure Key Topics</div>
+  <div class="item" data-k="z1" onclick="tog('z1')"><span class="iname">VNet design, peering, hub-and-spoke</span><span class="ichk" id="k-z1">○</span></div>
+  <div class="item" data-k="z2" onclick="tog('z2')"><span class="iname">Azure Firewall, NSGs, Azure Bastion</span><span class="ichk" id="k-z2">○</span></div>
+  <div class="item" data-k="z3" onclick="tog('z3')"><span class="iname">ExpressRoute, VPN Gateway, WAN</span><span class="ichk" id="k-z3">○</span></div>
+  <div class="item" data-k="z4" onclick="tog('z4')"><span class="iname">Load Balancer, App Gateway, Traffic Manager</span><span class="ichk" id="k-z4">○</span></div>
+  <div class="item" data-k="z5" onclick="tog('z5')"><span class="iname">Azure AD, RBAC, Conditional Access</span><span class="ichk" id="k-z5">○</span></div>
 </main>
+<script>
+var K='cloudProgress';
+function load(){try{return JSON.parse(localStorage.getItem(K)||'{}');}catch(e){return{};}}
+function save(s){try{localStorage.setItem(K,JSON.stringify(s));}catch(e){}}
+function tog(id){var s=load();s[id]=!s[id];save(s);render();}
+function render(){
+  var s=load();
+  document.querySelectorAll('.item').forEach(function(el){
+    var k=el.dataset.k,chk=document.getElementById('k-'+k);
+    if(s[k]){el.className='item done';if(chk)chk.textContent='✓';}
+    else{el.className='item';if(chk)chk.textContent='○';}
+  });
+}
+render();
+</script>
 </body>
 </html>
