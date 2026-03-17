@@ -137,6 +137,16 @@ var K='cloudProgress';function load(){try{return JSON.parse(localStorage.getItem
   try{localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'cloud',when:Date.now()}));}catch(e){}
 })();
 
+
+(function debugSave() {
+  try {
+    console.log('TRACK SAVED: cloud');
+    localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'cloud',when:Date.now()}));
+  } catch(e) {
+    console.log('SAVE FAILED:', e);
+  }
+})();
+
 </script>
 </body>
 </html>

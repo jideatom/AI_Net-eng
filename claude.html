@@ -175,6 +175,16 @@ var KEY='claudeSprint_Mar2026';function load(){try{return JSON.parse(localStorag
   try{localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'claude',when:Date.now()}));}catch(e){}
 })();
 
+
+(function debugSave() {
+  try {
+    console.log('TRACK SAVED: claude');
+    localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'claude',when:Date.now()}));
+  } catch(e) {
+    console.log('SAVE FAILED:', e);
+  }
+})();
+
 </script>
 </body>
 </html>

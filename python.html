@@ -137,6 +137,16 @@ var K='pythonProgress';function load(){try{return JSON.parse(localStorage.getIte
   try{localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'python',when:Date.now()}));}catch(e){}
 })();
 
+
+(function debugSave() {
+  try {
+    console.log('TRACK SAVED: python');
+    localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'python',when:Date.now()}));
+  } catch(e) {
+    console.log('SAVE FAILED:', e);
+  }
+})();
+
 </script>
 </body>
 </html>

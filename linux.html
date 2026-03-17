@@ -137,6 +137,16 @@ var K='rhcsaProgress';function load(){try{return JSON.parse(localStorage.getItem
   try{localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'linux',when:Date.now()}));}catch(e){}
 })();
 
+
+(function debugSave() {
+  try {
+    console.log('TRACK SAVED: linux');
+    localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'linux',when:Date.now()}));
+  } catch(e) {
+    console.log('SAVE FAILED:', e);
+  }
+})();
+
 </script>
 </body>
 </html>
