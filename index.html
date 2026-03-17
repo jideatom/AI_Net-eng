@@ -491,6 +491,22 @@ initNotif();
 checkTodayReminder();
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
+
+(function(){
+  var id='';
+  try{ id=sessionStorage.getItem('aiResume')||''; }catch(e){}
+  if(!id){ var ref=document.referrer; if(ref.indexOf('claude.html')>-1) id='claude'; else if(ref.indexOf('lp-courses')>-1) id='ai'; else if(ref.indexOf('cloud.html')>-1) id='cloud'; else if(ref.indexOf('linux.html')>-1) id='linux'; else if(ref.indexOf('python.html')>-1) id='python'; }
+  if(!id) return;
+  var m={linux:{h:'linux.html',i:'🐧',t:'Linux (RHCSA)',s:'System admin'},python:{h:'python.html',i:'🐍',t:'Python Track',s:'Python for AI'},ai:{h:'lp-courses.html',i:'🤖',t:'AI Engineering LP',s:'6 phases · 40 weeks'},claude:{h:'claude.html',i:'🟠',t:'Claude Track',s:'Fast Track · March'},cloud:{h:'cloud.html',i:'☁️',t:'Cloud Certifications',s:'AWS + Azure'}};
+  var c=m[id]; if(!c) return;
+  var b=document.getElementById('rBox'); if(!b) return;
+  document.getElementById('rIcon').textContent=c.i;
+  document.getElementById('rTitle').textContent=c.t;
+  document.getElementById('rSub').textContent=c.s;
+  b.href=c.h; b.style.display='flex';
+  b.onclick=function(){ sessionStorage.removeItem('aiResume'); };
+})();
+
 </script>
 </body>
 </html>
