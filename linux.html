@@ -1,55 +1,137 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#1565C0">
+<meta name="theme-color" content="#3b82f6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 <title>Linux RHCSA</title>
 <style>
-header{{background:var(--bg-header);padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);position:sticky;top:0;z-index:10;}}
-.back{{color:var(--accent);font-size:1.3rem;font-weight:700;min-width:36px;min-height:44px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent;}}
-.htxt{{flex:1;}}.htxt h1{{font-size:0.9rem;font-weight:800;color:var(--text);}}.htxt p{{font-size:0.67rem;color:var(--text-sub);margin-top:2px;}}
-.theme-btn{{background:var(--bg-input);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:0.82rem;cursor:pointer;min-height:36px;flex-shrink:0;-webkit-tap-highlight-color:transparent;}}
-.wrap{{max-width:520px;margin:0 auto;padding:14px 14px 76px;}}
-.tip{{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 14px;margin-bottom:12px;font-size:0.74rem;color:var(--accent);line-height:1.5;}}
-.bnav{{position:fixed;bottom:0;left:0;right:0;background:var(--bg-header);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,0.07);padding-bottom:env(safe-area-inset-bottom,0px);}}
-.bnav-inner{{display:flex;width:100%;max-width:520px;}}
-.ni{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:52px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity 0.1s;}}
-.ni:active{{opacity:0.6;}}
-.ni span:first-child{{font-size:1.1rem;line-height:1;}}
-.ni span:last-child{{font-size:0.52rem;color:var(--text-sub);font-weight:700;text-transform:uppercase;letter-spacing:0.4px;}}
-.ni.active span:last-child{{color:var(--accent);}}
+
+:root {
+  --bg:        #DCE9F8;
+  --bg-card:   #EEF3F9;
+  --bg-header: #EEF3F9;
+  --bg-input:  #E4EDF7;
+  --text:      #1A2340;
+  --text-sub:  #6A7F99;
+  --text-muted:#AAB8CC;
+  --border:    #C8DCEF;
+  --accent:    #1565C0;
+  --accent2:   #0D47A1;
+  --accent-bg: #DDEEFF;
+  --shadow:    0 2px 10px rgba(21,101,192,0.09);
+  --radius:    13px;
+}
+body.dark {
+  --bg:        #0a0a14;
+  --bg-card:   #111120;
+  --bg-header: #0d0d22;
+  --bg-input:  #16162a;
+  --text:      #e0e0f0;
+  --text-sub:  #6a6a8a;
+  --text-muted:#3a3a5a;
+  --border:    #1e1e38;
+  --accent:    #8b5cf6;
+  --accent2:   #a78bfa;
+  --accent-bg: #13093a;
+  --shadow:    0 2px 12px rgba(0,0,0,0.4);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+
+
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--bg-header);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:center;
+  z-index:100;
+  box-shadow:0 -2px 12px rgba(0,0,0,0.07);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.bnav-inner{
+  display:flex;
+  width:100%;
+  max-width:520px;
+}
+.ni{
+  flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;
+  min-height:52px; /* 44px+ touch target best practice */
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:opacity 0.1s;
+}
+.ni:active{opacity:0.6;}
+.ni span:first-child{font-size:1.1rem;line-height:1;}
+.ni span:last-child{font-size:0.52rem;color:var(--text-sub);font-weight:700;text-transform:uppercase;letter-spacing:0.4px;}
+.ni.active span:last-child{color:var(--accent);}
+.ni.active span:first-child{filter:saturate(1.8) brightness(0.9);}
+
+header{background:var(--bg-header);padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);position:sticky;top:0;z-index:10;}
+.back{color:var(--accent);font-size:1.3rem;font-weight:700;-webkit-tap-highlight-color:transparent;min-width:36px;min-height:44px;display:flex;align-items:center;}
+.htxt{flex:1;}
+.htxt h1{font-size:0.9rem;font-weight:800;color:var(--text);}
+.htxt p{font-size:0.67rem;color:var(--text-sub);margin-top:2px;}
+.theme-btn{background:var(--bg-input);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:0.82rem;cursor:pointer;min-height:36px;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+.wrap{max-width:520px;margin:0 auto;padding:14px 14px 76px;}
+.tip{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 14px;margin-bottom:14px;font-size:0.75rem;color:var(--accent);line-height:1.5;}
+.section{margin-bottom:18px;}
+.sec-hdr{font-size:0.63rem;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;font-weight:800;padding-bottom:6px;border-bottom:2px solid var(--border);margin-bottom:8px;}
+.item{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:11px;
+  padding:11px 12px;margin-bottom:6px;
+  display:flex;align-items:center;gap:9px;
+  cursor:pointer;box-shadow:var(--shadow);
+  min-height:48px; /* touch target */
+  user-select:none;-webkit-tap-highlight-color:transparent;
+  transition:border-color 0.15s,background 0.1s;
+}
+.item:active{background:var(--bg-input);border-color:var(--accent);}
+.item.done{background:#f0fff4;border-color:#22c55e;}
+body.dark .item.done{background:#08180f;border-color:#22c55e;}
+.iname{flex:1;font-size:0.8rem;color:var(--text);line-height:1.3;}
+.item.done .iname{color:#16a34a;}
+body.dark .item.done .iname{color:#4ade80;}
+.isize{font-size:0.67rem;color:var(--text-muted);white-space:nowrap;margin-right:4px;}
+.ichk{font-size:1rem;min-width:18px;text-align:center;color:var(--text-muted);}
+.item.done .ichk{color:#22c55e;}
 </style>
 </head>
 <body>
 <header>
-  <a href="index.html?resume=linux" class="back">&#8592;</a>
-  <div class="htxt"><h1>🐧 Linux RHCSA</h1><p>RedHat Certified System Admin</p></div>
+  <a href="index.html" class="back">&#8592;</a>
+  <div class="htxt"><h1>🐧 Linux (RHCSA)</h1><p>RedHat Certified System Administrator</p></div>
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
 <div class="wrap">
-<div class="tip">Resume works! Test complete.</div>
+<style>.cert-card{background:var(--bg-card);border:1px solid var(--border);border-radius:13px;padding:14px;margin-bottom:14px;box-shadow:var(--shadow);}.cert-badge{display:inline-block;background:var(--accent-bg);color:var(--accent);font-size:8px;font-weight:900;padding:2px 8px;border-radius:20px;text-transform:uppercase;margin-bottom:7px;}.cert-title{font-size:0.92rem;font-weight:800;color:var(--text);margin-bottom:5px;}.cert-note{font-size:0.76rem;color:var(--text-sub);line-height:1.6;}</style><div class="tip">💡 Your networking knowledge maps directly to Domain 4 — your fastest domain.</div><div class="cert-card"><span class="cert-badge">Target Cert</span><div class="cert-title">EX200 — RHCSA (RedHat 9)</div><p class="cert-note">RedHat Certified System Administrator. Covers file systems, user management, SELinux, networking, systemd, and Podman containers.</p></div><div class="section"><div class="sec-hdr">Domain 1 — Essential Tools</div><div class="item" data-k="l1a" onclick="tog('l1a')"><span class="iname">Shell basics, I/O redirection, grep, awk, sed</span><span class="isize"></span><span class="ichk" id="k-l1a">○</span></div><div class="item" data-k="l1b" onclick="tog('l1b')"><span class="iname">File permissions, ownership, ACLs</span><span class="isize"></span><span class="ichk" id="k-l1b">○</span></div><div class="item" data-k="l1c" onclick="tog('l1c')"><span class="iname">SSH key management and remote access</span><span class="isize"></span><span class="ichk" id="k-l1c">○</span></div><div class="item" data-k="l1d" onclick="tog('l1d')"><span class="iname">Archive and compression — tar, gzip, zip</span><span class="isize"></span><span class="ichk" id="k-l1d">○</span></div></div><div class="section"><div class="sec-hdr">Domain 2 — System Operations</div><div class="item" data-k="l2a" onclick="tog('l2a')"><span class="iname">Boot process, GRUB2, systemd targets</span><span class="isize"></span><span class="ichk" id="k-l2a">○</span></div><div class="item" data-k="l2b" onclick="tog('l2b')"><span class="iname">Process management — ps, top, kill, nice</span><span class="isize"></span><span class="ichk" id="k-l2b">○</span></div><div class="item" data-k="l2c" onclick="tog('l2c')"><span class="iname">Scheduling — cron, at, systemd timers</span><span class="isize"></span><span class="ichk" id="k-l2c">○</span></div><div class="item" data-k="l2d" onclick="tog('l2d')"><span class="iname">Log management — journalctl, rsyslog</span><span class="isize"></span><span class="ichk" id="k-l2d">○</span></div></div><div class="section"><div class="sec-hdr">Domain 3 — Storage</div><div class="item" data-k="l3a" onclick="tog('l3a')"><span class="iname">Partitioning — fdisk, gdisk, parted</span><span class="isize"></span><span class="ichk" id="k-l3a">○</span></div><div class="item" data-k="l3b" onclick="tog('l3b')"><span class="iname">LVM — pvcreate, vgcreate, lvcreate, resize</span><span class="isize"></span><span class="ichk" id="k-l3b">○</span></div><div class="item" data-k="l3c" onclick="tog('l3c')"><span class="iname">File systems — ext4, XFS, mount, /etc/fstab</span><span class="isize"></span><span class="ichk" id="k-l3c">○</span></div><div class="item" data-k="l3d" onclick="tog('l3d')"><span class="iname">NFS and autofs configuration</span><span class="isize"></span><span class="ichk" id="k-l3d">○</span></div></div><div class="section"><div class="sec-hdr">Domain 4 — Networking ⭐</div><div class="item" data-k="l4a" onclick="tog('l4a')"><span class="iname">NetworkManager — nmcli, nmtui config</span><span class="isize"></span><span class="ichk" id="k-l4a">○</span></div><div class="item" data-k="l4b" onclick="tog('l4b')"><span class="iname">Static IP, routing, DNS (/etc/resolv.conf)</span><span class="isize"></span><span class="ichk" id="k-l4b">○</span></div><div class="item" data-k="l4c" onclick="tog('l4c')"><span class="iname">firewalld — zones, rules, services</span><span class="isize"></span><span class="ichk" id="k-l4c">○</span></div><div class="item" data-k="l4d" onclick="tog('l4d')"><span class="iname">SELinux — modes, contexts, troubleshooting</span><span class="isize"></span><span class="ichk" id="k-l4d">○</span></div></div><div class="section"><div class="sec-hdr">Domain 5 — Users & Security</div><div class="item" data-k="l5a" onclick="tog('l5a')"><span class="iname">User and group management, sudo config</span><span class="isize"></span><span class="ichk" id="k-l5a">○</span></div><div class="item" data-k="l5b" onclick="tog('l5b')"><span class="iname">Password policies, PAM, /etc/security</span><span class="isize"></span><span class="ichk" id="k-l5b">○</span></div><div class="item" data-k="l5c" onclick="tog('l5c')"><span class="iname">Containers — podman basics (RHCSA 9)</span><span class="isize"></span><span class="ichk" id="k-l5c">○</span></div></div>
 </div>
+
 <nav class="bnav">
   <div class="bnav-inner">
-    <a href="index.html?resume=linux" class="ni" id="bn-home"><span>🏠</span><span>Home</span></a>
-    <a href="claude.html" class="ni" id="bn-claude"><span>🟠</span><span>Claude</span></a>
-    <a href="lp-courses.html" class="ni" id="bn-lp"><span>📋</span><span>Courses</span></a>
-    <a href="cloud.html" class="ni" id="bn-cloud"><span>☁️</span><span>Cloud</span></a>
-    <a href="linux.html" class="ni" id="bn-linux"><span>🐧</span><span>Linux</span></a>
-    <a href="python.html" class="ni" id="bn-python"><span>🐍</span><span>Python</span></a>
+    <a href="index.html"      class="ni" id="bn-home">   <span>🏠</span><span>Home</span></a>
+    <a href="claude.html"     class="ni" id="bn-claude"> <span>🟠</span><span>Claude</span></a>
+    <a href="lp-courses.html" class="ni" id="bn-lp">     <span>📋</span><span>Courses</span></a>
+    <a href="cloud.html"      class="ni" id="bn-cloud">  <span>☁️</span><span>Cloud</span></a>
+    <a href="linux.html"      class="ni" id="bn-linux">  <span>🐧</span><span>Linux</span></a>
+    <a href="python.html"     class="ni" id="bn-python"> <span>🐍</span><span>Python</span></a>
   </div>
 </nav>
 <script>
-function initTheme(){{var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');updateBtn(t);}}
-function toggleTheme(){{var d=document.body.classList.toggle('dark');var t=d?'dark':'light';localStorage.setItem('theme',t);updateBtn(t);}}
-function updateBtn(t){{var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}}
+
+function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');updateBtn(t);}
+function toggleTheme(){var d=document.body.classList.toggle('dark');var t=d?'dark':'light';localStorage.setItem('theme',t);updateBtn(t);}
+function updateBtn(t){var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
 initTheme();
-%JS%
-if('serviceWorker' in navigator){{navigator.serviceWorker.register('sw.js');}}
+
+var el=document.getElementById('bn-linux');if(el)el.classList.add('active');
+var K='rhcsaProgress';function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')||{}}catch(e){return{}}}function save(s){try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}}function tog(id){var s=load();s[id]=!s[id];save(s);render();}function render(){var s=load();document.querySelectorAll('.item').forEach(function(el){var k=el.dataset.k,c=document.getElementById('k-'+k);if(s[k]){el.className='item done';if(c)c.textContent='✓';}else{el.className='item';if(c)c.textContent='○';}});}render();
 </script>
 </body>
 </html>

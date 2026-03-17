@@ -1,55 +1,551 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#1565C0">
+<meta name="theme-color" content="#8b5cf6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<title>AI Engineering LP</title>
+<title>AI Engineering Roadmap</title>
 <style>
-header{{background:var(--bg-header);padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);position:sticky;top:0;z-index:10;}}
-.back{{color:var(--accent);font-size:1.3rem;font-weight:700;min-width:36px;min-height:44px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent;}}
-.htxt{{flex:1;}}.htxt h1{{font-size:0.9rem;font-weight:800;color:var(--text);}}.htxt p{{font-size:0.67rem;color:var(--text-sub);margin-top:2px;}}
-.theme-btn{{background:var(--bg-input);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:0.82rem;cursor:pointer;min-height:36px;flex-shrink:0;-webkit-tap-highlight-color:transparent;}}
-.wrap{{max-width:520px;margin:0 auto;padding:14px 14px 76px;}}
-.tip{{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 14px;margin-bottom:12px;font-size:0.74rem;color:var(--accent);line-height:1.5;}}
-.bnav{{position:fixed;bottom:0;left:0;right:0;background:var(--bg-header);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,0.07);padding-bottom:env(safe-area-inset-bottom,0px);}}
-.bnav-inner{{display:flex;width:100%;max-width:520px;}}
-.ni{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:52px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity 0.1s;}}
-.ni:active{{opacity:0.6;}}
-.ni span:first-child{{font-size:1.1rem;line-height:1;}}
-.ni span:last-child{{font-size:0.52rem;color:var(--text-sub);font-weight:700;text-transform:uppercase;letter-spacing:0.4px;}}
-.ni.active span:last-child{{color:var(--accent);}}
+
+:root {
+  --bg:#DCE9F8;--bg-card:#EEF3F9;--bg-header:#EEF3F9;--bg-input:#E4EDF7;
+  --text:#1A2340;--text-sub:#6A7F99;--text-muted:#AAB8CC;--border:#C8DCEF;
+  --accent:#1565C0;--accent2:#0D47A1;--accent-bg:#DDEEFF;
+  --shadow:0 2px 10px rgba(21,101,192,0.09);--radius:13px;
+}
+body.dark{--bg:#0a0a14;--bg-card:#111120;--bg-header:#0d0d22;--bg-input:#16162a;--text:#e0e0f0;--text-sub:#6a6a8a;--text-muted:#3a3a5a;--border:#1e1e38;--accent:#8b5cf6;--accent2:#a78bfa;--accent-bg:#13093a;--shadow:0 2px 12px rgba(0,0,0,0.4);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}button{font-family:inherit;}
+
+
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg-header);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,0.07);padding-bottom:env(safe-area-inset-bottom,0px);}
+.bnav-inner{display:flex;width:100%;max-width:520px;}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:52px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity 0.1s;}
+.ni:active{opacity:0.6;}
+.ni span:first-child{font-size:1.1rem;line-height:1;}
+.ni span:last-child{font-size:0.52rem;color:var(--text-sub);font-weight:700;text-transform:uppercase;letter-spacing:0.4px;}
+.ni.active span:last-child{color:var(--accent);}
+
+header{background:var(--bg-header);padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);position:sticky;top:0;z-index:10;}
+.back{color:var(--accent);font-size:1.3rem;font-weight:700;min-width:36px;min-height:44px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent;}
+.htxt{flex:1;}.htxt h1{font-size:0.9rem;font-weight:800;color:var(--text);}.htxt p{font-size:0.67rem;color:var(--text-sub);margin-top:2px;}
+.theme-btn{background:var(--bg-input);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:0.82rem;cursor:pointer;min-height:36px;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+.wrap{max-width:520px;margin:0 auto;padding:14px 14px 76px;}
+
+/* Tab bar */
+.tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:0.72rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--bg-card);color:var(--text-sub);-webkit-tap-highlight-color:transparent;transition:all 0.15s;min-height:34px;}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* Month panel */
+.panel{display:none;}.panel.active{display:block;}
+
+/* Month header card */
+.month-card{border-radius:14px;padding:14px;margin-bottom:12px;}
+.m0{background:linear-gradient(135deg,#f97316,#fbbf24);}
+.m1{background:linear-gradient(135deg,#22c55e,#16a34a);}
+.m2{background:linear-gradient(135deg,#3b82f6,#1d4ed8);}
+.m3{background:linear-gradient(135deg,#8b5cf6,#6d28d9);}
+.m4{background:linear-gradient(135deg,#ec4899,#be185d);}
+.m5{background:linear-gradient(135deg,#1565C0,#0D47A1);}
+.m6{background:linear-gradient(135deg,#0d9488,#0f766e);}
+.mc-tag{background:rgba(255,255,255,0.25);color:#fff;font-size:8px;font-weight:900;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;display:inline-block;margin-bottom:6px;}
+.mc-title{color:#fff;font-size:1rem;font-weight:900;margin-bottom:3px;}
+.mc-goal{color:rgba(255,255,255,0.82);font-size:0.72rem;line-height:1.5;}
+
+/* Progress bar in header */
+.month-prog{margin-top:10px;}
+.mp-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.mp-label{color:rgba(255,255,255,0.7);font-size:0.65rem;}
+.mp-pct{color:#fff;font-size:0.72rem;font-weight:800;}
+.mp-bar{height:5px;background:rgba(255,255,255,0.25);border-radius:10px;overflow:hidden;}
+.mp-fill{height:100%;background:#fff;border-radius:10px;transition:width 0.5s ease;}
+
+/* Section */
+.sec-hdr{font-size:0.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;font-weight:800;padding-bottom:5px;border-bottom:2px solid var(--border);margin-bottom:8px;margin-top:12px;}
+
+/* Checklist items */
+.item{background:var(--bg-card);border:1px solid var(--border);border-radius:11px;padding:11px 12px;margin-bottom:6px;display:flex;align-items:flex-start;gap:9px;cursor:pointer;box-shadow:var(--shadow);min-height:48px;user-select:none;-webkit-tap-highlight-color:transparent;transition:border-color 0.15s,background 0.1s;}
+.item:active{background:var(--bg-input);}
+.item.done{background:#f0fff4;border-color:#22c55e;}
+body.dark .item.done{background:#08180f;border-color:#22c55e;}
+.iname{flex:1;font-size:0.8rem;color:var(--text);line-height:1.3;}
+.isub{font-size:0.65rem;color:var(--text-sub);margin-top:2px;}
+.item.done .iname{color:#16a34a;}
+body.dark .item.done .iname{color:#4ade80;}
+.isize{font-size:0.65rem;color:var(--text-muted);white-space:nowrap;margin:2px 4px 0 0;flex-shrink:0;}
+.ichk{font-size:1rem;min-width:18px;text-align:center;color:var(--text-muted);flex-shrink:0;}
+.item.done .ichk{color:#22c55e;}
+
+/* Resource links */
+.res-box{background:var(--bg-card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:8px;box-shadow:var(--shadow);}
+.res-row{display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border);gap:9px;min-height:44px;}
+.res-row:last-child{border-bottom:none;}
+.res-icon{font-size:0.85rem;flex-shrink:0;width:22px;text-align:center;}
+.res-name{flex:1;font-size:0.78rem;color:var(--text);}
+.res-tag{font-size:0.58rem;font-weight:700;padding:2px 7px;border-radius:10px;background:var(--accent-bg);color:var(--accent);white-space:nowrap;}
+
+/* Milestone box */
+.milestone{background:var(--bg-card);border:1.5px solid var(--accent);border-radius:13px;padding:13px;margin-top:12px;}
+.ms-title{font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-weight:800;margin-bottom:8px;}
+.ms-item{font-size:0.78rem;color:var(--text-sub);padding:4px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:6px;}
+.ms-item:last-child{border-bottom:none;}
+.ms-chk{color:var(--accent);flex-shrink:0;}
+
+/* Overview stats */
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.ov-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;box-shadow:var(--shadow);}
+.ov-num{font-size:1.4rem;font-weight:900;color:var(--accent);}
+.ov-lbl{font-size:0.6rem;color:var(--text-sub);text-transform:uppercase;letter-spacing:0.4px;margin-top:2px;}
+
+/* Tip */
+.tip{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 14px;margin-bottom:12px;font-size:0.74rem;color:var(--accent);line-height:1.5;}
 </style>
 </head>
 <body>
 <header>
-  <a href="index.html?resume=lp-courses" class="back">&#8592;</a>
-  <div class="htxt"><h1>🤖 AI Engineering Roadmap</h1><p>6 months · 40 weeks</p></div>
+  <a href="index.html" class="back">&#8592;</a>
+  <div class="htxt"><h1>📋 AI Engineering Roadmap</h1><p>6 months · practical · build-first</p></div>
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
+
 <div class="wrap">
-<div class="tip">Resume works! Test complete.</div>
+
+<!-- Tab Navigation -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(0)">Overview</div>
+  <div class="tab" onclick="switchTab(1)">M0 Claude</div>
+  <div class="tab" onclick="switchTab(2)">M1 Python</div>
+  <div class="tab" onclick="switchTab(3)">M2 LLMs</div>
+  <div class="tab" onclick="switchTab(4)">M3 RAG</div>
+  <div class="tab" onclick="switchTab(5)">M4 Agents</div>
+  <div class="tab" onclick="switchTab(6)">M5 Deploy</div>
+  <div class="tab" onclick="switchTab(7)">M6 Launch</div>
 </div>
-<nav class="bnav">
-  <div class="bnav-inner">
-    <a href="index.html?resume=lp-courses" class="ni" id="bn-home"><span>🏠</span><span>Home</span></a>
-    <a href="claude.html" class="ni" id="bn-claude"><span>🟠</span><span>Claude</span></a>
-    <a href="lp-courses.html" class="ni" id="bn-lp"><span>📋</span><span>Courses</span></a>
-    <a href="cloud.html" class="ni" id="bn-cloud"><span>☁️</span><span>Cloud</span></a>
-    <a href="linux.html" class="ni" id="bn-linux"><span>🐧</span><span>Linux</span></a>
-    <a href="python.html" class="ni" id="bn-python"><span>🐍</span><span>Python</span></a>
+
+<!-- ══ OVERVIEW ══════════════════════════════════════════════════ -->
+<div class="panel active" id="p0">
+  <div class="tip">💡 You are a 20yr network engineer → AI engineer. This roadmap is tailored for you — skip what you already know, build everything.</div>
+  <div class="ov-grid">
+    <div class="ov-stat"><div class="ov-num">6</div><div class="ov-lbl">Months</div></div>
+    <div class="ov-stat"><div class="ov-num">7</div><div class="ov-lbl">Phases</div></div>
+    <div class="ov-stat"><div class="ov-num">40+</div><div class="ov-lbl">Projects</div></div>
+    <div class="ov-stat"><div class="ov-num" id="ov-total-pct">0%</div><div class="ov-lbl">Overall</div></div>
   </div>
-</nav>
+
+  <p class="sec-hdr">Your Month-by-Month Plan</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">🟠</span><span class="res-name"><b>Month 0 (March)</b> — Claude Fast Track Sprint</span><span class="res-tag" id="ov-m0">0%</span></div>
+    <div class="res-row"><span class="res-icon">🐍</span><span class="res-name"><b>Month 1</b> — Python + Dev Fundamentals</span><span class="res-tag" id="ov-m1">0%</span></div>
+    <div class="res-row"><span class="res-icon">🧠</span><span class="res-name"><b>Month 2</b> — LLM App Development</span><span class="res-tag" id="ov-m2">0%</span></div>
+    <div class="res-row"><span class="res-icon">🔍</span><span class="res-name"><b>Month 3</b> — RAG Properly</span><span class="res-tag" id="ov-m3">0%</span></div>
+    <div class="res-row"><span class="res-icon">🤖</span><span class="res-name"><b>Month 4</b> — Agents + Evals</span><span class="res-tag" id="ov-m4">0%</span></div>
+    <div class="res-row"><span class="res-icon">🚀</span><span class="res-name"><b>Month 5</b> — Deployment + Reliability</span><span class="res-tag" id="ov-m5">0%</span></div>
+    <div class="res-row"><span class="res-icon">💼</span><span class="res-name"><b>Month 6</b> — Specialize + Launch</span><span class="res-tag" id="ov-m6">0%</span></div>
+  </div>
+
+  <p class="sec-hdr">Your Network Advantage</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">✅</span><span class="res-name">CLI/Terminal — already a pro, skip basics</span></div>
+    <div class="res-row"><span class="res-icon">✅</span><span class="res-name">APIs & HTTP — deep expertise, fast Month 1</span></div>
+    <div class="res-row"><span class="res-icon">✅</span><span class="res-name">Linux — RHCSA in progress, head start on infra</span></div>
+    <div class="res-row"><span class="res-icon">✅</span><span class="res-name">Docker/networking — deploy AI apps easily in M5</span></div>
+    <div class="res-row"><span class="res-icon">⚡</span><span class="res-name">AI + Networking = rare combo, high market demand</span></div>
+  </div>
+</div>
+
+<!-- ══ MONTH 0: CLAUDE (YOUR CURRENT SPRINT) ════════════════════ -->
+<div class="panel" id="p1">
+  <div class="month-card m0">
+    <span class="mc-tag">🚀 March 2026 — Active Now</span>
+    <div class="mc-title">Month 0: Claude Fast Track</div>
+    <div class="mc-goal">Goal: Go from AI curious → Claude practitioner. Build your first real AI tool with Claude Code.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Sprint Progress</span><span class="mp-pct" id="mp0-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp0-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your 5 Courses (tick when done)</p>
+  <div class="item" data-k="c1" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">AI for Everyday IT, Video Edition (2025)<div class="isub">Foundation · 1.68 GB · Mar 16–18</div></div><span class="isize"></span><span class="ichk" id="k-c1">○</span></div>
+  <div class="item" data-k="c2" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">PLS – First Look: Claude Cowork 2026<div class="isub">Claude Intro · 99 MB · Mar 19</div></div><span class="ichk" id="k-c2">○</span></div>
+  <div class="item" data-k="c3" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">PLS – Introduction to Claude Code<div class="isub">Claude Code · 103 MB · Mar 20</div></div><span class="ichk" id="k-c3">○</span></div>
+  <div class="item" data-k="c4" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">FASTER – Claude Code from Scratch<div class="isub">Claude Code · 317 MB · Mar 21–25</div></div><span class="ichk" id="k-c4">○</span></div>
+  <div class="item" data-k="c5" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">LINKd – Claude Code 101: Prompt to Product<div class="isub">Practical · 770 MB · Mar 26–31</div></div><span class="ichk" id="k-c5">○</span></div>
+
+  <p class="sec-hdr">Key Skills to Master This Month</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">📝</span><span class="res-name">Prompt engineering — system/user messages, few-shot</span></div>
+    <div class="res-row"><span class="res-icon">🔧</span><span class="res-name">Claude API calls from Python (Anthropic SDK)</span></div>
+    <div class="res-row"><span class="res-icon">⚡</span><span class="res-name">Claude Code — build a real tool end-to-end</span></div>
+    <div class="res-row"><span class="res-icon">🌊</span><span class="res-name">Streaming responses — no loading spinners</span></div>
+  </div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 0 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Built at least 1 working Claude-powered tool</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Can call Anthropic API in Python confidently</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Understand prompt structure: system + user + assistant</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Project on GitHub with README</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 1: PYTHON + FUNDAMENTALS ═══════════════════════════ -->
+<div class="panel" id="p2">
+  <div class="month-card m1">
+    <span class="mc-tag">Month 1 — April 2026</span>
+    <div class="mc-title">Python + Dev Fundamentals</div>
+    <div class="mc-goal">Goal: Become a functional Python developer. Stop Googling syntax. Build CLI tools and call APIs confidently.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp1-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp1-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="tip">⚡ You already know CLI, HTTP, APIs, and Linux. This month is mainly Python — you'll finish faster than most.</div>
+
+  <p class="sec-hdr">Your Course (already in plan)</p>
+  <div class="item" data-k="py-main" data-store="m1Progress" onclick="tog(this)"><div class="iname">TOWARDS_AI – Beginner Python Primer for AI Engineering<div class="isub">1.12 GB · Best Python-for-AI course</div></div><span class="ichk" id="k-py-main">○</span></div>
+
+  <p class="sec-hdr">Python Topics to Check Off</p>
+  <div class="item" data-k="py1a" data-store="m1Progress" onclick="tog(this)"><div class="iname">Variables, data types, loops, conditionals, functions</div><span class="ichk" id="k-py1a">○</span></div>
+  <div class="item" data-k="py1b" data-store="m1Progress" onclick="tog(this)"><div class="iname">Lists, dicts, tuples, sets + file I/O + JSON</div><span class="ichk" id="k-py1b">○</span></div>
+  <div class="item" data-k="py1c" data-store="m1Progress" onclick="tog(this)"><div class="iname">Classes, OOP basics, error handling (try/except)</div><span class="ichk" id="k-py1c">○</span></div>
+  <div class="item" data-k="py1d" data-store="m1Progress" onclick="tog(this)"><div class="iname">venv, pip, requirements.txt, package management</div><span class="ichk" id="k-py1d">○</span></div>
+  <div class="item" data-k="py1e" data-store="m1Progress" onclick="tog(this)"><div class="iname">HTTP requests in Python (requests library) + async/await</div><span class="ichk" id="k-py1e">○</span></div>
+  <div class="item" data-k="py1f" data-store="m1Progress" onclick="tog(this)"><div class="iname">SQL basics — SELECT, WHERE, GROUP BY, JOIN</div><span class="ichk" id="k-py1f">○</span></div>
+  <div class="item" data-k="py1g" data-store="m1Progress" onclick="tog(this)"><div class="iname">Git: init, commit, push, branching, GitHub repos</div><span class="ichk" id="k-py1g">○</span></div>
+  <div class="item" data-k="py1h" data-store="m1Progress" onclick="tog(this)"><div class="iname">FastAPI basics — GET/POST, Pydantic, uvicorn, /docs</div><span class="ichk" id="k-py1h">○</span></div>
+
+  <p class="sec-hdr">Free Resources</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">🎓</span><span class="res-name">Python for Everybody — Coursera (free audit)</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">▶️</span><span class="res-name">freeCodeCamp Python — YouTube 4hr course</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">🏛️</span><span class="res-name">CS50P — Harvard Python (rigorous, with projects)</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">⚡</span><span class="res-name">FastAPI Official Tutorial — best framework docs ever</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">🌿</span><span class="res-name">Learn Git Branching — best visual Git tool</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">💾</span><span class="res-name">SQLBolt — fastest way to learn SQL (20 lessons)</span><span class="res-tag">Free</span></div>
+  </div>
+
+  <p class="sec-hdr">Practice Project</p>
+  <div class="item" data-k="py-proj1" data-store="m1Progress" onclick="tog(this)"><div class="iname">Build a CLI tool (expense tracker or weather API script)<div class="isub">Push to GitHub. This is your first portfolio piece.</div></div><span class="ichk" id="k-py-proj1">○</span></div>
+  <div class="item" data-k="py-proj2" data-store="m1Progress" onclick="tog(this)"><div class="iname">Build + run a simple FastAPI app locally<div class="isub">GET/POST endpoints + test via /docs</div></div><span class="ichk" id="k-py-proj2">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 1 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Write Python that reads/writes files, calls APIs, handles errors</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Version code with Git, push to GitHub</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Make HTTP requests and understand status codes</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Build + run a FastAPI app locally</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 2: LLM APP DEVELOPMENT ════════════════════════════ -->
+<div class="panel" id="p3">
+  <div class="month-card m2">
+    <span class="mc-tag">Month 2 — May 2026</span>
+    <div class="mc-title">Master LLM App Development</div>
+    <div class="mc-goal">Goal: Build real AI-powered apps using Claude + OpenAI APIs. Structured outputs, tool calling, streaming, conversation state.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp2-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp2-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p2a" data-store="m2Progress" onclick="tog(this)"><div class="iname">FASTER – Claude Skills<div class="isub">585 MB · Advanced Claude patterns</div></div><span class="ichk" id="k-p2a">○</span></div>
+  <div class="item" data-k="p2b" data-store="m2Progress" onclick="tog(this)"><div class="iname">COURSERA – Mastering Claude AI: Prompting, APIs, RAG & MCP<div class="isub">2.95 GB · Full Claude stack</div></div><span class="ichk" id="k-p2b">○</span></div>
+  <div class="item" data-k="p2c" data-store="m2Progress" onclick="tog(this)"><div class="iname">UD – Mastering Claude AI: Build AI Apps, Agents & MCP<div class="isub">3.56 GB · Hands-on builds</div></div><span class="ichk" id="k-p2c">○</span></div>
+  <div class="item" data-k="p2d" data-store="m2Progress" onclick="tog(this)"><div class="iname">MASTER CLAUDE CODE<div class="isub">2.48 GB · Deep Claude Code</div></div><span class="ichk" id="k-p2d">○</span></div>
+
+  <p class="sec-hdr">Skills to Check Off</p>
+  <div class="item" data-k="m2s1" data-store="m2Progress" onclick="tog(this)"><div class="iname">Prompting: system/user messages, chain-of-thought, few-shot</div><span class="ichk" id="k-m2s1">○</span></div>
+  <div class="item" data-k="m2s2" data-store="m2Progress" onclick="tog(this)"><div class="iname">Structured outputs / JSON schemas with Pydantic + Instructor</div><span class="ichk" id="k-m2s2">○</span></div>
+  <div class="item" data-k="m2s3" data-store="m2Progress" onclick="tog(this)"><div class="iname">Function/tool calling — wire Python functions to the model</div><span class="ichk" id="k-m2s3">○</span></div>
+  <div class="item" data-k="m2s4" data-store="m2Progress" onclick="tog(this)"><div class="iname">Streaming responses via FastAPI StreamingResponse</div><span class="ichk" id="k-m2s4">○</span></div>
+  <div class="item" data-k="m2s5" data-store="m2Progress" onclick="tog(this)"><div class="iname">Multi-turn conversation history management</div><span class="ichk" id="k-m2s5">○</span></div>
+  <div class="item" data-k="m2s6" data-store="m2Progress" onclick="tog(this)"><div class="iname">Token counting, cost estimation, rate limit handling</div><span class="ichk" id="k-m2s6">○</span></div>
+  <div class="item" data-k="m2s7" data-store="m2Progress" onclick="tog(this)"><div class="iname">Prompt injection awareness + basic defenses</div><span class="ichk" id="k-m2s7">○</span></div>
+  <div class="item" data-k="m2s8" data-store="m2Progress" onclick="tog(this)"><div class="iname">MCP (Model Context Protocol) — connect Claude to tools</div><span class="ichk" id="k-m2s8">○</span></div>
+
+  <p class="sec-hdr">Practice Projects</p>
+  <div class="item" data-k="m2p1" data-store="m2Progress" onclick="tog(this)"><div class="iname">Invoice/receipt parser → structured Python object<div class="isub">Pydantic model with invoice_number, amount, due_date</div></div><span class="ichk" id="k-m2p1">○</span></div>
+  <div class="item" data-k="m2p2" data-store="m2Progress" onclick="tog(this)"><div class="iname">Assistant with 3 tools: get_weather, calculate, search_notes<div class="isub">Watch the model decide which tool to call</div></div><span class="ichk" id="k-m2p2">○</span></div>
+  <div class="item" data-k="m2p3" data-store="m2Progress" onclick="tog(this)"><div class="iname">Multi-turn terminal chatbot with /reset command<div class="isub">Manage messages array + print token count each turn</div></div><span class="ichk" id="k-m2p3">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 2 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Get structured JSON from any model using Pydantic</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Wire tool calling so model calls your Python functions</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Stream responses through a FastAPI endpoint</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Handle API errors, timeouts, bad outputs gracefully</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 3: RAG ══════════════════════════════════════════════ -->
+<div class="panel" id="p4">
+  <div class="month-card m3">
+    <span class="mc-tag">Month 3 — June 2026</span>
+    <div class="mc-title">Learn RAG Properly</div>
+    <div class="mc-goal">Goal: Build systems that let LLMs answer questions from YOUR documents. Ingest, embed, retrieve, ground, cite.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp3-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp3-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p4a" data-store="m3Progress" onclick="tog(this)"><div class="iname">Coursera – IBM RAG and Agentic AI Professional Certificate<div class="isub">2.57 GB</div></div><span class="ichk" id="k-p4a">○</span></div>
+  <div class="item" data-k="p4b" data-store="m3Progress" onclick="tog(this)"><div class="iname">COURSERA – RAG with Assignments 2025-7<div class="isub">1.37 GB</div></div><span class="ichk" id="k-p4b">○</span></div>
+  <div class="item" data-k="p4c" data-store="m3Progress" onclick="tog(this)"><div class="iname">UD – Generative AI with Context: RAG, CAG & KAG<div class="isub">6.18 GB · Most comprehensive</div></div><span class="ichk" id="k-p4c">○</span></div>
+
+  <p class="sec-hdr">RAG Skills to Check Off</p>
+  <div class="item" data-k="m3s1" data-store="m3Progress" onclick="tog(this)"><div class="iname">Embeddings — what vectors are, cosine similarity</div><span class="ichk" id="k-m3s1">○</span></div>
+  <div class="item" data-k="m3s2" data-store="m3Progress" onclick="tog(this)"><div class="iname">Chunking strategies — fixed-size, recursive, semantic</div><span class="ichk" id="k-m3s2">○</span></div>
+  <div class="item" data-k="m3s3" data-store="m3Progress" onclick="tog(this)"><div class="iname">Vector databases — Chroma (local), Qdrant (prod)</div><span class="ichk" id="k-m3s3">○</span></div>
+  <div class="item" data-k="m3s4" data-store="m3Progress" onclick="tog(this)"><div class="iname">Metadata filtering — filter by source, date, category</div><span class="ichk" id="k-m3s4">○</span></div>
+  <div class="item" data-k="m3s5" data-store="m3Progress" onclick="tog(this)"><div class="iname">Reranking — 2-stage retrieve → rerank with Cohere</div><span class="ichk" id="k-m3s5">○</span></div>
+  <div class="item" data-k="m3s6" data-store="m3Progress" onclick="tog(this)"><div class="iname">Hallucination reduction — grounding, citations</div><span class="ichk" id="k-m3s6">○</span></div>
+  <div class="item" data-k="m3s7" data-store="m3Progress" onclick="tog(this)"><div class="iname">LlamaIndex RAG pipeline — ingest, index, query</div><span class="ichk" id="k-m3s7">○</span></div>
+  <div class="item" data-k="m3s8" data-store="m3Progress" onclick="tog(this)"><div class="iname">Debug retrieval failures — semantic drift, boundary issues</div><span class="ichk" id="k-m3s8">○</span></div>
+
+  <p class="sec-hdr">Portfolio Project</p>
+  <div class="item" data-k="m3p1" data-store="m3Progress" onclick="tog(this)"><div class="iname">"Chat with your docs" app — FastAPI + Claude + Chroma<div class="isub">Ingest 10–20 PDFs, retrieve top-5 chunks, return cited answers</div></div><span class="ichk" id="k-m3p1">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 3 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>End-to-end RAG pipeline with LlamaIndex or LangChain</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Chunk documents + store in vector DB with metadata</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Retrieve + rerank + return grounded cited answers</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Debug retrieval failures systematically</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 4: AGENTS + EVALS ══════════════════════════════════ -->
+<div class="panel" id="p5">
+  <div class="month-card m4">
+    <span class="mc-tag">Month 4 — July 2026</span>
+    <div class="mc-title">Agents, Workflows & Evals</div>
+    <div class="mc-goal">Goal: Build AI systems that take sequences of actions autonomously. Measure if they actually work.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp4-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp4-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p1b" data-store="m4Progress" onclick="tog(this)"><div class="iname">PLS – Introduction to Model Context Protocol (MCP)<div class="isub">108 MB</div></div><span class="ichk" id="k-p1b">○</span></div>
+  <div class="item" data-k="p1c" data-store="m4Progress" onclick="tog(this)"><div class="iname">Dometrain – Getting Started with MCP<div class="isub">2.39 GB</div></div><span class="ichk" id="k-p1c">○</span></div>
+  <div class="item" data-k="p1d" data-store="m4Progress" onclick="tog(this)"><div class="iname">COURSERA – AI Agents with MCP Specialization<div class="isub">4.33 GB</div></div><span class="ichk" id="k-p1d">○</span></div>
+  <div class="item" data-k="p3a" data-store="m4Progress" onclick="tog(this)"><div class="iname">Coursera – IBM AI Engineering Professional Certificate<div class="isub">3.42 GB · LLM engineering foundation</div></div><span class="ichk" id="k-p3a">○</span></div>
+
+  <p class="sec-hdr">Agent Skills to Check Off</p>
+  <div class="item" data-k="m4s1" data-store="m4Progress" onclick="tog(this)"><div class="iname">Agent loop — perceive → plan → act → observe</div><span class="ichk" id="k-m4s1">○</span></div>
+  <div class="item" data-k="m4s2" data-store="m4Progress" onclick="tog(this)"><div class="iname">Build agent from scratch (no framework, raw API)</div><span class="ichk" id="k-m4s2">○</span></div>
+  <div class="item" data-k="m4s3" data-store="m4Progress" onclick="tog(this)"><div class="iname">Tool descriptions that get selected reliably</div><span class="ichk" id="k-m4s3">○</span></div>
+  <div class="item" data-k="m4s4" data-store="m4Progress" onclick="tog(this)"><div class="iname">LangGraph — state, nodes, edges, checkpointing</div><span class="ichk" id="k-m4s4">○</span></div>
+  <div class="item" data-k="m4s5" data-store="m4Progress" onclick="tog(this)"><div class="iname">Multi-step workflows — chain, route, parallelize LLM calls</div><span class="ichk" id="k-m4s5">○</span></div>
+  <div class="item" data-k="m4s6" data-store="m4Progress" onclick="tog(this)"><div class="iname">When NOT to use agents (most important skill)</div><span class="ichk" id="k-m4s6">○</span></div>
+  <div class="item" data-k="m4s7" data-store="m4Progress" onclick="tog(this)"><div class="iname">Evals with DeepEval — build a test suite of 30+ cases</div><span class="ichk" id="k-m4s7">○</span></div>
+  <div class="item" data-k="m4s8" data-store="m4Progress" onclick="tog(this)"><div class="iname">LangSmith tracing — debug agent loops visually</div><span class="ichk" id="k-m4s8">○</span></div>
+
+  <p class="sec-hdr">Practice Projects</p>
+  <div class="item" data-k="m4p1" data-store="m4Progress" onclick="tog(this)"><div class="iname">3-step content pipeline (no agent, pure workflow)<div class="isub">Extract facts → generate tweet/post/summary in parallel → score best</div></div><span class="ichk" id="k-m4p1">○</span></div>
+  <div class="item" data-k="m4p2" data-store="m4Progress" onclick="tog(this)"><div class="iname">Eval harness for your RAG app from Month 3<div class="isub">30 Q&A pairs, score faithfulness + relevancy with DeepEval</div></div><span class="ichk" id="k-m4p2">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 4 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Build agent loop from scratch without any framework</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Manage agent state with LangGraph</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Write automated evals that catch regressions</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Decide when to use agent vs workflow vs single prompt</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 5: DEPLOYMENT ═══════════════════════════════════════ -->
+<div class="panel" id="p6">
+  <div class="month-card m5">
+    <span class="mc-tag">Month 5 — August 2026</span>
+    <div class="mc-title">Deployment + Reliability</div>
+    <div class="mc-goal">Goal: Ship AI apps that survive real users, real traffic, real failures. This is what companies actually pay for.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp5-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp5-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p5a" data-store="m5Progress" onclick="tog(this)"><div class="iname">OREILLY – AI for Network Engineer<div class="isub">2.37 GB · Your networking + AI combo</div></div><span class="ichk" id="k-p5a">○</span></div>
+  <div class="item" data-k="p5b" data-store="m5Progress" onclick="tog(this)"><div class="iname">PEARSON – AI-Enabled Programming, Networking & Cybersecurity<div class="isub">658 MB</div></div><span class="ichk" id="k-p5b">○</span></div>
+  <div class="item" data-k="p5c" data-store="m5Progress" onclick="tog(this)"><div class="iname">PEARSONS – Defending and Deploying AI (O.Santos)<div class="isub">3.36 GB · Security focus</div></div><span class="ichk" id="k-p5c">○</span></div>
+
+  <p class="sec-hdr">Deployment Skills to Check Off</p>
+  <div class="item" data-k="m5s1" data-store="m5Progress" onclick="tog(this)"><div class="iname">Docker — containerize FastAPI + LLM app</div><span class="ichk" id="k-m5s1">○</span></div>
+  <div class="item" data-k="m5s2" data-store="m5Progress" onclick="tog(this)"><div class="iname">Docker Compose — app + vector DB + Redis together</div><span class="ichk" id="k-m5s2">○</span></div>
+  <div class="item" data-k="m5s3" data-store="m5Progress" onclick="tog(this)"><div class="iname">FastAPI production — Gunicorn + Uvicorn workers</div><span class="ichk" id="k-m5s3">○</span></div>
+  <div class="item" data-k="m5s4" data-store="m5Progress" onclick="tog(this)"><div class="iname">Auth + API key security + rate limiting per user</div><span class="ichk" id="k-m5s4">○</span></div>
+  <div class="item" data-k="m5s5" data-store="m5Progress" onclick="tog(this)"><div class="iname">Langfuse / LangSmith — trace every LLM call</div><span class="ichk" id="k-m5s5">○</span></div>
+  <div class="item" data-k="m5s6" data-store="m5Progress" onclick="tog(this)"><div class="iname">Cost monitoring — set spending limits, Helicone</div><span class="ichk" id="k-m5s6">○</span></div>
+  <div class="item" data-k="m5s7" data-store="m5Progress" onclick="tog(this)"><div class="iname">Redis caching — exact-match + semantic caching (GPTCache)</div><span class="ichk" id="k-m5s7">○</span></div>
+  <div class="item" data-k="m5s8" data-store="m5Progress" onclick="tog(this)"><div class="iname">Background jobs — Celery + Redis for async LLM tasks</div><span class="ichk" id="k-m5s8">○</span></div>
+  <div class="item" data-k="m5s9" data-store="m5Progress" onclick="tog(this)"><div class="iname">Prompt versioning — store, version, rollback prompts</div><span class="ichk" id="k-m5s9">○</span></div>
+
+  <p class="sec-hdr">Practice Projects</p>
+  <div class="item" data-k="m5p1" data-store="m5Progress" onclick="tog(this)"><div class="iname">Containerize your RAG app — docker-compose up starts everything<div class="isub">FastAPI + Chroma/Qdrant + Redis all in one command</div></div><span class="ichk" id="k-m5p1">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 5 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Deploy FastAPI + LLM app in Docker with prod config</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Trace + debug LLM calls with Langfuse</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Monitor costs + set spending limits</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Cache LLM responses to cut cost + latency</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 6: SPECIALIZE + LAUNCH ═════════════════════════════ -->
+<div class="panel" id="p7">
+  <div class="month-card m6">
+    <span class="mc-tag">Month 6 — September 2026</span>
+    <div class="mc-title">Specialize + Launch</div>
+    <div class="mc-goal">Goal: Build 2–3 complete portfolio projects. Choose your direction. Start applying, freelancing, or consulting.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp6-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp6-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p6a" data-store="m6Progress" onclick="tog(this)"><div class="iname">UD – AI Engineer Core: LLM, RAG, QLoRA, Agents<div class="isub">32 GB · The full stack</div></div><span class="ichk" id="k-p6a">○</span></div>
+  <div class="item" data-k="p6b" data-store="m6Progress" onclick="tog(this)"><div class="iname">MANNING – LLMs in Production, Video Edition<div class="isub">2.57 GB</div></div><span class="ichk" id="k-p6b">○</span></div>
+  <div class="item" data-k="p6c" data-store="m6Progress" onclick="tog(this)"><div class="iname">ZTM – AI Agents Bootcamp<div class="isub">1.72 GB</div></div><span class="ichk" id="k-p6c">○</span></div>
+
+  <p class="sec-hdr">Choose Your Direction</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">🏗️</span><span class="res-name"><b>AI Product Engineer</b> — build AI products users interact with. Startup jobs, fastest path.</span></div>
+    <div class="res-row"><span class="res-icon">🔬</span><span class="res-name"><b>Applied ML/LLM Engineer</b> — fine-tuning, open-source models, inference optimization</span></div>
+    <div class="res-row"><span class="res-icon">⚙️</span><span class="res-name"><b>AI Automation Engineer</b> — business workflow automation (YOUR best path as ex-network eng)</span></div>
+  </div>
+
+  <p class="sec-hdr">Recommended for You: AI Automation</p>
+  <div class="item" data-k="m6s1" data-store="m6Progress" onclick="tog(this)"><div class="iname">n8n — visual AI workflow automation (400+ integrations)<div class="isub">Slack, Gmail, CRM, Notion, etc. — free to self-host</div></div><span class="ichk" id="k-m6s1">○</span></div>
+  <div class="item" data-k="m6s2" data-store="m6Progress" onclick="tog(this)"><div class="iname">AI + Networking automation tools (your unique niche)<div class="isub">OREILLY AI for Network Engineer + Fortinet/Cisco AI features</div></div><span class="ichk" id="k-m6s2">○</span></div>
+  <div class="item" data-k="m6s3" data-store="m6Progress" onclick="tog(this)"><div class="iname">Build: AI-powered network config assistant<div class="isub">RAG over network docs + Claude + your Cisco/Fortinet knowledge</div></div><span class="ichk" id="k-m6s3">○</span></div>
+
+  <p class="sec-hdr">Final Portfolio Projects (Pick 2)</p>
+  <div class="item" data-k="m6p1" data-store="m6Progress" onclick="tog(this)"><div class="iname">Chat with your docs app (deployed, public URL)<div class="isub">Real users can try it — strongest portfolio piece</div></div><span class="ichk" id="k-m6p1">○</span></div>
+  <div class="item" data-k="m6p2" data-store="m6Progress" onclick="tog(this)"><div class="iname">Network AI tool — config generator, fault analyzer, or log summarizer<div class="isub">Your 20yr advantage = instant credibility</div></div><span class="ichk" id="k-m6p2">○</span></div>
+  <div class="item" data-k="m6p3" data-store="m6Progress" onclick="tog(this)"><div class="iname">Lead qualification automation (full end-to-end)<div class="isub">Scrape → LLM research → score → draft outreach → log to CRM</div></div><span class="ichk" id="k-m6p3">○</span></div>
+
+  <p class="sec-hdr">Market Reality (2026)</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">💰</span><span class="res-name">AI agent dev freelance: $175–$300/hr</span></div>
+    <div class="res-row"><span class="res-icon">💰</span><span class="res-name">RAG implementation: $150–$250/hr</span></div>
+    <div class="res-row"><span class="res-icon">💰</span><span class="res-name">LLM integration: $125–$200/hr</span></div>
+    <div class="res-row"><span class="res-icon">📈</span><span class="res-name">AI Engineer avg salary (Glassdoor Mar 2026): $184,757</span></div>
+    <div class="res-row"><span class="res-icon">🌍</span><span class="res-name">Nigeria: AI + Network = rare combo, high demand globally</span></div>
+  </div>
+
+  <div class="milestone">
+    <div class="ms-title">🏆 6-Month Finish Line</div>
+    <div class="ms-item"><span class="ms-chk">→</span>2–3 real deployed projects on GitHub</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Can build, deploy, and explain any AI system you build</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Sharing progress on LinkedIn/X (visibility = opportunities)</div>
+    <div class="ms-item"><span class="ms-chk">→</span>First freelance project or job application sent</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<nav class="bnav"><div class="bnav-inner">
+  <a href="index.html"      class="ni" id="bn-home">  <span>🏠</span><span>Home</span></a>
+  <a href="claude.html"     class="ni" id="bn-claude"><span>🟠</span><span>Claude</span></a>
+  <a href="lp-courses.html" class="ni" id="bn-lp">    <span>📋</span><span>Courses</span></a>
+  <a href="cloud.html"      class="ni" id="bn-cloud"> <span>☁️</span><span>Cloud</span></a>
+  <a href="linux.html"      class="ni" id="bn-linux"> <span>🐧</span><span>Linux</span></a>
+  <a href="python.html"     class="ni" id="bn-python"><span>🐍</span><span>Python</span></a>
+</div></nav>
+
 <script>
-function initTheme(){{var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');updateBtn(t);}}
-function toggleTheme(){{var d=document.body.classList.toggle('dark');var t=d?'dark':'light';localStorage.setItem('theme',t);updateBtn(t);}}
-function updateBtn(t){{var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}}
-initTheme();
-%JS%
-if('serviceWorker' in navigator){{navigator.serviceWorker.register('sw.js');}}
+function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');updateBtn(t);}function toggleTheme(){var d=document.body.classList.toggle('dark');var t=d?'dark':'light';localStorage.setItem('theme',t);updateBtn(t);}function updateBtn(t){var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}initTheme();
+var el=document.getElementById('bn-lp');if(el)el.classList.add('active');
+
+// ── Tab switching ────────────────────────────────────────────────
+var tabs = document.querySelectorAll('.tab');
+var panels = document.querySelectorAll('.panel');
+function switchTab(i) {
+  tabs.forEach(function(t,idx){ t.className = idx===i ? 'tab active' : 'tab'; });
+  panels.forEach(function(p,idx){ p.className = idx===i ? 'panel active' : 'panel'; });
+  window.scrollTo(0,0);
+}
+
+// ── Generic toggle for any data-store ───────────────────────────
+function tog(el) {
+  var k = el.dataset.k, store = el.dataset.store;
+  var s = getStore(store); s[k] = !s[k]; saveStore(store, s);
+  renderAll();
+}
+function getStore(key) { try { return JSON.parse(localStorage.getItem(key)||'{}')||{}; } catch(e) { return {}; } }
+function saveStore(key, s) { try { localStorage.setItem(key, JSON.stringify(s)); } catch(e) {} }
+
+// ── Render all checkboxes ────────────────────────────────────────
+var allItems = [];
+function renderAll() {
+  document.querySelectorAll('.item').forEach(function(el) {
+    var k = el.dataset.k, store = el.dataset.store, s = getStore(store);
+    var chk = document.getElementById('k-'+k);
+    if (s[k]) { el.className='item done'; if(chk) chk.textContent='✓'; }
+    else       { el.className='item';      if(chk) chk.textContent='○'; }
+  });
+  updateProgress();
+}
+
+// ── Progress calculations ─────────────────────────────────────────
+function countDone(store, keys) {
+  var s = getStore(store);
+  return keys.filter(function(k){ return s[k]; }).length;
+}
+function pct(done, total) { return total ? Math.round(done/total*100) : 0; }
+function setBar(barId, pctId, p) {
+  var b = document.getElementById(barId), l = document.getElementById(pctId);
+  if(b) b.style.width = p+'%'; if(l) l.textContent = p+'%';
+}
+
+function updateProgress() {
+  var m0keys = ['c1','c2','c3','c4','c5'];
+  var m1keys = ['py-main','py1a','py1b','py1c','py1d','py1e','py1f','py1g','py1h','py-proj1','py-proj2'];
+  var m2keys = ['p2a','p2b','p2c','p2d','m2s1','m2s2','m2s3','m2s4','m2s5','m2s6','m2s7','m2s8','m2p1','m2p2','m2p3'];
+  var m3keys = ['p4a','p4b','p4c','m3s1','m3s2','m3s3','m3s4','m3s5','m3s6','m3s7','m3s8','m3p1'];
+  var m4keys = ['p1b','p1c','p1d','p3a','m4s1','m4s2','m4s3','m4s4','m4s5','m4s6','m4s7','m4s8','m4p1','m4p2'];
+  var m5keys = ['p5a','p5b','p5c','m5s1','m5s2','m5s3','m5s4','m5s5','m5s6','m5s7','m5s8','m5s9','m5p1'];
+  var m6keys = ['p6a','p6b','p6c','m6s1','m6s2','m6s3','m6p1','m6p2','m6p3'];
+
+  var p0=pct(countDone('claudeSprint_Mar2026',m0keys),m0keys.length);
+  var p1=pct(countDone('m1Progress',m1keys),m1keys.length);
+  var p2=pct(countDone('m2Progress',m2keys),m2keys.length);
+  var p3=pct(countDone('m3Progress',m3keys),m3keys.length);
+  var p4=pct(countDone('m4Progress',m4keys),m4keys.length);
+  var p5=pct(countDone('m5Progress',m5keys),m5keys.length);
+  var p6=pct(countDone('m6Progress',m6keys),m6keys.length);
+
+  setBar('mp0-bar','mp0-pct',p0); setBar('mp1-bar','mp1-pct',p1);
+  setBar('mp2-bar','mp2-pct',p2); setBar('mp3-bar','mp3-pct',p3);
+  setBar('mp4-bar','mp4-pct',p4); setBar('mp5-bar','mp5-pct',p5);
+  setBar('mp6-bar','mp6-pct',p6);
+
+  // Overview tags
+  function tag(id, p) { var el=document.getElementById(id); if(el) el.textContent=p+'%'; }
+  tag('ov-m0',p0); tag('ov-m1',p1); tag('ov-m2',p2); tag('ov-m3',p3);
+  tag('ov-m4',p4); tag('ov-m5',p5); tag('ov-m6',p6);
+
+  // Overall
+  var overall = Math.round((p0+p1+p2+p3+p4+p5+p6)/7);
+  tag('ov-total-pct', overall);
+}
+
+renderAll();
 </script>
 </body>
 </html>

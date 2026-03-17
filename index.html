@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,73 +5,208 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#1565C0">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.json">
 <title>AI Tracker</title>
 <style>
-:root{{--bg:#DCE9F8;--bg-card:#EEF3F9;--bg-header:#EEF3F9;--bg-input:#E4EDF7;--text:#1A2340;--text-sub:#6A7F99;--text-muted:#AAB8CC;--border:#C8DCEF;--accent:#1565C0;--accent2:#0D47A1;--accent-bg:#DDEEFF;--shadow:0 2px 10px rgba(21,101,192,0.09);--radius:13px;}}
-body.dark{{--bg:#0a0a14;--bg-card:#111120;--bg-header:#0d0d22;--bg-input:#16162a;--text:#e0e0f0;--text-sub:#6a6a8a;--text-muted:#3a3a5a;--border:#1e1e38;--accent:#8b5cf6;--accent2:#a78bfa;--accent-bg:#13093a;--shadow:0 2px 12px rgba(0,0,0,0.4);}}
+
+:root {
+  --bg:        #DCE9F8;
+  --bg-card:   #EEF3F9;
+  --bg-header: #EEF3F9;
+  --bg-input:  #E4EDF7;
+  --text:      #1A2340;
+  --text-sub:  #6A7F99;
+  --text-muted:#AAB8CC;
+  --border:    #C8DCEF;
+  --accent:    #1565C0;
+  --accent2:   #0D47A1;
+  --accent-bg: #DDEEFF;
+  --shadow:    0 2px 10px rgba(21,101,192,0.09);
+  --radius:    13px;
+}
+body.dark {
+  --bg:        #0a0a14;
+  --bg-card:   #111120;
+  --bg-header: #0d0d22;
+  --bg-input:  #16162a;
+  --text:      #e0e0f0;
+  --text-sub:  #6a6a8a;
+  --text-muted:#3a3a5a;
+  --border:    #1e1e38;
+  --accent:    #8b5cf6;
+  --accent2:   #a78bfa;
+  --accent-bg: #13093a;
+  --shadow:    0 2px 12px rgba(0,0,0,0.4);
+}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}}
-a{{text-decoration:none;color:inherit;}}
-button{{font-family:inherit;}}
-header{{background:var(--bg-header);padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);position:sticky;top:0;z-index:10;}}
-.logo{{display:flex;align-items:center;gap:9px;}}
-.logo-icon{{width:32px;height:32px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}}
-.logo-name{{font-size:0.95rem;font-weight:800;color:var(--text);}}
-.logo-sub{{font-size:0.6rem;color:var(--text-sub);margin-top:1px;}}
-.header-r{{display:flex;align-items:center;gap:8px;}}
-.theme-btn{{background:var(--bg-input);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:0.85rem;cursor:pointer;min-height:36px;-webkit-tap-highlight-color:transparent;}}
-.wrap{{max-width:520px;margin:0 auto;padding:14px 14px 76px;}}
-.banner{{background:linear-gradient(135deg,#1565C0,#1976D2);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 4px 20px rgba(21,101,192,0.25);}}
-body.dark .banner{{background:linear-gradient(135deg,#1a0845,#0d1030);}}
-.b-badge{{background:rgba(255,255,255,0.22);color:#fff;font-size:8px;font-weight:900;padding:2px 8px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;display:inline-block;margin-bottom:6px;}}
-.b-title{{color:#fff;font-size:0.95rem;font-weight:800;margin-bottom:4px;}}
-.b-sub{{color:rgba(255,255,255,0.72);font-size:0.72rem;line-height:1.45;margin-bottom:12px;}}
-.b-btn{{display:inline-block;background:#fff;color:var(--accent);font-size:0.75rem;font-weight:800;padding:7px 16px;border-radius:9px;min-height:34px;}}
-body.dark .b-btn{{background:var(--accent);color:#fff;}}
-.stats{{display:flex;gap:8px;margin-bottom:14px;}}
-.stat{{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:11px 6px;text-align:center;display:block;box-shadow:var(--shadow);min-height:58px;-webkit-tap-highlight-color:transparent;}}
-.stat:active{{opacity:0.7;}}
-.snum{{font-size:1.35rem;font-weight:900;color:var(--accent);line-height:1;}}
-.slbl{{font-size:0.55rem;color:var(--text-sub);margin-top:3px;text-transform:uppercase;letter-spacing:0.4px;}}
-.sec{{font-size:0.63rem;font-weight:700;color:var(--text-sub);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px;}}
-.grid{{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;}}
-.track{{border-radius:var(--radius);padding:12px 11px 10px;display:block;box-shadow:var(--shadow);border:1px solid transparent;-webkit-tap-highlight-color:transparent;transition:transform 0.12s,opacity 0.12s;}}
-.track:active{{transform:scale(0.96);opacity:0.85;}}
-.track-top{{display:flex;align-items:center;gap:8px;margin-bottom:8px;}}
-.ti{{font-size:1.2rem;flex-shrink:0;}}
-.tn{{font-size:0.77rem;font-weight:800;margin-bottom:1px;line-height:1.2;}}
-.ts{{font-size:0.61rem;opacity:0.55;}}
-.track-prog{{display:flex;align-items:center;gap:6px;}}
-.prog-bar{{flex:1;height:4px;background:rgba(0,0,0,0.08);border-radius:10px;overflow:hidden;}}
-body.dark .prog-bar{{background:rgba(255,255,255,0.1);}}
-.prog-fill{{height:100%;border-radius:10px;background:var(--accent);transition:width 0.5s ease;}}
-.prog-pct{{font-size:0.58rem;font-weight:800;color:var(--accent);min-width:22px;text-align:right;}}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;}
+
+
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--bg-header);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:center;
+  z-index:100;
+  box-shadow:0 -2px 12px rgba(0,0,0,0.07);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.bnav-inner{
+  display:flex;
+  width:100%;
+  max-width:520px;
+}
+.ni{
+  flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;
+  min-height:52px; /* 44px+ touch target best practice */
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:opacity 0.1s;
+}
+.ni:active{opacity:0.6;}
+.ni span:first-child{font-size:1.1rem;line-height:1;}
+.ni span:last-child{font-size:0.52rem;color:var(--text-sub);font-weight:700;text-transform:uppercase;letter-spacing:0.4px;}
+.ni.active span:last-child{color:var(--accent);}
+.ni.active span:first-child{filter:saturate(1.8) brightness(0.9);}
+
+
+header{
+  background:var(--bg-header);
+  padding:12px 16px;
+  padding-top:calc(12px + env(safe-area-inset-top,0px));
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow);
+  position:sticky;top:0;z-index:10;
+}
+.logo{display:flex;align-items:center;gap:9px;}
+.logo-icon{width:32px;height:32px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+.logo-name{font-size:0.95rem;font-weight:800;color:var(--text);}
+.logo-sub{font-size:0.6rem;color:var(--text-sub);margin-top:1px;}
+.header-r{display:flex;align-items:center;gap:8px;}
+.theme-btn{
+  background:var(--bg-input);border:1px solid var(--border);
+  border-radius:20px;padding:6px 12px;font-size:0.85rem;
+  cursor:pointer;min-height:36px;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* ── Max-width wrapper ── */
+.wrap{max-width:520px;margin:0 auto;padding:14px 14px 76px;}
+
+/* ── Banner ── */
+.banner{
+  background:linear-gradient(135deg,#1565C0,#1976D2);
+  border-radius:16px;padding:16px;margin-bottom:14px;
+  box-shadow:0 4px 20px rgba(21,101,192,0.25);
+}
+body.dark .banner{background:linear-gradient(135deg,#1a0845,#0d1030);box-shadow:0 4px 18px rgba(0,0,0,0.4);}
+.b-badge{background:rgba(255,255,255,0.22);color:#fff;font-size:8px;font-weight:900;padding:2px 8px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;display:inline-block;margin-bottom:6px;}
+.b-title{color:#fff;font-size:0.95rem;font-weight:800;margin-bottom:4px;}
+.b-sub{color:rgba(255,255,255,0.72);font-size:0.72rem;line-height:1.45;margin-bottom:12px;}
+.b-btn{display:inline-block;background:#fff;color:var(--accent);font-size:0.75rem;font-weight:800;padding:7px 16px;border-radius:9px;min-height:34px;}
+body.dark .b-btn{background:var(--accent);color:#fff;}
+.b-btn:active{opacity:0.8;}
+
+/* ── Stats ── */
+.stats{display:flex;gap:8px;margin-bottom:14px;}
+.stat{
+  flex:1;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:12px;padding:11px 6px;text-align:center;
+  display:block;box-shadow:var(--shadow);
+  min-height:58px; /* touch target */
+  -webkit-tap-highlight-color:transparent;
+}
+.stat:active{opacity:0.7;}
+.snum{font-size:1.35rem;font-weight:900;color:var(--accent);line-height:1;}
+.slbl{font-size:0.55rem;color:var(--text-sub);margin-top:3px;text-transform:uppercase;letter-spacing:0.4px;}
+
+/* ── Section label ── */
+.sec{font-size:0.63rem;font-weight:700;color:var(--text-sub);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px;}
+
+/* ── Track Grid ── */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;}
+.track{
+  border-radius:var(--radius);padding:12px 11px 10px;
+  display:block;box-shadow:var(--shadow);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform 0.12s,opacity 0.12s;
+  border:1px solid transparent;
+}
+.track:active{transform:scale(0.96);opacity:0.85;}
+.track-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.ti{font-size:1.2rem;flex-shrink:0;}
+.tn{font-size:0.77rem;font-weight:800;margin-bottom:1px;line-height:1.2;}
+.ts{font-size:0.61rem;opacity:0.55;}
+.track-prog{display:flex;align-items:center;gap:6px;}
+.prog-bar{flex:1;height:4px;background:rgba(0,0,0,0.08);border-radius:10px;overflow:hidden;}
+body.dark .prog-bar{background:rgba(255,255,255,0.1);}
+.prog-fill{height:100%;border-radius:10px;background:var(--accent);transition:width 0.5s ease;}
+.prog-pct{font-size:0.58rem;font-weight:800;color:var(--accent);min-width:22px;text-align:right;}
+
 /* Track colors */
-.t-linux{{background:#EEF4FF;border-color:#BDD0F0;}}.t-linux .tn{{color:#1a3a8a;}}.t-linux .ts{{color:#5a7ab5;}}.t-linux .prog-fill{{background:#3b82f6;}}
-.t-python{{background:#EDFFF5;border-color:#A8DDC4;}}.t-python .tn{{color:#0d5c2e;}}.t-python .ts{{color:#3a8c5c;}}.t-python .prog-fill{{background:#22c55e;}}
-.t-ai{{background:#F3EEFF;border-color:#C4ACEA;}}.t-ai .tn{{color:#3a0d8a;}}.t-ai .ts{{color:#6a3aaa;}}.t-ai .prog-fill{{background:#8b5cf6;}}
-.t-claude{{background:#FFF3E8;border-color:#EEC898;}}.t-claude .tn{{color:#7a2a00;}}.t-claude .ts{{color:#aa6020;}}.t-claude .prog-fill{{background:#f97316;}}
-.t-aws{{background:#FFFAED;border-color:#EED880;}}.t-aws .tn{{color:#5a3a00;}}.t-aws .ts{{color:#8a6a20;}}.t-aws .prog-fill{{background:#f59e0b;}}
-.t-azure{{background:#EDF7FF;border-color:#8CCCEE;}}.t-azure .tn{{color:#0a3a6a;}}.t-azure .ts{{color:#2a6a9a;}}.t-azure .prog-fill{{background:#38bdf8;}}
-/* Quick Links */
-.qbox{{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}}
-.qlink{{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--border);-webkit-tap-highlight-color:transparent;min-height:52px;transition:background 0.1s;}}
-.qlink:last-child{{border-bottom:none;}}
-.qlink:active{{background:var(--bg-input);}}
-.ql-left{{display:flex;align-items:center;gap:11px;}}
-.ql-dot{{width:34px;height:34px;border-radius:9px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}}
-.ql-name{{font-size:0.82rem;color:var(--text);font-weight:600;}}
-.ql-sub{{font-size:0.67rem;color:var(--text-sub);margin-top:1px;}}
-.ql-arr{{color:var(--text-muted);font-size:1rem;font-weight:400;}}
-/* Bottom nav */
-.bnav{{position:fixed;bottom:0;left:0;right:0;background:var(--bg-header);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,0.07);padding-bottom:env(safe-area-inset-bottom,0px);}}
-.bnav-inner{{display:flex;width:100%;max-width:520px;}}
-.ni{{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:52px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity 0.1s;}}
-.ni:active{{opacity:0.6;}}
-.ni span:first-child{{font-size:1.1rem;line-height:1;}}
-.ni span:last-child{{font-size:0.52rem;color:var(--text-sub);font-weight:700;text-transform:uppercase;letter-spacing:0.4px;}}
-.ni.active span:last-child{{color:var(--accent);}}
+.t-linux {background:#EEF4FF;border-color:#BDD0F0;} .t-linux .tn{color:#1a3a8a;} .t-linux .ts{color:#5a7ab5;} .t-linux .prog-fill,.t-linux .prog-pct{background:#3b82f6;color:#3b82f6;} .t-linux .prog-fill{color:unset;}
+.t-python{background:#EDFFF5;border-color:#A8DDC4;} .t-python .tn{color:#0d5c2e;} .t-python .ts{color:#3a8c5c;} .t-python .prog-fill{background:#22c55e;} .t-python .prog-pct{color:#22c55e;}
+.t-ai    {background:#F3EEFF;border-color:#C4ACEA;} .t-ai .tn{color:#3a0d8a;} .t-ai .ts{color:#6a3aaa;} .t-ai .prog-fill{background:#8b5cf6;} .t-ai .prog-pct{color:#8b5cf6;}
+.t-claude{background:#FFF3E8;border-color:#EEC898;} .t-claude .tn{color:#7a2a00;} .t-claude .ts{color:#aa6020;} .t-claude .prog-fill{background:#f97316;} .t-claude .prog-pct{color:#f97316;}
+.t-aws   {background:#FFFAED;border-color:#EED880;} .t-aws .tn{color:#5a3a00;} .t-aws .ts{color:#8a6a20;} .t-aws .prog-fill{background:#f59e0b;} .t-aws .prog-pct{color:#d97706;}
+.t-azure {background:#EDF7FF;border-color:#8CCCEE;} .t-azure .tn{color:#0a3a6a;} .t-azure .ts{color:#2a6a9a;} .t-azure .prog-fill{background:#38bdf8;} .t-azure .prog-pct{color:#0284c7;}
+body.dark .t-linux {background:#091c36;border-color:#1a3a60;} body.dark .t-linux .tn{color:#93c5fd;} body.dark .t-linux .ts{color:#4a7aaa;}
+body.dark .t-python{background:#092318;border-color:#1a4a30;} body.dark .t-python .tn{color:#4ade80;} body.dark .t-python .ts{color:#2a7a4a;}
+body.dark .t-ai    {background:#13093a;border-color:#2a1460;} body.dark .t-ai .tn{color:#c4b5fd;} body.dark .t-ai .ts{color:#6a3aaa;}
+body.dark .t-claude{background:#261100;border-color:#4a2000;} body.dark .t-claude .tn{color:#fb923c;} body.dark .t-claude .ts{color:#8a4a10;}
+body.dark .t-aws   {background:#1a1000;border-color:#3a2a00;} body.dark .t-aws .tn{color:#fbbf24;} body.dark .t-aws .ts{color:#8a6a20;}
+body.dark .t-azure {background:#061624;border-color:#0a2a40;} body.dark .t-azure .tn{color:#38bdf8;} body.dark .t-azure .ts{color:#1a6a9a;}
+
+/* ── Quick Links ── */
+.qbox{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.qlink{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;border-bottom:1px solid var(--border);
+  -webkit-tap-highlight-color:transparent;
+  min-height:52px; /* touch target */
+  transition:background 0.1s;
+}
+.qlink:last-child{border-bottom:none;}
+.qlink:active{background:var(--bg-input);}
+.ql-left{display:flex;align-items:center;gap:11px;}
+.ql-dot{
+  width:34px;height:34px;border-radius:9px;
+  background:var(--accent-bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+}
+.ql-name{font-size:0.82rem;color:var(--text);font-weight:600;}
+.ql-sub{font-size:0.67rem;color:var(--text-sub);margin-top:1px;}
+.ql-arr{color:var(--text-muted);font-size:1rem;font-weight:400;}
+
+.notif-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px;}
+.notif-row{display:flex;align-items:center;gap:12px;padding:13px 14px;}
+.notif-icon{width:36px;height:36px;background:var(--accent-bg);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.notif-info{flex:1;}
+.notif-title{font-size:0.83rem;font-weight:700;color:var(--text);}
+.notif-sub{font-size:0.68rem;color:var(--text-sub);margin-top:1px;}
+/* Toggle switch */
+.toggle{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.slider{position:absolute;cursor:pointer;inset:0;background:var(--border);border-radius:24px;transition:0.2s;}
+.slider:before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:0.2s;}
+input:checked + .slider{background:var(--accent);}
+input:checked + .slider:before{transform:translateX(20px);}
+/* Time row */
+.notif-time-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--border);}
+.time-label{font-size:0.78rem;color:var(--text-sub);}
+.time-input{background:var(--bg-input);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:0.82rem;color:var(--text);font-family:inherit;cursor:pointer;}
+/* Status */
+.notif-status{font-size:0.72rem;padding:0 14px 11px;color:var(--text-sub);display:none;}
+.notif-status.show{display:block;}
+.notif-status.ok{color:#16a34a;}
+.notif-status.err{color:#dc2626;}
 </style>
 </head>
 <body>
@@ -87,6 +221,8 @@ body.dark .prog-bar{{background:rgba(255,255,255,0.1);}}
 </header>
 
 <div class="wrap">
+
+  <!-- Banner -->
   <div class="banner">
     <span class="b-badge">🚀 March 2026</span>
     <h2 class="b-title">Claude Fast Track Sprint</h2>
@@ -94,13 +230,15 @@ body.dark .prog-bar{{background:rgba(255,255,255,0.1);}}
     <a href="claude.html" class="b-btn">Open Claude Sprint →</a>
   </div>
 
+  <!-- Stats -->
   <div class="stats">
-    <a href="index.html" class="stat"><div class="snum">6</div><div class="slbl">Tracks</div></a>
-    <a href="claude.html" class="stat"><div class="snum">5</div><div class="slbl">March</div></a>
+    <a href="index.html"      class="stat"><div class="snum">6</div><div class="slbl">Tracks</div></a>
+    <a href="claude.html"     class="stat"><div class="snum">5</div><div class="slbl">March</div></a>
     <a href="lp-courses.html" class="stat"><div class="snum">40</div><div class="slbl">Weeks</div></a>
     <a href="lp-courses.html" class="stat"><div class="snum">6</div><div class="slbl">Phases</div></a>
   </div>
 
+  <!-- Tracks -->
   <p class="sec">Your Learning Tracks</p>
   <div class="grid">
     <a href="linux.html" class="track t-linux">
@@ -129,18 +267,9 @@ body.dark .prog-bar{{background:rgba(255,255,255,0.1);}}
     </a>
   </div>
 
-  <!-- RESUME FROM WHERE YOU LEFT OFF -->
-  <a id="resumeBox" class="qlink" href="#" style="display:none;margin-bottom:8px;">
-    <div class="ql-left">
-      <div class="ql-dot r-icon">🏠</div>
-      <div>
-        <div class="ql-name r-title">Resume where you left off</div>
-        <div class="ql-sub r-sub">We'll drop you back into your last track</div>
-      </div>
-    </div>
-    <span class="ql-arr">›</span>
-  </a>
-
+  <!-- Quick Links — RESTORED -->
+  
+  <a id="rBox" class="qlink" href="#" style="display:none;margin-bottom:8px;"><div class="ql-left"><div class="ql-dot" id="rIcon">🏠</div><div><div class="ql-name" id="rTitle">Resume where you left off</div><div class="ql-sub" id="rSub">Tap to return to your last track</div></div></div><span class="ql-arr">›</span></a>
   <p class="sec">Quick Links</p>
   <div class="qbox">
     <a href="claude.html" class="qlink">
@@ -164,84 +293,204 @@ body.dark .prog-bar{{background:rgba(255,255,255,0.1);}}
       <span class="ql-arr">›</span>
     </a>
   </div>
-</div>
+
+
+  <!-- ── Daily Reminder ───────────────────────────── -->
+  <p class="sec" style="margin-top:16px;">Daily Study Reminder</p>
+  <div class="notif-box">
+    <div class="notif-row">
+      <div class="notif-icon">🔔</div>
+      <div class="notif-info">
+        <div class="notif-title" id="notifTitle">Enable Study Reminders</div>
+        <div class="notif-sub"  id="notifSub">Get a daily push notification on your phone</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="notifToggle" onchange="handleNotifToggle(this)">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div id="notifTimeRow" class="notif-time-row" style="display:none;">
+      <span class="time-label">Reminder time</span>
+      <input type="time" id="reminderTime" value="20:00" onchange="saveReminderTime(this.value)" class="time-input">
+    </div>
+    <div id="notifStatus" class="notif-status"></div>
+  </div>
+
+</div><!-- /wrap -->
+
 
 <nav class="bnav">
   <div class="bnav-inner">
-    <a href="index.html" class="ni" id="bn-home"><span>🏠</span><span>Home</span></a>
-    <a href="claude.html" class="ni" id="bn-claude"><span>🟠</span><span>Claude</span></a>
-    <a href="lp-courses.html" class="ni" id="bn-lp"><span>📋</span><span>Courses</span></a>
-    <a href="cloud.html" class="ni" id="bn-cloud"><span>☁️</span><span>Cloud</span></a>
-    <a href="linux.html" class="ni" id="bn-linux"><span>🐧</span><span>Linux</span></a>
-    <a href="python.html" class="ni" id="bn-python"><span>🐍</span><span>Python</span></a>
+    <a href="index.html"      class="ni" id="bn-home">   <span>🏠</span><span>Home</span></a>
+    <a href="claude.html"     class="ni" id="bn-claude"> <span>🟠</span><span>Claude</span></a>
+    <a href="lp-courses.html" class="ni" id="bn-lp">     <span>📋</span><span>Courses</span></a>
+    <a href="cloud.html"      class="ni" id="bn-cloud">  <span>☁️</span><span>Cloud</span></a>
+    <a href="linux.html"      class="ni" id="bn-linux">  <span>🐧</span><span>Linux</span></a>
+    <a href="python.html"     class="ni" id="bn-python"> <span>🐍</span><span>Python</span></a>
   </div>
 </nav>
 
 <script>
-function initTheme(){{var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');updateBtn(t);}}
-function toggleTheme(){{var d=document.body.classList.toggle('dark');var t=d?'dark':'light';localStorage.setItem('theme',t);updateBtn(t);}}
-function updateBtn(t){{var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}}
+
+function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');updateBtn(t);}
+function toggleTheme(){var d=document.body.classList.toggle('dark');var t=d?'dark':'light';localStorage.setItem('theme',t);updateBtn(t);}
+function updateBtn(t){var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
 initTheme();
 
-// RESUME - Pure referrer detection (no storage issues)
-function initResume(){{
-  var box=document.getElementById('resumeBox');
-  if(!box) return;
-
-  // 1. Check URL hash (?resume=claude)
-  var urlParams = new URLSearchParams(window.location.search);
-  var hashId = urlParams.get('resume') || window.location.hash.replace('#','');
-
-  // 2. Check referrer
-  var referrer = document.referrer;
-  var refId = '';
-  if(referrer.includes('/claude.html')) refId = 'claude';
-  else if(referrer.includes('/lp-courses.html')) refId = 'ai';
-  else if(referrer.includes('/cloud.html')) refId = 'cloud';
-  else if(referrer.includes('/linux.html')) refId = 'linux';
-  else if(referrer.includes('/python.html')) refId = 'python';
-
-  var id = hashId || refId;
-  if(!id) return;
-
-  var map = {{
-    linux: {{href:'linux.html',icon:'🐧',title:'Linux (RHCSA)',sub:'System admin'}},
-    python: {{href:'python.html',icon:'🐍',title:'Python Track',sub:'Python for AI'}},
-    ai: {{href:'lp-courses.html',icon:'🤖',title:'AI Engineering LP',sub:'6 phases · 40 weeks'}},
-    claude: {{href:'claude.html',icon:'🟠',title:'Claude Track',sub:'Fast Track · March'}},
-    cloud: {{href:'cloud.html',icon:'☁️',title:'Cloud Certifications',sub:'AWS + Azure'}}
-  }};
-
-  var cfg = map[id];
-  if(!cfg) return;
-
-  box.querySelector('.r-icon').textContent = cfg.icon;
-  box.querySelector('.r-title').textContent = cfg.title;
-  box.querySelector('.r-sub').textContent = cfg.sub;
-  box.href = cfg.href;
-  box.style.display = 'flex';
-
-  // Hide after click
-  box.onclick = function(){{ this.style.display = 'none'; }};
-}}
-
-if(document.readyState!=='loading') initResume();
-else document.addEventListener('DOMContentLoaded', initResume);
-
-// Progress bars
-function getPct(key,keys){{var d={{}};try{{d=JSON.parse(localStorage.getItem(key)||'{{}}')||{{}};}}catch(e){{}}return Math.round(keys.filter(function(k){{return d[k];}}).length/keys.length*100);}}
-function setBar(id,pct){{var b=document.getElementById('prog-'+id),l=document.getElementById('pct-'+id);if(b)b.style.width=pct+'%';if(l)l.textContent=pct+'%';}}
-function loadAllProgress(){{
+var el=document.getElementById('bn-home');if(el)el.classList.add('active');
+function getPct(key,keys){var d={};try{d=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){}return Math.round(keys.filter(function(k){return d[k];}).length/keys.length*100);}
+function setBar(id,pct){var b=document.getElementById('prog-'+id),l=document.getElementById('pct-'+id);if(b)b.style.width=pct+'%';if(l)l.textContent=pct+'%';}
+function loadAllProgress(){
   setBar('linux', getPct('rhcsaProgress',['l1a','l1b','l1c','l1d','l2a','l2b','l2c','l2d','l3a','l3b','l3c','l3d','l4a','l4b','l4c','l4d','l5a','l5b','l5c']));
   setBar('python',getPct('pythonProgress',['py1a','py1b','py1c','py1d','py1e','py2a','py2b','py2c','py2d','py2e','py3a','py3b','py3c','py3d','py3e']));
-  setBar('ai', getPct('lpProgress_v2',['p0a','p0b','p0c','p0d','p0e','p1a','p1b','p1c','p1d','p2a','p2b','p2c','p2d','p3a','p3b','p3c','p4a','p4b','p4c','p5a','p5b','p5c','p6a','p6b','p6c']));
+  setBar('ai',    getPct('lpProgress_v2',['p0a','p0b','p0c','p0d','p0e','p1a','p1b','p1c','p1d','p2a','p2b','p2c','p2d','p3a','p3b','p3c','p4a','p4b','p4c','p5a','p5b','p5c','p6a','p6b','p6c']));
   setBar('claude',getPct('claudeSprint_Mar2026',['c1','c2','c3','c4','c5']));
   var cp=getPct('cloudProgress',['a1','a2','a3','a4','a5','z1','z2','z3','z4','z5']);
   setBar('aws',cp);setBar('azure',cp);
-}}
+}
 loadAllProgress();
 
-if('serviceWorker' in navigator){{navigator.serviceWorker.register('sw.js');}}
+// ── Notification logic ───────────────────────────────────────────
+function initNotif() {
+  var saved = localStorage.getItem('notifEnabled') === 'true';
+  var time  = localStorage.getItem('reminderTime') || '20:00';
+  document.getElementById('notifToggle').checked = saved;
+  document.getElementById('reminderTime').value  = time;
+  document.getElementById('notifTimeRow').style.display = saved ? 'flex' : 'none';
+  if (saved) { updateNotifLabel(true); }
+}
+
+function handleNotifToggle(el) {
+  if (el.checked) {
+    requestNotifPermission();
+  } else {
+    localStorage.setItem('notifEnabled','false');
+    document.getElementById('notifTimeRow').style.display = 'none';
+    setStatus('Reminders turned off.','');
+    updateNotifLabel(false);
+    unregisterSync();
+  }
+}
+
+function requestNotifPermission() {
+  if (!('Notification' in window)) {
+    setStatus('❌ Notifications not supported on this browser.','err');
+    document.getElementById('notifToggle').checked = false;
+    return;
+  }
+  Notification.requestPermission().then(function(perm) {
+    if (perm === 'granted') {
+      localStorage.setItem('notifEnabled','true');
+      document.getElementById('notifTimeRow').style.display = 'flex';
+      scheduleReminders();
+      updateNotifLabel(true);
+      // test notification
+      setTimeout(function() {
+        new Notification('AI Tracker ✅', {
+          body: 'Reminders enabled! You will get a daily study nudge.',
+          icon: 'icon-192.png'
+        });
+      }, 600);
+    } else {
+      document.getElementById('notifToggle').checked = false;
+      setStatus('❌ Permission denied. Enable notifications in your phone settings for this site.','err');
+    }
+  });
+}
+
+function saveReminderTime(val) {
+  localStorage.setItem('reminderTime', val);
+  scheduleReminders();
+  setStatus('✅ Reminder set for ' + formatTime(val) + ' daily.','ok');
+}
+
+function formatTime(t) {
+  var parts = t.split(':');
+  var h = parseInt(parts[0]), m = parts[1];
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return h + ':' + m + ' ' + ampm;
+}
+
+function scheduleReminders() {
+  var time = localStorage.getItem('reminderTime') || '20:00';
+  setStatus('✅ Daily reminder set for ' + formatTime(time) + '.','ok');
+  // Register Periodic Background Sync (Chrome Android)
+  if ('serviceWorker' in navigator && 'periodicSync' in window.ServiceWorkerRegistration.prototype) {
+    navigator.serviceWorker.ready.then(function(reg) {
+      reg.periodicSync.register('daily-study-reminder', { minInterval: 86400000 })
+        .catch(function(e) { console.log('periodicSync not granted:', e); });
+    });
+  }
+  // In-session timer: fires at the set time today if still in app
+  scheduleInSessionNotif(time);
+}
+
+function scheduleInSessionNotif(time) {
+  clearTimeout(window._notifTimer);
+  var now = new Date();
+  var parts = time.split(':');
+  var target = new Date();
+  target.setHours(parseInt(parts[0]), parseInt(parts[1]), 0, 0);
+  if (target <= now) { target.setDate(target.getDate() + 1); } // tomorrow
+  var delay = target - now;
+  window._notifTimer = setTimeout(function() {
+    if (Notification.permission === 'granted') {
+      new Notification('AI Tracker — Study Reminder 📚', {
+        body: 'Time to study! Open your tracker and tick off some progress.',
+        icon: 'icon-192.png',
+        tag: 'study-reminder',
+        renotify: true
+      });
+    }
+    scheduleInSessionNotif(time); // reschedule for next day
+  }, delay);
+}
+
+function unregisterSync() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(function(reg) {
+      if ('periodicSync' in reg) {
+        reg.periodicSync.unregister('daily-study-reminder').catch(function(){});
+      }
+    });
+  }
+}
+
+function updateNotifLabel(on) {
+  var time = localStorage.getItem('reminderTime') || '20:00';
+  document.getElementById('notifTitle').textContent = on ? 'Reminders On ✅' : 'Enable Study Reminders';
+  document.getElementById('notifSub').textContent   = on ? 'Daily nudge at ' + formatTime(time) : 'Get a daily push notification on your phone';
+}
+
+function setStatus(msg, type) {
+  var el = document.getElementById('notifStatus');
+  el.textContent = msg;
+  el.className = 'notif-status show' + (type ? ' ' + type : '');
+}
+
+// ── Open-app reminder: if enabled and not checked in today ───────
+function checkTodayReminder() {
+  if (Notification.permission !== 'granted') return;
+  if (localStorage.getItem('notifEnabled') !== 'true') return;
+  var lastSeen = localStorage.getItem('lastStudyOpen');
+  var today = new Date().toDateString();
+  if (lastSeen !== today) {
+    setTimeout(function() {
+      new Notification('AI Tracker 👋', {
+        body: 'Welcome back! Don\'t forget to log your study progress today.',
+        icon: 'icon-192.png',
+        tag: 'study-open'
+      });
+    }, 3000);
+  }
+  localStorage.setItem('lastStudyOpen', today);
+}
+
+initNotif();
+checkTodayReminder();
+
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
 </script>
 </body>
 </html>
