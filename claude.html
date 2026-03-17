@@ -170,6 +170,7 @@ initTheme();
 
 var el=document.getElementById('bn-claude');if(el)el.classList.add('active');
 var KEY='claudeSprint_Mar2026';function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){return{}}}function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}function tog(id){var s=load();s[id]=!s[id];save(s);render();}function render(){var s=load(),done=0;for(var i=1;i<=5;i++){var id='c'+i,card=document.querySelector('[data-id="'+id+'"]'),chk=document.getElementById('chk-'+id);if(!card||!chk)continue;if(s[id]){card.className='card done';chk.textContent='✓';done++;}else{card.className='card';chk.textContent='○';}}var pct=Math.round(done/5*100);document.getElementById('barFill').style.width=pct+'%';document.getElementById('barLabel').textContent=pct+'% ('+done+'/5)';}render();
+  localStorage.setItem('lastVisitedPage', 'claude.html');
 </script>
 </body>
 </html>
