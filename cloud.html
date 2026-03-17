@@ -132,7 +132,11 @@ initTheme();
 
 var el=document.getElementById('bn-cloud');if(el)el.classList.add('active');
 var K='cloudProgress';function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')||{}}catch(e){return{}}}function save(s){try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}}function tog(id){var s=load();s[id]=!s[id];save(s);render();}function render(){var s=load();document.querySelectorAll('.item').forEach(function(el){var k=el.dataset.k,c=document.getElementById('k-'+k);if(s[k]){el.className='item done';if(c)c.textContent='✓';}else{el.className='item';if(c)c.textContent='○';}});}render();
-  localStorage.setItem('lastVisitedPage', 'cloud.html');
+
+(function saveLastVisited(){
+  try{localStorage.setItem('aiTracker:lastVisited',JSON.stringify({id:'cloud',when:Date.now()}));}catch(e){}
+})();
+
 </script>
 </body>
 </html>

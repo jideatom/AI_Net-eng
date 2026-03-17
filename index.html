@@ -268,20 +268,6 @@ input:checked + .slider:before{transform:translateX(20px);}
   </div>
 
   <!-- Quick Links — RESTORED -->
-  
-  <!-- Resume Section -->
-    <div id="resumeSection" style="display:none;margin-bottom:16px;">
-          <p class="sec">Resume from where you left off</p>
-          <a id="resumeLink" href="#" class="qbox" style="display:block;text-decoration:none;">
-                  <div class="qlink">
-                            <div class="ql-left">
-                                        <div class="ql-dot" id="resumeIcon">🔄</div>
-                                        <div><div class="ql-name" id="resumeName">Continue Learning</div><div class="ql-sub" id="resumeSub">Pick up where you left off</div></div>
-                                      </div>
-                            <span class="ql-arr">›</span>
-                          </div>
-                </a>
-        </div>
   <p class="sec">Quick Links</p>
   <div class="qbox">
     <a href="claude.html" class="qlink">
@@ -503,27 +489,6 @@ initNotif();
 checkTodayReminder();
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
-  
-// ── Resume from where you left off ──────────────────────────────────
-function initResume() {
-  var lastPage = localStorage.getItem('lastVisitedPage');
-  var pageTitles = {
-    'claude.html': { name: 'Claude Fast Track', sub: 'March 2026 · 5 courses', icon: '🟠' },
-    'lp-courses.html': { name: 'LP Courses', sub: 'Full 40-week roadmap', icon: '📋' },
-    'cloud.html': { name: 'Cloud Certifications', sub: 'AWS + Azure', icon: '☁️' },
-    'linux.html': { name: 'Linux RHCSA', sub: '5 domains · tap to track', icon: '🐧' },
-    'python.html': { name: 'Python for AI', sub: '3 phases · 15 topics', icon: '🐍' }
-  };
-  if (lastPage && pageTitles[lastPage]) {
-    var info = pageTitles[lastPage];
-    document.getElementById('resumeIcon').textContent = info.icon;
-    document.getElementById('resumeName').textContent = info.name;
-    document.getElementById('resumeSub').textContent = info.sub;
-    document.getElementById('resumeLink').href = lastPage;
-    document.getElementById('resumeSection').style.display = 'block';
-  }
-}
-initResume();
 </script>
 </body>
 </html>
