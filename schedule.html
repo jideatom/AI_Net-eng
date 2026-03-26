@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<title>Week Schedule · AI Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f2f7;--bg2:#ffffff;--bg3:#e8ecf4;
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --border:rgba(15,23,42,0.08);--border2:rgba(15,23,42,0.14);
+  --shadow:0 1px 3px rgba(15,23,42,0.07),0 4px 12px rgba(15,23,42,0.04);
+  --radius:14px;
+  --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+  --blue:#3b82f6;--bl-bg:#eff6ff;
+  --green:#10b981;--g-bg:#ecfdf5;
+  --amber:#f59e0b;--am-bg:#fffbeb;
+  --purple:#8b5cf6;--p-bg:#ede9fe;
+  --orange:#f97316;--or-bg:#fff7ed;
+}
+body.dark{
+  --bg:#080c14;--bg2:#0f1623;--bg3:#141d2e;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#334155;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);
+  --blue:#60a5fa;--bl-bg:#0c1a35;
+  --green:#34d399;--g-bg:#052e16;
+  --amber:#fbbf24;--am-bg:#1c1400;
+  --purple:#a78bfa;--p-bg:#1e1b4b;
+  --orange:#fb923c;--or-bg:#1c0f00;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}button{font-family:var(--sans);cursor:pointer;}
+
+/* nav */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px);}
+.bnav-inner{display:flex;width:100%;max-width:540px;}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;cursor:pointer;-webkit-tap-highlight-color:transparent;padding:6px 2px;}
+.ni:active{opacity:0.5;}
+.ni-icon{font-size:1.15rem;line-height:1;}
+.ni-lbl{font-size:0.48rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text3);}
+.ni.active .ni-lbl{color:var(--green);}
+
+/* header */
+header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10;}
+.back-btn{background:transparent;border:none;color:var(--green);font-size:1.3rem;font-weight:700;min-width:36px;min-height:44px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent;}
+.hdr-title{flex:1;}
+.hdr-title h1{font-size:0.92rem;font-weight:700;}
+.hdr-title p{font-size:0.62rem;color:var(--text2);margin-top:2px;font-family:var(--mono);}
+.theme-btn{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 12px;font-size:0.8rem;min-height:34px;-webkit-tap-highlight-color:transparent;}
+
+.wrap{max-width:540px;margin:0 auto;padding:14px 14px 82px;}
+
+/* week selector tabs */
+.week-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:14px;}
+.week-tabs::-webkit-scrollbar{display:none;}
+.wtab{flex-shrink:0;padding:6px 12px;border-radius:20px;font-size:0.66rem;font-weight:700;cursor:pointer;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);-webkit-tap-highlight-color:transparent;transition:all 0.15s;min-height:32px;font-family:var(--mono);}
+.wtab.active{color:#fff;border-color:transparent;}
+.w12.active{background:var(--blue);}
+.w34.active{background:var(--green);}
+.w56.active{background:var(--amber);}
+.w78.active{background:var(--purple);}
+
+.wpanel{display:none;}
+.wpanel.active{display:block;}
+
+/* phase header card */
+.phase-card{border-radius:16px;padding:16px;margin-bottom:14px;}
+.ph-blue{background:linear-gradient(135deg,#1e3a5f,#1d4ed8);}
+.ph-green{background:linear-gradient(135deg,#065f46,#059669);}
+.ph-amber{background:linear-gradient(135deg,#78350f,#d97706);}
+.ph-purple{background:linear-gradient(135deg,#4c1d95,#7c3aed);}
+.ph-tag{background:rgba(255,255,255,0.2);color:#fff;font-size:0.58rem;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;display:inline-block;margin-bottom:7px;font-family:var(--mono);}
+.ph-title{color:#fff;font-size:0.95rem;font-weight:700;margin-bottom:3px;}
+.ph-sub{color:rgba(255,255,255,0.7);font-size:0.7rem;line-height:1.5;margin-bottom:12px;}
+.ph-prog-row{display:flex;justify-content:space-between;margin-bottom:4px;}
+.ph-prog-lbl{color:rgba(255,255,255,0.6);font-size:0.6rem;font-family:var(--mono);}
+.ph-prog-pct{color:#fff;font-size:0.65rem;font-weight:700;font-family:var(--mono);}
+.ph-bar{height:5px;background:rgba(255,255,255,0.2);border-radius:10px;overflow:hidden;}
+.ph-fill{height:100%;background:#fff;border-radius:10px;transition:width 0.5s;}
+
+/* course pill */
+.course-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:0.62rem;font-weight:600;padding:4px 10px;border-radius:20px;margin-top:4px;}
+
+/* week block */
+.week-block{margin-bottom:18px;}
+.week-hdr{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--text3);font-family:var(--mono);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;}
+.week-count{font-size:0.58rem;background:var(--bg3);color:var(--text2);padding:1px 7px;border-radius:20px;}
+
+/* day card */
+.day-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow);}
+.day-hdr{display:grid;grid-template-columns:82px 1fr auto;align-items:center;gap:10px;padding:11px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.day-hdr:active{background:var(--bg3);}
+.day-name{font-size:0.78rem;font-weight:700;}
+.day-topic{font-size:0.74rem;color:var(--text2);}
+.day-meta{display:flex;align-items:center;gap:6px;}
+.day-dur{font-size:0.58rem;color:var(--text3);font-family:var(--mono);white-space:nowrap;}
+.day-chev{font-size:0.7rem;color:var(--text3);}
+
+/* day body */
+.day-body{display:none;border-top:1px solid var(--border);}
+.day-body.open{display:block;}
+
+/* task row */
+.task{display:flex;gap:10px;padding:10px 13px;border-bottom:1px solid var(--border);align-items:flex-start;}
+.task:last-child{border-bottom:none;}
+.task-time{font-size:0.58rem;color:var(--text3);font-family:var(--mono);white-space:nowrap;min-width:68px;padding-top:2px;line-height:1.5;}
+.task-body{flex:1;}
+.task-title{font-size:0.78rem;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.4;}
+.task-detail{font-size:0.68rem;color:var(--text2);line-height:1.6;}
+.task-tag{display:inline-block;font-size:0.55rem;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:4px;text-transform:uppercase;letter-spacing:0.3px;}
+.tt-read{background:var(--bl-bg);color:var(--blue);}
+.tt-lab{background:var(--g-bg);color:var(--green);}
+.tt-proj{background:var(--am-bg);color:var(--amber);}
+.tt-rev{background:var(--p-bg);color:var(--purple);}
+.tt-rest{background:var(--bg3);color:var(--text3);}
+
+/* checkpoint */
+.checkpoint{background:var(--bg2);border:1.5px solid var(--green);border-radius:var(--radius);padding:14px;margin-top:6px;}
+.cp-hdr{font-size:0.58rem;color:var(--green);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;font-family:var(--mono);margin-bottom:10px;}
+.cp-row{font-size:0.76rem;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;line-height:1.5;}
+.cp-row:last-child{border-bottom:none;}
+.cp-arrow{color:var(--green);flex-shrink:0;font-family:var(--mono);}
+
+/* tip */
+.tip{background:var(--bl-bg);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 13px;margin-bottom:12px;font-size:0.73rem;color:var(--blue);line-height:1.6;}
+.tip.green{background:var(--g-bg);border-color:var(--green);color:var(--green);}
+.tip.amber{background:var(--am-bg);border-color:var(--amber);color:var(--amber);}
+.tip.purple{background:var(--p-bg);border-color:var(--purple);color:var(--purple);}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="back-btn" onclick="history.back()">←</button>
+  <div class="hdr-title">
+    <h1>📅 Week-by-Week Schedule</h1>
+    <p>Phase 1 · 8 weeks · 1.5 hrs/day · tap any day to expand</p>
+  </div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+</header>
+
+<div class="wrap">
+
+<div class="week-tabs">
+  <div class="wtab w12 active" onclick="sw(0,this,'w12')">Wk 1–2 Linux</div>
+  <div class="wtab w34"        onclick="sw(1,this,'w34')">Wk 3–4 Python</div>
+  <div class="wtab w56"        onclick="sw(2,this,'w56')">Wk 5–6 Cloud</div>
+  <div class="wtab w78"        onclick="sw(3,this,'w78')">Wk 7–8 Git+Docker</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     WEEKS 1–2  LINUX
+══════════════════════════════════════════════ -->
+<div class="wpanel active" id="p0">
+
+<div class="phase-card ph-blue">
+  <span class="ph-tag">Weeks 1–2 · Linux</span>
+  <div class="ph-title">Shell, Permissions, SSH & Bash Scripting</div>
+  <div class="ph-sub">You already think in networks — now learn the OS underneath. Every command you learn here you will use daily for the next 6 months.</div>
+  <div class="ph-prog-row"><span class="ph-prog-lbl">Phase progress</span><span class="ph-prog-pct" id="pp-linux">0%</span></div>
+  <div class="ph-bar"><div class="ph-fill" id="pf-linux" style="width:0%"></div></div>
+  <div class="course-pill">📘 UD Hands-On Linux Bootcamp 2025</div>
+  <div class="course-pill">📗 PIKUMA Bash Scripting (Wk 2)</div>
+</div>
+
+<div class="tip">Warm up rule: never skip it. Run <code style="font-family:var(--mono);font-size:0.9em">vimtutor</code> on Day 5. Push to GitHub on Saturday every week — no exceptions.</div>
+
+<!-- WEEK 1 -->
+<div class="week-block">
+<div class="week-hdr">Week 1 — CLI, Permissions, Processes <span class="week-count" id="wc-w1">0/6</span></div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w1mon')">
+    <span class="day-name">Monday</span>
+    <span class="day-topic">Shell basics + navigation</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1mon">▸</span></div>
+  </div>
+  <div class="day-body" id="w1mon">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Linux Command Line Ch 1–3 (linuxcommand.org — free)</div><div class="task-detail">Shell, navigating the file system, exploring with ls. Read first, then open terminal and follow along.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:15</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Drill every navigation command</div><div class="task-detail">pwd · ls · ls -la · cd · mkdir · touch · cp · mv · rm · cat · less · head · tail. Make a practice folder, drill until natural. Type, don't copy-paste.</div></div></div>
+    <div class="task"><div class="task-time">1:15–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-rev">Review</span>Start your cheat sheet</div><div class="task-detail">Open a text file, write every command you used with a one-line description. This becomes your reference doc.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w1tue')">
+    <span class="day-name">Tuesday</span>
+    <span class="day-topic">File permissions + users</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1tue">▸</span></div>
+  </div>
+  <div class="day-body" id="w1tue">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Linux Command Line Ch 9 — permissions</div><div class="task-detail">chmod, chown, understanding rwx for user/group/other. Permissions are the #1 cause of "why isn't this working" on Linux.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:20</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Permission drills</div><div class="task-detail">chmod 755, 644, 600 numerically + chmod u+x symbolically. Create a second user (useradd), change ownership with chown. Run whoami · id · sudo. Try to access a root file as a normal user — understand the error.</div></div></div>
+    <div class="task"><div class="task-time">1:20–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-rev">Review</span>Update cheat sheet</div><div class="task-detail">Add chmod, chown, sudo, su, whoami, id with examples.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w1wed')">
+    <span class="day-name">Wednesday</span>
+    <span class="day-topic">Text tools + pipes</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1wed">▸</span></div>
+  </div>
+  <div class="day-body" id="w1wed">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Linux Command Line Ch 6–7 — redirection + pipelines</div><div class="task-detail">The pipe | is one of Linux's most powerful ideas. Understand it deeply — you will use it every day.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:20</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>grep · awk · sed · sort · wc · cut</div><div class="task-detail">Download a sample syslog from GitHub. Build a pipeline: cat syslog | grep "error" | sort | uniq -c | sort -rn. Use awk to extract IP column. Use sed to replace a string. This is real network log analysis.</div></div></div>
+    <div class="task"><div class="task-time">1:20–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-rev">Review</span>Add pipe operators to cheat sheet</div><div class="task-detail">| · > · >> · < · 2>&1 — with a one-line example of each.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w1thu')">
+    <span class="day-name">Thursday</span>
+    <span class="day-topic">Processes + systemd + tmux</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1thu">▸</span></div>
+  </div>
+  <div class="day-body" id="w1thu">
+    <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Process management — Linux Command Line Ch 10</div><div class="task-detail">ps · top · htop · kill · jobs · bg · fg · & (background). How processes get PIDs and signals.</div></div></div>
+    <div class="task"><div class="task-time">0:25–1:10</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>systemd + service management</div><div class="task-detail">systemctl start/stop/status/enable/disable/restart. Install nginx (sudo apt install nginx), start it, check status, view its logs with journalctl -u nginx -f. Stop it. This is exactly how you'll manage AI services later.</div></div></div>
+    <div class="task"><div class="task-time">1:10–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>tmux — your terminal multiplexer</div><div class="task-detail">Install tmux. New session · split pane horizontal (Ctrl+b ") · split vertical (Ctrl+b %) · switch panes (Ctrl+b arrow) · detach (Ctrl+b d) · reattach (tmux attach). You will use this daily.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w1fri')">
+    <span class="day-name">Friday</span>
+    <span class="day-topic">Networking commands + vim</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1fri">▸</span></div>
+  </div>
+  <div class="day-body" id="w1fri">
+    <div class="task"><div class="task-time">0:00–0:50</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Linux networking commands — your comfort zone</div><div class="task-detail">ip addr · ip route · ip link (replaces ifconfig). ss -tuln (replaces netstat). ping · traceroute · dig · nslookup · curl · wget. You know what these do — just learn Linux syntax. All faster than Cisco.</div></div></div>
+    <div class="task"><div class="task-time">0:50–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>vimtutor — run it now, finish it fully</div><div class="task-detail">Type "vimtutor" in terminal. Built-in interactive tutorial. ~40 min. You need: insert mode (i) · command mode (Esc) · save (:w) · quit (:q) · search (/pattern) · delete (dd) · undo (u). That's enough to survive any SSH session.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w1sat')">
+    <span class="day-name">Saturday</span>
+    <span class="day-topic">First bash script + OverTheWire</span>
+    <div class="day-meta"><span class="day-dur">2 hrs</span><span class="day-chev" id="chv-w1sat">▸</span></div>
+  </div>
+  <div class="day-body" id="w1sat">
+    <div class="task"><div class="task-time">0:00–1:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Write your first bash script: ping sweep</div><div class="task-detail">Script reads a list of IPs from a file, pings each one, checks if port 22 is open (nc -zv), logs results to a dated log file with timestamps. Uses: loop · if/else · redirection. This is a real tool you can use at work tomorrow. Push to GitHub.</div></div></div>
+    <div class="task"><div class="task-time">1:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>OverTheWire Bandit levels 0–5</div><div class="task-detail">overthewire.org/wargames/bandit — SSH in, solve puzzles. Addictive. Each level teaches a real Linux skill. Level 0 is "SSH in" — you already know this. Levels 1–5 cover ls, file reading, hidden files, spaces in filenames.</div></div></div>
+  </div>
+</div>
+
+</div><!-- /week1 -->
+
+<!-- WEEK 2 -->
+<div class="week-block">
+<div class="week-hdr">Week 2 — SSH, Bash Scripting, Environment <span class="week-count" id="wc-w2">0/6</span></div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w2mon')">
+    <span class="day-name">Monday</span>
+    <span class="day-topic">SSH deep dive + first cloud VM</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2mon">▸</span></div>
+  </div>
+  <div class="day-body" id="w2mon">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>SSH keys, config, and tunnels</div><div class="task-detail">How key pairs work · ~/.ssh/config for multiple hosts · ssh-keygen -t ed25519 · ssh-copy-id · authorized_keys · ssh -L port forwarding. You use SSH already — now understand the mechanics.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Launch your first AWS free-tier EC2</div><div class="task-detail">Create free AWS account → launch t2.micro Ubuntu → SSH in with a key pair → configure ~/.ssh/config with an alias → practice scp to copy a file. This is your first cloud touchpoint. Keep the instance for Week 5.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w2tue')">
+    <span class="day-name">Tuesday</span>
+    <span class="day-topic">Bash scripting fundamentals</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2tue">▸</span></div>
+  </div>
+  <div class="day-body" id="w2tue">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>PIKUMA course — bash scripting fundamentals</div><div class="task-detail">Variables · if/elif/else · for/while loops · functions · exit codes · $? · $1 $2 arguments. Open PIKUMA course now — this is its core section.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Write 3 scripts tonight</div><div class="task-detail">1) Disk usage alert: warn if any mount > 80% (df -h + awk + if). 2) Directory backup to timestamped archive (tar + date). 3) Port scanner: loop through a list of IPs and check if port 22 open (nc -z). All directly useful at your job now.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w2wed')">
+    <span class="day-name">Wednesday</span>
+    <span class="day-topic">Environment + package management</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2wed">▸</span></div>
+  </div>
+  <div class="day-body" id="w2wed">
+    <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Environment variables + PATH + .bashrc</div><div class="task-detail">How PATH works · .bashrc vs .bash_profile · export · env · which · echo $VARIABLE. Understanding this prevents hours of "command not found" confusion in Phase 2 when you install Python tools.</div></div></div>
+    <div class="task"><div class="task-time">0:25–1:15</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>apt + Python setup for Week 3</div><div class="task-detail">apt update · apt install · apt remove. Install Python 3, pip, pyenv. Set up a virtual environment (python3 -m venv env). Activate it. This is the exact setup for Week 3 Python work — do it now so Monday is smooth.</div></div></div>
+    <div class="task"><div class="task-time">1:15–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-rev">Review</span>Build your .bashrc aliases</div><div class="task-detail">Add: alias ll='ls -la' · alias gs='git status' · alias activate='source env/bin/activate'. Reload with source ~/.bashrc. Small wins, daily.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w2thu')">
+    <span class="day-name">Thursday</span>
+    <span class="day-topic">Cron + log management</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2thu">▸</span></div>
+  </div>
+  <div class="day-body" id="w2thu">
+    <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>cron, crontab, and scheduled tasks</div><div class="task-detail">Cron syntax: minute · hour · day · month · weekday. crontab -e · crontab -l · @reboot · @daily. Use crontab.guru to test your expressions before saving.</div></div></div>
+    <div class="task"><div class="task-time">0:25–1:10</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Schedule your backup script + log tools</div><div class="task-detail">Take Tuesday's backup script → schedule it via cron to run at 2am daily → verify it ran. Then: journalctl -u nginx · tail -f /var/log/syslog · logrotate config. These are your monitoring tools for every AI service you deploy later.</div></div></div>
+    <div class="task"><div class="task-time">1:10–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>OverTheWire Bandit levels 6–12</div><div class="task-detail">Levels 6–12 cover: file properties · base64 · rot13 · compression · SSH keys in non-standard places. 20 min of puzzle solving beats 20 min of re-reading notes.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w2fri')">
+    <span class="day-name">Friday</span>
+    <span class="day-topic">Git basics + Week 2 review</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2fri">▸</span></div>
+  </div>
+  <div class="day-body" id="w2fri">
+    <div class="task"><div class="task-time">0:00–0:45</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Git init, add, commit, push</div><div class="task-detail">Install git · git init · git add · git commit -m · git remote add origin · git push. Create a GitHub account if you haven't. Think of commits as configuration snapshots — you already understand version control from network change management.</div></div></div>
+    <div class="task"><div class="task-time">0:45–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-rev">Review</span>Week 2 self-assessment</div><div class="task-detail">Can you: set up a new VM from scratch ✓ · configure SSH keys ✓ · write a scheduled bash script ✓ · edit files in vim ✓ · read logs with journalctl ✓? If yes — Week 2 is done.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w2sat')">
+    <span class="day-name">Saturday</span>
+    <span class="day-topic">Capstone: network health monitor</span>
+    <div class="day-meta"><span class="day-dur">2 hrs</span><span class="day-chev" id="chv-w2sat">▸</span></div>
+  </div>
+  <div class="day-body" id="w2sat">
+    <div class="task"><div class="task-time">0:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Capstone</span>Build: Network Health Monitor</div><div class="task-detail">Reads a list of IPs from a text file → pings each one → checks if SSH port (22) is open with nc → logs results to a dated log file → sends summary to screen. Uses everything from 2 weeks: loops, conditionals, networking commands, file I/O, cron-ready. Write a proper README.md. Push to GitHub — Portfolio Project #1.</div></div></div>
+  </div>
+</div>
+
+</div><!-- /week2 -->
+
+<div class="checkpoint">
+  <div class="cp-hdr">✅ Weeks 1–2 Checkpoint</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Navigate Linux confidently with no GUI</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Understand permissions, processes, systemd</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Write and schedule bash scripts</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>SSH into remote servers with key auth</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Portfolio Project #1 on GitHub with README</div>
+</div>
+</div><!-- /w12 panel -->
+
+
+<!-- ══════════════════════════════════════════════
+     WEEKS 3–4  PYTHON
+══════════════════════════════════════════════ -->
+<div class="wpanel" id="p1">
+
+<div class="phase-card ph-green">
+  <span class="ph-tag">Weeks 3–4 · Python</span>
+  <div class="ph-title">Python Core → Network Automation → AI Scripting</div>
+  <div class="ph-sub">The language of AI. Your first week is fundamentals — type every example. Week 4 connects Python directly to your network expertise with Netmiko.</div>
+  <div class="ph-prog-row"><span class="ph-prog-lbl">Phase progress</span><span class="ph-prog-pct" id="pp-python">0%</span></div>
+  <div class="ph-bar"><div class="ph-fill" id="pf-python" style="width:0%"></div></div>
+  <div class="course-pill">📘 100 Days of Code (Days 1–35)</div>
+  <div class="course-pill">📗 OrhanErgun Python for Network Engineers (Wk 4)</div>
+</div>
+
+<div class="tip green">Rule: never copy-paste code. Type every line. Angela Yu even warns about this in the intro. The muscle memory is the point, not the watching.</div>
+
+<!-- WEEK 3 -->
+<div class="week-block">
+<div class="week-hdr">Week 3 — Python Core Language (100 Days 1–18) <span class="week-count" id="wc-w3">0/6</span></div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w3mon')">
+    <span class="day-name">Monday</span>
+    <span class="day-topic">Setup + data types + variables</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3mon">▸</span></div>
+  </div>
+  <div class="day-body" id="w3mon">
+    <div class="task"><div class="task-time">0:00–0:20</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>VS Code + Python extension setup</div><div class="task-detail">Install VS Code + Python extension. Activate your venv (from Week 2). Install ipython (pip install ipython). Open a terminal in VS Code. Verify: python3 --version · pip --version · which python3.</div></div></div>
+    <div class="task"><div class="task-time">0:20–1:20</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days of Code — Days 1–3</div><div class="task-detail">Strings · integers · floats · booleans · variables · type() · input(). Open ipython alongside the video. Type every example. Change values. Break things on purpose — that's how you learn.</div></div></div>
+    <div class="task"><div class="task-time">1:20–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Mini</span>Print your own network inventory</div><div class="task-detail">Store hostname, IP, vendor as variables. Print them formatted with f-strings: f"Host: {hostname} | IP: {ip}".</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w3tue')">
+    <span class="day-name">Tuesday</span>
+    <span class="day-topic">Lists, dicts, loops</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3tue">▸</span></div>
+  </div>
+  <div class="day-body" id="w3tue">
+    <div class="task"><div class="task-time">0:00–0:40</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days — Days 4–6: lists + dicts + loops</div><div class="task-detail">Lists · dicts · tuples · sets. for loops · while loops · range(). Think of a dict as a routing table: key maps to value. for device in devices: — you've written this logic in bash already.</div></div></div>
+    <div class="task"><div class="task-time">0:40–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Network device inventory in Python</div><div class="task-detail">Store a list of routers as dicts: [{"hostname":"r1","ip":"10.0.0.1","vendor":"cisco"}]. Loop through and print each. Filter by vendor. Sort by IP. Count per vendor. This maps directly to your day job.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w3wed')">
+    <span class="day-name">Wednesday</span>
+    <span class="day-topic">Functions + modules + imports</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3wed">▸</span></div>
+  </div>
+  <div class="day-body" id="w3wed">
+    <div class="task"><div class="task-time">0:00–0:35</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days — Days 11–14: functions + modules</div><div class="task-detail">def · return · parameters · default arguments. import · from x import y. Standard library: os · sys · json · datetime. A function is reusable logic — you've built these in bash, same concept cleaner.</div></div></div>
+    <div class="task"><div class="task-time">0:35–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Refactor inventory into functions</div><div class="task-detail">Write: get_device_by_ip(ip, devices) · filter_by_vendor(vendor, devices) · print_inventory(devices). Import json and read the device list from a JSON file instead of hardcoding. You're now writing real software structure.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w3thu')">
+    <span class="day-name">Thursday</span>
+    <span class="day-topic">File I/O + error handling</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3thu">▸</span></div>
+  </div>
+  <div class="day-body" id="w3thu">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days — Days 15–18: files + exceptions</div><div class="task-detail">open() · with statement · read() · write() · readlines(). try/except/finally. json.load() · json.dump(). This is the foundation for every config and log file task in your career.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Parse a Cisco running-config file</div><div class="task-detail">Download a sample running-config from GitHub. Write Python to: open it · find all interface blocks · extract IP addresses using string methods · write results to a JSON file. Real-world task, Day 4 of Week 3.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w3fri')">
+    <span class="day-name">Friday</span>
+    <span class="day-topic">requests library + REST APIs</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3fri">▸</span></div>
+  </div>
+  <div class="day-body" id="w3fri">
+    <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>HTTP + the requests library</div><div class="task-detail">pip install requests. GET · POST · headers · JSON responses · status codes · timeout. HTTP is how modern network equipment APIs work — you already know the protocol. This is just Python syntax for it.</div></div></div>
+    <div class="task"><div class="task-time">0:25–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Call a real API with your own IPs</div><div class="task-detail">requests.get("https://ipinfo.io/8.8.8.8/json") → gets geo/ASN data for any IP. Parse the response dict. Build a loop: for each IP in your list → call the API → extract org + country + ASN → print formatted. This is your IP enrichment tool prototype.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w3sat')">
+    <span class="day-name">Saturday</span>
+    <span class="day-topic">Project: IP enrichment tool</span>
+    <div class="day-meta"><span class="day-dur">2 hrs</span><span class="day-chev" id="chv-w3sat">▸</span></div>
+  </div>
+  <div class="day-body" id="w3sat">
+    <div class="task"><div class="task-time">0:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Build: IP Enrichment Tool — Portfolio #2</div><div class="task-detail">Reads a list of IPs from a file → calls ipinfo.io for each → extracts org/country/ASN/hostname → handles errors (bad IP, timeout, rate limit) → writes a formatted JSON + CSV report. Functions: load_ips() · enrich_ip() · save_report(). Write proper README. Push to GitHub.</div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- WEEK 4 -->
+<div class="week-block">
+<div class="week-hdr">Week 4 — Network Automation + OOP + First AI Call <span class="week-count" id="wc-w4">0/5</span></div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w4mon')">
+    <span class="day-name">Mon–Tue</span>
+    <span class="day-topic">Netmiko + SSH to real devices</span>
+    <div class="day-meta"><span class="day-dur">2 × 90 min</span><span class="day-chev" id="chv-w4mon">▸</span></div>
+  </div>
+  <div class="day-body" id="w4mon">
+    <div class="task"><div class="task-time">Monday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>OrhanErgun course — pip install netmiko</div><div class="task-detail">Netmiko is the standard Python library for SSH to Cisco/Juniper/Arista. If you have lab gear or GNS3/EVE-NG: SSH in, run "show ip int brief", capture output. This will feel immediately powerful — you've done this manually for 20 years.</div></div></div>
+    <div class="task"><div class="task-time">Tuesday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Multi-device config backup script</div><div class="task-detail">Loop through a device list → SSH into each with netmiko → run "show running-config" → save output to a dated file per device. This is a real tool you can deploy at work immediately. Add boto3 later to save to S3.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w4wed')">
+    <span class="day-name">Wed–Thu</span>
+    <span class="day-topic">OOP + NetworkDevice class</span>
+    <div class="day-meta"><span class="day-dur">2 × 90 min</span><span class="day-chev" id="chv-w4wed">▸</span></div>
+  </div>
+  <div class="day-body" id="w4wed">
+    <div class="task"><div class="task-time">Wednesday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days — Days 25–28: classes + OOP</div><div class="task-detail">class · __init__ · self · methods · inheritance. You don't need to master OOP now — understand enough to read library code. Think of a class as a "device template": each instance is a router.</div></div></div>
+    <div class="task"><div class="task-time">Thursday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Build a NetworkDevice class</div><div class="task-detail">class NetworkDevice with hostname, ip, vendor, os_type attributes and methods: connect() · run_command(cmd) · disconnect() · backup_config(). Wrap your netmiko code inside. Clean, reusable, professional.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w4fri')">
+    <span class="day-name">Friday</span>
+    <span class="day-topic">Regex + first Anthropic API call</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w4fri">▸</span></div>
+  </div>
+  <div class="day-body" id="w4fri">
+    <div class="task"><div class="task-time">0:00–0:40</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Regex — re module for config parsing</div><div class="task-detail">re.findall() · re.search() · re.sub(). Practice at regex101.com. Extract IP addresses from a config file. Find interface names. Pull VLAN IDs. This makes your compliance checker much more powerful.</div></div></div>
+    <div class="task"><div class="task-time">0:40–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">First</span>Your first Anthropic API call</div><div class="task-detail">pip install anthropic. Get a free API key from console.anthropic.com. Write 10 lines: import anthropic → client = anthropic.Anthropic() → message = client.messages.create(model="claude-opus-4-5", max_tokens=100, messages=[{"role":"user","content":"Summarize: interface is down"}]) → print(message.content). That's it. That's the foundation for everything in Phase 2.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w4sat')">
+    <span class="day-name">Saturday</span>
+    <span class="day-topic">Capstone: Config compliance checker</span>
+    <div class="day-meta"><span class="day-dur">2 hrs</span><span class="day-chev" id="chv-w4sat">▸</span></div>
+  </div>
+  <div class="day-body" id="w4sat">
+    <div class="task"><div class="task-time">0:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Capstone</span>Build: Config Compliance Checker — Portfolio #3</div><div class="task-detail">Parse a running-config. Use regex to check: NTP server configured ✓ · SSH version 2 only ✓ · no telnet ✓ · password encryption enabled ✓ · banner configured ✓. Output a per-device compliance report (pass/fail per check). This is a real auditing tool. Proper README, push to GitHub.</div></div></div>
+  </div>
+</div>
+
+</div><!-- /week4 -->
+
+<div class="checkpoint">
+  <div class="cp-hdr">✅ Weeks 3–4 Checkpoint</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Python feels manageable — no longer scary</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Can SSH into network devices from a Python script</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>3 GitHub projects: IP enricher · config backup · compliance checker</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>First Anthropic API call working — even if just "Hello World"</div>
+</div>
+</div><!-- /w34 panel -->
+
+
+<!-- ══════════════════════════════════════════════
+     WEEKS 5–6  CLOUD
+══════════════════════════════════════════════ -->
+<div class="wpanel" id="p2">
+
+<div class="phase-card ph-amber">
+  <span class="ph-tag">Weeks 5–6 · AWS Cloud</span>
+  <div class="ph-title">VPCs, EC2, S3, IAM + Cloud Practitioner Cert</div>
+  <div class="ph-sub">Your networking background is your superpower here. VPCs, subnets, routing tables, security groups — you already know these. AWS just has a different UI on top of concepts you've mastered for 20 years.</div>
+  <div class="ph-prog-row"><span class="ph-prog-lbl">Phase progress</span><span class="ph-prog-pct" id="pp-cloud">0%</span></div>
+  <div class="ph-bar"><div class="ph-fill" id="pf-cloud" style="width:0%"></div></div>
+  <div class="course-pill">📘 AWS Cloud Practitioner CLF-C02 (Adrian Cantrill / A Cloud Guru)</div>
+  <div class="course-pill">📗 TechWorld with Nana (YouTube)</div>
+</div>
+
+<div class="tip amber">Target: AWS Cloud Practitioner exam booked before Week 6 ends. Book it when practice scores hit 80%+. Commitment forces focus.</div>
+
+<div class="week-block">
+<div class="week-hdr">Week 5 — AWS Core Infrastructure <span class="week-count" id="wc-w5">0/6</span></div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w5mon')">
+    <span class="day-name">Monday</span>
+    <span class="day-topic">AWS account + IAM + global infra</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w5mon">▸</span></div>
+  </div>
+  <div class="day-body" id="w5mon">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>AWS global infrastructure + IAM</div><div class="task-detail">Regions · Availability Zones · edge locations. IAM: users · groups · roles · policies · principle of least privilege. Think of IAM as the enterprise AAA (RADIUS/TACACS) you already know — same concept, AWS implementation.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Secure your AWS account + set up CLI</div><div class="task-detail">Enable MFA on root account → create an IAM user → create an admin group → assign the user. Install AWS CLI: aws configure (enter access key, secret, region). Test: aws iam list-users. Never use root credentials again.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w5tue')">
+    <span class="day-name">Tuesday</span>
+    <span class="day-topic">VPC — your comfort zone</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w5tue">▸</span></div>
+  </div>
+  <div class="day-body" id="w5tue">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>VPC, subnets, routing, gateways</div><div class="task-detail">VPC = your private network in AWS. Public/private subnets · route tables · Internet Gateway · NAT Gateway. You built these on physical hardware for 20 years. This is the same thing, virtualized. You'll be faster than most students in your cohort.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Build a VPC from scratch — no wizard</div><div class="task-detail">Create VPC (10.0.0.0/16) → 2 public subnets (10.0.1.0/24, 10.0.2.0/24) → 2 private subnets → attach Internet Gateway → configure route tables. Launch EC2 in public subnet → SSH in. You just designed a proper cloud network.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w5wed')">
+    <span class="day-name">Wednesday</span>
+    <span class="day-topic">EC2 + Security Groups via CLI</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w5wed">▸</span></div>
+  </div>
+  <div class="day-body" id="w5wed">
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>EC2 instance types + Security Groups</div><div class="task-detail">Security groups = stateful firewall ACLs you already know. NACLs = stateless ACLs. Instance types (t2/t3 micro for dev) · AMIs · key pairs · user data scripts · EBS volumes.</div></div></div>
+    <div class="task"><div class="task-time">0:30–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Manage EC2 via AWS CLI — no console</div><div class="task-detail">aws ec2 run-instances → aws ec2 describe-instances → aws ec2 stop-instances → create + attach an EBS volume → create an AMI of your instance. CLI-first is the workflow you'll use for all automation.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w5thu')">
+    <span class="day-name">Thursday</span>
+    <span class="day-topic">S3 + boto3 Python integration</span>
+    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w5thu">▸</span></div>
+  </div>
+  <div class="day-body" id="w5thu">
+    <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>S3 concepts</div><div class="task-detail">Buckets · objects · keys · versioning · storage classes · bucket policies · pre-signed URLs. S3 is the backbone of almost every AI/ML system — you'll use it constantly in Phase 2 for documents, embeddings, and logs.</div></div></div>
+    <div class="task"><div class="task-time">0:25–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>S3 with boto3 — update your config backup</div><div class="task-detail">pip install boto3. Create bucket → upload file → list objects → download → generate pre-signed URL → delete. Update your Week 4 config backup script to save to S3 instead of local disk. Your first real cloud automation.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w5fri')">
+    <span class="day-name">Fri–Sat</span>
+    <span class="day-topic">CLF-C02 cert prep</span>
+    <div class="day-meta"><span class="day-dur">3 hrs total</span><span class="day-chev" id="chv-w5fri">▸</span></div>
+  </div>
+  <div class="day-body" id="w5fri">
+    <div class="task"><div class="task-time">Friday 90 min</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>CLF-C02 exam domains</div><div class="task-detail">Download AWS exam guide from aws.amazon.com/certification. Study: 6 advantages of cloud · shared responsibility model · well-architected framework · pricing models (on-demand/reserved/spot) · support plans. Use Adrian Cantrill or ExamPro free YouTube content.</div></div></div>
+    <div class="task"><div class="task-time">Saturday 2 hrs</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Exam Prep</span>Full practice exam + gap analysis</div><div class="task-detail">Take AWS official sample questions + an ExamPro practice exam. Note every wrong answer — those are your Week 6 targets. Goal: 80%+ before booking. If you hit 80% today, book the exam for the end of Week 6.</div></div></div>
+  </div>
+</div>
+
+</div><!-- /week5 -->
+
+<div class="week-block">
+<div class="week-hdr">Week 6 — Cert Prep + CloudFormation + Boto3 Project <span class="week-count" id="wc-w6">0/5</span></div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w6block')">
+    <span class="day-name">Mon–Sat</span>
+    <span class="day-topic">Cert gaps + IaC intro + cloud inventory</span>
+    <div class="day-meta"><span class="day-dur">structured</span><span class="day-chev" id="chv-w6block">▸</span></div>
+  </div>
+  <div class="day-body" id="w6block">
+    <div class="task"><div class="task-time">Mon–Wed</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Study</span>Fill CLF-C02 knowledge gaps</div><div class="task-detail">Cover every area you missed: RDS · DynamoDB · CloudFront · Route 53 · Lambda basics · CloudWatch · SNS · SQS. Each service: 15 min read + 5 min hands-on in console. Don't memorise — understand the use case.</div></div></div>
+    <div class="task"><div class="task-time">Thursday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>AWS CloudFormation — Infrastructure as Code</div><div class="task-detail">Write a CloudFormation YAML that creates a VPC + EC2 instance. Deploy with aws cloudformation deploy. Then delete the stack entirely with one command. Infrastructure as code is how real teams work. First taste before Terraform in Phase 3.</div></div></div>
+    <div class="task"><div class="task-time">Friday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Exam</span>2 full practice exams</div><div class="task-detail">Target: 85%+ before booking. Use ExamPro timed mode. If hitting 85%, book the exam. If not, spend Saturday on your weakest domain. The exam itself is multiple-choice, 90 min, ~65 questions. You will pass.</div></div></div>
+    <div class="task"><div class="task-time">Saturday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Cloud Inventory Reporter — Portfolio #4</div><div class="task-detail">boto3 script that: lists all EC2 instances (name, state, type, IPs, AZ) · lists all S3 buckets with sizes · lists IAM users and last login · outputs a formatted report · saves to S3. Cronjob-ready. Production-quality README. Push to GitHub.</div></div></div>
+  </div>
+</div>
+</div>
+
+<div class="checkpoint">
+  <div class="cp-hdr">✅ Weeks 5–6 Checkpoint</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>AWS fundamentals at a hands-on level — not just theory</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Can automate AWS with Python/boto3</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Cloud Practitioner exam booked — go pass it</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Portfolio #4 cloud inventory tool on GitHub</div>
+</div>
+</div><!-- /w56 panel -->
+
+
+<!-- ══════════════════════════════════════════════
+     WEEKS 7–8  GIT + DOCKER + CI/CD
+══════════════════════════════════════════════ -->
+<div class="wpanel" id="p3">
+
+<div class="phase-card ph-purple">
+  <span class="ph-tag">Weeks 7–8 · Git, Docker & CI/CD</span>
+  <div class="ph-title">The Glue of Modern Engineering</div>
+  <div class="ph-sub">Every AI project in Phase 2 assumes you know these. Two weeks is enough to be fully functional. Start the Manning AI-Assisted Python course this week to bridge into Phase 2.</div>
+  <div class="ph-prog-row"><span class="ph-prog-lbl">Phase progress</span><span class="ph-prog-pct" id="pp-devops">0%</span></div>
+  <div class="ph-bar"><div class="ph-fill" id="pf-devops" style="width:0%"></div></div>
+  <div class="course-pill">📘 Manning — AI-Assisted Python Programming (Wk 7–8)</div>
+  <div class="course-pill">📗 TechWorld with Nana Docker/K8s (YouTube)</div>
+</div>
+
+<div class="tip purple">This is the phase that turns your scripts into professional software. A Dockerfile + GitHub Actions pipeline impresses interviewers more than 10 extra Python scripts.</div>
+
+<div class="week-block">
+<div class="week-hdr">Week 7 — Git Workflow + Docker <span class="week-count" id="wc-w7">0/5</span></div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w7mon')">
+    <span class="day-name">Mon–Tue</span>
+    <span class="day-topic">Git fundamentals + branching</span>
+    <div class="day-meta"><span class="day-dur">2 × 90 min</span><span class="day-chev" id="chv-w7mon">▸</span></div>
+  </div>
+  <div class="day-body" id="w7mon">
+    <div class="task"><div class="task-time">Monday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Core git commands</div><div class="task-detail">git init · add · commit · status · log · diff · .gitignore. Understand what the staging area is and why. Think of commits as configuration snapshots — you already understand version control from network change management.</div></div></div>
+    <div class="task"><div class="task-time">Tuesday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Branching, merging, pull requests</div><div class="task-detail">git branch · checkout · merge · rebase. Create a feature branch on one of your existing projects → make changes → open a pull request on GitHub → review and merge. This is the workflow at every professional team.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w7wed')">
+    <span class="day-name">Wed–Thu</span>
+    <span class="day-topic">GitHub profile + Docker intro</span>
+    <div class="day-meta"><span class="day-dur">2 × 90 min</span><span class="day-chev" id="chv-w7wed">▸</span></div>
+  </div>
+  <div class="day-body" id="w7wed">
+    <div class="task"><div class="task-time">Wednesday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Portfolio</span>Clean up all 4 GitHub projects</div><div class="task-detail">Every project needs: README.md with what/install/run/example-output · requirements.txt · .gitignore · clear commit history. Your GitHub is now your resume — make it look professional. This is what hiring managers see first.</div></div></div>
+    <div class="task"><div class="task-time">Thursday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>Docker — containers vs VMs</div><div class="task-detail">A container packages your app + all its dependencies. Think of it as a standardised shipping container for software. Install Docker Desktop. docker pull ubuntu → docker run → docker ps → docker stop → docker rm. docker images.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w7fri')">
+    <span class="day-name">Fri–Sat</span>
+    <span class="day-topic">Containerise your Python tool</span>
+    <div class="day-meta"><span class="day-dur">3 hrs total</span><span class="day-chev" id="chv-w7fri">▸</span></div>
+  </div>
+  <div class="day-body" id="w7fri">
+    <div class="task"><div class="task-time">Friday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>Write a Dockerfile</div><div class="task-detail">FROM python:3.11-slim · WORKDIR /app · COPY requirements.txt . · RUN pip install -r requirements.txt · COPY . . · CMD ["python","main.py"]. Build: docker build -t ip-enricher . Run: docker run ip-enricher. Your script now runs identically on any machine.</div></div></div>
+    <div class="task"><div class="task-time">Saturday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Containerise + push to Docker Hub</div><div class="task-detail">docker tag ip-enricher yourusername/ip-enricher:v1 → docker push. Start Manning AI-Assisted Python course — work through the first 2 modules tonight. This bridges you directly into Phase 2 Claude API work starting Week 9.</div></div></div>
+  </div>
+</div>
+</div>
+
+<div class="week-block">
+<div class="week-hdr">Week 8 — CI/CD + Phase 1 Capstone <span class="week-count" id="wc-w8">0/4</span></div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w8mon')">
+    <span class="day-name">Mon–Wed</span>
+    <span class="day-topic">GitHub Actions CI/CD pipeline</span>
+    <div class="day-meta"><span class="day-dur">3 × 90 min</span><span class="day-chev" id="chv-w8mon">▸</span></div>
+  </div>
+  <div class="day-body" id="w8mon">
+    <div class="task"><div class="task-time">Monday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>What is CI/CD and why it matters</div><div class="task-detail">CI = automatically test code on every commit. CD = automatically deploy. GitHub Actions is free for public repos. YAML workflow files live in .github/workflows/. This is how every professional team ships software.</div></div></div>
+    <div class="task"><div class="task-time">Tuesday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Build your first GitHub Action</div><div class="task-detail">Create .github/workflows/ci.yml: trigger on push → install dependencies → run pytest. Write 3 basic tests for your IP enricher (test_load_ips · test_enrich_ip · test_save_report). Green checkmark on GitHub = professional workflow.</div></div></div>
+    <div class="task"><div class="task-time">Wednesday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Add Docker build to the pipeline</div><div class="task-detail">Extend the Action: on merge to main → build Docker image → push to Docker Hub automatically. You now have a full CI/CD pipeline. This is what engineering teams at scale use.</div></div></div>
+  </div>
+</div>
+
+<div class="day-card">
+  <div class="day-hdr" onclick="tog('w8thu')">
+    <span class="day-name">Thu–Sat</span>
+    <span class="day-topic">Phase 1 Capstone + Manning course</span>
+    <div class="day-meta"><span class="day-dur">4+ hrs</span><span class="day-chev" id="chv-w8thu">▸</span></div>
+  </div>
+  <div class="day-body" id="w8thu">
+    <div class="task"><div class="task-time">Thu–Sat</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Capstone</span>Network Automation Toolkit — Portfolio #5 (the flagship)</div><div class="task-detail">Combine everything into one polished GitHub repo: 1) Config backup tool (bash + netmiko + S3) · 2) IP enrichment + compliance checker · 3) AWS cloud inventory reporter · All Dockerised · Full CI/CD pipeline · Comprehensive README with setup, architecture diagram, example output. This single repo demonstrates: Linux · Python · AWS · Docker · Git/GitHub · CI/CD. It is your Phase 1 portfolio. Every future employer will see this.</div></div></div>
+    <div class="task"><div class="task-time">Also Wk 8</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Course</span>Manning AI-Assisted Python — complete it</div><div class="task-detail">Finish the Manning AI-Assisted Python Programming course this week. By the end of Week 8 you should be writing Python with Claude as your coding partner — this is the workflow for all of Phase 2.</div></div></div>
+  </div>
+</div>
+</div>
+
+<div class="checkpoint">
+  <div class="cp-hdr">🏆 Phase 1 Complete — 8 Weeks Done</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Linux proficiency — comfortable in any terminal</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Python automation — network tools + API calls + AI SDK</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>AWS Cloud Practitioner exam taken</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Docker containers + GitHub Actions CI/CD pipeline</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>5 public GitHub projects — your Phase 1 portfolio</div>
+  <div class="cp-row"><span class="cp-arrow">→</span>Manning AI-Assisted Python done — ready for Phase 2 Claude API</div>
+</div>
+</div><!-- /w78 panel -->
+
+</div><!-- /wrap -->
+
+<nav class="bnav">
+  <div class="bnav-inner">
+    <a href="index.html"   class="ni" id="bn-home">  <span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
+    <a href="lp.html"      class="ni" id="bn-lp">    <span class="ni-icon">🤖</span><span class="ni-lbl">AI Path</span></a>
+    <a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
+    <a href="linux.html"   class="ni" id="bn-linux">  <span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
+    <a href="python.html"  class="ni" id="bn-python"> <span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
+    <a href="claude.html"  class="ni" id="bn-claude"> <span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
+  </div>
+</nav>
+
+<script>
+// Theme
+function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var d=document.body.classList.toggle('dark');localStorage.setItem('theme',d?'dark':'light');document.getElementById('themeBtn').textContent=d?'☀️':'🌙';}
+initTheme();
+
+// Tab switching
+var panels=['p0','p1','p2','p3'];
+function sw(i,btn,cls){
+  panels.forEach(function(id){document.getElementById(id).className='wpanel';});
+  document.getElementById(panels[i]).className='wpanel active';
+  document.querySelectorAll('.wtab').forEach(function(t){t.className='wtab '+t.className.replace('active','').replace(/w\d+/,'').trim();});
+  btn.className='wtab '+cls+' active';
+  window.scrollTo(0,0);
+}
+
+// Day toggle
+function tog(id){
+  var body=document.getElementById(id);
+  var isOpen=body.classList.contains('open');
+  body.classList.toggle('open');
+  var chv=document.getElementById('chv-'+id);
+  if(chv)chv.textContent=isOpen?'▸':'▾';
+}
+
+// Progress tracking — store which days have been "opened" as a proxy for reviewed
+// Use localStorage key 'schedProgress'
+var K='schedProgress';
+function getS(){try{return JSON.parse(localStorage.getItem(K)||'{}')||{};}catch(e){return{};}}
+function setS(s){try{localStorage.setItem(K,JSON.stringify(s));}catch(e){}}
+
+// Week day IDs for counting
+var WEEKS={
+  'w1':['w1mon','w1tue','w1wed','w1thu','w1fri','w1sat'],
+  'w2':['w2mon','w2tue','w2wed','w2fri','w2sat'],
+  'w3':['w3mon','w3tue','w3wed','w3thu','w3fri','w3sat'],
+  'w4':['w4mon','w4wed','w4fri','w4sat','w4fri'],
+  'w5':['w5mon','w5tue','w5wed','w5thu','w5fri'],
+  'w6':['w6block'],
+  'w7':['w7mon','w7wed','w7fri'],
+  'w8':['w8mon','w8thu']
+};
+
+// Make day headers also toggle a "done" state on long-press / double-tap
+// For simplicity: track manually via checkbox in day header
+// Actually just track open-state as "seen" and show counts
+
+// Phase progress bars — tie to rhcsaProgress, pythonProgress, cloudProgress, lpProgress_v2
+function loadProgress(){
+  function pct(key,keys){
+    var d={};try{d=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){}
+    var done=keys.filter(function(k){return d[k];}).length;
+    return keys.length?Math.round(done/keys.length*100):0;
+  }
+  var lp=pct('rhcsaProgress',['l1a','l1b','l1c','l1d','l2a','l2b','l2c','l2d','l3a','l3b','l3c','l3d','l4a','l4b','l4c','l4d','l5a','l5b','l5c','l6a','l6b','l6c','l6d']);
+  var pp=pct('pythonProgress',['py1a','py1b','py1c','py1d','py1e','py2a','py2b','py2c','py2d','py2e','py3a','py3b','py3c','py3d','py3e','py4a','py4b','py4c','py4d']);
+  var cp=pct('cloudProgress',['a1','a2','a3','a4','a5','z1','z2','z3','z4','z5']);
+
+  function set(barId,pctId,v){
+    var b=document.getElementById(barId),p=document.getElementById(pctId);
+    if(b)b.style.width=v+'%';if(p)p.textContent=v+'%';
+  }
+  set('pf-linux','pp-linux',lp);
+  set('pf-python','pp-python',pp);
+  set('pf-cloud','pp-cloud',cp);
+}
+loadProgress();
+
+try{sessionStorage.setItem('aiResume',JSON.stringify({href:'schedule.html',icon:'📅',title:'Week Schedule',sub:'Phase 1 · 8 weeks · daily tasks'}));}catch(e){}
+</script>
+</body>
+</html>
