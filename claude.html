@@ -138,17 +138,59 @@ body.dark .card.done{background:#081810;border-color:#22c55e;}
 .next-row:last-child{border-bottom:none;}
 .next-name{color:var(--text-sub);font-size:0.76rem;} .next-size{color:var(--text-muted);font-size:0.67rem;}
 </style>
-<div class="tip">💡 Tap any course card to mark complete. Progress saves automatically.</div>
-<span class="sprint-badge">🚀 March 2026</span>
-<h2 class="sprint-title">Claude Fast Track</h2>
-<p class="sprint-sub">5 courses · 2.97 GB · IT pro → Claude practitioner</p>
+<style>
+.phase-label{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-sub);margin:16px 0 8px;padding-bottom:5px;border-bottom:2px solid var(--border);}
+.phase-bar-wrap{background:var(--bg-input);border-radius:8px;height:22px;position:relative;overflow:hidden;margin-bottom:14px;border:1px solid var(--border);}
+.phase-bar-fill{height:100%;border-radius:8px;transition:width 0.4s ease;}
+.bar-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text);}
+.tag-mcp{background:#f0e8ff;color:#6d28d9;} body.dark .tag-mcp{background:#1a0838;color:#c084fc;}
+.tag-adv{background:#fff0f8;color:#be185d;} body.dark .tag-adv{background:#1a0014;color:#f472b6;}
+.skip-section{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:16px;}
+.skip-hdr{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text-sub);padding:10px 13px;border-bottom:1px solid var(--border);}
+.skip-row{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border-bottom:1px solid var(--border);font-size:0.76rem;}
+.skip-row:last-child{border-bottom:none;}
+.skip-name{color:var(--text);flex:1;}
+.skip-when{font-size:0.6rem;color:var(--text-sub);white-space:nowrap;margin-left:8px;font-style:italic;}
+</style>
+
+<div class="tip">💡 Tap any course card to mark complete. Progress saves automatically. March sprint → April deepdive → May MCP mastery.</div>
+
+<p class="phase-label">🚀 March 2026 — Sprint (5 courses)</p>
 <div class="bar-wrap"><div class="bar-fill" id="barFill" style="width:0%"></div><div class="bar-label" id="barLabel">0% (0/5)</div></div>
-<div class="card" data-id="c1" onclick="tog('c1')"><div class="card-row"><span class="num" id="n-c1">01</span><div class="info"><span class="tag tag-f">Foundation</span><p class="ctitle">AI for Everyday IT, Video Edition (2025)</p><p class="csub">Mar 16–18 · 1.68 GB</p></div><span class="chk" id="chk-c1">○</span></div><p class="cnote">Bridges your 20-yr IT background into AI. Watch this first.</p></div>
-<div class="card" data-id="c2" onclick="tog('c2')"><div class="card-row"><span class="num" id="n-c2">02</span><div class="info"><span class="tag tag-c">Claude Intro</span><p class="ctitle">PLS – First Look: Claude Cowork 2026</p><p class="csub">Mar 19 · 99.2 MB</p></div><span class="chk" id="chk-c2">○</span></div><p class="cnote">Freshest 2026 Claude content — finish in a single evening.</p></div>
-<div class="card" data-id="c3" onclick="tog('c3')"><div class="card-row"><span class="num" id="n-c3">03</span><div class="info"><span class="tag tag-c">Claude Code</span><p class="ctitle">PLS – Introduction to Claude Code</p><p class="csub">Mar 20 · 103 MB</p></div><span class="chk" id="chk-c3">○</span></div><p class="cnote">Pair with Course 2 same evening — both under 210 MB.</p></div>
-<div class="card" data-id="c4" onclick="tog('c4')"><div class="card-row"><span class="num" id="n-c4">04</span><div class="info"><span class="tag tag-c">Claude Code</span><p class="ctitle">FASTER – Claude Code from Scratch</p><p class="csub">Mar 21–25 · 317 MB</p></div><span class="chk" id="chk-c4">○</span></div><p class="cnote">Best zero-to-working course. Systematic, beginner-focused.</p></div>
-<div class="card" data-id="c5" onclick="tog('c5')"><div class="card-row"><span class="num" id="n-c5">05</span><div class="info"><span class="tag tag-p">Practical</span><p class="ctitle">LINKd – Claude Code 101: Prompt to Product</p><p class="csub">Mar 26–31 · 770 MB</p></div><span class="chk" id="chk-c5">○</span></div><p class="cnote">Close March with a real deliverable.</p></div>
-<div class="next-box"><div class="next-title">⏭ April — Claude Deepdive</div><div class="next-row"><span class="next-name">FASTER – Claude Skills</span><span class="next-size">585 MB</span></div><div class="next-row"><span class="next-name">COURSERA – Mastering Claude AI</span><span class="next-size">2.95 GB</span></div><div class="next-row"><span class="next-name">UD – Build AI Apps, Agents & MCP</span><span class="next-size">3.56 GB</span></div></div>
+
+<div class="card" data-id="c1" onclick="tog('c1')"><div class="card-row"><span class="num" id="n-c1">01</span><div class="info"><span class="tag tag-f">Foundation</span><p class="ctitle">AI for Everyday IT, Video Edition (2025)</p><p class="csub">Mar 16–18 · 1.68 GB</p></div><span class="chk" id="chk-c1">○</span></div><p class="cnote">Bridges your 20-yr IT background into AI. Watch this first — it speaks directly to network/IT pros making the AI transition.</p></div>
+<div class="card" data-id="c2" onclick="tog('c2')"><div class="card-row"><span class="num" id="n-c2">02</span><div class="info"><span class="tag tag-c">Claude Intro</span><p class="ctitle">PLS – First Look: Claude Cowork 2026</p><p class="csub">Mar 19 · 99.2 MB</p></div><span class="chk" id="chk-c2">○</span></div><p class="cnote">Freshest 2026 Claude content — finish in a single evening. See what Cowork can do before you deep-dive into Claude Code.</p></div>
+<div class="card" data-id="c3" onclick="tog('c3')"><div class="card-row"><span class="num" id="n-c3">03</span><div class="info"><span class="tag tag-c">Claude Code</span><p class="ctitle">PLS – Introduction to Claude Code</p><p class="csub">Mar 20 · 103 MB</p></div><span class="chk" id="chk-c3">○</span></div><p class="cnote">Pair with Course 2 same evening — both under 210 MB. Gets Claude Code installed and your first command running.</p></div>
+<div class="card" data-id="c4" onclick="tog('c4')"><div class="card-row"><span class="num" id="n-c4">04</span><div class="info"><span class="tag tag-c">Claude Code</span><p class="ctitle">FASTER – Claude Code from Scratch</p><p class="csub">Mar 21–25 · 317 MB</p></div><span class="chk" id="chk-c4">○</span></div><p class="cnote">Best zero-to-working course. Systematic, beginner-focused. This is the one that makes it click.</p></div>
+<div class="card" data-id="c5" onclick="tog('c5')"><div class="card-row"><span class="num" id="n-c5">05</span><div class="info"><span class="tag tag-p">Practical</span><p class="ctitle">LINKd – Claude Code 101: Prompt to Product</p><p class="csub">Mar 26–31 · 770 MB</p></div><span class="chk" id="chk-c5">○</span></div><p class="cnote">Close March with a real deliverable. Prompt → working product pipeline.</p></div>
+
+<p class="phase-label">🔥 April 2026 — Claude Deepdive (3 NEW courses)</p>
+<div class="phase-bar-wrap"><div class="phase-bar-fill" id="aprilFill" style="width:0%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div><div class="bar-label" id="aprilLabel">0% (0/3)</div></div>
+
+<div class="card" data-id="a1" onclick="togA('a1')"><div class="card-row"><span class="num" id="n-a1" style="color:#8b5cf6">06</span><div class="info"><span class="tag" style="background:#f0e8ff;color:#6d28d9">Claude Skills</span><p class="ctitle">FASTER – Claude Skills</p><p class="csub">April Wk 1 · 585 MB · build on your March foundation</p></div><span class="chk" id="chk-a1">○</span></div><p class="cnote">Direct sequel to FASTER Claude Code from Scratch. Goes deeper on agentic patterns, CLAUDE.md files, and multi-step workflows. Do this first in April — it's small and fast.</p></div>
+
+<div class="card" data-id="a2" onclick="togA('a2')"><div class="card-row"><span class="num" id="n-a2" style="color:#8b5cf6">07</span><div class="info"><span class="tag" style="background:#fff0f8;color:#be185d">★ NEW Pick</span><p class="ctitle">UD – Claude Code: The Complete Guide</p><p class="csub">April Wk 2–3 · 13.3 GB · the most comprehensive Claude Code course</p></div><span class="chk" id="chk-a2">○</span></div><p class="cnote">The definitive Claude Code reference. At 13.3 GB it's the largest Claude Code course in your library — covers everything from beginner to production agentic systems. After March, you'll absorb this fast. Your primary April study anchor.</p></div>
+
+<div class="card" data-id="a3" onclick="togA('a3')"><div class="card-row"><span class="num" id="n-a3" style="color:#8b5cf6">08</span><div class="info"><span class="tag" style="background:#f0e8ff;color:#6d28d9">★ NEW Pick</span><p class="ctitle">COURSERA – Mastering Claude AI: Prompting, APIs, RAG & MCP</p><p class="csub">April Wk 3–4 · 2.95 GB · the structured Claude mastery path</p></div><span class="chk" id="chk-a3">○</span></div><p class="cnote">Covers the full Claude stack in one structured specialization: advanced prompting → Claude API → RAG with Claude → MCP integration. This is the course that turns you from a Claude user into a Claude engineer. Perfect April finish.</p></div>
+
+<p class="phase-label">⚡ May 2026 — MCP Mastery (2 NEW courses)</p>
+<div class="phase-bar-wrap"><div class="phase-bar-fill" id="mayFill" style="width:0%;background:linear-gradient(90deg,#0d9488,#14b8a6)"></div><div class="bar-label" id="mayLabel">0% (0/2)</div></div>
+
+<div class="card" data-id="m1" onclick="togM('m1')"><div class="card-row"><span class="num" id="n-m1" style="color:#0d9488">09</span><div class="info"><span class="tag" style="background:#ccfbf1;color:#0f766e">★ NEW Pick</span><p class="ctitle">COURSERA – AI Agents with Model Context Protocol Specialization</p><p class="csub">May Wk 1–2 · 4.33 GB · MCP from first principles</p></div><span class="chk" id="chk-m1">○</span></div><p class="cnote">MCP is the protocol that lets Claude control tools, read files, query databases, and call APIs. This Coursera specialization teaches it from scratch — the theory AND the implementation. The most structured MCP course in your collection.</p></div>
+
+<div class="card" data-id="m2" onclick="togM('m2')"><div class="card-row"><span class="num" id="n-m2" style="color:#0d9488">10</span><div class="info"><span class="tag" style="background:#ccfbf1;color:#0f766e">★ NEW Pick</span><p class="ctitle">Epic AI – Master the Model Context Protocol (MCP)</p><p class="csub">May Wk 2–3 · 6.49 GB · hands-on MCP server building</p></div><span class="chk" id="chk-m2">○</span></div><p class="cnote">At 6.49 GB this is the most substantial MCP course in your library. Goes deep on building custom MCP servers — connecting Claude to your own network tools, databases, and APIs. This is your killer differentiator: network engineer who builds MCP servers for enterprise tools.</p></div>
+
+<div class="skip-section">
+  <div class="skip-hdr">📅 Later — Claude adjacent (Phase 2–3)</div>
+  <div class="skip-row"><span class="skip-name">UD – Mastering Claude AI: Build AI Apps, Agents & MCP Systems (3.56 GB)</span><span class="skip-when">Month 3 agents work</span></div>
+  <div class="skip-row"><span class="skip-name">PLS – Advanced Claude Code (279 MB)</span><span class="skip-when">After Complete Guide</span></div>
+  <div class="skip-row"><span class="skip-name">PLS – Claude Code in Practice (173 MB)</span><span class="skip-when">Quick supplement</span></div>
+  <div class="skip-row"><span class="skip-name">FASTER – Init Commands / Guardrails (852 MB)</span><span class="skip-when">Production hardening M5</span></div>
+  <div class="skip-row"><span class="skip-name">FASTER – Auditing Your Code (192 MB)</span><span class="skip-when">Security review M5–6</span></div>
+  <div class="skip-row"><span class="skip-name">TAKEOFFs – Claude Code (366 MB)</span><span class="skip-when">Quick reference</span></div>
+  <div class="skip-row"><span class="skip-name">FM – Complete Intro to MCP (197 MB)</span><span class="skip-when">MCP starter before Epic AI</span></div>
+  <div class="skip-row"><span class="skip-name">PLS – Introduction to Context Engineering (225 MB)</span><span class="skip-when">Prompt architecture M3</span></div>
+</div>
 </div>
 
 <nav class="bnav">
@@ -169,7 +211,63 @@ function updateBtn(t){var b=document.getElementById('themeBtn');if(b)b.textConte
 initTheme();
 
 var el=document.getElementById('bn-claude');if(el)el.classList.add('active');
-var KEY='claudeSprint_Mar2026';function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){return{}}}function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}function tog(id){var s=load();s[id]=!s[id];save(s);render();}function render(){var s=load(),done=0;for(var i=1;i<=5;i++){var id='c'+i,card=document.querySelector('[data-id="'+id+'"]'),chk=document.getElementById('chk-'+id);if(!card||!chk)continue;if(s[id]){card.className='card done';chk.textContent='✓';done++;}else{card.className='card';chk.textContent='○';}}var pct=Math.round(done/5*100);document.getElementById('barFill').style.width=pct+'%';document.getElementById('barLabel').textContent=pct+'% ('+done+'/5)';}render();
+
+// March sprint (c1–c5)
+var KEY='claudeSprint_Mar2026';
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){return{};}}
+function save(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
+function tog(id){var s=load();s[id]=!s[id];save(s);render();}
+function render(){
+  var s=load(),done=0;
+  for(var i=1;i<=5;i++){
+    var id='c'+i,card=document.querySelector('[data-id="'+id+'"]'),chk=document.getElementById('chk-'+id);
+    if(!card||!chk)continue;
+    if(s[id]){card.className='card done';chk.textContent='✓';done++;}
+    else{card.className='card';chk.textContent='○';}
+  }
+  var pct=Math.round(done/5*100);
+  document.getElementById('barFill').style.width=pct+'%';
+  document.getElementById('barLabel').textContent=pct+'% ('+done+'/5)';
+}
+render();
+
+// April deepdive (a1–a3)
+var KEYA='claudeApril2026';
+function loadA(){try{return JSON.parse(localStorage.getItem(KEYA)||'{}')||{};}catch(e){return{};}}
+function saveA(s){try{localStorage.setItem(KEYA,JSON.stringify(s));}catch(e){}}
+function togA(id){var s=loadA();s[id]=!s[id];saveA(s);renderA();}
+function renderA(){
+  var s=loadA(),done=0,ids=['a1','a2','a3'];
+  ids.forEach(function(id){
+    var card=document.querySelector('[data-id="'+id+'"]'),chk=document.getElementById('chk-'+id);
+    if(!card||!chk)return;
+    if(s[id]){card.className='card done';chk.textContent='✓';done++;}
+    else{card.className='card';chk.textContent='○';}
+  });
+  var pct=Math.round(done/3*100);
+  document.getElementById('aprilFill').style.width=pct+'%';
+  document.getElementById('aprilLabel').textContent=pct+'% ('+done+'/3)';
+}
+renderA();
+
+// May MCP (m1–m2)
+var KEYM='claudeMay2026';
+function loadM(){try{return JSON.parse(localStorage.getItem(KEYM)||'{}')||{};}catch(e){return{};}}
+function saveM(s){try{localStorage.setItem(KEYM,JSON.stringify(s));}catch(e){}}
+function togM(id){var s=loadM();s[id]=!s[id];saveM(s);renderM();}
+function renderM(){
+  var s=loadM(),done=0,ids=['m1','m2'];
+  ids.forEach(function(id){
+    var card=document.querySelector('[data-id="'+id+'"]'),chk=document.getElementById('chk-'+id);
+    if(!card||!chk)return;
+    if(s[id]){card.className='card done';chk.textContent='✓';done++;}
+    else{card.className='card';chk.textContent='○';}
+  });
+  var pct=Math.round(done/2*100);
+  document.getElementById('mayFill').style.width=pct+'%';
+  document.getElementById('mayLabel').textContent=pct+'% ('+done+'/2)';
+}
+renderM();
 
 var _rd={id:'claude',icon:'🟠',title:'Claude Fast Track Sprint',sub:'5 courses · Fast Track · March',color:'#f97316',bg:'#FFF3E8',border:'#EEC898',tc:'#7a2a00'};
 try{sessionStorage.setItem('aiResume',JSON.stringify(_rd));}catch(e){}
