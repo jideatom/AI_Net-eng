@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="AI engineering roadmap · practical · build-first">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#8b5cf6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<title>AI Path · Jideatom Learning Path</title>
+<style>
+
+:root {
+  --bg:#DCE9F8;--bg-card:#EEF3F9;--bg-header:#EEF3F9;--bg-input:#E4EDF7;
+  --text:#1A2340;--text-sub:#6A7F99;--text-muted:#AAB8CC;--border:#C8DCEF;
+  --accent:#1565C0;--accent2:#0D47A1;--accent-bg:#DDEEFF;
+  --shadow:0 2px 10px rgba(21,101,192,0.09);--radius:13px;
+}
+body.dark{--bg:#0a0a14;--bg-card:#111120;--bg-header:#0d0d22;--bg-input:#16162a;--text:#e0e0f0;--text-sub:#6a6a8a;--text-muted:#3a3a5a;--border:#1e1e38;--accent:#8b5cf6;--accent2:#a78bfa;--accent-bg:#13093a;--shadow:0 2px 12px rgba(0,0,0,0.4);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}button{font-family:inherit;}
+
+
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg-header);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,0.07);padding-bottom:env(safe-area-inset-bottom,0px);}
+.bnav-inner{display:flex;width:100%;max-width:520px;}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:52px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity 0.1s;}
+.ni:active{opacity:0.6;}
+.ni span:first-child{font-size:1.1rem;line-height:1;}
+.ni span:last-child{font-size:0.52rem;color:var(--text-sub);font-weight:700;text-transform:uppercase;letter-spacing:0.4px;}
+.ni.active span:last-child{color:var(--accent);}
+
+header{background:var(--bg-header);padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);position:sticky;top:0;z-index:10;}
+.back{color:var(--accent);font-size:1.3rem;font-weight:700;min-width:36px;min-height:44px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent;}
+.htxt{flex:1;}.htxt h1{font-size:0.9rem;font-weight:800;color:var(--text);}.htxt p{font-size:0.67rem;color:var(--text-sub);margin-top:2px;}
+.theme-btn{background:var(--bg-input);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:0.82rem;cursor:pointer;min-height:36px;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+.wrap{max-width:520px;margin:0 auto;padding:14px 14px 76px;}
+
+/* Tab bar */
+.tabs-wrap{position:relative;margin-bottom:14px;}
+.tabs-wrap::after{content:'›';position:absolute;right:0;top:0;bottom:0;width:28px;display:flex;align-items:center;justify-content:center;background:linear-gradient(to right,transparent,var(--bg));color:var(--text3);font-size:1.1rem;pointer-events:none;}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px;padding-right:24px;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:0.72rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--bg-card);color:var(--text-sub);-webkit-tap-highlight-color:transparent;transition:all 0.15s;min-height:34px;}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* Month panel */
+.panel{display:none;}.panel.active{display:block;}
+
+/* Month header card */
+.month-card{border-radius:14px;padding:14px;margin-bottom:12px;}
+.m0{background:linear-gradient(135deg,#f97316,#fbbf24);}
+.m1{background:linear-gradient(135deg,#22c55e,#16a34a);}
+.m2{background:linear-gradient(135deg,#3b82f6,#1d4ed8);}
+.m3{background:linear-gradient(135deg,#8b5cf6,#6d28d9);}
+.m4{background:linear-gradient(135deg,#ec4899,#be185d);}
+.m5{background:linear-gradient(135deg,#1565C0,#0D47A1);}
+.m6{background:linear-gradient(135deg,#0d9488,#0f766e);}
+.mc-tag{background:rgba(255,255,255,0.25);color:#fff;font-size:8px;font-weight:900;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;display:inline-block;margin-bottom:6px;}
+.mc-title{color:#fff;font-size:1rem;font-weight:900;margin-bottom:3px;}
+.mc-goal{color:rgba(255,255,255,0.82);font-size:0.72rem;line-height:1.5;}
+
+/* Progress bar in header */
+.month-prog{margin-top:10px;}
+.mp-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.mp-label{color:rgba(255,255,255,0.7);font-size:0.65rem;}
+.mp-pct{color:#fff;font-size:0.72rem;font-weight:800;}
+.mp-bar{height:5px;background:rgba(255,255,255,0.25);border-radius:10px;overflow:hidden;}
+.mp-fill{height:100%;background:#fff;border-radius:10px;transition:width 0.5s ease;}
+
+/* Section */
+.sec-hdr{font-size:0.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;font-weight:800;padding-bottom:5px;border-bottom:2px solid var(--border);margin-bottom:8px;margin-top:12px;}
+
+/* Checklist items */
+.item{background:var(--bg-card);border:1px solid var(--border);border-radius:11px;padding:11px 12px;margin-bottom:6px;display:flex;align-items:flex-start;gap:9px;cursor:pointer;box-shadow:var(--shadow);min-height:48px;user-select:none;-webkit-tap-highlight-color:transparent;transition:border-color 0.15s,background 0.1s;}
+.item:active{background:var(--bg-input);}
+.item.done{background:#f0fff4;border-color:#22c55e;}
+body.dark .item.done{background:#08180f;border-color:#22c55e;}
+.iname{flex:1;font-size:0.8rem;color:var(--text);line-height:1.3;}
+.isub{font-size:0.65rem;color:var(--text-sub);margin-top:2px;}
+.item.done .iname{color:#16a34a;}
+body.dark .item.done .iname{color:#4ade80;}
+.isize{font-size:0.65rem;color:var(--text-muted);white-space:nowrap;margin:2px 4px 0 0;flex-shrink:0;}
+.ichk{font-size:1rem;min-width:18px;text-align:center;color:var(--text-muted);flex-shrink:0;}
+.item.done .ichk{color:#22c55e;}
+
+/* Resource links */
+.res-box{background:var(--bg-card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:8px;box-shadow:var(--shadow);}
+.res-row{display:flex;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border);gap:9px;min-height:44px;}
+.res-row:last-child{border-bottom:none;}
+.res-icon{font-size:0.85rem;flex-shrink:0;width:22px;text-align:center;}
+.res-name{flex:1;font-size:0.78rem;color:var(--text);}
+.res-tag{font-size:0.58rem;font-weight:700;padding:2px 7px;border-radius:10px;background:var(--accent-bg);color:var(--accent);white-space:nowrap;}
+
+/* Milestone box */
+.milestone{background:var(--bg-card);border:1.5px solid var(--accent);border-radius:13px;padding:13px;margin-top:12px;}
+.ms-title{font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-weight:800;margin-bottom:8px;}
+.ms-item{font-size:0.78rem;color:var(--text-sub);padding:4px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:6px;}
+.ms-item:last-child{border-bottom:none;}
+.ms-chk{color:var(--accent);flex-shrink:0;}
+
+/* Overview stats */
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.ov-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;box-shadow:var(--shadow);}
+.ov-num{font-size:1.4rem;font-weight:900;color:var(--accent);}
+.ov-lbl{font-size:0.6rem;color:var(--text-sub);text-transform:uppercase;letter-spacing:0.4px;margin-top:2px;}
+
+/* Tip */
+.tip{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 14px;margin-bottom:12px;font-size:0.74rem;color:var(--accent);line-height:1.5;}
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+.redirect-card{max-width:560px;margin:24px auto;padding:22px;border-radius:18px;background:#fff;border:1px solid #e2e8f0;font-family:Arial,sans-serif;color:#0f172a}
+.redirect-card a{color:#2563eb;text-decoration:none;font-weight:700}
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
+
+.tabs-wrap{position:sticky;top:66px;background:var(--bg);z-index:8;padding-bottom:6px}.tabs-scroll-indicator{position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:1.2rem;color:var(--accent);background:linear-gradient(90deg,transparent,var(--bg) 38%);padding:10px 0 10px 22px;pointer-events:none}.tabs{overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;white-space:nowrap}.tab{display:inline-flex}.tabs::-webkit-scrollbar{display:none}
+
+/* ── TAB SCROLL WRAP ── */
+.tabs-wrap{position:relative;margin-bottom:14px}
+.tabs-wrap::after{content:'›';position:absolute;right:0;top:0;bottom:0;width:28px;display:flex;align-items:center;justify-content:center;background:linear-gradient(to right,transparent,var(--bg));color:var(--text3);font-size:1.2rem;pointer-events:none}
+.tabs-wrap .tabs{margin-bottom:0}
+
+/* ── RECOMMENDED COURSES CARD ── */
+.rec-courses-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.rec-courses-kicker{font-size:.6rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1.2px;color:var(--accent);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.course-card{background:var(--bg-input);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;transition:border-color .15s}
+.course-card:last-child{margin-bottom:0}
+.course-card:active{border-color:var(--accent);background:var(--bg-header)}
+.course-name{font-size:.84rem;font-weight:700;margin-bottom:3px}
+.course-name a{color:var(--accent);text-decoration:none}
+.course-name a:hover{text-decoration:underline}
+.course-why{font-size:.72rem;color:var(--text2);line-height:1.55}
+</style>
+<style>.ai-nav-arrows{display:flex;gap:8px;justify-content:flex-end;margin:0 0 2px}.ai-nav-btn{border:1px solid var(--border2);border-radius:8px;padding:5px 11px;background:var(--bg3);color:var(--accent);font-weight:700;font-size:.72rem;cursor:pointer;-webkit-tap-highlight-color:transparent}.tabs-wrap{position:relative}.tabs-scroll-indicator{position:absolute;right:6px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--accent);font-size:1.25rem;background:linear-gradient(90deg,transparent,var(--bg) 44%);padding:10px 0 10px 18px}</style>
+<style>.gsearch-overlay{position:fixed;inset:0;background:rgba(8,12,20,.76);backdrop-filter:blur(8px);display:none;z-index:2500;padding:12px}.gsearch-overlay.open{display:flex}.gsearch-card{margin:auto;width:min(760px,100%);height:min(80vh,760px);background:var(--bg2);border:1px solid var(--border2, var(--border));border-radius:22px;box-shadow:0 28px 90px rgba(0,0,0,.36);display:flex;flex-direction:column;overflow:hidden}.gsearch-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.gsearch-head input{flex:1;background:var(--bg3);color:var(--text);border:1px solid var(--border2, var(--border));border-radius:12px;padding:12px 14px;font-size:.94rem}.gsearch-results{padding:14px 16px;overflow:auto}.gsearch-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg2);margin-bottom:8px;text-decoration:none;color:inherit}</style>
+<style>.topic-link-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.topic-link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.topic-link{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.topic-link h4{margin:0 0 6px;font-size:.92rem}.topic-link p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.5}.topic-link small{display:inline-block;margin-top:8px;color:var(--accent);font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:1px}@media (max-width:700px){.topic-link-grid{grid-template-columns:1fr}}</style>
+<style>.curator-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.curator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.curator-item{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.curator-kicker{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.curator-item h4{margin:0 0 6px;font-size:.94rem}.curator-item p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.52}.curator-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.curator-chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--bg2);border:1px solid var(--border);color:var(--text2)}@media (max-width:700px){.curator-grid{grid-template-columns:1fr}}</style>
+<style>.curation-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.curation-kicker{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.curation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.curation-item{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.curation-item h4{margin:0 0 6px;font-size:.94rem}.curation-item p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.52}.curation-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.curation-chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--bg2);border:1px solid var(--border);color:var(--text2)}.curation-table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:12px}.curation-table td,.curation-table th{padding:12px 12px;vertical-align:top;text-align:left}.curation-table tbody tr{background:linear-gradient(180deg,var(--bg2),var(--bg3));box-shadow:var(--shadow)}.curation-table tbody td:first-child{border-radius:14px 0 0 14px}.curation-table tbody td:last-child{border-radius:0 14px 14px 0}.curation-table th{font-size:.62rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:1px}.track-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);font-weight:700;background:var(--a-bg);color:var(--accent)}@media (max-width:760px){.curation-grid{grid-template-columns:1fr}.curation-table,.curation-table tbody,.curation-table tr,.curation-table td,.curation-table th{display:block;width:100%}.curation-table thead{display:none}.curation-table tbody tr{display:block;padding:8px;border-radius:14px}.curation-table tbody td{display:block;padding:8px 10px}.curation-table tbody td:first-child,.curation-table tbody td:last-child{border-radius:0}}}</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="back">&#8592;</a>
+  <div class="htxt"><h1>📋 AI Path</h1><p>6 months · practical · build-first</p></div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+</header>
+
+<div class="wrap">
+<div class="brandbar"><div class="brand-left"><div class="brand-kicker">Jideatom Learning Path</div><div class="brand-name">AI roadmap</div><div class="brand-sub">The main AI path with phased progression and recommended courses.</div></div><div class="page-chip">AI Path</div></div>
+
+<!-- Tab Navigation -->
+
+<div class="tip" style="margin-bottom:14px">Start from the AI Path page, then dive into the dedicated Claude, Python, Cloud, and Linux tracks. This page now highlights the most practical next courses so the path is visible at a glance.</div>
+<div class="rec-courses-wrap">
+  <div class="rec-courses-kicker">★ Recommended Courses</div>
+  <div class="course-card"><div class="course-name"><a href="https://frontendmasters.com/courses/prompt-engineering/" target="_blank" rel="noopener">FM · Practical Prompt Engineering for Developers</a></div><div class="course-why">Best Month 2 foundation for engineering-grade prompting before RAG and agents.</div></div>
+  <div class="course-card"><div class="course-name"><a href="courses.html">TOWARDS AI · 10-Hour LLM Fundamentals</a></div><div class="course-why">Build the mental model for embeddings, tokens, context windows, and inference before implementation work.</div></div>
+  <div class="course-card"><div class="course-name"><a href="https://maven.com" target="_blank" rel="noopener">Maven · Systematically Improving RAG</a></div><div class="course-why">Adds evals-driven RAG thinking so you do not build a demo that fails in production.</div></div>
+  <div class="course-card"><div class="course-name"><a href="https://www.coursera.org/specializations/mastering-claude-ai-prompting-apis-rag-and-mcp" target="_blank" rel="noopener">COURSERA · Mastering Claude AI</a></div><div class="course-why">Strong bridge from prompt skill to API, RAG, and MCP-oriented Claude workflows.</div></div>
+</div>
+
+<div class="tabs-wrap">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+  <div style="font-size:.58rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-family:var(--mono);font-weight:700">AI Path Months</div>
+  <div style="display:flex;gap:6px">
+    <button class="ai-nav-btn" onclick="aiGoTab((document.querySelectorAll('.tab.active')[0]?[].indexOf.call(document.querySelectorAll('.tab'),document.querySelectorAll('.tab.active')[0]):0)-1)">← Prev</button>
+    <button class="ai-nav-btn" onclick="aiGoTab((document.querySelectorAll('.tab.active')[0]?[].indexOf.call(document.querySelectorAll('.tab'),document.querySelectorAll('.tab.active')[0]):0)+1)">Next →</button>
+  </div>
+</div><div class="tabs-scroll-indicator">›</div><div class="tabs-scroll-indicator">›</div><div class="tabs">
+  <div class="tab active" onclick="switchTab(0)">Overview</div>
+  <div class="tab" onclick="switchTab(1)">M0 Claude</div>
+  <div class="tab" onclick="switchTab(2)">M1 Python</div>
+  <div class="tab" onclick="switchTab(3)">M2 LLMs</div>
+  <div class="tab" onclick="switchTab(4)">M3 RAG</div>
+  <div class="tab" onclick="switchTab(5)">M4 Agents</div>
+  <div class="tab" onclick="switchTab(6)">M5 Deploy</div>
+  <div class="tab" onclick="switchTab(7)">M6 Launch</div>
+</div></div>
+
+<!-- ══ OVERVIEW ══════════════════════════════════════════════════ -->
+<div class="panel active" id="p0">
+  <div class="tip">💡 You are a 20yr network engineer → AI engineer. This roadmap is tailored for you — skip what you already know, build everything.</div>
+  <div class="ov-grid">
+    <div class="ov-stat"><div class="ov-num">6</div><div class="ov-lbl">Months</div></div>
+    <div class="ov-stat"><div class="ov-num">7</div><div class="ov-lbl">Phases</div></div>
+    <div class="ov-stat"><div class="ov-num">40+</div><div class="ov-lbl">Projects</div></div>
+    <div class="ov-stat"><div class="ov-num" id="ov-total-pct">0%</div><div class="ov-lbl">Overall</div></div>
+  </div>
+
+  <p class="sec-hdr">Your Month-by-Month Plan</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">🟠</span><span class="res-name"><b>Month 0 (March)</b> — Claude Fast Track Sprint</span><span class="res-tag" id="ov-m0">0%</span></div>
+    <div class="res-row"><span class="res-icon">🐍</span><span class="res-name"><b>Month 1</b> — Python + Dev Fundamentals</span><span class="res-tag" id="ov-m1">0%</span></div>
+    <div class="res-row"><span class="res-icon">🧠</span><span class="res-name"><b>Month 2</b> — LLM App Development</span><span class="res-tag" id="ov-m2">0%</span></div>
+    <div class="res-row"><span class="res-icon">🔍</span><span class="res-name"><b>Month 3</b> — RAG Properly</span><span class="res-tag" id="ov-m3">0%</span></div>
+    <div class="res-row"><span class="res-icon">🤖</span><span class="res-name"><b>Month 4</b> — Agents + Evals</span><span class="res-tag" id="ov-m4">0%</span></div>
+    <div class="res-row"><span class="res-icon">🚀</span><span class="res-name"><b>Month 5</b> — Deployment + Reliability</span><span class="res-tag" id="ov-m5">0%</span></div>
+    <div class="res-row"><span class="res-icon">💼</span><span class="res-name"><b>Month 6</b> — Specialize + Launch</span><span class="res-tag" id="ov-m6">0%</span></div>
+  </div>
+
+  <p class="sec-hdr">Your Network Advantage</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">✅</span><span class="res-name">CLI/Terminal — already a pro, skip basics</span></div>
+    <div class="res-row"><span class="res-icon">✅</span><span class="res-name">APIs & HTTP — deep expertise, fast Month 1</span></div>
+    <div class="res-row"><span class="res-icon">✅</span><span class="res-name">Linux — RHCSA in progress, head start on infra</span></div>
+    <div class="res-row"><span class="res-icon">✅</span><span class="res-name">Docker/networking — deploy AI apps easily in M5</span></div>
+    <div class="res-row"><span class="res-icon">⚡</span><span class="res-name">AI + Networking = rare combo, high market demand</span></div>
+  </div>
+</div>
+
+<!-- ══ MONTH 0: CLAUDE (YOUR CURRENT SPRINT) ════════════════════ -->
+<div class="panel" id="p1">
+  <div class="month-card m0">
+    <span class="mc-tag">🚀 March 2026 — Active Now</span>
+    <div class="mc-title">Month 0: Claude Fast Track</div>
+    <div class="mc-goal">Goal: Go from AI curious → Claude practitioner. Build your first real AI tool with Claude Code.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Sprint Progress</span><span class="mp-pct" id="mp0-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp0-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your 5 Courses (tick when done)</p>
+  <div class="item" data-k="c1" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">AI for Everyday IT, Video Edition (2025)<div class="isub">Foundation · 1.68 GB · Mar 16–18</div></div><span class="isize"></span><span class="ichk" id="k-c1">○</span></div>
+  <div class="item" data-k="c2" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">PLS – First Look: Claude Cowork 2026<div class="isub">Claude Intro · 99 MB · Mar 19</div></div><span class="ichk" id="k-c2">○</span></div>
+  <div class="item" data-k="c3" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">PLS – Introduction to Claude Code<div class="isub">Claude Code · 103 MB · Mar 20</div></div><span class="ichk" id="k-c3">○</span></div>
+  <div class="item" data-k="c4" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">FASTER – Claude Code from Scratch<div class="isub">Claude Code · 317 MB · Mar 21–25</div></div><span class="ichk" id="k-c4">○</span></div>
+  <div class="item" data-k="c5" data-store="claudeSprint_Mar2026" onclick="tog(this)"><div class="iname">LINKd – Claude Code 101: Prompt to Product<div class="isub">Practical · 770 MB · Mar 26–31</div></div><span class="ichk" id="k-c5">○</span></div>
+
+  <p class="sec-hdr">Key Skills to Master This Month</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">📝</span><span class="res-name">Prompt engineering — system/user messages, few-shot</span></div>
+    <div class="res-row"><span class="res-icon">🔧</span><span class="res-name">Claude API calls from Python (Anthropic SDK)</span></div>
+    <div class="res-row"><span class="res-icon">⚡</span><span class="res-name">Claude Code — build a real tool end-to-end</span></div>
+    <div class="res-row"><span class="res-icon">🌊</span><span class="res-name">Streaming responses — no loading spinners</span></div>
+  </div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 0 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Built at least 1 working Claude-powered tool</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Can call Anthropic API in Python confidently</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Understand prompt structure: system + user + assistant</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Project on GitHub with README</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 1: PYTHON + FUNDAMENTALS ═══════════════════════════ -->
+<div class="panel" id="p2">
+  <div class="month-card m1">
+    <span class="mc-tag">Month 1 — April 2026</span>
+    <div class="mc-title">Python + Dev Fundamentals</div>
+    <div class="mc-goal">Goal: Become a functional Python developer. Stop Googling syntax. Build CLI tools and call APIs confidently.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp1-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp1-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="tip">⚡ You already know CLI, HTTP, APIs, and Linux. This month is mainly Python — you'll finish faster than most.</div>
+
+  <p class="sec-hdr">Your Course (already in plan)</p>
+  <div class="item" data-k="py-main" data-store="m1Progress" onclick="tog(this)"><div class="iname">TOWARDS_AI – Beginner Python Primer for AI Engineering<div class="isub">1.12 GB · Best Python-for-AI course</div></div><span class="ichk" id="k-py-main">○</span></div>
+
+  <p class="sec-hdr">Python Topics to Check Off</p>
+  <div class="item" data-k="py1a" data-store="m1Progress" onclick="tog(this)"><div class="iname">Variables, data types, loops, conditionals, functions</div><span class="ichk" id="k-py1a">○</span></div>
+  <div class="item" data-k="py1b" data-store="m1Progress" onclick="tog(this)"><div class="iname">Lists, dicts, tuples, sets + file I/O + JSON</div><span class="ichk" id="k-py1b">○</span></div>
+  <div class="item" data-k="py1c" data-store="m1Progress" onclick="tog(this)"><div class="iname">Classes, OOP basics, error handling (try/except)</div><span class="ichk" id="k-py1c">○</span></div>
+  <div class="item" data-k="py1d" data-store="m1Progress" onclick="tog(this)"><div class="iname">venv, pip, requirements.txt, package management</div><span class="ichk" id="k-py1d">○</span></div>
+  <div class="item" data-k="py1e" data-store="m1Progress" onclick="tog(this)"><div class="iname">HTTP requests in Python (requests library) + async/await</div><span class="ichk" id="k-py1e">○</span></div>
+  <div class="item" data-k="py1f" data-store="m1Progress" onclick="tog(this)"><div class="iname">SQL basics — SELECT, WHERE, GROUP BY, JOIN</div><span class="ichk" id="k-py1f">○</span></div>
+  <div class="item" data-k="py1g" data-store="m1Progress" onclick="tog(this)"><div class="iname">Git: init, commit, push, branching, GitHub repos</div><span class="ichk" id="k-py1g">○</span></div>
+  <div class="item" data-k="py1h" data-store="m1Progress" onclick="tog(this)"><div class="iname">FastAPI basics — GET/POST, Pydantic, uvicorn, /docs</div><span class="ichk" id="k-py1h">○</span></div>
+
+  <p class="sec-hdr">Free Resources</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">🎓</span><span class="res-name">Python for Everybody — Coursera (free audit)</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">▶️</span><span class="res-name">freeCodeCamp Python — YouTube 4hr course</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">🏛️</span><span class="res-name">CS50P — Harvard Python (rigorous, with projects)</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">⚡</span><span class="res-name">FastAPI Official Tutorial — best framework docs ever</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">🌿</span><span class="res-name">Learn Git Branching — best visual Git tool</span><span class="res-tag">Free</span></div>
+    <div class="res-row"><span class="res-icon">💾</span><span class="res-name">SQLBolt — fastest way to learn SQL (20 lessons)</span><span class="res-tag">Free</span></div>
+  </div>
+
+  <p class="sec-hdr">Practice Project</p>
+  <div class="item" data-k="py-proj1" data-store="m1Progress" onclick="tog(this)"><div class="iname">Build a CLI tool (expense tracker or weather API script)<div class="isub">Push to GitHub. This is your first portfolio piece.</div></div><span class="ichk" id="k-py-proj1">○</span></div>
+  <div class="item" data-k="py-proj2" data-store="m1Progress" onclick="tog(this)"><div class="iname">Build + run a simple FastAPI app locally<div class="isub">GET/POST endpoints + test via /docs</div></div><span class="ichk" id="k-py-proj2">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 1 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Write Python that reads/writes files, calls APIs, handles errors</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Version code with Git, push to GitHub</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Make HTTP requests and understand status codes</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Build + run a FastAPI app locally</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 2: LLM APP DEVELOPMENT ════════════════════════════ -->
+<div class="panel" id="p3">
+  <div class="month-card m2">
+    <span class="mc-tag">Month 2 — May 2026</span>
+    <div class="mc-title">Master LLM App Development</div>
+    <div class="mc-goal">Goal: Build real AI-powered apps using Claude + OpenAI APIs. Structured outputs, tool calling, streaming, conversation state.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp2-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp2-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p2a" data-store="m2Progress" onclick="tog(this)"><div class="iname">FASTER – Claude Skills<div class="isub">585 MB · Advanced Claude patterns</div></div><span class="ichk" id="k-p2a">○</span></div>
+  <div class="item" data-k="p2b" data-store="m2Progress" onclick="tog(this)"><div class="iname">COURSERA – Mastering Claude AI: Prompting, APIs, RAG & MCP<div class="isub">2.95 GB · Full Claude stack</div></div><span class="ichk" id="k-p2b">○</span></div>
+  <div class="item" data-k="p2c" data-store="m2Progress" onclick="tog(this)"><div class="iname">UD – Mastering Claude AI: Build AI Apps, Agents & MCP<div class="isub">3.56 GB · Hands-on builds</div></div><span class="ichk" id="k-p2c">○</span></div>
+  <div class="item" data-k="p2d" data-store="m2Progress" onclick="tog(this)"><div class="iname">MASTER CLAUDE CODE<div class="isub">2.48 GB · Deep Claude Code mastery</div></div><span class="ichk" id="k-p2d">○</span></div>
+  <div class="item" data-k="p2e" data-store="m2Progress" onclick="tog(this)"><div class="iname">★ NEW — FM – Practical Prompt Engineering for Developers<div class="isub">723 MB · FrontendMasters · structured prompting for engineers — system prompts, chain-of-thought, few-shot</div></div><span class="ichk" id="k-p2e">○</span></div>
+  <div class="item" data-k="p2f" data-store="m2Progress" onclick="tog(this)"><div class="iname">★ NEW — TOWARDS_AI – 10-Hour LLM Fundamentals 2025<div class="isub">2.61 GB · How LLMs actually work — tokens, attention, RLHF. Essential before building production systems.</div></div><span class="ichk" id="k-p2f">○</span></div>
+
+  <p class="sec-hdr">Skills to Check Off</p>
+  <div class="item" data-k="m2s1" data-store="m2Progress" onclick="tog(this)"><div class="iname">Prompting: system/user messages, chain-of-thought, few-shot</div><span class="ichk" id="k-m2s1">○</span></div>
+  <div class="item" data-k="m2s2" data-store="m2Progress" onclick="tog(this)"><div class="iname">Structured outputs / JSON schemas with Pydantic + Instructor</div><span class="ichk" id="k-m2s2">○</span></div>
+  <div class="item" data-k="m2s3" data-store="m2Progress" onclick="tog(this)"><div class="iname">Function/tool calling — wire Python functions to the model</div><span class="ichk" id="k-m2s3">○</span></div>
+  <div class="item" data-k="m2s4" data-store="m2Progress" onclick="tog(this)"><div class="iname">Streaming responses via FastAPI StreamingResponse</div><span class="ichk" id="k-m2s4">○</span></div>
+  <div class="item" data-k="m2s5" data-store="m2Progress" onclick="tog(this)"><div class="iname">Multi-turn conversation history management</div><span class="ichk" id="k-m2s5">○</span></div>
+  <div class="item" data-k="m2s6" data-store="m2Progress" onclick="tog(this)"><div class="iname">Token counting, cost estimation, rate limit handling</div><span class="ichk" id="k-m2s6">○</span></div>
+  <div class="item" data-k="m2s7" data-store="m2Progress" onclick="tog(this)"><div class="iname">Prompt injection awareness + basic defenses</div><span class="ichk" id="k-m2s7">○</span></div>
+  <div class="item" data-k="m2s8" data-store="m2Progress" onclick="tog(this)"><div class="iname">MCP (Model Context Protocol) — connect Claude to tools</div><span class="ichk" id="k-m2s8">○</span></div>
+
+  <p class="sec-hdr">Practice Projects</p>
+  <div class="item" data-k="m2p1" data-store="m2Progress" onclick="tog(this)"><div class="iname">Invoice/receipt parser → structured Python object<div class="isub">Pydantic model with invoice_number, amount, due_date</div></div><span class="ichk" id="k-m2p1">○</span></div>
+  <div class="item" data-k="m2p2" data-store="m2Progress" onclick="tog(this)"><div class="iname">Assistant with 3 tools: get_weather, calculate, search_notes<div class="isub">Watch the model decide which tool to call</div></div><span class="ichk" id="k-m2p2">○</span></div>
+  <div class="item" data-k="m2p3" data-store="m2Progress" onclick="tog(this)"><div class="iname">Multi-turn terminal chatbot with /reset command<div class="isub">Manage messages array + print token count each turn</div></div><span class="ichk" id="k-m2p3">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 2 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Get structured JSON from any model using Pydantic</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Wire tool calling so model calls your Python functions</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Stream responses through a FastAPI endpoint</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Handle API errors, timeouts, bad outputs gracefully</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 3: RAG ══════════════════════════════════════════════ -->
+<div class="panel" id="p4">
+  <div class="month-card m3">
+    <span class="mc-tag">Month 3 — June 2026</span>
+    <div class="mc-title">Learn RAG Properly</div>
+    <div class="mc-goal">Goal: Build systems that let LLMs answer questions from YOUR documents. Ingest, embed, retrieve, ground, cite.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp3-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp3-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p4a" data-store="m3Progress" onclick="tog(this)"><div class="iname">Coursera – IBM RAG and Agentic AI Professional Certificate<div class="isub">2.57 GB</div></div><span class="ichk" id="k-p4a">○</span></div>
+  <div class="item" data-k="p4b" data-store="m3Progress" onclick="tog(this)"><div class="iname">COURSERA – RAG with Assignments 2025-7<div class="isub">1.37 GB</div></div><span class="ichk" id="k-p4b">○</span></div>
+  <div class="item" data-k="p4c" data-store="m3Progress" onclick="tog(this)"><div class="iname">UD – Generative AI with Context: RAG, CAG & KAG<div class="isub">6.18 GB · Most comprehensive — RAG + cache-augmented + knowledge graphs</div></div><span class="ichk" id="k-p4c">○</span></div>
+  <div class="item" data-k="p4d" data-store="m3Progress" onclick="tog(this)"><div class="iname">★ NEW — Maven – Systematically Improving RAG Applications 2025<div class="isub">16.4 GB · The most advanced RAG course in your collection. Evals-driven RAG improvement — how to measure and systematically fix retrieval failures. This is what separates junior from senior AI engineers.</div></div><span class="ichk" id="k-p4d">○</span></div>
+
+  <p class="sec-hdr">RAG Skills to Check Off</p>
+  <div class="item" data-k="m3s1" data-store="m3Progress" onclick="tog(this)"><div class="iname">Embeddings — what vectors are, cosine similarity</div><span class="ichk" id="k-m3s1">○</span></div>
+  <div class="item" data-k="m3s2" data-store="m3Progress" onclick="tog(this)"><div class="iname">Chunking strategies — fixed-size, recursive, semantic</div><span class="ichk" id="k-m3s2">○</span></div>
+  <div class="item" data-k="m3s3" data-store="m3Progress" onclick="tog(this)"><div class="iname">Vector databases — Chroma (local), Qdrant (prod)</div><span class="ichk" id="k-m3s3">○</span></div>
+  <div class="item" data-k="m3s4" data-store="m3Progress" onclick="tog(this)"><div class="iname">Metadata filtering — filter by source, date, category</div><span class="ichk" id="k-m3s4">○</span></div>
+  <div class="item" data-k="m3s5" data-store="m3Progress" onclick="tog(this)"><div class="iname">Reranking — 2-stage retrieve → rerank with Cohere</div><span class="ichk" id="k-m3s5">○</span></div>
+  <div class="item" data-k="m3s6" data-store="m3Progress" onclick="tog(this)"><div class="iname">Hallucination reduction — grounding, citations</div><span class="ichk" id="k-m3s6">○</span></div>
+  <div class="item" data-k="m3s7" data-store="m3Progress" onclick="tog(this)"><div class="iname">LlamaIndex RAG pipeline — ingest, index, query</div><span class="ichk" id="k-m3s7">○</span></div>
+  <div class="item" data-k="m3s8" data-store="m3Progress" onclick="tog(this)"><div class="iname">Debug retrieval failures — semantic drift, boundary issues</div><span class="ichk" id="k-m3s8">○</span></div>
+
+  <p class="sec-hdr">Portfolio Project</p>
+  <div class="item" data-k="m3p1" data-store="m3Progress" onclick="tog(this)"><div class="iname">"Chat with your docs" app — FastAPI + Claude + Chroma<div class="isub">Ingest 10–20 PDFs, retrieve top-5 chunks, return cited answers</div></div><span class="ichk" id="k-m3p1">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 3 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>End-to-end RAG pipeline with LlamaIndex or LangChain</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Chunk documents + store in vector DB with metadata</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Retrieve + rerank + return grounded cited answers</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Debug retrieval failures systematically</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 4: AGENTS + EVALS ══════════════════════════════════ -->
+<div class="panel" id="p5">
+  <div class="month-card m4">
+    <span class="mc-tag">Month 4 — July 2026</span>
+    <div class="mc-title">Agents, Workflows & Evals</div>
+    <div class="mc-goal">Goal: Build AI systems that take sequences of actions autonomously. Measure if they actually work.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp4-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp4-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p1b" data-store="m4Progress" onclick="tog(this)"><div class="iname">PLS – Introduction to Model Context Protocol (MCP)<div class="isub">108 MB</div></div><span class="ichk" id="k-p1b">○</span></div>
+  <div class="item" data-k="p1c" data-store="m4Progress" onclick="tog(this)"><div class="iname">Dometrain – Getting Started with MCP<div class="isub">2.39 GB</div></div><span class="ichk" id="k-p1c">○</span></div>
+  <div class="item" data-k="p1d" data-store="m4Progress" onclick="tog(this)"><div class="iname">COURSERA – AI Agents with MCP Specialization<div class="isub">4.33 GB</div></div><span class="ichk" id="k-p1d">○</span></div>
+  <div class="item" data-k="p3a" data-store="m4Progress" onclick="tog(this)"><div class="iname">Coursera – IBM AI Engineering Professional Certificate<div class="isub">3.42 GB · LLM engineering foundation</div></div><span class="ichk" id="k-p3a">○</span></div>
+  <div class="item" data-k="p3b" data-store="m4Progress" onclick="tog(this)"><div class="iname">★ NEW — TOWARDS_AI – Agentic AI Engineering Course<div class="isub">2.29 GB · Towards AI · production-ready agentic systems from people who build them daily. Pairs perfectly with the IBM cert.</div></div><span class="ichk" id="k-p3b">○</span></div>
+  <div class="item" data-k="p3c" data-store="m4Progress" onclick="tog(this)"><div class="iname">★ NEW — BRAINTRUST.DEV – AI Evals For Engineers & PMs<div class="isub">8.70 GB · The definitive evals course. Measuring if your AI actually works is the skill most engineers skip — and the one that makes you irreplaceable.</div></div><span class="ichk" id="k-p3c">○</span></div>
+
+  <p class="sec-hdr">Agent Skills to Check Off</p>
+  <div class="item" data-k="m4s1" data-store="m4Progress" onclick="tog(this)"><div class="iname">Agent loop — perceive → plan → act → observe</div><span class="ichk" id="k-m4s1">○</span></div>
+  <div class="item" data-k="m4s2" data-store="m4Progress" onclick="tog(this)"><div class="iname">Build agent from scratch (no framework, raw API)</div><span class="ichk" id="k-m4s2">○</span></div>
+  <div class="item" data-k="m4s3" data-store="m4Progress" onclick="tog(this)"><div class="iname">Tool descriptions that get selected reliably</div><span class="ichk" id="k-m4s3">○</span></div>
+  <div class="item" data-k="m4s4" data-store="m4Progress" onclick="tog(this)"><div class="iname">LangGraph — state, nodes, edges, checkpointing</div><span class="ichk" id="k-m4s4">○</span></div>
+  <div class="item" data-k="m4s5" data-store="m4Progress" onclick="tog(this)"><div class="iname">Multi-step workflows — chain, route, parallelize LLM calls</div><span class="ichk" id="k-m4s5">○</span></div>
+  <div class="item" data-k="m4s6" data-store="m4Progress" onclick="tog(this)"><div class="iname">When NOT to use agents (most important skill)</div><span class="ichk" id="k-m4s6">○</span></div>
+  <div class="item" data-k="m4s7" data-store="m4Progress" onclick="tog(this)"><div class="iname">Evals with DeepEval — build a test suite of 30+ cases</div><span class="ichk" id="k-m4s7">○</span></div>
+  <div class="item" data-k="m4s8" data-store="m4Progress" onclick="tog(this)"><div class="iname">LangSmith tracing — debug agent loops visually</div><span class="ichk" id="k-m4s8">○</span></div>
+
+  <p class="sec-hdr">Practice Projects</p>
+  <div class="item" data-k="m4p1" data-store="m4Progress" onclick="tog(this)"><div class="iname">3-step content pipeline (no agent, pure workflow)<div class="isub">Extract facts → generate tweet/post/summary in parallel → score best</div></div><span class="ichk" id="k-m4p1">○</span></div>
+  <div class="item" data-k="m4p2" data-store="m4Progress" onclick="tog(this)"><div class="iname">Eval harness for your RAG app from Month 3<div class="isub">30 Q&A pairs, score faithfulness + relevancy with DeepEval</div></div><span class="ichk" id="k-m4p2">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 4 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Build agent loop from scratch without any framework</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Manage agent state with LangGraph</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Write automated evals that catch regressions</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Decide when to use agent vs workflow vs single prompt</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 5: DEPLOYMENT ═══════════════════════════════════════ -->
+<div class="panel" id="p6">
+  <div class="month-card m5">
+    <span class="mc-tag">Month 5 — August 2026</span>
+    <div class="mc-title">Deployment + Reliability</div>
+    <div class="mc-goal">Goal: Ship AI apps that survive real users, real traffic, real failures. This is what companies actually pay for.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp5-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp5-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p5a" data-store="m5Progress" onclick="tog(this)"><div class="iname">OREILLY – AI for Network Engineer<div class="isub">2.37 GB · Your networking + AI combo</div></div><span class="ichk" id="k-p5a">○</span></div>
+  <div class="item" data-k="p5b" data-store="m5Progress" onclick="tog(this)"><div class="iname">PEARSON – AI-Enabled Programming, Networking & Cybersecurity<div class="isub">658 MB</div></div><span class="ichk" id="k-p5b">○</span></div>
+  <div class="item" data-k="p5c" data-store="m5Progress" onclick="tog(this)"><div class="iname">PEARSONS – Defending and Deploying AI (O.Santos)<div class="isub">3.36 GB · Security focus for production AI</div></div><span class="ichk" id="k-p5c">○</span></div>
+  <div class="item" data-k="p5d" data-store="m5Progress" onclick="tog(this)"><div class="iname">★ NEW — UD – Architecting an AI Data Center: A Network Engineer's Guide<div class="isub">6.66 GB · Your ultimate differentiator. Built for network engineers designing AI infrastructure. Covers GPU clusters, high-speed interconnects, storage for AI, cooling. Nobody else on your team has this knowledge.</div></div><span class="ichk" id="k-p5d">○</span></div>
+  <div class="item" data-k="p5e" data-store="m5Progress" onclick="tog(this)"><div class="iname">★ NEW — MANNING – LLMs in Production, Video Edition<div class="isub">2.57 GB · Manning · real-world production patterns — latency, cost, reliability, observability. The gap between working demo and production system.</div></div><span class="ichk" id="k-p5e">○</span></div>
+
+  <p class="sec-hdr">Deployment Skills to Check Off</p>
+  <div class="item" data-k="m5s1" data-store="m5Progress" onclick="tog(this)"><div class="iname">Docker — containerize FastAPI + LLM app</div><span class="ichk" id="k-m5s1">○</span></div>
+  <div class="item" data-k="m5s2" data-store="m5Progress" onclick="tog(this)"><div class="iname">Docker Compose — app + vector DB + Redis together</div><span class="ichk" id="k-m5s2">○</span></div>
+  <div class="item" data-k="m5s3" data-store="m5Progress" onclick="tog(this)"><div class="iname">FastAPI production — Gunicorn + Uvicorn workers</div><span class="ichk" id="k-m5s3">○</span></div>
+  <div class="item" data-k="m5s4" data-store="m5Progress" onclick="tog(this)"><div class="iname">Auth + API key security + rate limiting per user</div><span class="ichk" id="k-m5s4">○</span></div>
+  <div class="item" data-k="m5s5" data-store="m5Progress" onclick="tog(this)"><div class="iname">Langfuse / LangSmith — trace every LLM call</div><span class="ichk" id="k-m5s5">○</span></div>
+  <div class="item" data-k="m5s6" data-store="m5Progress" onclick="tog(this)"><div class="iname">Cost monitoring — set spending limits, Helicone</div><span class="ichk" id="k-m5s6">○</span></div>
+  <div class="item" data-k="m5s7" data-store="m5Progress" onclick="tog(this)"><div class="iname">Redis caching — exact-match + semantic caching (GPTCache)</div><span class="ichk" id="k-m5s7">○</span></div>
+  <div class="item" data-k="m5s8" data-store="m5Progress" onclick="tog(this)"><div class="iname">Background jobs — Celery + Redis for async LLM tasks</div><span class="ichk" id="k-m5s8">○</span></div>
+  <div class="item" data-k="m5s9" data-store="m5Progress" onclick="tog(this)"><div class="iname">Prompt versioning — store, version, rollback prompts</div><span class="ichk" id="k-m5s9">○</span></div>
+
+  <p class="sec-hdr">Practice Projects</p>
+  <div class="item" data-k="m5p1" data-store="m5Progress" onclick="tog(this)"><div class="iname">Containerize your RAG app — docker-compose up starts everything<div class="isub">FastAPI + Chroma/Qdrant + Redis all in one command</div></div><span class="ichk" id="k-m5p1">○</span></div>
+
+  <div class="milestone">
+    <div class="ms-title">✅ Month 5 Milestone</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Deploy FastAPI + LLM app in Docker with prod config</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Trace + debug LLM calls with Langfuse</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Monitor costs + set spending limits</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Cache LLM responses to cut cost + latency</div>
+  </div>
+</div>
+
+<!-- ══ MONTH 6: SPECIALIZE + LAUNCH ═════════════════════════════ -->
+<div class="panel" id="p7">
+  <div class="month-card m6">
+    <span class="mc-tag">Month 6 — September 2026</span>
+    <div class="mc-title">Specialize + Launch</div>
+    <div class="mc-goal">Goal: Build 2–3 complete portfolio projects. Choose your direction. Start applying, freelancing, or consulting.</div>
+    <div class="month-prog">
+      <div class="mp-row"><span class="mp-label">Progress</span><span class="mp-pct" id="mp6-pct">0%</span></div>
+      <div class="mp-bar"><div class="mp-fill" id="mp6-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <p class="sec-hdr">Your Courses (from LP plan)</p>
+  <div class="item" data-k="p6a" data-store="m6Progress" onclick="tog(this)"><div class="iname">UD – AI Engineer Core: LLM, RAG, QLoRA, Agents<div class="isub">32 GB · The full stack</div></div><span class="ichk" id="k-p6a">○</span></div>
+  <div class="item" data-k="p6b" data-store="m6Progress" onclick="tog(this)"><div class="iname">MANNING – LLMs in Production, Video Edition<div class="isub">2.57 GB</div></div><span class="ichk" id="k-p6b">○</span></div>
+  <div class="item" data-k="p6c" data-store="m6Progress" onclick="tog(this)"><div class="iname">ZTM – AI Agents Bootcamp<div class="isub">1.72 GB</div></div><span class="ichk" id="k-p6c">○</span></div>
+
+  <p class="sec-hdr">Choose Your Direction</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">🏗️</span><span class="res-name"><b>AI Product Engineer</b> — build AI products users interact with. Startup jobs, fastest path.</span></div>
+    <div class="res-row"><span class="res-icon">🔬</span><span class="res-name"><b>Applied ML/LLM Engineer</b> — fine-tuning, open-source models, inference optimization</span></div>
+    <div class="res-row"><span class="res-icon">⚙️</span><span class="res-name"><b>AI Automation Engineer</b> — business workflow automation (YOUR best path as ex-network eng)</span></div>
+  </div>
+
+  <p class="sec-hdr">Recommended for You: AI Automation</p>
+  <div class="item" data-k="m6s1" data-store="m6Progress" onclick="tog(this)"><div class="iname">n8n — visual AI workflow automation (400+ integrations)<div class="isub">Slack, Gmail, CRM, Notion, etc. — free to self-host</div></div><span class="ichk" id="k-m6s1">○</span></div>
+  <div class="item" data-k="m6s2" data-store="m6Progress" onclick="tog(this)"><div class="iname">AI + Networking automation tools (your unique niche)<div class="isub">OREILLY AI for Network Engineer + Fortinet/Cisco AI features</div></div><span class="ichk" id="k-m6s2">○</span></div>
+  <div class="item" data-k="m6s3" data-store="m6Progress" onclick="tog(this)"><div class="iname">Build: AI-powered network config assistant<div class="isub">RAG over network docs + Claude + your Cisco/Fortinet knowledge</div></div><span class="ichk" id="k-m6s3">○</span></div>
+
+  <p class="sec-hdr">Final Portfolio Projects (Pick 2)</p>
+  <div class="item" data-k="m6p1" data-store="m6Progress" onclick="tog(this)"><div class="iname">Chat with your docs app (deployed, public URL)<div class="isub">Real users can try it — strongest portfolio piece</div></div><span class="ichk" id="k-m6p1">○</span></div>
+  <div class="item" data-k="m6p2" data-store="m6Progress" onclick="tog(this)"><div class="iname">Network AI tool — config generator, fault analyzer, or log summarizer<div class="isub">Your 20yr advantage = instant credibility</div></div><span class="ichk" id="k-m6p2">○</span></div>
+  <div class="item" data-k="m6p3" data-store="m6Progress" onclick="tog(this)"><div class="iname">Lead qualification automation (full end-to-end)<div class="isub">Scrape → LLM research → score → draft outreach → log to CRM</div></div><span class="ichk" id="k-m6p3">○</span></div>
+
+  <p class="sec-hdr">Market Reality (2026)</p>
+  <div class="res-box">
+    <div class="res-row"><span class="res-icon">💰</span><span class="res-name">AI agent dev freelance: $175–$300/hr</span></div>
+    <div class="res-row"><span class="res-icon">💰</span><span class="res-name">RAG implementation: $150–$250/hr</span></div>
+    <div class="res-row"><span class="res-icon">💰</span><span class="res-name">LLM integration: $125–$200/hr</span></div>
+    <div class="res-row"><span class="res-icon">📈</span><span class="res-name">AI Engineer avg salary (Glassdoor Mar 2026): $184,757</span></div>
+    <div class="res-row"><span class="res-icon">🌍</span><span class="res-name">Nigeria: AI + Network = rare combo, high demand globally</span></div>
+  </div>
+
+  <div class="milestone">
+    <div class="ms-title">🏆 6-Month Finish Line</div>
+    <div class="ms-item"><span class="ms-chk">→</span>2–3 real deployed projects on GitHub</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Can build, deploy, and explain any AI system you build</div>
+    <div class="ms-item"><span class="ms-chk">→</span>Sharing progress on LinkedIn/X (visibility = opportunities)</div>
+    <div class="ms-item"><span class="ms-chk">→</span>First freelance project or job application sent</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<nav class="bnav"><div class="bnav-inner">
+<a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
+<a href="ai.html" class="ni" id="bn-ai"><span class="ni-icon">🧠</span><span class="ni-lbl">AI</span></a>
+<a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
+<a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
+<a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
+<a href="cloud.html" class="ni" id="bn-cloud"><span class="ni-icon">☁️</span><span class="ni-lbl">Cloud</span></a>
+<a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
+<a href="schedule.html" class="ni" id="bn-schedule"><span class="ni-icon">📅</span><span class="ni-lbl">Plan</span></a>
+<a href="goals.html" class="ni" id="bn-goals"><span class="ni-icon">🎯</span><span class="ni-lbl">Goals</span></a>
+</div></nav>
+
+<script>
+function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');updateBtn(t);}function toggleTheme(){var d=document.body.classList.toggle('dark');var t=d?'dark':'light';localStorage.setItem('theme',t);updateBtn(t);}function updateBtn(t){var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}initTheme();
+var el=document.getElementById('bn-lp');if(el)el.classList.add('active');
+
+// ── Tab switching ────────────────────────────────────────────────
+function switchTab(i) {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  tabs.forEach(function(t,idx){ t.className = idx===i ? 'tab active' : 'tab'; });
+  panels.forEach(function(p,idx){ p.className = idx===i ? 'panel active' : 'panel'; });
+  window.scrollTo(0,0);
+}
+
+// ── Generic toggle for any data-store ───────────────────────────
+function tog(el) {
+  var k = el.dataset.k, store = el.dataset.store;
+  var s = getStore(store); s[k] = !s[k]; saveStore(store, s);
+  renderAll();
+}
+function getStore(key) { try { return JSON.parse(localStorage.getItem(key)||'{}')||{}; } catch(e) { return {}; } }
+function saveStore(key, s) { try { localStorage.setItem(key, JSON.stringify(s)); } catch(e) {} }
+
+// ── Render all checkboxes ────────────────────────────────────────
+var allItems = [];
+function renderAll() {
+  document.querySelectorAll('.item').forEach(function(el) {
+    var k = el.dataset.k, store = el.dataset.store, s = getStore(store);
+    var chk = document.getElementById('k-'+k);
+    if (s[k]) { el.className='item done'; if(chk) chk.textContent='✓'; }
+    else       { el.className='item';      if(chk) chk.textContent='○'; }
+  });
+  updateProgress();
+}
+
+// ── Progress calculations ─────────────────────────────────────────
+function countDone(store, keys) {
+  var s = getStore(store);
+  return keys.filter(function(k){ return s[k]; }).length;
+}
+function pct(done, total) { return total ? Math.round(done/total*100) : 0; }
+function setBar(barId, pctId, p) {
+  var b = document.getElementById(barId), l = document.getElementById(pctId);
+  if(b) b.style.width = p+'%'; if(l) l.textContent = p+'%';
+}
+
+function updateProgress() {
+  var m0keys = ['c1','c2','c3','c4','c5'];
+  var m1keys = ['py-main','py1a','py1b','py1c','py1d','py1e','py1f','py1g','py1h','py-proj1','py-proj2'];
+  var m2keys = ['p2a','p2b','p2c','p2d','p2e','p2f','m2s1','m2s2','m2s3','m2s4','m2s5','m2s6','m2s7','m2s8','m2p1','m2p2','m2p3'];
+  var m3keys = ['p4a','p4b','p4c','p4d','m3s1','m3s2','m3s3','m3s4','m3s5','m3s6','m3s7','m3s8','m3p1'];
+  var m4keys = ['p1b','p1c','p1d','p3a','p3b','p3c','m4s1','m4s2','m4s3','m4s4','m4s5','m4s6','m4s7','m4s8','m4p1','m4p2'];
+  var m5keys = ['p5a','p5b','p5c','p5d','p5e','m5s1','m5s2','m5s3','m5s4','m5s5','m5s6','m5s7','m5s8','m5s9','m5p1'];
+  var m6keys = ['p6a','p6b','p6c','m6s1','m6s2','m6s3','m6p1','m6p2','m6p3'];
+
+  var p0=pct(countDone('claudeSprint_Mar2026',m0keys),m0keys.length);
+  var p1=pct(countDone('m1Progress',m1keys),m1keys.length);
+  var p2=pct(countDone('m2Progress',m2keys),m2keys.length);
+  var p3=pct(countDone('m3Progress',m3keys),m3keys.length);
+  var p4=pct(countDone('m4Progress',m4keys),m4keys.length);
+  var p5=pct(countDone('m5Progress',m5keys),m5keys.length);
+  var p6=pct(countDone('m6Progress',m6keys),m6keys.length);
+
+  setBar('mp0-bar','mp0-pct',p0); setBar('mp1-bar','mp1-pct',p1);
+  setBar('mp2-bar','mp2-pct',p2); setBar('mp3-bar','mp3-pct',p3);
+  setBar('mp4-bar','mp4-pct',p4); setBar('mp5-bar','mp5-pct',p5);
+  setBar('mp6-bar','mp6-pct',p6);
+
+  // Overview tags
+  function tag(id, p) { var el=document.getElementById(id); if(el) el.textContent=p+'%'; }
+  tag('ov-m0',p0); tag('ov-m1',p1); tag('ov-m2',p2); tag('ov-m3',p3);
+  tag('ov-m4',p4); tag('ov-m5',p5); tag('ov-m6',p6);
+
+  // Overall
+  var overall = Math.round((p0+p1+p2+p3+p4+p5+p6)/7);
+  tag('ov-total-pct', overall);
+}
+
+renderAll();
+
+var _rd={id:'ai',icon:'🤖',title:'AI Path',sub:'6-month roadmap · 40 weeks',color:'#8b5cf6',bg:'#F3EEFF',border:'#C4ACEA',tc:'#3a0d8a'};
+try{sessionStorage.setItem('aiResume',JSON.stringify(_rd));}catch(e){}
+</script>
+
+<script>(function(){var id='bn-ai';var el=document.getElementById(id);if(el) el.className='ni active';})();</script>
+
+
+<script>
+(function(){
+  window.addEventListener('DOMContentLoaded', function(){
+    var tabsWrap=document.querySelector('.tabs');
+    var tabs=[].slice.call(document.querySelectorAll('.tab'));
+    var panels=[].slice.call(document.querySelectorAll('.panel'));
+    if(!tabs.length || !panels.length) return;
+    var current=Math.max(0,tabs.findIndex(function(t){return t.classList.contains('active')}));
+    function go(i){
+      current=Math.max(0,Math.min(i,tabs.length-1));
+      if(window.switchTab) window.switchTab(current);
+      if(tabs[current] && tabs[current].scrollIntoView) tabs[current].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    }
+    var sx=0, sy=0, dx=0, dy=0;
+    panels.forEach(function(panel){
+      panel.addEventListener('touchstart', function(e){ var t=e.changedTouches[0]; sx=t.clientX; sy=t.clientY; dx=0; dy=0; }, {passive:true});
+      panel.addEventListener('touchmove', function(e){ var t=e.changedTouches[0]; dx=t.clientX-sx; dy=t.clientY-sy; }, {passive:true});
+      panel.addEventListener('touchend', function(){ if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)){ if(dx<0) go(current+1); else go(current-1); } }, {passive:true});
+    });
+    if(tabsWrap){
+      function cue(){ var ind=document.querySelector('.tabs-scroll-indicator'); if(!ind) return; ind.style.display = tabsWrap.scrollWidth > tabsWrap.clientWidth && tabsWrap.scrollLeft < (tabsWrap.scrollWidth - tabsWrap.clientWidth - 6) ? 'block' : 'none'; }
+      tabsWrap.addEventListener('scroll', cue, {passive:true});
+      setTimeout(cue, 100);
+    }
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  window.addEventListener('load', function(){
+    try {
+      localStorage.setItem('jlp_build','gold-v4');
+      if (!('serviceWorker' in navigator)) return;
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      if (window.caches && caches.keys) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function initAiTabs(){
+    var tabs=[].slice.call(document.querySelectorAll('.tab'));
+    var panels=[].slice.call(document.querySelectorAll('.panel'));
+    var bar=document.querySelector('.tabs');
+    if(!tabs.length || !panels.length) return;
+    var current=Math.max(0,tabs.findIndex(function(t){return t.classList.contains('active')}));
+    function go(i){ current=Math.max(0, Math.min(i, tabs.length-1)); if(window.switchTab) window.switchTab(current); if(tabs[current] && tabs[current].scrollIntoView) tabs[current].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); cue(); }
+    window.aiGoTab=go;
+    tabs.forEach(function(tab, idx){ tab.addEventListener('click', function(){ current=idx; setTimeout(cue,50); }); });
+    panels.forEach(function(panel){ var sx=0, sy=0, dx=0, dy=0; panel.addEventListener('touchstart', function(e){ var t=e.changedTouches[0]; sx=t.clientX; sy=t.clientY; dx=0; dy=0; }, {passive:true}); panel.addEventListener('touchmove', function(e){ var t=e.changedTouches[0]; dx=t.clientX-sx; dy=t.clientY-sy; }, {passive:true}); panel.addEventListener('touchend', function(){ if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)){ if(dx<0) go(current+1); else go(current-1); } }, {passive:true}); });
+    function cue(){ var ind=document.querySelector('.tabs-scroll-indicator'); if(!bar || !ind) return; ind.style.display=(bar.scrollWidth>bar.clientWidth && bar.scrollLeft < bar.scrollWidth-bar.clientWidth-8)?'block':'none'; }
+    if(bar){ bar.addEventListener('scroll', cue, {passive:true}); setTimeout(cue,100); }
+  }
+  window.addEventListener('DOMContentLoaded', initAiTabs);
+})();
+</script>
+
+
+<script>
+(function(){
+  function applyTheme(){
+    var t='light';
+    try{ t=localStorage.getItem('theme')||'light'; }catch(e){}
+    if(t==='dark') document.body.classList.add('dark'); else document.body.classList.remove('dark');
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.textContent = t==='dark' ? '☀️' : '🌙';
+  }
+  window.initTheme = applyTheme;
+  window.toggleTheme = function(){
+    var dark=!document.body.classList.contains('dark');
+    document.body.classList.toggle('dark', dark);
+    try{ localStorage.setItem('theme', dark?'dark':'light'); }catch(e){}
+    applyTheme();
+  };
+  window.addEventListener('DOMContentLoaded', function(){
+    applyTheme();
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.onclick = window.toggleTheme;
+  });
+})();
+</script>
+
+<div class="gsearch-overlay" id="gsearchOverlay"><div class="gsearch-card"><div class="gsearch-head"><input id="gsearchInput" type="search" placeholder="Search topics, pages, courses, weeks..." autocomplete="off"><button class="theme-btn" id="gsearchCloseBtn">✕</button></div><div class="gsearch-results" id="gsearchResults"></div></div></div>
+<script>(function(){var ITEMS=[{title:'Home',sub:'Main dashboard',href:'index.html',icon:'🏠',tags:'home dashboard'},{title:'AI Path',sub:'Main AI roadmap and phases',href:'ai.html',icon:'🧠',tags:'ai roadmap path llm rag agents prompting'},{title:'Linux',sub:'RHCSA and Linux foundation',href:'linux.html',icon:'🐧',tags:'linux rhcsa bash shell selinux systemd'},{title:'Python',sub:'Automation and AI prep',href:'python.html',icon:'🐍',tags:'python automation api anthropic sdk paramiko'},{title:'Cloud',sub:'AWS and Azure path',href:'cloud.html',icon:'☁️',tags:'cloud aws azure sap ans az-700 az-305'},{title:'Claude',sub:'Claude, MCP, and tools',href:'claude.html',icon:'🟠',tags:'claude mcp claude code agents'},{title:'Courses',sub:'Curated course library',href:'courses.html',icon:'📚',tags:'courses library resources'},{title:'Schedule',sub:'Week-by-week execution plan',href:'schedule.html',icon:'📅',tags:'schedule weeks plan'},{title:'Career Builder',sub:'CV-enhancing project ideas',href:'index.html',icon:'🧰',tags:'career builder cv projects portfolio'},{title:'RAG Systems',sub:'Retrieval and evaluation path',href:'ai.html',icon:'🧠',tags:'rag retrieval evals embeddings'},{title:'Prompt Engineering',sub:'Foundation prompt skill',href:'ai.html',icon:'🧠',tags:'prompt engineering developers'},{title:'Bash scripting',sub:'Linux scripting focus',href:'linux.html',icon:'🐧',tags:'bash loops functions cron'},{title:'Anthropic SDK',sub:'First AI API call',href:'python.html',icon:'🐍',tags:'anthropic sdk api'},{title:'AWS Architecture',sub:'Cloud architecture path',href:'cloud.html',icon:'☁️',tags:'aws architecture well architected'}]; function $(id){return document.getElementById(id)} function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})} function render(q){var box=$('gsearchResults'); if(!box) return; q=(q||'').toLowerCase().trim(); var list=ITEMS.filter(function(x){var hay=(x.title+' '+x.sub+' '+x.tags+' '+x.href).toLowerCase(); return !q||hay.indexOf(q)>-1}).slice(0,q?20:12); box.innerHTML=list.length?('<div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);padding:2px 0 10px">'+(!q?'Quick picks':'Results')+'</div>'+list.map(function(x){return '<a class="gsearch-item" href="'+x.href+'"><div style="font-size:1.1rem">'+x.icon+'</div><div><div style="font-size:.84rem;font-weight:800;color:var(--text)">'+esc(x.title)+'</div><div style="font-size:.7rem;color:var(--text2);margin-top:3px">'+esc(x.sub)+'</div></div></a>'}).join('')):'<div style="padding:8px 2px;color:var(--text2)">No results found</div>';} function openSearch(){ $('gsearchOverlay').classList.add('open'); $('gsearchInput').focus(); render($('gsearchInput').value||''); } function closeSearch(){ $('gsearchOverlay').classList.remove('open'); } window.toggleSearch=openSearch; window.runSearch=render; window.addEventListener('DOMContentLoaded',function(){ var btn=document.getElementById('searchBtn') || document.querySelector('button[title="Search"]') || Array.from(document.querySelectorAll('button')).find(function(b){return (b.textContent||'').includes('🔍')}); if(btn) btn.onclick=function(){ var ov=$('gsearchOverlay'); ov.classList.contains('open')?closeSearch():openSearch(); }; if($('gsearchInput')) $('gsearchInput').addEventListener('input',function(){render(this.value)}); if($('gsearchCloseBtn')) $('gsearchCloseBtn').onclick=closeSearch; if($('gsearchOverlay')) $('gsearchOverlay').addEventListener('click',function(e){if(e.target===this) closeSearch()}); document.addEventListener('keydown',function(e){ if($('gsearchOverlay') && $('gsearchOverlay').classList.contains('open') && e.key==='Escape') closeSearch();}); render('');});})();
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+<div class="topic-link-card"><div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);margin-bottom:4px">Course topics</div><h3 style="margin:0 0 6px;font-size:1rem">Best online references for this phase</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">Each topic now points either to a high-quality external resource or to your local Courses page when that is the better home.</p><div class="topic-link-grid"><a class="topic-link" href="https://frontendmasters.com/courses/prompt-engineering/" target="_blank" rel="noopener"><h4>Prompt Engineering</h4><p>Practical prompt engineering for developer workflows and AI-assisted coding.</p><small>Frontend Masters</small></a><a class="topic-link" href="courses.html"><h4>LLM Fundamentals</h4><p>Use your local course page for the 10-hour fundamentals path and supporting context.</p><small>Local courses page</small></a><a class="topic-link" href="https://maven.com" target="_blank" rel="noopener"><h4>RAG Improvement</h4><p>Use Maven as the external reference point for systematic RAG improvement thinking.</p><small>Maven</small></a><a class="topic-link" href="https://www.coursera.org/specializations/mastering-claude-ai-prompting-apis-rag-and-mcp" target="_blank" rel="noopener"><h4>Claude API, RAG, and MCP</h4><p>Use the Claude specialization as the strongest structured bridge from prompting to applications.</p><small>Coursera</small></a></div></div>
+<div class="topic-link-card"><div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);margin-bottom:4px">Bottom notes</div><h3 style="margin:0 0 6px;font-size:1rem">Recommended courses snapshot</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">This section keeps the recommendation list near the bottom of the page in a cleaner, card-based presentation.</p></div>
+<div class="curator-card"><div class="curator-kicker">Curator upgrade</div><h3 style="margin:0 0 6px;font-size:1rem">Premium course sequence for the AI phase</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">This revision prioritizes fewer, stronger courses that map cleanly from prompting to production RAG and Claude-based application building.</p><div class="curator-grid"><a class="curator-item" href="https://frontendmasters.com/courses/prompt-engineering/" target="_blank" rel="noopener"><div class="curator-kicker">Step 1</div><h4>Frontend Masters — Practical Prompt Engineering</h4><p>Best first paid upgrade for engineering-grade prompting. It is practical, tool-agnostic, and directly useful with Claude, Copilot, Cursor, and coding workflows.</p><div class="curator-meta"><span class="curator-chip">Prompting</span><span class="curator-chip">Developer-first</span><span class="curator-chip">Hands-on</span></div></a><a class="curator-item" href="courses.html"><div class="curator-kicker">Step 2</div><h4>Keep your local LLM Fundamentals block</h4><p>Use your local fundamentals course as the bridge between prompting and systems work. It gives the mental model needed before building RAG or agent workflows.</p><div class="curator-meta"><span class="curator-chip">Foundation</span><span class="curator-chip">Tokens</span><span class="curator-chip">Context</span></div></a><a class="curator-item" href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" rel="noopener"><div class="curator-kicker">Step 3</div><h4>DeepLearning.AI — Building and Evaluating Advanced RAG Applications</h4><p>Upgrade RAG selection toward evaluation, groundedness, and retrieval quality instead of generic RAG demos that often fail in production.</p><div class="curator-meta"><span class="curator-chip">RAG</span><span class="curator-chip">Evaluation</span><span class="curator-chip">Production mindset</span></div></a><a class="curator-item" href="https://www.coursera.org/specializations/mastering-claude-ai-prompting-apis-rag-and-mcp" target="_blank" rel="noopener"><div class="curator-kicker">Step 4</div><h4>Coursera — Mastering Claude AI: Prompting, APIs, RAG, and MCP</h4><p>Best structured Claude bridge from prompting into API work, RAG pipelines, MCP servers, and production-style workflows using Python.</p><div class="curator-meta"><span class="curator-chip">Claude</span><span class="curator-chip">API</span><span class="curator-chip">MCP</span></div></a></div></div>
+<div class="curation-card"><div class="curation-kicker">Track standard</div><h3 style="margin:0 0 6px;font-size:1rem">AI course standard</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">This track is now optimized around four moves: prompt quality, conceptual grounding, evaluated RAG, and Claude-based application building.</p><div class="curation-grid"><a class="curation-item" href="https://frontendmasters.com/courses/prompt-engineering/" target="_blank" rel="noopener"><h4>Best paid upgrade</h4><p>Frontend Masters — Practical Prompt Engineering. Use this first because it trains prompt patterns that transfer directly into coding assistants and Claude workflows.</p><div class="curation-meta"><span class="curation-chip">Paid</span><span class="curation-chip">Prompting</span></div></a><a class="curation-item" href="courses.html"><h4>Best local keep</h4><p>Keep your local LLM fundamentals block as the bridge into tokens, context windows, embeddings, and inference decisions.</p><div class="curation-meta"><span class="curation-chip">Local</span><span class="curation-chip">Foundation</span></div></a><a class="curation-item" href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" rel="noopener"><h4>Best RAG upgrade</h4><p>DeepLearning.AI — Building and Evaluating Advanced RAG Applications. Prefer this over weak demo-only RAG picks because it emphasizes retrieval quality and evaluation.</p><div class="curation-meta"><span class="curation-chip">RAG</span><span class="curation-chip">Evaluation</span></div></a><a class="curation-item" href="https://www.coursera.org/specializations/mastering-claude-ai-prompting-apis-rag-and-mcp" target="_blank" rel="noopener"><h4>Best structured Claude path</h4><p>Coursera — Mastering Claude AI: Prompting, APIs, RAG, and MCP. Use this as the premium bridge from prompts into API work, MCP, and production systems.</p><div class="curation-meta"><span class="curation-chip">Claude</span><span class="curation-chip">MCP</span></div></a></div></div>
+</body>
+</html>

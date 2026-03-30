@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<title>Goals · Jideatom LP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f2f7;--bg2:#ffffff;--bg3:#e8ecf4;--text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --border:rgba(15,23,42,.08);--border2:rgba(15,23,42,.14);
+  --shadow:0 1px 3px rgba(15,23,42,.08),0 4px 16px rgba(15,23,42,.05);
+  --radius:16px;--accent:#4f46e5;--a-bg:#eef2ff;
+  --green:#10b981;--g-bg:#ecfdf5;--amber:#f59e0b;--am-bg:#fffbeb;
+  --red:#ef4444;--r-bg:#fef2f2;
+  --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+body.dark{
+  --bg:#080c14;--bg2:#0f1623;--bg3:#141d2e;--text:#e2e8f0;--text2:#94a3b8;--text3:#334155;
+  --border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.10);
+  --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2);
+  --accent:#818cf8;--a-bg:#1e1b4b;--green:#34d399;--g-bg:#052e16;
+  --amber:#fbbf24;--am-bg:#1c1400;--red:#f87171;--r-bg:#2d0000;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}button{font-family:var(--sans);cursor:pointer;}
+
+/* NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);z-index:30;overflow-x:auto;}
+.bnav-inner{display:flex;min-width:max-content;padding:6px 8px;margin:0 auto;justify-content:center;}
+.ni{min-width:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 4px;gap:3px;}
+.ni-lbl{font-size:.48rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+.ni.active .ni-lbl{color:var(--accent);}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:20;background:var(--bg2);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:13px 16px;padding-top:calc(13px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:10px;}
+.back{color:var(--accent);font-size:1.25rem;font-weight:700;min-width:36px;min-height:44px;display:flex;align-items:center;background:none;border:none;-webkit-tap-highlight-color:transparent;}
+.htxt{flex:1;}.htxt h1{font-size:.92rem;font-weight:700;}.htxt p{font-size:.62rem;color:var(--text2);margin-top:1px;font-family:var(--mono);}
+.theme-btn{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:5px 12px;font-size:.8rem;min-height:34px;}
+
+/* WRAP */
+.wrap{max-width:540px;margin:0 auto;padding:16px 16px 90px;}
+
+/* SECTION LABEL */
+.sec-lbl{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text3);font-family:var(--mono);margin-bottom:10px;margin-top:18px;display:flex;align-items:center;justify-content:space-between;}
+.sec-lbl:first-of-type{margin-top:0;}
+
+/* MONTH CARD */
+.month-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden;}
+.month-hdr{display:flex;align-items:center;gap:10px;padding:13px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.month-hdr:active{background:var(--bg3);}
+.month-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.month-name{flex:1;font-size:.88rem;font-weight:700;}
+.month-meta{font-size:.62rem;color:var(--text2);font-family:var(--mono);}
+.month-arrow{font-size:.9rem;color:var(--text3);transition:transform .2s;}
+.month-hdr.open .month-arrow{transform:rotate(90deg);}
+.month-body{display:none;padding:0 14px 14px;}
+.month-body.open{display:block;}
+
+/* MILESTONE ITEM */
+.ms-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.ms-item:last-child{border-bottom:none;}
+.ms-chk{width:20px;height:20px;border:2px solid var(--border2);border-radius:6px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.75rem;margin-top:1px;-webkit-tap-highlight-color:transparent;transition:all .15s;}
+.ms-chk.done{background:var(--green);border-color:var(--green);color:#fff;}
+.ms-body{flex:1;}
+.ms-title{font-size:.82rem;font-weight:500;line-height:1.4;}
+.ms-title.done{text-decoration:line-through;color:var(--text3);}
+.ms-date{font-size:.6rem;color:var(--text3);font-family:var(--mono);margin-top:2px;}
+.ms-actions{display:flex;gap:6px;margin-top:4px;}
+.ms-del{font-size:.58rem;color:var(--red);background:none;border:none;cursor:pointer;padding:0;font-family:var(--mono);}
+
+/* ADD MILESTONE FORM */
+.add-form{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.add-row{display:flex;gap:8px;margin-bottom:8px;}
+.add-input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:9px 12px;font-size:.82rem;color:var(--text);font-family:var(--sans);}
+.add-input:focus{outline:none;border-color:var(--accent);}
+.add-date{width:130px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:9px 10px;font-size:.78rem;color:var(--text);font-family:var(--mono);}
+.add-date:focus{outline:none;border-color:var(--accent);}
+.add-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:.78rem;font-weight:700;-webkit-tap-highlight-color:transparent;}
+.add-btn:active{opacity:.8;}
+
+/* PROGRESS BAR */
+.ms-progress{height:4px;background:var(--bg3);border-radius:99px;overflow:hidden;margin-top:8px;margin-bottom:2px;}
+.ms-prog-fill{height:100%;border-radius:99px;transition:width .5s;}
+.ms-prog-row{display:flex;justify-content:space-between;font-size:.58rem;color:var(--text3);font-family:var(--mono);}
+
+/* OVERALL GOAL CARD */
+.goal-card{border-radius:var(--radius);padding:16px;margin-bottom:14px;}
+.gc-lbl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-family:var(--mono);margin-bottom:4px;opacity:.8;}
+.gc-title{font-size:1.05rem;font-weight:700;margin-bottom:3px;}
+.gc-sub{font-size:.72rem;opacity:.75;line-height:1.5;margin-bottom:12px;}
+.gc-prog-row{display:flex;justify-content:space-between;margin-bottom:4px;}
+.gc-bar{height:6px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;}
+.gc-fill{height:100%;background:#fff;border-radius:99px;transition:width .6s;}
+
+/* REMINDER TOGGLE */
+.reminder-row{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);}
+.reminder-ico{width:38px;height:38px;background:var(--am-bg);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.reminder-body{flex:1;}.reminder-title{font-size:.84rem;font-weight:700;}.reminder-sub{font-size:.65rem;color:var(--text2);margin-top:2px;font-family:var(--mono);}
+.toggle{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.slider{position:absolute;cursor:pointer;inset:0;background:var(--border2);border-radius:26px;transition:.2s;}
+.slider:before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s;}
+input:checked+.slider{background:var(--accent);}
+input:checked+.slider:before{transform:translateX(20px);}
+.reminder-time{display:none;padding:10px 14px;border-top:1px solid var(--border);align-items:center;justify-content:space-between;}
+.reminder-time.show{display:flex;}
+.time-lbl{font-size:.76rem;color:var(--text2);}
+.time-input{background:var(--bg3);border:1px solid var(--border);border-radius:9px;padding:5px 10px;font-size:.78rem;color:var(--text);font-family:var(--mono);}
+
+/* MONTH COLORS */
+.dot-apr{background:#8b5cf6;}.dot-may{background:#3b82f6;}.dot-jun{background:#10b981;}
+.dot-jul{background:#f59e0b;}.dot-aug{background:#f97316;}.dot-sep{background:#ef4444;}
+.gc-apr{background:linear-gradient(135deg,#4c1d95,#7c3aed,#8b5cf6);}
+.gc-may{background:linear-gradient(135deg,#1e40af,#2563eb,#3b82f6);}
+.gc-jun{background:linear-gradient(135deg,#065f46,#059669,#10b981);}
+</style>
+</head>
+<body>
+<header>
+  <button class="back" onclick="history.back()">←</button>
+  <div class="htxt"><h1>🎯 Goals</h1><p>Monthly milestones · Apr 2026 onwards</p></div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+</header>
+
+<div class="wrap">
+
+  <!-- Overall goal card -->
+  <div class="goal-card gc-apr" id="gcCard">
+    <div class="gc-lbl" id="gcLbl">Current Month</div>
+    <div class="gc-title" id="gcTitle">April 2026</div>
+    <div class="gc-sub" id="gcSub">Your active milestone month. Set your targets and check them off.</div>
+    <div class="gc-prog-row">
+      <span style="color:rgba(255,255,255,.65);font-size:.62rem;font-family:var(--mono)">Month progress</span>
+      <span style="color:#fff;font-size:.65rem;font-weight:700;font-family:var(--mono)" id="gcPct">0%</span>
+    </div>
+    <div class="gc-bar"><div class="gc-fill" id="gcFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Reminder toggle -->
+  <div class="reminder-row">
+    <div class="reminder-ico">🔔</div>
+    <div class="reminder-body">
+      <div class="reminder-title">Goal Reminders</div>
+      <div class="reminder-sub" id="remSub">Get daily nudges about this month's targets</div>
+    </div>
+    <label class="toggle">
+      <input type="checkbox" id="remToggle" onchange="handleRemToggle(this)">
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="reminder-time" id="remTimeRow">
+    <span class="time-lbl">Reminder time</span>
+    <input type="time" id="remTime" value="20:00" class="time-input" onchange="saveRemTime(this.value)">
+  </div>
+
+  <!-- Monthly milestones -->
+  <div class="sec-lbl">Monthly Milestones</div>
+
+  <!-- April -->
+  <div class="month-card">
+    <div class="month-hdr open" id="hdr-apr" onclick="toggleMonth('apr')">
+      <div class="month-dot dot-apr"></div>
+      <span class="month-name">April 2026</span>
+      <span class="month-meta" id="meta-apr">0/0</span>
+      <span class="month-arrow">›</span>
+    </div>
+    <div class="month-body open" id="body-apr">
+      <div class="ms-progress"><div class="ms-prog-fill" id="fill-apr" style="width:0%;background:#8b5cf6"></div></div>
+      <div class="ms-prog-row"><span id="done-apr">0 done</span><span id="total-apr">0 total</span></div>
+      <div id="items-apr"></div>
+      <div class="add-form">
+        <div class="add-row">
+          <input class="add-input" id="in-apr" placeholder="Add a milestone…" onkeydown="if(event.key==='Enter')addMilestone('apr')">
+          <input class="add-date" id="dt-apr" type="date">
+        </div>
+        <button class="add-btn" onclick="addMilestone('apr')">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- May -->
+  <div class="month-card">
+    <div class="month-hdr" id="hdr-may" onclick="toggleMonth('may')">
+      <div class="month-dot dot-may"></div>
+      <span class="month-name">May 2026</span>
+      <span class="month-meta" id="meta-may">0/0</span>
+      <span class="month-arrow">›</span>
+    </div>
+    <div class="month-body" id="body-may">
+      <div class="ms-progress"><div class="ms-prog-fill" id="fill-may" style="width:0%;background:#3b82f6"></div></div>
+      <div class="ms-prog-row"><span id="done-may">0 done</span><span id="total-may">0 total</span></div>
+      <div id="items-may"></div>
+      <div class="add-form">
+        <div class="add-row">
+          <input class="add-input" id="in-may" placeholder="Add a milestone…" onkeydown="if(event.key==='Enter')addMilestone('may')">
+          <input class="add-date" id="dt-may" type="date">
+        </div>
+        <button class="add-btn" onclick="addMilestone('may')">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- June -->
+  <div class="month-card">
+    <div class="month-hdr" id="hdr-jun" onclick="toggleMonth('jun')">
+      <div class="month-dot dot-jun"></div>
+      <span class="month-name">June 2026</span>
+      <span class="month-meta" id="meta-jun">0/0</span>
+      <span class="month-arrow">›</span>
+    </div>
+    <div class="month-body" id="body-jun">
+      <div class="ms-progress"><div class="ms-prog-fill" id="fill-jun" style="width:0%;background:#10b981"></div></div>
+      <div class="ms-prog-row"><span id="done-jun">0 done</span><span id="total-jun">0 total</span></div>
+      <div id="items-jun"></div>
+      <div class="add-form">
+        <div class="add-row">
+          <input class="add-input" id="in-jun" placeholder="Add a milestone…" onkeydown="if(event.key==='Enter')addMilestone('jun')">
+          <input class="add-date" id="dt-jun" type="date">
+        </div>
+        <button class="add-btn" onclick="addMilestone('jun')">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- July -->
+  <div class="month-card">
+    <div class="month-hdr" id="hdr-jul" onclick="toggleMonth('jul')">
+      <div class="month-dot dot-jul"></div>
+      <span class="month-name">July 2026</span>
+      <span class="month-meta" id="meta-jul">0/0</span>
+      <span class="month-arrow">›</span>
+    </div>
+    <div class="month-body" id="body-jul">
+      <div class="ms-progress"><div class="ms-prog-fill" id="fill-jul" style="width:0%;background:#f59e0b"></div></div>
+      <div class="ms-prog-row"><span id="done-jul">0 done</span><span id="total-jul">0 total</span></div>
+      <div id="items-jul"></div>
+      <div class="add-form">
+        <div class="add-row">
+          <input class="add-input" id="in-jul" placeholder="Add a milestone…" onkeydown="if(event.key==='Enter')addMilestone('jul')">
+          <input class="add-date" id="dt-jul" type="date">
+        </div>
+        <button class="add-btn" onclick="addMilestone('jul')">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- August -->
+  <div class="month-card">
+    <div class="month-hdr" id="hdr-aug" onclick="toggleMonth('aug')">
+      <div class="month-dot dot-aug"></div>
+      <span class="month-name">August 2026</span>
+      <span class="month-meta" id="meta-aug">0/0</span>
+      <span class="month-arrow">›</span>
+    </div>
+    <div class="month-body" id="body-aug">
+      <div class="ms-progress"><div class="ms-prog-fill" id="fill-aug" style="width:0%;background:#f97316"></div></div>
+      <div class="ms-prog-row"><span id="done-aug">0 done</span><span id="total-aug">0 total</span></div>
+      <div id="items-aug"></div>
+      <div class="add-form">
+        <div class="add-row">
+          <input class="add-input" id="in-aug" placeholder="Add a milestone…" onkeydown="if(event.key==='Enter')addMilestone('aug')">
+          <input class="add-date" id="dt-aug" type="date">
+        </div>
+        <button class="add-btn" onclick="addMilestone('aug')">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- September -->
+  <div class="month-card">
+    <div class="month-hdr" id="hdr-sep" onclick="toggleMonth('sep')">
+      <div class="month-dot dot-sep"></div>
+      <span class="month-name">September 2026</span>
+      <span class="month-meta" id="meta-sep">0/0</span>
+      <span class="month-arrow">›</span>
+    </div>
+    <div class="month-body" id="body-sep">
+      <div class="ms-progress"><div class="ms-prog-fill" id="fill-sep" style="width:0%;background:#ef4444"></div></div>
+      <div class="ms-prog-row"><span id="done-sep">0 done</span><span id="total-sep">0 total</span></div>
+      <div id="items-sep"></div>
+      <div class="add-form">
+        <div class="add-row">
+          <input class="add-input" id="in-sep" placeholder="Add a milestone…" onkeydown="if(event.key==='Enter')addMilestone('sep')">
+          <input class="add-date" id="dt-sep" type="date">
+        </div>
+        <button class="add-btn" onclick="addMilestone('sep')">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<nav class="bnav"><div class="bnav-inner">
+  <a href="index.html"    class="ni" id="bn-home">  <span>🏠</span><span class="ni-lbl">Home</span></a>
+  <a href="ai.html"       class="ni" id="bn-ai">    <span>🧠</span><span class="ni-lbl">AI</span></a>
+  <a href="courses.html"  class="ni" id="bn-courses"><span>📚</span><span class="ni-lbl">Courses</span></a>
+  <a href="linux.html"    class="ni" id="bn-linux">  <span>🐧</span><span class="ni-lbl">Linux</span></a>
+  <a href="python.html"   class="ni" id="bn-python"> <span>🐍</span><span class="ni-lbl">Python</span></a>
+  <a href="cloud.html"    class="ni" id="bn-cloud">  <span>☁️</span><span class="ni-lbl">Cloud</span></a>
+  <a href="claude.html"   class="ni" id="bn-claude"> <span>🟠</span><span class="ni-lbl">Claude</span></a>
+  <a href="goals.html"    class="ni active" id="bn-goals"><span>🎯</span><span class="ni-lbl">Goals</span></a>
+</div></nav>
+
+<script>
+// ── THEME ──
+function toggleTheme(){var d=document.body.classList.toggle('dark');localStorage.setItem('theme',d?'dark':'light');document.getElementById('themeBtn').textContent=d?'☀️':'🌙';}
+(function(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙';})();
+
+// ── STORAGE ──
+var MONTHS=['apr','may','jun','jul','aug','sep'];
+var MONTH_NAMES={apr:'April 2026',may:'May 2026',jun:'June 2026',jul:'July 2026',aug:'August 2026',sep:'September 2026'};
+var MONTH_COLORS={apr:'#8b5cf6',may:'#3b82f6',jun:'#10b981',jul:'#f59e0b',aug:'#f97316',sep:'#ef4444'};
+
+function getGoals(){try{return JSON.parse(localStorage.getItem('goals_v1')||'{}');}catch(e){return {};}}
+function saveGoals(g){try{localStorage.setItem('goals_v1',JSON.stringify(g));}catch(e){}}
+
+// ── TOGGLE MONTH ──
+function toggleMonth(m){
+  var hdr=document.getElementById('hdr-'+m), body=document.getElementById('body-'+m);
+  if(!hdr||!body)return;
+  var open=body.classList.toggle('open');
+  hdr.classList.toggle('open',open);
+}
+
+// ── ADD MILESTONE ──
+function addMilestone(m){
+  var inp=document.getElementById('in-'+m), dt=document.getElementById('dt-'+m);
+  if(!inp)return;
+  var text=inp.value.trim(); if(!text)return;
+  var g=getGoals();
+  if(!g[m])g[m]=[];
+  g[m].push({id:Date.now()+'',text:text,date:dt?dt.value:'',done:false});
+  saveGoals(g);
+  inp.value=''; if(dt)dt.value='';
+  renderMonth(m);
+  updateOverallCard();
+  pushGoalSnapshot();
+}
+
+// ── TOGGLE DONE ──
+function toggleDone(m,id){
+  var g=getGoals();
+  if(!g[m])return;
+  var item=g[m].find(function(x){return x.id===id;});
+  if(item)item.done=!item.done;
+  saveGoals(g);
+  renderMonth(m);
+  updateOverallCard();
+  pushGoalSnapshot();
+}
+
+// ── DELETE ──
+function deleteMilestone(m,id){
+  var g=getGoals();
+  if(!g[m])return;
+  g[m]=g[m].filter(function(x){return x.id!==id;});
+  saveGoals(g);
+  renderMonth(m);
+  updateOverallCard();
+  pushGoalSnapshot();
+}
+
+// ── RENDER MONTH ──
+function renderMonth(m){
+  var g=getGoals(), items=g[m]||[];
+  var container=document.getElementById('items-'+m);
+  var fill=document.getElementById('fill-'+m);
+  var metaEl=document.getElementById('meta-'+m);
+  var doneEl=document.getElementById('done-'+m);
+  var totalEl=document.getElementById('total-'+m);
+  if(!container)return;
+
+  var done=items.filter(function(x){return x.done;}).length;
+  var total=items.length;
+  var pct=total?Math.round(done/total*100):0;
+
+  if(fill)fill.style.width=pct+'%';
+  if(metaEl)metaEl.textContent=done+'/'+total;
+  if(doneEl)doneEl.textContent=done+' done';
+  if(totalEl)totalEl.textContent=total+' total';
+
+  container.innerHTML=items.map(function(item){
+    return '<div class="ms-item">'
+      +'<div class="ms-chk'+(item.done?' done':'')+'" onclick="toggleDone(\''+m+'\',\''+item.id+'\')">'+(item.done?'✓':'')+'</div>'
+      +'<div class="ms-body">'
+        +'<div class="ms-title'+(item.done?' done':'')+'">'+escHtml(item.text)+'</div>'
+        +(item.date?'<div class="ms-date">Target: '+item.date+'</div>':'')
+        +'<div class="ms-actions"><button class="ms-del" onclick="deleteMilestone(\''+m+'\',\''+item.id+'\')">✕ remove</button></div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+}
+
+function escHtml(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+// ── OVERALL CARD ──
+function updateOverallCard(){
+  var g=getGoals();
+  // Find current month
+  var now=new Date(), mo=now.getMonth(); // 3=apr, 4=may etc
+  var keyMap={3:'apr',4:'may',5:'jun',6:'jul',7:'aug',8:'sep'};
+  var cur=keyMap[mo]||'apr';
+  var items=g[cur]||[];
+  var done=items.filter(function(x){return x.done;}).length;
+  var total=items.length;
+  var pct=total?Math.round(done/total*100):0;
+
+  var fill=document.getElementById('gcFill'), pctEl=document.getElementById('gcPct');
+  var titleEl=document.getElementById('gcTitle'), subEl=document.getElementById('gcSub');
+  var lblEl=document.getElementById('gcLbl');
+  var card=document.getElementById('gcCard');
+
+  if(fill)fill.style.width=pct+'%';
+  if(pctEl)pctEl.textContent=pct+'%';
+  if(titleEl)titleEl.textContent=MONTH_NAMES[cur]||'Current Month';
+  if(lblEl)lblEl.textContent=done+' of '+total+' milestones complete';
+
+  var sub='';
+  if(total===0)sub='No milestones set yet — add them below.';
+  else if(pct===100)sub='All milestones complete this month! 🏆';
+  else if(pct>=50)sub='More than halfway — keep the momentum.';
+  else sub='Set your targets and check them off as you go.';
+  if(subEl)subEl.textContent=sub;
+
+  // Update card gradient color
+  var gradMap={apr:'linear-gradient(135deg,#4c1d95,#7c3aed,#8b5cf6)',may:'linear-gradient(135deg,#1e40af,#2563eb,#3b82f6)',jun:'linear-gradient(135deg,#065f46,#059669,#10b981)',jul:'linear-gradient(135deg,#92400e,#d97706,#f59e0b)',aug:'linear-gradient(135deg,#9a3412,#ea580c,#f97316)',sep:'linear-gradient(135deg,#991b1b,#dc2626,#ef4444)'};
+  if(card)card.style.background=gradMap[cur]||gradMap.apr;
+}
+
+// ── PUSH SNAPSHOT TO HOME PAGE ──
+function pushGoalSnapshot(){
+  var g=getGoals();
+  var now=new Date(), mo=now.getMonth();
+  var keyMap={3:'apr',4:'may',5:'jun',6:'jul',7:'aug',8:'sep'};
+  var cur=keyMap[mo]||'apr';
+  var items=g[cur]||[];
+  var done=items.filter(function(x){return x.done;}).length;
+  var total=items.length;
+  var upcoming=items.filter(function(x){return !x.done;}).slice(0,2).map(function(x){return x.text;});
+  var snapshot={month:MONTH_NAMES[cur]||'Current Month',done:done,total:total,pct:total?Math.round(done/total*100):0,upcoming:upcoming,updated:new Date().toISOString()};
+  try{localStorage.setItem('goals_snapshot',JSON.stringify(snapshot));}catch(e){}
+}
+
+// ── REMINDERS ──
+function handleRemToggle(el){
+  if(el.checked){
+    if(!('Notification' in window)){el.checked=false;return;}
+    Notification.requestPermission().then(function(p){
+      if(p==='granted'){
+        localStorage.setItem('goals_reminders','true');
+        document.getElementById('remTimeRow').classList.add('show');
+        document.getElementById('remSub').textContent='Reminder active — nudge at '+fmtTime(localStorage.getItem('goals_rem_time')||'20:00');
+        scheduleGoalReminder();
+      } else {el.checked=false;}
+    });
+  } else {
+    localStorage.setItem('goals_reminders','false');
+    document.getElementById('remTimeRow').classList.remove('show');
+    document.getElementById('remSub').textContent='Get daily nudges about this month\'s targets';
+  }
+}
+
+function saveRemTime(v){
+  localStorage.setItem('goals_rem_time',v);
+  scheduleGoalReminder();
+  document.getElementById('remSub').textContent='Reminder active — nudge at '+fmtTime(v);
+}
+
+function fmtTime(t){var p=(t||'20:00').split(':'),h=parseInt(p[0]),m=p[1]||'00',a=h>=12?'PM':'AM';h=h%12||12;return h+':'+m+' '+a;}
+
+function scheduleGoalReminder(){
+  clearTimeout(window._goalTimer);
+  if(localStorage.getItem('goals_reminders')!=='true')return;
+  var t=localStorage.getItem('goals_rem_time')||'20:00';
+  var now=new Date(), tgt=new Date();
+  var p=t.split(':'); tgt.setHours(parseInt(p[0]),parseInt(p[1]),0,0);
+  if(tgt<=now)tgt.setDate(tgt.getDate()+1);
+  window._goalTimer=setTimeout(function(){
+    if(Notification.permission==='granted'){
+      var snap=JSON.parse(localStorage.getItem('goals_snapshot')||'{}');
+      var body=snap.total>0?('Goals: '+snap.done+'/'+snap.total+' done this month'+(snap.upcoming&&snap.upcoming[0]?' · Next: '+snap.upcoming[0]:'')):'Check your goals for this month.';
+      new Notification('🎯 AI Tracker — Goal Check',{body:body,icon:'icon-192.png',tag:'goal-reminder'});
+    }
+    scheduleGoalReminder();
+  },tgt-now);
+}
+
+// ── INIT ──
+function init(){
+  MONTHS.forEach(function(m){renderMonth(m);});
+  updateOverallCard();
+  pushGoalSnapshot();
+  // Restore reminder state
+  var remOn=localStorage.getItem('goals_reminders')==='true';
+  document.getElementById('remToggle').checked=remOn;
+  if(remOn){
+    document.getElementById('remTimeRow').classList.add('show');
+    document.getElementById('remTime').value=localStorage.getItem('goals_rem_time')||'20:00';
+    document.getElementById('remSub').textContent='Reminder active — nudge at '+fmtTime(localStorage.getItem('goals_rem_time')||'20:00');
+    scheduleGoalReminder();
+  }
+}
+document.addEventListener('DOMContentLoaded',init);
+
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
+</script>
+</body>
+</html>

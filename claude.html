@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="Claude, MCP, and applied AI workflows">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#f97316">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<title>Claude Fast Track</title>
+<title>Claude Path · Jideatom Learning Path</title>
 <style>
 
 :root {
@@ -101,15 +102,29 @@ body.dark .item.done .iname{color:#4ade80;}
 .isize{font-size:0.67rem;color:var(--text-muted);white-space:nowrap;margin-right:4px;}
 .ichk{font-size:1rem;min-width:18px;text-align:center;color:var(--text-muted);}
 .item.done .ichk{color:#22c55e;}
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+.redirect-card{max-width:560px;margin:24px auto;padding:22px;border-radius:18px;background:#fff;border:1px solid #e2e8f0;font-family:Arial,sans-serif;color:#0f172a}
+.redirect-card a{color:#2563eb;text-decoration:none;font-weight:700}
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
 </style>
+<style>.gsearch-overlay{position:fixed;inset:0;background:rgba(8,12,20,.76);backdrop-filter:blur(8px);display:none;z-index:2500;padding:12px}.gsearch-overlay.open{display:flex}.gsearch-card{margin:auto;width:min(760px,100%);height:min(80vh,760px);background:var(--bg2);border:1px solid var(--border2, var(--border));border-radius:22px;box-shadow:0 28px 90px rgba(0,0,0,.36);display:flex;flex-direction:column;overflow:hidden}.gsearch-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.gsearch-head input{flex:1;background:var(--bg3);color:var(--text);border:1px solid var(--border2, var(--border));border-radius:12px;padding:12px 14px;font-size:.94rem}.gsearch-results{padding:14px 16px;overflow:auto}.gsearch-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg2);margin-bottom:8px;text-decoration:none;color:inherit}</style>
+<style>.curation-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.curation-kicker{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.curation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.curation-item{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.curation-item h4{margin:0 0 6px;font-size:.94rem}.curation-item p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.52}.curation-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.curation-chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--bg2);border:1px solid var(--border);color:var(--text2)}.curation-table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:12px}.curation-table td,.curation-table th{padding:12px 12px;vertical-align:top;text-align:left}.curation-table tbody tr{background:linear-gradient(180deg,var(--bg2),var(--bg3));box-shadow:var(--shadow)}.curation-table tbody td:first-child{border-radius:14px 0 0 14px}.curation-table tbody td:last-child{border-radius:0 14px 14px 0}.curation-table th{font-size:.62rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:1px}.track-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);font-weight:700;background:var(--a-bg);color:var(--accent)}@media (max-width:760px){.curation-grid{grid-template-columns:1fr}.curation-table,.curation-table tbody,.curation-table tr,.curation-table td,.curation-table th{display:block;width:100%}.curation-table thead{display:none}.curation-table tbody tr{display:block;padding:8px;border-radius:14px}.curation-table tbody td{display:block;padding:8px 10px}.curation-table tbody td:first-child,.curation-table tbody td:last-child{border-radius:0}}}</style>
 </head>
 <body>
 <header>
   <a href="index.html" class="back">&#8592;</a>
-  <div class="htxt"><h1>🟠 Claude Track — Fast Track</h1><p>March–May 2026 · 10 Courses · v3 ✅</p></div>
+  <div class="htxt"><h1>🟠 Claude Track — Fast Track</h1><p>March–May 2026 · 10 Courses · </p></div>
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
 <div class="wrap">
+<div class="brandbar"><div class="brand-left"><div class="brand-kicker">Jideatom Learning Path</div><div class="brand-name">Claude specialization</div><div class="brand-sub">Claude skills, Claude Code, MCP, and agent workflows.</div></div><div class="page-chip">Claude</div></div>
 <style>
 .bar-wrap{background:var(--bg-input);border-radius:8px;height:26px;position:relative;overflow:hidden;margin-bottom:16px;border:1px solid var(--border);}
 .bar-fill{background:linear-gradient(90deg,#f97316,#fbbf24);height:100%;border-radius:8px;transition:width 0.4s ease;}
@@ -137,6 +152,17 @@ body.dark .card.done{background:#081810;border-color:#22c55e;}
 .next-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);}
 .next-row:last-child{border-bottom:none;}
 .next-name{color:var(--text-sub);font-size:0.76rem;} .next-size{color:var(--text-muted);font-size:0.67rem;}
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+
+
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
 </style>
 <style>
 .phase-label{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-sub);margin:16px 0 8px;padding-bottom:5px;border-bottom:2px solid var(--border);}
@@ -151,6 +177,17 @@ body.dark .card.done{background:#081810;border-color:#22c55e;}
 .skip-row:last-child{border-bottom:none;}
 .skip-name{color:var(--text);flex:1;}
 .skip-when{font-size:0.6rem;color:var(--text-sub);white-space:nowrap;margin-left:8px;font-style:italic;}
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+
+
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
 </style>
 
 <div class="tip">💡 Tap any course card to mark complete. Progress saves automatically. March sprint → April deepdive → May MCP mastery.</div>
@@ -193,16 +230,17 @@ body.dark .card.done{background:#081810;border-color:#22c55e;}
 </div>
 </div>
 
-<nav class="bnav">
-  <div class="bnav-inner">
-    <a href="index.html"      class="ni" id="bn-home">   <span>🏠</span><span>Home</span></a>
-    <a href="claude.html"     class="ni" id="bn-claude"> <span>🟠</span><span>Claude</span></a>
-    <a href="lp.html" class="ni" id="bn-lp">     <span>📋</span><span>Courses</span></a>
-    <a href="cloud.html"      class="ni" id="bn-cloud">  <span>☁️</span><span>Cloud</span></a>
-    <a href="linux.html"      class="ni" id="bn-linux">  <span>🐧</span><span>Linux</span></a>
-    <a href="python.html"     class="ni" id="bn-python"> <span>🐍</span><span>Python</span></a>
-  </div>
-</nav>
+<nav class="bnav"><div class="bnav-inner">
+<a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
+<a href="ai.html" class="ni" id="bn-ai"><span class="ni-icon">🧠</span><span class="ni-lbl">AI</span></a>
+<a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
+<a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
+<a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
+<a href="cloud.html" class="ni" id="bn-cloud"><span class="ni-icon">☁️</span><span class="ni-lbl">Cloud</span></a>
+<a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
+<a href="schedule.html" class="ni" id="bn-schedule"><span class="ni-icon">📅</span><span class="ni-lbl">Plan</span></a>
+<a href="goals.html" class="ni" id="bn-goals"><span class="ni-icon">🎯</span><span class="ni-lbl">Goals</span></a>
+</div></nav>
 <script>
 
 function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');updateBtn(t);}
@@ -272,5 +310,54 @@ renderM();
 var _rd={id:'claude',icon:'🟠',title:'Claude Fast Track Sprint',sub:'5 courses · Fast Track · March',color:'#f97316',bg:'#FFF3E8',border:'#EEC898',tc:'#7a2a00'};
 try{sessionStorage.setItem('aiResume',JSON.stringify(_rd));}catch(e){}
 </script>
+
+<script>(function(){var id='bn-claude';var el=document.getElementById(id);if(el) el.className='ni active';})();</script>
+
+
+<script>
+(function(){
+  window.addEventListener('load', function(){
+    try {
+      localStorage.setItem('jlp_build','gold-v4');
+      if (!('serviceWorker' in navigator)) return;
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      if (window.caches && caches.keys) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function applyTheme(){
+    var t='light';
+    try{ t=localStorage.getItem('theme')||'light'; }catch(e){}
+    if(t==='dark') document.body.classList.add('dark'); else document.body.classList.remove('dark');
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.textContent = t==='dark' ? '☀️' : '🌙';
+  }
+  window.initTheme = applyTheme;
+  window.toggleTheme = function(){
+    var dark=!document.body.classList.contains('dark');
+    document.body.classList.toggle('dark', dark);
+    try{ localStorage.setItem('theme', dark?'dark':'light'); }catch(e){}
+    applyTheme();
+  };
+  window.addEventListener('DOMContentLoaded', function(){
+    applyTheme();
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.onclick = window.toggleTheme;
+  });
+})();
+</script>
+
+<div class="gsearch-overlay" id="gsearchOverlay"><div class="gsearch-card"><div class="gsearch-head"><input id="gsearchInput" type="search" placeholder="Search topics, pages, courses, weeks..." autocomplete="off"><button class="theme-btn" id="gsearchCloseBtn">✕</button></div><div class="gsearch-results" id="gsearchResults"></div></div></div>
+<script>(function(){var ITEMS=[{title:'Home',sub:'Main dashboard',href:'index.html',icon:'🏠',tags:'home dashboard'},{title:'AI Path',sub:'Main AI roadmap and phases',href:'ai.html',icon:'🧠',tags:'ai roadmap path llm rag agents prompting'},{title:'Linux',sub:'RHCSA and Linux foundation',href:'linux.html',icon:'🐧',tags:'linux rhcsa bash shell selinux systemd'},{title:'Python',sub:'Automation and AI prep',href:'python.html',icon:'🐍',tags:'python automation api anthropic sdk paramiko'},{title:'Cloud',sub:'AWS and Azure path',href:'cloud.html',icon:'☁️',tags:'cloud aws azure sap ans az-700 az-305'},{title:'Claude',sub:'Claude, MCP, and tools',href:'claude.html',icon:'🟠',tags:'claude mcp claude code agents'},{title:'Courses',sub:'Curated course library',href:'courses.html',icon:'📚',tags:'courses library resources'},{title:'Schedule',sub:'Week-by-week execution plan',href:'schedule.html',icon:'📅',tags:'schedule weeks plan'},{title:'Career Builder',sub:'CV-enhancing project ideas',href:'index.html',icon:'🧰',tags:'career builder cv projects portfolio'},{title:'RAG Systems',sub:'Retrieval and evaluation path',href:'ai.html',icon:'🧠',tags:'rag retrieval evals embeddings'},{title:'Prompt Engineering',sub:'Foundation prompt skill',href:'ai.html',icon:'🧠',tags:'prompt engineering developers'},{title:'Bash scripting',sub:'Linux scripting focus',href:'linux.html',icon:'🐧',tags:'bash loops functions cron'},{title:'Anthropic SDK',sub:'First AI API call',href:'python.html',icon:'🐍',tags:'anthropic sdk api'},{title:'AWS Architecture',sub:'Cloud architecture path',href:'cloud.html',icon:'☁️',tags:'aws architecture well architected'}]; function $(id){return document.getElementById(id)} function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})} function render(q){var box=$('gsearchResults'); if(!box) return; q=(q||'').toLowerCase().trim(); var list=ITEMS.filter(function(x){var hay=(x.title+' '+x.sub+' '+x.tags+' '+x.href).toLowerCase(); return !q||hay.indexOf(q)>-1}).slice(0,q?20:12); box.innerHTML=list.length?('<div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);padding:2px 0 10px">'+(!q?'Quick picks':'Results')+'</div>'+list.map(function(x){return '<a class="gsearch-item" href="'+x.href+'"><div style="font-size:1.1rem">'+x.icon+'</div><div><div style="font-size:.84rem;font-weight:800;color:var(--text)">'+esc(x.title)+'</div><div style="font-size:.7rem;color:var(--text2);margin-top:3px">'+esc(x.sub)+'</div></div></a>'}).join('')):'<div style="padding:8px 2px;color:var(--text2)">No results found</div>';} function openSearch(){ $('gsearchOverlay').classList.add('open'); $('gsearchInput').focus(); render($('gsearchInput').value||''); } function closeSearch(){ $('gsearchOverlay').classList.remove('open'); } window.toggleSearch=openSearch; window.runSearch=render; window.addEventListener('DOMContentLoaded',function(){ var btn=document.getElementById('searchBtn') || document.querySelector('button[title="Search"]') || Array.from(document.querySelectorAll('button')).find(function(b){return (b.textContent||'').includes('🔍')}); if(btn) btn.onclick=function(){ var ov=$('gsearchOverlay'); ov.classList.contains('open')?closeSearch():openSearch(); }; if($('gsearchInput')) $('gsearchInput').addEventListener('input',function(){render(this.value)}); if($('gsearchCloseBtn')) $('gsearchCloseBtn').onclick=closeSearch; if($('gsearchOverlay')) $('gsearchOverlay').addEventListener('click',function(e){if(e.target===this) closeSearch()}); document.addEventListener('keydown',function(e){ if($('gsearchOverlay') && $('gsearchOverlay').classList.contains('open') && e.key==='Escape') closeSearch();}); render('');});})();
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+<div class="curation-card"><div class="curation-kicker">Track standard</div><h3 style="margin:0 0 6px;font-size:1rem">Claude course standard</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">Claude should now be treated as a serious application-building track rather than a side topic. The goal is prompting, API fluency, RAG, MCP, and workflow orchestration.</p><div class="curation-grid"><a class="curation-item" href="https://www.coursera.org/specializations/mastering-claude-ai-prompting-apis-rag-and-mcp" target="_blank" rel="noopener"><h4>Best premium path</h4><p>Use the Claude specialization as the main structured external path because it covers prompt design, APIs, RAG, and MCP in one coherent sequence.</p><div class="curation-meta"><span class="curation-chip">Claude</span><span class="curation-chip">Production path</span></div></a><a class="curation-item" href="ai.html"><h4>Best companion track</h4><p>Pair Claude study with the AI page’s prompt-engineering and RAG upgrades so the Claude work is backed by stronger fundamentals.</p><div class="curation-meta"><span class="curation-chip">Pairing</span><span class="curation-chip">Prompting</span></div></a><a class="curation-item" href="courses.html"><h4>Keep local Claude roadmap</h4><p>Retain your local Claude roadmap and Claude Architect milestone structure as the execution plan around the premium material.</p><div class="curation-meta"><span class="curation-chip">Local plan</span><span class="curation-chip">Certification</span></div></a><a class="curation-item" href="courses.html"><h4>Defer</h4><p>Avoid piling on multiple overlapping Claude beginner courses once the specialization is in place. Depth beats duplication here.</p><div class="curation-meta"><span class="curation-chip">Avoid duplicates</span><span class="curation-chip">Depth</span></div></a></div></div>
 </body>
 </html>

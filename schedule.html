@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="Week-by-week execution plan">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<title>Week Schedule · AI Tracker</title>
+<title>Schedule · Jideatom Learning Path</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -133,7 +134,54 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
 .tip.green{background:var(--g-bg);border-color:var(--green);color:var(--green);}
 .tip.amber{background:var(--am-bg);border-color:var(--amber);color:var(--amber);}
 .tip.purple{background:var(--p-bg);border-color:var(--purple);color:var(--purple);}
+
+/* ── FLOAT TIMER ── */
+.float-timer{position:fixed;bottom:70px;right:16px;z-index:90;background:var(--accent);color:#fff;border:none;border-radius:50%;width:50px;height:50px;font-size:1.2rem;box-shadow:0 4px 16px rgba(99,102,241,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:transform 0.15s;}
+.float-timer:active{transform:scale(0.9);}
+.ft-badge{position:absolute;top:-3px;right:-3px;background:#f97316;color:#fff;font-size:0.42rem;font-weight:700;padding:1px 5px;border-radius:10px;font-family:var(--mono);white-space:nowrap;}
+/* ── NOTES ── */
+.notes-toggle{display:flex;align-items:center;gap:5px;font-size:0.62rem;color:var(--text2);cursor:pointer;padding:7px 0 4px;user-select:none;-webkit-tap-highlight-color:transparent;}
+.notes-panel{display:none;margin-bottom:10px;}
+.notes-panel.open{display:block;}
+.notes-area{width:100%;min-height:80px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px;font-size:0.76rem;color:var(--text);font-family:var(--mono);resize:vertical;line-height:1.6;box-sizing:border-box;}
+.notes-area:focus{outline:none;border-color:var(--accent);}
+.notes-saved{font-size:0.58rem;color:var(--green);font-family:var(--mono);margin-top:2px;display:none;}
+/* ── RES LINKS ── */
+a.rlink{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+a.rlink:active{opacity:0.7;}
+/* ── EST DATE ── */
+.est-badge{display:inline-block;background:var(--g-bg);color:var(--green);font-size:0.56rem;font-weight:700;padding:2px 8px;border-radius:20px;font-family:var(--mono);margin-left:6px;vertical-align:middle;}
+/* ── SEC TIMER BTN ── */
+.stbtn{font-size:0.56rem;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--a-bg);color:var(--accent);border:none;cursor:pointer;font-family:var(--mono);}
+.stbtn:active{opacity:0.7;}
+
+
+/* Shared timer overlay */
+.timer-overlay{position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}
+.timer-overlay.show{display:flex}
+.timer-card{width:min(420px,100%);background:var(--bg2);border:1px solid var(--border2);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.35);padding:22px;text-align:center}
+.timer-kicker{font-size:.62rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-family:var(--mono);margin-bottom:8px}
+.timer-topic{font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text)}
+.timer-readout{font-family:var(--mono);font-size:2.2rem;font-weight:700;margin:12px 0 16px;color:var(--text)}
+.timer-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.timer-btn{min-width:108px;border:none;border-radius:12px;padding:12px 14px;font-weight:700}
+.timer-btn.primary{background:var(--accent);color:#fff}.timer-btn.ghost{background:var(--bg3);color:var(--text);border:1px solid var(--border2)}
+.timer-mini{font-size:.68rem;color:var(--text2);margin-top:12px;line-height:1.5}
+
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+.redirect-card{max-width:560px;margin:24px auto;padding:22px;border-radius:18px;background:#fff;border:1px solid #e2e8f0;font-family:Arial,sans-serif;color:#0f172a}
+.redirect-card a{color:#2563eb;text-decoration:none;font-weight:700}
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
 </style>
+<style>.gsearch-overlay{position:fixed;inset:0;background:rgba(8,12,20,.76);backdrop-filter:blur(8px);display:none;z-index:2500;padding:12px}.gsearch-overlay.open{display:flex}.gsearch-card{margin:auto;width:min(760px,100%);height:min(80vh,760px);background:var(--bg2);border:1px solid var(--border2, var(--border));border-radius:22px;box-shadow:0 28px 90px rgba(0,0,0,.36);display:flex;flex-direction:column;overflow:hidden}.gsearch-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.gsearch-head input{flex:1;background:var(--bg3);color:var(--text);border:1px solid var(--border2, var(--border));border-radius:12px;padding:12px 14px;font-size:.94rem}.gsearch-results{padding:14px 16px;overflow:auto}.gsearch-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg2);margin-bottom:8px;text-decoration:none;color:inherit}</style>
+<style>.exec-wrap{margin-top:18px}.exec-hero{background:linear-gradient(135deg,#0f172a,#312e81);color:#fff;border-radius:22px;padding:18px;box-shadow:var(--shadow)}.exec-hero h2{margin:0 0 6px;font-size:1.12rem}.exec-hero p{margin:0;color:rgba(255,255,255,.86);font-size:.84rem;line-height:1.55}.phase-grid,.week-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}.phase-card,.week-card,.review-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:15px;box-shadow:var(--shadow)}.phase-k,.week-k,.review-k{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.phase-card h3,.week-card h3,.review-card h3{margin:0 0 6px;font-size:.95rem}.phase-card p,.week-card p,.review-card p{margin:0;color:var(--text2);font-size:.75rem;line-height:1.55}.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--a-bg);color:var(--accent);font-weight:700}.week-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}.exec-title{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.exec-title h2{margin:0;font-size:1rem}.exec-title span{font-size:.66rem;color:var(--text2);font-family:var(--mono)}@media (max-width:760px){.phase-grid,.week-grid,.review-grid{grid-template-columns:1fr}}</style>
 </head>
 <body>
 
@@ -147,6 +195,8 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
 </header>
 
 <div class="wrap">
+<div class="exec-wrap"><div class="exec-hero"><div class="week-k" style="color:#c7d2fe">Final pass execution</div><h2>90-Day Execution System</h2><p>This final layer turns the learning path into a 12-week operating plan with weekly outcomes, project deliverables, and checkpoint reviews so you always know what “done” looks like.</p></div><div class="exec-title"><h2>Phase structure</h2><span>foundation → build → ship</span></div><div class="phase-grid"><div class="phase-card"><div class="phase-k">Month 1</div><h3>Foundation and fluency</h3><p>Lock in Linux, Python, prompting, and core AI mental models without fragmenting attention.</p><div class="chip-row"><span class="chip">Linux</span><span class="chip">Python</span><span class="chip">Prompting</span></div></div><div class="phase-card"><div class="phase-k">Month 2</div><h3>Build and integrate</h3><p>Move into APIs, RAG, network automation, and cloud design case studies with visible outputs.</p><div class="chip-row"><span class="chip">RAG</span><span class="chip">Automation</span><span class="chip">Cloud</span></div></div><div class="phase-card"><div class="phase-k">Month 3</div><h3>Ship and document</h3><p>Turn working prototypes into portfolio-grade demos with README quality, screenshots, and architecture notes.</p><div class="chip-row"><span class="chip">Portfolio</span><span class="chip">GitHub</span><span class="chip">Career Builder</span></div></div></div><div class="exec-title"><h2>Weekly execution</h2><span>12 weeks</span></div><div class="week-grid"><div class="week-card"><div class="week-k">Week 1</div><h3>Linux + environment setup</h3><p><strong>Outcome:</strong> stable terminal workflow and clean study environment.<br><strong>Deliverable:</strong> Linux command journal and setup notes.<br><strong>Checkpoint:</strong> navigate files, edit text, manage permissions without guesswork.</p></div><div class="week-card"><div class="week-k">Week 2</div><h3>Bash and scripting habits</h3><p><strong>Outcome:</strong> basic shell scripting confidence.<br><strong>Deliverable:</strong> 3 small bash scripts for repetitive admin work.<br><strong>Checkpoint:</strong> automate a simple daily task end to end.</p></div><div class="week-card"><div class="week-k">Week 3</div><h3>Python core fluency</h3><p><strong>Outcome:</strong> write and debug small Python scripts comfortably.<br><strong>Deliverable:</strong> utility scripts covering input, files, loops, functions, and error handling.<br><strong>Checkpoint:</strong> complete one script without tutorial copying.</p></div><div class="week-card"><div class="week-k">Week 4</div><h3>Python for network automation</h3><p><strong>Outcome:</strong> connect Python to your professional background.<br><strong>Deliverable:</strong> config parser or compliance checker starter project.<br><strong>Checkpoint:</strong> parse device output and export useful results.</p></div><div class="week-card"><div class="week-k">Week 5</div><h3>Prompt engineering and LLM fundamentals</h3><p><strong>Outcome:</strong> understand prompts as engineering inputs, not chat tricks.<br><strong>Deliverable:</strong> prompt notebook with tested patterns and failure notes.<br><strong>Checkpoint:</strong> explain tokens, context windows, embeddings, and prompt trade-offs clearly.</p></div><div class="week-card"><div class="week-k">Week 6</div><h3>Claude API first contact</h3><p><strong>Outcome:</strong> make structured API calls and capture outputs reliably.<br><strong>Deliverable:</strong> first Claude-powered script or mini tool on GitHub.<br><strong>Checkpoint:</strong> handle prompts, parameters, and output parsing in code.</p></div><div class="week-card"><div class="week-k">Week 7</div><h3>RAG prototype</h3><p><strong>Outcome:</strong> build a small retrieval workflow over real documents.<br><strong>Deliverable:</strong> local or hosted RAG demo with README and screenshots.<br><strong>Checkpoint:</strong> answer grounded questions from your chosen dataset.</p></div><div class="week-card"><div class="week-k">Week 8</div><h3>RAG evaluation and improvement</h3><p><strong>Outcome:</strong> move beyond demo quality into measurable improvement.<br><strong>Deliverable:</strong> comparison notes for retrieval changes, chunking, and prompt quality.<br><strong>Checkpoint:</strong> show at least one improvement backed by evidence.</p></div><div class="week-card"><div class="week-k">Week 9</div><h3>Cloud architecture case study</h3><p><strong>Outcome:</strong> think like an architect, not only a course taker.<br><strong>Deliverable:</strong> one AWS or Azure reference design with diagram, security notes, and cost considerations.<br><strong>Checkpoint:</strong> defend your design choices using architecture principles.</p></div><div class="week-card"><div class="week-k">Week 10</div><h3>MCP or workflow automation project</h3><p><strong>Outcome:</strong> connect AI systems to tools and real tasks.<br><strong>Deliverable:</strong> MCP-style or workflow assistant prototype tied to networking or operations use cases.<br><strong>Checkpoint:</strong> run one real task through the workflow from start to finish.</p></div><div class="week-card"><div class="week-k">Week 11</div><h3>Career Builder hardening</h3><p><strong>Outcome:</strong> turn experiments into recruiter-readable projects.<br><strong>Deliverable:</strong> polished README files, screenshots, architecture notes, and usage steps for your top 2 projects.<br><strong>Checkpoint:</strong> a stranger can understand value, stack, and results in under two minutes.</p></div><div class="week-card"><div class="week-k">Week 12</div><h3>Portfolio review and next-step plan</h3><p><strong>Outcome:</strong> finish the 90-day cycle with a visible body of work.<br><strong>Deliverable:</strong> final review doc listing wins, gaps, and next 30-day priorities.<br><strong>Checkpoint:</strong> choose the one specialization to deepen next instead of scattering effort.</p></div></div><div class="exec-title"><h2>Checkpoint reviews</h2><span>every 4 weeks</span></div><div class="review-grid"><div class="review-card"><div class="review-k">Review 1</div><h3>End of Week 4</h3><p>Confirm Linux and Python are moving from theory into working scripts. If not, stop adding AI material and stabilize the base.</p></div><div class="review-card"><div class="review-k">Review 2</div><h3>End of Week 8</h3><p>Confirm you have one Claude-based script and one RAG prototype. If not, reduce scope and finish one clean system before starting another.</p></div><div class="review-card"><div class="review-k">Review 3</div><h3>End of Week 12</h3><p>Confirm you have at least two portfolio-grade projects and one cloud or architecture artifact worth showing on LinkedIn or GitHub.</p></div></div></div>
+<div class="brandbar"><div class="brand-left"><div class="brand-kicker">Jideatom Learning Path</div><div class="brand-name">Execution schedule</div><div class="brand-sub">A week-by-week operating plan that turns strategy into action.</div></div><div class="page-chip">Schedule</div></div>
 
 <div class="week-tabs">
   <div class="wtab w12 active" onclick="sw(0,this,'w12')">Wk 1–2 Linux</div>
@@ -161,7 +211,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
 <div class="wpanel active" id="p0">
 
 <div class="phase-card ph-blue">
-  <span class="ph-tag">Weeks 1–2 · Linux</span>
+  <span class="ph-tag">Weeks 1–2 · Linux <span class='est-badge'>Apr 2026</span></span>
   <div class="ph-title">Shell, Permissions, SSH & Bash Scripting</div>
   <div class="ph-sub">You already think in networks — now learn the OS underneath. Every command you learn here you will use daily for the next 6 months.</div>
   <div class="ph-prog-row"><span class="ph-prog-lbl">Phase progress</span><span class="ph-prog-pct" id="pp-linux">0%</span></div>
@@ -180,10 +230,10 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w1mon')">
     <span class="day-name">Monday</span>
     <span class="day-topic">Shell basics + navigation</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1mon">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w1mon">▸</span></div>
   </div>
   <div class="day-body" id="w1mon">
-    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Linux Command Line Ch 1–3 (linuxcommand.org — free)</div><div class="task-detail">Shell, navigating the file system, exploring with ls. Read first, then open terminal and follow along.</div></div></div>
+    <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Linux Command Line Ch 1–3 (<a href="https://linuxcommand.org" target="_blank" class="rlink">linuxcommand.org</a> — free)</div><div class="task-detail">Shell, navigating the file system, exploring with ls. Read first, then open terminal and follow along.</div></div></div>
     <div class="task"><div class="task-time">0:30–1:15</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Drill every navigation command</div><div class="task-detail">pwd · ls · ls -la · cd · mkdir · touch · cp · mv · rm · cat · less · head · tail. Make a practice folder, drill until natural. Type, don't copy-paste.</div></div></div>
     <div class="task"><div class="task-time">1:15–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-rev">Review</span>Start your cheat sheet</div><div class="task-detail">Open a text file, write every command you used with a one-line description. This becomes your reference doc.</div></div></div>
   </div>
@@ -193,7 +243,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w1tue')">
     <span class="day-name">Tuesday</span>
     <span class="day-topic">File permissions + users</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1tue">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w1tue">▸</span></div>
   </div>
   <div class="day-body" id="w1tue">
     <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Linux Command Line Ch 9 — permissions</div><div class="task-detail">chmod, chown, understanding rwx for user/group/other. Permissions are the #1 cause of "why isn't this working" on Linux.</div></div></div>
@@ -206,7 +256,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w1wed')">
     <span class="day-name">Wednesday</span>
     <span class="day-topic">Text tools + pipes</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1wed">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w1wed">▸</span></div>
   </div>
   <div class="day-body" id="w1wed">
     <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Linux Command Line Ch 6–7 — redirection + pipelines</div><div class="task-detail">The pipe | is one of Linux's most powerful ideas. Understand it deeply — you will use it every day.</div></div></div>
@@ -219,7 +269,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w1thu')">
     <span class="day-name">Thursday</span>
     <span class="day-topic">Processes + systemd + tmux</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1thu">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w1thu">▸</span></div>
   </div>
   <div class="day-body" id="w1thu">
     <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Process management — Linux Command Line Ch 10</div><div class="task-detail">ps · top · htop · kill · jobs · bg · fg · & (background). How processes get PIDs and signals.</div></div></div>
@@ -232,7 +282,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w1fri')">
     <span class="day-name">Friday</span>
     <span class="day-topic">Networking commands + vim</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w1fri">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w1fri">▸</span></div>
   </div>
   <div class="day-body" id="w1fri">
     <div class="task"><div class="task-time">0:00–0:50</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Linux networking commands — your comfort zone</div><div class="task-detail">ip addr · ip route · ip link (replaces ifconfig). ss -tuln (replaces netstat). ping · traceroute · dig · nslookup · curl · wget. You know what these do — just learn Linux syntax. All faster than Cisco.</div></div></div>
@@ -244,11 +294,11 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w1sat')">
     <span class="day-name">Saturday</span>
     <span class="day-topic">First bash script + OverTheWire</span>
-    <div class="day-meta"><span class="day-dur">2 hrs</span><span class="day-chev" id="chv-w1sat">▸</span></div>
+    <div class="day-meta"><span class="day-dur">2 hrs</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w1sat">▸</span></div>
   </div>
   <div class="day-body" id="w1sat">
     <div class="task"><div class="task-time">0:00–1:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Write your first bash script: ping sweep</div><div class="task-detail">Script reads a list of IPs from a file, pings each one, checks if port 22 is open (nc -zv), logs results to a dated log file with timestamps. Uses: loop · if/else · redirection. This is a real tool you can use at work tomorrow. Push to GitHub.</div></div></div>
-    <div class="task"><div class="task-time">1:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>OverTheWire Bandit levels 0–5</div><div class="task-detail">overthewire.org/wargames/bandit — SSH in, solve puzzles. Addictive. Each level teaches a real Linux skill. Level 0 is "SSH in" — you already know this. Levels 1–5 cover ls, file reading, hidden files, spaces in filenames.</div></div></div>
+    <div class="task"><div class="task-time">1:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>OverTheWire Bandit levels 0–5</div><div class="task-detail"><a href="https://<a href="https://overthewire.org" target="_blank" class="rlink">overthewire.org</a>/wargames/bandit" target="_blank" class="rlink"><a href="https://overthewire.org" target="_blank" class="rlink">overthewire.org</a>/wargames/bandit</a> — SSH in, solve puzzles. Addictive. Each level teaches a real Linux skill. Level 0 is "SSH in" — you already know this. Levels 1–5 cover ls, file reading, hidden files, spaces in filenames.</div></div></div>
   </div>
 </div>
 
@@ -262,7 +312,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w2mon')">
     <span class="day-name">Monday</span>
     <span class="day-topic">SSH deep dive + first cloud VM</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2mon">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w2mon">▸</span></div>
   </div>
   <div class="day-body" id="w2mon">
     <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>SSH keys, config, and tunnels</div><div class="task-detail">How key pairs work · ~/.ssh/config for multiple hosts · ssh-keygen -t ed25519 · ssh-copy-id · authorized_keys · ssh -L port forwarding. You use SSH already — now understand the mechanics.</div></div></div>
@@ -274,7 +324,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w2tue')">
     <span class="day-name">Tuesday</span>
     <span class="day-topic">Bash scripting fundamentals</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2tue">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w2tue">▸</span></div>
   </div>
   <div class="day-body" id="w2tue">
     <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>PIKUMA course — bash scripting fundamentals</div><div class="task-detail">Variables · if/elif/else · for/while loops · functions · exit codes · $? · $1 $2 arguments. Open PIKUMA course now — this is its core section.</div></div></div>
@@ -286,7 +336,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w2wed')">
     <span class="day-name">Wednesday</span>
     <span class="day-topic">Environment + package management</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2wed">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w2wed">▸</span></div>
   </div>
   <div class="day-body" id="w2wed">
     <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>Environment variables + PATH + .bashrc</div><div class="task-detail">How PATH works · .bashrc vs .bash_profile · export · env · which · echo $VARIABLE. Understanding this prevents hours of "command not found" confusion in Phase 2 when you install Python tools.</div></div></div>
@@ -299,10 +349,10 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w2thu')">
     <span class="day-name">Thursday</span>
     <span class="day-topic">Cron + log management</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2thu">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w2thu">▸</span></div>
   </div>
   <div class="day-body" id="w2thu">
-    <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>cron, crontab, and scheduled tasks</div><div class="task-detail">Cron syntax: minute · hour · day · month · weekday. crontab -e · crontab -l · @reboot · @daily. Use crontab.guru to test your expressions before saving.</div></div></div>
+    <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>cron, crontab, and scheduled tasks</div><div class="task-detail">Cron syntax: minute · hour · day · month · weekday. crontab -e · crontab -l · @reboot · @daily. Use <a href="https://crontab.guru" target="_blank" class="rlink">crontab.guru</a> to test your expressions before saving.</div></div></div>
     <div class="task"><div class="task-time">0:25–1:10</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Schedule your backup script + log tools</div><div class="task-detail">Take Tuesday's backup script → schedule it via cron to run at 2am daily → verify it ran. Then: journalctl -u nginx · tail -f /var/log/syslog · logrotate config. These are your monitoring tools for every AI service you deploy later.</div></div></div>
     <div class="task"><div class="task-time">1:10–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>OverTheWire Bandit levels 6–12</div><div class="task-detail">Levels 6–12 cover: file properties · base64 · rot13 · compression · SSH keys in non-standard places. 20 min of puzzle solving beats 20 min of re-reading notes.</div></div></div>
   </div>
@@ -312,7 +362,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w2fri')">
     <span class="day-name">Friday</span>
     <span class="day-topic">Git basics + Week 2 review</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w2fri">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w2fri">▸</span></div>
   </div>
   <div class="day-body" id="w2fri">
     <div class="task"><div class="task-time">0:00–0:45</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Git init, add, commit, push</div><div class="task-detail">Install git · git init · git add · git commit -m · git remote add origin · git push. Create a GitHub account if you haven't. Think of commits as configuration snapshots — you already understand version control from network change management.</div></div></div>
@@ -324,7 +374,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w2sat')">
     <span class="day-name">Saturday</span>
     <span class="day-topic">Capstone: network health monitor</span>
-    <div class="day-meta"><span class="day-dur">2 hrs</span><span class="day-chev" id="chv-w2sat">▸</span></div>
+    <div class="day-meta"><span class="day-dur">2 hrs</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w2sat">▸</span></div>
   </div>
   <div class="day-body" id="w2sat">
     <div class="task"><div class="task-time">0:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Capstone</span>Build: Network Health Monitor</div><div class="task-detail">Reads a list of IPs from a text file → pings each one → checks if SSH port (22) is open with nc → logs results to a dated log file → sends summary to screen. Uses everything from 2 weeks: loops, conditionals, networking commands, file I/O, cron-ready. Write a proper README.md. Push to GitHub — Portfolio Project #1.</div></div></div>
@@ -350,7 +400,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
 <div class="wpanel" id="p1">
 
 <div class="phase-card ph-green">
-  <span class="ph-tag">Weeks 3–4 · Python</span>
+  <span class="ph-tag">Weeks 3–4 · Python <span class='est-badge'>Apr 2026</span></span>
   <div class="ph-title">Python Core → Network Automation → AI Scripting</div>
   <div class="ph-sub">The language of AI. Your first week is fundamentals — type every example. Week 4 connects Python directly to your network expertise with Netmiko.</div>
   <div class="ph-prog-row"><span class="ph-prog-lbl">Phase progress</span><span class="ph-prog-pct" id="pp-python">0%</span></div>
@@ -369,7 +419,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w3mon')">
     <span class="day-name">Monday</span>
     <span class="day-topic">Setup + data types + variables</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3mon">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w3mon">▸</span></div>
   </div>
   <div class="day-body" id="w3mon">
     <div class="task"><div class="task-time">0:00–0:20</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>VS Code + Python extension setup</div><div class="task-detail">Install VS Code + Python extension. Activate your venv (from Week 2). Install ipython (pip install ipython). Open a terminal in VS Code. Verify: python3 --version · pip --version · which python3.</div></div></div>
@@ -382,7 +432,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w3tue')">
     <span class="day-name">Tuesday</span>
     <span class="day-topic">Lists, dicts, loops</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3tue">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w3tue">▸</span></div>
   </div>
   <div class="day-body" id="w3tue">
     <div class="task"><div class="task-time">0:00–0:40</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days — Days 4–6: lists + dicts + loops</div><div class="task-detail">Lists · dicts · tuples · sets. for loops · while loops · range(). Think of a dict as a routing table: key maps to value. for device in devices: — you've written this logic in bash already.</div></div></div>
@@ -394,7 +444,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w3wed')">
     <span class="day-name">Wednesday</span>
     <span class="day-topic">Functions + modules + imports</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3wed">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w3wed">▸</span></div>
   </div>
   <div class="day-body" id="w3wed">
     <div class="task"><div class="task-time">0:00–0:35</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days — Days 11–14: functions + modules</div><div class="task-detail">def · return · parameters · default arguments. import · from x import y. Standard library: os · sys · json · datetime. A function is reusable logic — you've built these in bash, same concept cleaner.</div></div></div>
@@ -406,7 +456,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w3thu')">
     <span class="day-name">Thursday</span>
     <span class="day-topic">File I/O + error handling</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3thu">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w3thu">▸</span></div>
   </div>
   <div class="day-body" id="w3thu">
     <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days — Days 15–18: files + exceptions</div><div class="task-detail">open() · with statement · read() · write() · readlines(). try/except/finally. json.load() · json.dump(). This is the foundation for every config and log file task in your career.</div></div></div>
@@ -418,11 +468,11 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w3fri')">
     <span class="day-name">Friday</span>
     <span class="day-topic">requests library + REST APIs</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w3fri">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w3fri">▸</span></div>
   </div>
   <div class="day-body" id="w3fri">
     <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>HTTP + the requests library</div><div class="task-detail">pip install requests. GET · POST · headers · JSON responses · status codes · timeout. HTTP is how modern network equipment APIs work — you already know the protocol. This is just Python syntax for it.</div></div></div>
-    <div class="task"><div class="task-time">0:25–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Call a real API with your own IPs</div><div class="task-detail">requests.get("https://ipinfo.io/8.8.8.8/json") → gets geo/ASN data for any IP. Parse the response dict. Build a loop: for each IP in your list → call the API → extract org + country + ASN → print formatted. This is your IP enrichment tool prototype.</div></div></div>
+    <div class="task"><div class="task-time">0:25–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Call a real API with your own IPs</div><div class="task-detail">requests.get("https://<a href="https://ipinfo.io" target="_blank" class="rlink">ipinfo.io</a>/8.8.8.8/json") → gets geo/ASN data for any IP. Parse the response dict. Build a loop: for each IP in your list → call the API → extract org + country + ASN → print formatted. This is your IP enrichment tool prototype.</div></div></div>
   </div>
 </div>
 
@@ -430,10 +480,10 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w3sat')">
     <span class="day-name">Saturday</span>
     <span class="day-topic">Project: IP enrichment tool</span>
-    <div class="day-meta"><span class="day-dur">2 hrs</span><span class="day-chev" id="chv-w3sat">▸</span></div>
+    <div class="day-meta"><span class="day-dur">2 hrs</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w3sat">▸</span></div>
   </div>
   <div class="day-body" id="w3sat">
-    <div class="task"><div class="task-time">0:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Build: IP Enrichment Tool — Portfolio #2</div><div class="task-detail">Reads a list of IPs from a file → calls ipinfo.io for each → extracts org/country/ASN/hostname → handles errors (bad IP, timeout, rate limit) → writes a formatted JSON + CSV report. Functions: load_ips() · enrich_ip() · save_report(). Write proper README. Push to GitHub.</div></div></div>
+    <div class="task"><div class="task-time">0:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Build: IP Enrichment Tool — Portfolio #2</div><div class="task-detail">Reads a list of IPs from a file → calls <a href="https://ipinfo.io" target="_blank" class="rlink">ipinfo.io</a> for each → extracts org/country/ASN/hostname → handles errors (bad IP, timeout, rate limit) → writes a formatted JSON + CSV report. Functions: load_ips() · enrich_ip() · save_report(). Write proper README. Push to GitHub.</div></div></div>
   </div>
 </div>
 </div>
@@ -446,7 +496,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w4mon')">
     <span class="day-name">Mon–Tue</span>
     <span class="day-topic">Netmiko + SSH to real devices</span>
-    <div class="day-meta"><span class="day-dur">2 × 90 min</span><span class="day-chev" id="chv-w4mon">▸</span></div>
+    <div class="day-meta"><span class="day-dur">2 × 90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w4mon">▸</span></div>
   </div>
   <div class="day-body" id="w4mon">
     <div class="task"><div class="task-time">Monday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>OrhanErgun course — pip install netmiko</div><div class="task-detail">Netmiko is the standard Python library for SSH to Cisco/Juniper/Arista. If you have lab gear or GNS3/EVE-NG: SSH in, run "show ip int brief", capture output. This will feel immediately powerful — you've done this manually for 20 years.</div></div></div>
@@ -458,7 +508,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w4wed')">
     <span class="day-name">Wed–Thu</span>
     <span class="day-topic">OOP + NetworkDevice class</span>
-    <div class="day-meta"><span class="day-dur">2 × 90 min</span><span class="day-chev" id="chv-w4wed">▸</span></div>
+    <div class="day-meta"><span class="day-dur">2 × 90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w4wed">▸</span></div>
   </div>
   <div class="day-body" id="w4wed">
     <div class="task"><div class="task-time">Wednesday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>100 Days — Days 25–28: classes + OOP</div><div class="task-detail">class · __init__ · self · methods · inheritance. You don't need to master OOP now — understand enough to read library code. Think of a class as a "device template": each instance is a router.</div></div></div>
@@ -470,11 +520,11 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w4fri')">
     <span class="day-name">Friday</span>
     <span class="day-topic">Regex + first Anthropic API call</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w4fri">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w4fri">▸</span></div>
   </div>
   <div class="day-body" id="w4fri">
-    <div class="task"><div class="task-time">0:00–0:40</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Regex — re module for config parsing</div><div class="task-detail">re.findall() · re.search() · re.sub(). Practice at regex101.com. Extract IP addresses from a config file. Find interface names. Pull VLAN IDs. This makes your compliance checker much more powerful.</div></div></div>
-    <div class="task"><div class="task-time">0:40–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">First</span>Your first Anthropic API call</div><div class="task-detail">pip install anthropic. Get a free API key from console.anthropic.com. Write 10 lines: import anthropic → client = anthropic.Anthropic() → message = client.messages.create(model="claude-opus-4-5", max_tokens=100, messages=[{"role":"user","content":"Summarize: interface is down"}]) → print(message.content). That's it. That's the foundation for everything in Phase 2.</div></div></div>
+    <div class="task"><div class="task-time">0:00–0:40</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Regex — re module for config parsing</div><div class="task-detail">re.findall() · re.search() · re.sub(). Practice at <a href="https://regex101.com" target="_blank" class="rlink">regex101.com</a>. Extract IP addresses from a config file. Find interface names. Pull VLAN IDs. This makes your compliance checker much more powerful.</div></div></div>
+    <div class="task"><div class="task-time">0:40–1:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">First</span>Your first Anthropic API call</div><div class="task-detail">pip install anthropic. Get a free API key from <a href="https://console.anthropic.com" target="_blank" class="rlink">console.anthropic.com</a>. Write 10 lines: import anthropic → client = anthropic.Anthropic() → message = client.messages.create(model="claude-opus-4-5", max_tokens=100, messages=[{"role":"user","content":"Summarize: interface is down"}]) → print(message.content). That's it. That's the foundation for everything in Phase 2.</div></div></div>
   </div>
 </div>
 
@@ -482,7 +532,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w4sat')">
     <span class="day-name">Saturday</span>
     <span class="day-topic">Capstone: Config compliance checker</span>
-    <div class="day-meta"><span class="day-dur">2 hrs</span><span class="day-chev" id="chv-w4sat">▸</span></div>
+    <div class="day-meta"><span class="day-dur">2 hrs</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w4sat">▸</span></div>
   </div>
   <div class="day-body" id="w4sat">
     <div class="task"><div class="task-time">0:00–2:00</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Capstone</span>Build: Config Compliance Checker — Portfolio #3</div><div class="task-detail">Parse a running-config. Use regex to check: NTP server configured ✓ · SSH version 2 only ✓ · no telnet ✓ · password encryption enabled ✓ · banner configured ✓. Output a per-device compliance report (pass/fail per check). This is a real auditing tool. Proper README, push to GitHub.</div></div></div>
@@ -507,7 +557,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
 <div class="wpanel" id="p2">
 
 <div class="phase-card ph-amber">
-  <span class="ph-tag">Weeks 5–6 · AWS Cloud</span>
+  <span class="ph-tag">Weeks 5–6 · AWS Cloud <span class='est-badge'>May 2026</span></span>
   <div class="ph-title">VPCs, EC2, S3, IAM + Cloud Practitioner Cert</div>
   <div class="ph-sub">Your networking background is your superpower here. VPCs, subnets, routing tables, security groups — you already know these. AWS just has a different UI on top of concepts you've mastered for 20 years.</div>
   <div class="ph-prog-row"><span class="ph-prog-lbl">Phase progress</span><span class="ph-prog-pct" id="pp-cloud">0%</span></div>
@@ -525,7 +575,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w5mon')">
     <span class="day-name">Monday</span>
     <span class="day-topic">AWS account + IAM + global infra</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w5mon">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w5mon">▸</span></div>
   </div>
   <div class="day-body" id="w5mon">
     <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>AWS global infrastructure + IAM</div><div class="task-detail">Regions · Availability Zones · edge locations. IAM: users · groups · roles · policies · principle of least privilege. Think of IAM as the enterprise AAA (RADIUS/TACACS) you already know — same concept, AWS implementation.</div></div></div>
@@ -537,7 +587,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w5tue')">
     <span class="day-name">Tuesday</span>
     <span class="day-topic">VPC — your comfort zone</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w5tue">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w5tue">▸</span></div>
   </div>
   <div class="day-body" id="w5tue">
     <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>VPC, subnets, routing, gateways</div><div class="task-detail">VPC = your private network in AWS. Public/private subnets · route tables · Internet Gateway · NAT Gateway. You built these on physical hardware for 20 years. This is the same thing, virtualized. You'll be faster than most students in your cohort.</div></div></div>
@@ -549,7 +599,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w5wed')">
     <span class="day-name">Wednesday</span>
     <span class="day-topic">EC2 + Security Groups via CLI</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w5wed">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w5wed">▸</span></div>
   </div>
   <div class="day-body" id="w5wed">
     <div class="task"><div class="task-time">0:00–0:30</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>EC2 instance types + Security Groups</div><div class="task-detail">Security groups = stateful firewall ACLs you already know. NACLs = stateless ACLs. Instance types (t2/t3 micro for dev) · AMIs · key pairs · user data scripts · EBS volumes.</div></div></div>
@@ -561,7 +611,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w5thu')">
     <span class="day-name">Thursday</span>
     <span class="day-topic">S3 + boto3 Python integration</span>
-    <div class="day-meta"><span class="day-dur">90 min</span><span class="day-chev" id="chv-w5thu">▸</span></div>
+    <div class="day-meta"><span class="day-dur">90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w5thu">▸</span></div>
   </div>
   <div class="day-body" id="w5thu">
     <div class="task"><div class="task-time">0:00–0:25</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>S3 concepts</div><div class="task-detail">Buckets · objects · keys · versioning · storage classes · bucket policies · pre-signed URLs. S3 is the backbone of almost every AI/ML system — you'll use it constantly in Phase 2 for documents, embeddings, and logs.</div></div></div>
@@ -573,7 +623,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w5fri')">
     <span class="day-name">Fri–Sat</span>
     <span class="day-topic">CLF-C02 cert prep</span>
-    <div class="day-meta"><span class="day-dur">3 hrs total</span><span class="day-chev" id="chv-w5fri">▸</span></div>
+    <div class="day-meta"><span class="day-dur">3 hrs total</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w5fri">▸</span></div>
   </div>
   <div class="day-body" id="w5fri">
     <div class="task"><div class="task-time">Friday 90 min</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>CLF-C02 exam domains</div><div class="task-detail">Download AWS exam guide from aws.amazon.com/certification. Study: 6 advantages of cloud · shared responsibility model · well-architected framework · pricing models (on-demand/reserved/spot) · support plans. Use Adrian Cantrill or ExamPro free YouTube content.</div></div></div>
@@ -590,7 +640,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w6block')">
     <span class="day-name">Mon–Sat</span>
     <span class="day-topic">Cert gaps + IaC intro + cloud inventory</span>
-    <div class="day-meta"><span class="day-dur">structured</span><span class="day-chev" id="chv-w6block">▸</span></div>
+    <div class="day-meta"><span class="day-dur">structured</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w6block">▸</span></div>
   </div>
   <div class="day-body" id="w6block">
     <div class="task"><div class="task-time">Mon–Wed</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Study</span>Fill CLF-C02 knowledge gaps</div><div class="task-detail">Cover every area you missed: RDS · DynamoDB · CloudFront · Route 53 · Lambda basics · CloudWatch · SNS · SQS. Each service: 15 min read + 5 min hands-on in console. Don't memorise — understand the use case.</div></div></div>
@@ -617,7 +667,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
 <div class="wpanel" id="p3">
 
 <div class="phase-card ph-purple">
-  <span class="ph-tag">Weeks 7–8 · Git, Docker & CI/CD</span>
+  <span class="ph-tag">Weeks 7–8 · Git, Docker <span class='est-badge'>May 2026</span> & CI/CD</span>
   <div class="ph-title">The Glue of Modern Engineering</div>
   <div class="ph-sub">Every AI project in Phase 2 assumes you know these. Two weeks is enough to be fully functional. Start the Manning AI-Assisted Python course this week to bridge into Phase 2.</div>
   <div class="ph-prog-row"><span class="ph-prog-lbl">Phase progress</span><span class="ph-prog-pct" id="pp-devops">0%</span></div>
@@ -635,7 +685,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w7mon')">
     <span class="day-name">Mon–Tue</span>
     <span class="day-topic">Git fundamentals + branching</span>
-    <div class="day-meta"><span class="day-dur">2 × 90 min</span><span class="day-chev" id="chv-w7mon">▸</span></div>
+    <div class="day-meta"><span class="day-dur">2 × 90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w7mon">▸</span></div>
   </div>
   <div class="day-body" id="w7mon">
     <div class="task"><div class="task-time">Monday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-lab">Lab</span>Core git commands</div><div class="task-detail">git init · add · commit · status · log · diff · .gitignore. Understand what the staging area is and why. Think of commits as configuration snapshots — you already understand version control from network change management.</div></div></div>
@@ -647,7 +697,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w7wed')">
     <span class="day-name">Wed–Thu</span>
     <span class="day-topic">GitHub profile + Docker intro</span>
-    <div class="day-meta"><span class="day-dur">2 × 90 min</span><span class="day-chev" id="chv-w7wed">▸</span></div>
+    <div class="day-meta"><span class="day-dur">2 × 90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w7wed">▸</span></div>
   </div>
   <div class="day-body" id="w7wed">
     <div class="task"><div class="task-time">Wednesday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Portfolio</span>Clean up all 4 GitHub projects</div><div class="task-detail">Every project needs: README.md with what/install/run/example-output · requirements.txt · .gitignore · clear commit history. Your GitHub is now your resume — make it look professional. This is what hiring managers see first.</div></div></div>
@@ -659,11 +709,11 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w7fri')">
     <span class="day-name">Fri–Sat</span>
     <span class="day-topic">Containerise your Python tool</span>
-    <div class="day-meta"><span class="day-dur">3 hrs total</span><span class="day-chev" id="chv-w7fri">▸</span></div>
+    <div class="day-meta"><span class="day-dur">3 hrs total</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w7fri">▸</span></div>
   </div>
   <div class="day-body" id="w7fri">
     <div class="task"><div class="task-time">Friday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read + Lab</span>Write a Dockerfile</div><div class="task-detail">FROM python:3.11-slim · WORKDIR /app · COPY requirements.txt . · RUN pip install -r requirements.txt · COPY . . · CMD ["python","main.py"]. Build: docker build -t ip-enricher . Run: docker run ip-enricher. Your script now runs identically on any machine.</div></div></div>
-    <div class="task"><div class="task-time">Saturday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Containerise + push to Docker Hub</div><div class="task-detail">docker tag ip-enricher yourusername/ip-enricher:v1 → docker push. Start Manning AI-Assisted Python course — work through the first 2 modules tonight. This bridges you directly into Phase 2 Claude API work starting Week 9.</div></div></div>
+    <div class="task"><div class="task-time">Saturday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Project</span>Containerise + push to Docker Hub</div><div class="task-detail">docker tag ip-enricher yourusername/ip-enricher:→ docker push. Start Manning AI-Assisted Python course — work through the first 2 modules tonight. This bridges you directly into Phase 2 Claude API work starting Week 9.</div></div></div>
   </div>
 </div>
 </div>
@@ -675,7 +725,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w8mon')">
     <span class="day-name">Mon–Wed</span>
     <span class="day-topic">GitHub Actions CI/CD pipeline</span>
-    <div class="day-meta"><span class="day-dur">3 × 90 min</span><span class="day-chev" id="chv-w8mon">▸</span></div>
+    <div class="day-meta"><span class="day-dur">3 × 90 min</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w8mon">▸</span></div>
   </div>
   <div class="day-body" id="w8mon">
     <div class="task"><div class="task-time">Monday</div><div class="task-body"><div class="task-title"><span class="task-tag tt-read">Read</span>What is CI/CD and why it matters</div><div class="task-detail">CI = automatically test code on every commit. CD = automatically deploy. GitHub Actions is free for public repos. YAML workflow files live in .github/workflows/. This is how every professional team ships software.</div></div></div>
@@ -688,7 +738,7 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <div class="day-hdr" onclick="tog('w8thu')">
     <span class="day-name">Thu–Sat</span>
     <span class="day-topic">Phase 1 Capstone + Manning course</span>
-    <div class="day-meta"><span class="day-dur">4+ hrs</span><span class="day-chev" id="chv-w8thu">▸</span></div>
+    <div class="day-meta"><span class="day-dur">4+ hrs</span> <button class="stbtn" onclick="_ftOpen(this.closest(\'.day-card\').querySelector(\'.day-topic\').textContent)">⏱</button><span class="day-chev" id="chv-w8thu">▸</span></div>
   </div>
   <div class="day-body" id="w8thu">
     <div class="task"><div class="task-time">Thu–Sat</div><div class="task-body"><div class="task-title"><span class="task-tag tt-proj">Capstone</span>Network Automation Toolkit — Portfolio #5 (the flagship)</div><div class="task-detail">Combine everything into one polished GitHub repo: 1) Config backup tool (bash + netmiko + S3) · 2) IP enrichment + compliance checker · 3) AWS cloud inventory reporter · All Dockerised · Full CI/CD pipeline · Comprehensive README with setup, architecture diagram, example output. This single repo demonstrates: Linux · Python · AWS · Docker · Git/GitHub · CI/CD. It is your Phase 1 portfolio. Every future employer will see this.</div></div></div>
@@ -710,16 +760,17 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
 
 </div><!-- /wrap -->
 
-<nav class="bnav">
-  <div class="bnav-inner">
-    <a href="index.html"   class="ni" id="bn-home">  <span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
-    <a href="lp.html"      class="ni" id="bn-lp">    <span class="ni-icon">🤖</span><span class="ni-lbl">AI Path</span></a>
-    <a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
-    <a href="linux.html"   class="ni" id="bn-linux">  <span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
-    <a href="python.html"  class="ni" id="bn-python"> <span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
-    <a href="claude.html"  class="ni" id="bn-claude"> <span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
-  </div>
-</nav>
+<nav class="bnav"><div class="bnav-inner">
+<a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
+<a href="ai.html" class="ni" id="bn-ai"><span class="ni-icon">🧠</span><span class="ni-lbl">AI</span></a>
+<a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
+<a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
+<a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
+<a href="cloud.html" class="ni" id="bn-cloud"><span class="ni-icon">☁️</span><span class="ni-lbl">Cloud</span></a>
+<a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
+<a href="schedule.html" class="ni" id="bn-schedule"><span class="ni-icon">📅</span><span class="ni-lbl">Plan</span></a>
+<a href="goals.html" class="ni" id="bn-goals"><span class="ni-icon">🎯</span><span class="ni-lbl">Goals</span></a>
+</div></nav>
 
 <script>
 // Theme
@@ -790,6 +841,120 @@ function loadProgress(){
 loadProgress();
 
 try{sessionStorage.setItem('aiResume',JSON.stringify({href:'schedule.html',icon:'📅',title:'Week Schedule',sub:'Phase 1 · 8 weeks · daily tasks'}));}catch(e){}
+</script>
+
+<button class="float-timer" onclick="_ftOpen('Study Session')" title="Start focus timer">
+  ⏱️<span id="ftBadge" class="ft-badge" style="display:none"></span>
+</button>
+
+
+<div class="timer-overlay" id="globalTimerOverlay" aria-hidden="true">
+  <div class="timer-card">
+    <div class="timer-kicker">Focus Session</div>
+    <div class="timer-topic" id="globalTimerTopic">Study Session</div>
+    <div class="timer-readout" id="globalTimerReadout">25:00</div>
+    <div class="timer-actions">
+      <button class="timer-btn primary" id="globalTimerStart">Start</button>
+      <button class="timer-btn ghost" id="globalTimerReset">Reset</button>
+      <button class="timer-btn ghost" id="globalTimerClose">Close</button>
+    </div>
+    <div class="timer-mini">Space = start/pause · Escape = close · Completion updates today's activity</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(window.ftOpen) return;
+  var gt={mins:25,left:1500,id:null,topic:'Study Session',running:false};
+  function todayKey(){return new Date().toISOString().slice(0,10)}
+  function getStreak(){try{return JSON.parse(localStorage.getItem('streakData')||'{"current":0,"best":0,"lastStudy":"","days":{},"totalMins":0}')}catch(e){return {current:0,best:0,lastStudy:'',days:{},totalMins:0}}}
+  function setStreak(s){try{localStorage.setItem('streakData',JSON.stringify(s))}catch(e){}}
+  function recordStudy(mins){
+    var s=getStreak(), today=todayKey();
+    if(!s.days) s.days={};
+    s.days[today]=(s.days[today]||0)+mins;
+    s.totalMins=(s.totalMins||0)+mins;
+    var y=new Date(); y.setDate(y.getDate()-1);
+    var yk=y.toISOString().slice(0,10);
+    if(s.lastStudy!==today){
+      s.current = s.lastStudy===yk ? (s.current||0)+1 : 1;
+      s.best = Math.max(s.best||0,s.current||1);
+      s.lastStudy=today;
+    }
+    setStreak(s);
+    try{window.dispatchEvent(new StorageEvent('storage',{key:'streakData'}));}catch(e){}
+  }
+  function q(id){return document.getElementById(id)}
+  function fmt(){var m=Math.floor(gt.left/60), s=gt.left%60; q('globalTimerReadout').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+  function syncBadge(){var b=document.getElementById('ftBadge'); if(!b) return; var s=getStreak(); b.style.display='inline-block'; b.textContent=((s&&s.current)||0)+'d';}
+  function stopTick(){ if(gt.id){clearInterval(gt.id); gt.id=null;} gt.running=false; if(q('globalTimerStart')) q('globalTimerStart').textContent='Start'; }
+  function startPause(){
+    if(gt.running){ stopTick(); return; }
+    gt.running=true; q('globalTimerStart').textContent='Pause';
+    gt.id=setInterval(function(){ gt.left--; fmt(); if(gt.left<=0){ stopTick(); gt.left=gt.mins*60; fmt(); recordStudy(gt.mins); alert('Session complete: '+gt.topic); syncBadge(); } },1000);
+  }
+  function reset(){ stopTick(); gt.left=gt.mins*60; fmt(); }
+  function close(){ stopTick(); q('globalTimerOverlay').classList.remove('show'); }
+  window.ftOpen=function(topic, mins){ gt.topic=topic||'Study Session'; gt.mins=mins||25; gt.left=gt.mins*60; q('globalTimerTopic').textContent=gt.topic; fmt(); q('globalTimerOverlay').classList.add('show'); syncBadge(); };
+  window.addEventListener('DOMContentLoaded', function(){
+    if(!q('globalTimerOverlay')) return;
+    q('globalTimerStart').addEventListener('click', startPause);
+    q('globalTimerReset').addEventListener('click', reset);
+    q('globalTimerClose').addEventListener('click', close);
+    q('globalTimerOverlay').addEventListener('click', function(e){ if(e.target===q('globalTimerOverlay')) close(); });
+    document.addEventListener('keydown', function(e){ if(!q('globalTimerOverlay').classList.contains('show')) return; if(e.code==='Space'){ e.preventDefault(); startPause(); } if(e.key==='Escape'){ close(); } });
+    syncBadge();
+  });
+})();
+</script>
+
+
+<script>(function(){var id='bn-schedule';var el=document.getElementById(id);if(el) el.className='ni active';})();</script>
+
+
+<script>
+(function(){
+  window.addEventListener('load', function(){
+    try {
+      localStorage.setItem('jlp_build','gold-v4');
+      if (!('serviceWorker' in navigator)) return;
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      if (window.caches && caches.keys) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function applyTheme(){
+    var t='light';
+    try{ t=localStorage.getItem('theme')||'light'; }catch(e){}
+    if(t==='dark') document.body.classList.add('dark'); else document.body.classList.remove('dark');
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.textContent = t==='dark' ? '☀️' : '🌙';
+  }
+  window.initTheme = applyTheme;
+  window.toggleTheme = function(){
+    var dark=!document.body.classList.contains('dark');
+    document.body.classList.toggle('dark', dark);
+    try{ localStorage.setItem('theme', dark?'dark':'light'); }catch(e){}
+    applyTheme();
+  };
+  window.addEventListener('DOMContentLoaded', function(){
+    applyTheme();
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.onclick = window.toggleTheme;
+  });
+})();
+</script>
+
+<div class="gsearch-overlay" id="gsearchOverlay"><div class="gsearch-card"><div class="gsearch-head"><input id="gsearchInput" type="search" placeholder="Search topics, pages, courses, weeks..." autocomplete="off"><button class="theme-btn" id="gsearchCloseBtn">✕</button></div><div class="gsearch-results" id="gsearchResults"></div></div></div>
+<script>(function(){var ITEMS=[{title:'Home',sub:'Main dashboard',href:'index.html',icon:'🏠',tags:'home dashboard'},{title:'AI Path',sub:'Main AI roadmap and phases',href:'ai.html',icon:'🧠',tags:'ai roadmap path llm rag agents prompting'},{title:'Linux',sub:'RHCSA and Linux foundation',href:'linux.html',icon:'🐧',tags:'linux rhcsa bash shell selinux systemd'},{title:'Python',sub:'Automation and AI prep',href:'python.html',icon:'🐍',tags:'python automation api anthropic sdk paramiko'},{title:'Cloud',sub:'AWS and Azure path',href:'cloud.html',icon:'☁️',tags:'cloud aws azure sap ans az-700 az-305'},{title:'Claude',sub:'Claude, MCP, and tools',href:'claude.html',icon:'🟠',tags:'claude mcp claude code agents'},{title:'Courses',sub:'Curated course library',href:'courses.html',icon:'📚',tags:'courses library resources'},{title:'Schedule',sub:'Week-by-week execution plan',href:'schedule.html',icon:'📅',tags:'schedule weeks plan'},{title:'Career Builder',sub:'CV-enhancing project ideas',href:'index.html',icon:'🧰',tags:'career builder cv projects portfolio'},{title:'RAG Systems',sub:'Retrieval and evaluation path',href:'ai.html',icon:'🧠',tags:'rag retrieval evals embeddings'},{title:'Prompt Engineering',sub:'Foundation prompt skill',href:'ai.html',icon:'🧠',tags:'prompt engineering developers'},{title:'Bash scripting',sub:'Linux scripting focus',href:'linux.html',icon:'🐧',tags:'bash loops functions cron'},{title:'Anthropic SDK',sub:'First AI API call',href:'python.html',icon:'🐍',tags:'anthropic sdk api'},{title:'AWS Architecture',sub:'Cloud architecture path',href:'cloud.html',icon:'☁️',tags:'aws architecture well architected'}]; function $(id){return document.getElementById(id)} function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})} function render(q){var box=$('gsearchResults'); if(!box) return; q=(q||'').toLowerCase().trim(); var list=ITEMS.filter(function(x){var hay=(x.title+' '+x.sub+' '+x.tags+' '+x.href).toLowerCase(); return !q||hay.indexOf(q)>-1}).slice(0,q?20:12); box.innerHTML=list.length?('<div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);padding:2px 0 10px">'+(!q?'Quick picks':'Results')+'</div>'+list.map(function(x){return '<a class="gsearch-item" href="'+x.href+'"><div style="font-size:1.1rem">'+x.icon+'</div><div><div style="font-size:.84rem;font-weight:800;color:var(--text)">'+esc(x.title)+'</div><div style="font-size:.7rem;color:var(--text2);margin-top:3px">'+esc(x.sub)+'</div></div></a>'}).join('')):'<div style="padding:8px 2px;color:var(--text2)">No results found</div>';} function openSearch(){ $('gsearchOverlay').classList.add('open'); $('gsearchInput').focus(); render($('gsearchInput').value||''); } function closeSearch(){ $('gsearchOverlay').classList.remove('open'); } window.toggleSearch=openSearch; window.runSearch=render; window.addEventListener('DOMContentLoaded',function(){ var btn=document.getElementById('searchBtn') || document.querySelector('button[title="Search"]') || Array.from(document.querySelectorAll('button')).find(function(b){return (b.textContent||'').includes('🔍')}); if(btn) btn.onclick=function(){ var ov=$('gsearchOverlay'); ov.classList.contains('open')?closeSearch():openSearch(); }; if($('gsearchInput')) $('gsearchInput').addEventListener('input',function(){render(this.value)}); if($('gsearchCloseBtn')) $('gsearchCloseBtn').onclick=closeSearch; if($('gsearchOverlay')) $('gsearchOverlay').addEventListener('click',function(e){if(e.target===this) closeSearch()}); document.addEventListener('keydown',function(e){ if($('gsearchOverlay') && $('gsearchOverlay').classList.contains('open') && e.key==='Escape') closeSearch();}); render('');});})();
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
 </script>
 </body>
 </html>

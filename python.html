@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="description" content="Weeks 3–4 · scripting · automation · AI prep"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a"><meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<title>Python Track · AI Tracker</title>
+<title>Python Path · Jideatom Learning Path</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -61,7 +62,54 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 .ms-hdr{font-size:0.58rem;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;font-family:var(--mono);margin-bottom:10px;}
 .ms-row{font-size:0.78rem;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;line-height:1.5;}
 .ms-row:last-child{border-bottom:none;}.ms-arrow{color:var(--accent);flex-shrink:0;font-family:var(--mono);}
+
+/* ── FLOAT TIMER ── */
+.float-timer{position:fixed;bottom:70px;right:16px;z-index:90;background:var(--accent);color:#fff;border:none;border-radius:50%;width:50px;height:50px;font-size:1.2rem;box-shadow:0 4px 16px rgba(99,102,241,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:transform 0.15s;}
+.float-timer:active{transform:scale(0.9);}
+.ft-badge{position:absolute;top:-3px;right:-3px;background:#f97316;color:#fff;font-size:0.42rem;font-weight:700;padding:1px 5px;border-radius:10px;font-family:var(--mono);white-space:nowrap;}
+/* ── NOTES ── */
+.notes-toggle{display:flex;align-items:center;gap:5px;font-size:0.62rem;color:var(--text2);cursor:pointer;padding:7px 0 4px;user-select:none;-webkit-tap-highlight-color:transparent;}
+.notes-panel{display:none;margin-bottom:10px;}
+.notes-panel.open{display:block;}
+.notes-area{width:100%;min-height:80px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px;font-size:0.76rem;color:var(--text);font-family:var(--mono);resize:vertical;line-height:1.6;box-sizing:border-box;}
+.notes-area:focus{outline:none;border-color:var(--accent);}
+.notes-saved{font-size:0.58rem;color:var(--green);font-family:var(--mono);margin-top:2px;display:none;}
+/* ── RES LINKS ── */
+a.rlink{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+a.rlink:active{opacity:0.7;}
+/* ── EST DATE ── */
+.est-badge{display:inline-block;background:var(--g-bg);color:var(--green);font-size:0.56rem;font-weight:700;padding:2px 8px;border-radius:20px;font-family:var(--mono);margin-left:6px;vertical-align:middle;}
+/* ── SEC TIMER BTN ── */
+.stbtn{font-size:0.56rem;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--a-bg);color:var(--accent);border:none;cursor:pointer;font-family:var(--mono);}
+.stbtn:active{opacity:0.7;}
+
+
+/* Shared timer overlay */
+.timer-overlay{position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}
+.timer-overlay.show{display:flex}
+.timer-card{width:min(420px,100%);background:var(--bg2);border:1px solid var(--border2);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.35);padding:22px;text-align:center}
+.timer-kicker{font-size:.62rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-family:var(--mono);margin-bottom:8px}
+.timer-topic{font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text)}
+.timer-readout{font-family:var(--mono);font-size:2.2rem;font-weight:700;margin:12px 0 16px;color:var(--text)}
+.timer-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.timer-btn{min-width:108px;border:none;border-radius:12px;padding:12px 14px;font-weight:700}
+.timer-btn.primary{background:var(--accent);color:#fff}.timer-btn.ghost{background:var(--bg3);color:var(--text);border:1px solid var(--border2)}
+.timer-mini{font-size:.68rem;color:var(--text2);margin-top:12px;line-height:1.5}
+
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+.redirect-card{max-width:560px;margin:24px auto;padding:22px;border-radius:18px;background:#fff;border:1px solid #e2e8f0;font-family:Arial,sans-serif;color:#0f172a}
+.redirect-card a{color:#2563eb;text-decoration:none;font-weight:700}
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
 </style>
+<style>.gsearch-overlay{position:fixed;inset:0;background:rgba(8,12,20,.76);backdrop-filter:blur(8px);display:none;z-index:2500;padding:12px}.gsearch-overlay.open{display:flex}.gsearch-card{margin:auto;width:min(760px,100%);height:min(80vh,760px);background:var(--bg2);border:1px solid var(--border2, var(--border));border-radius:22px;box-shadow:0 28px 90px rgba(0,0,0,.36);display:flex;flex-direction:column;overflow:hidden}.gsearch-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.gsearch-head input{flex:1;background:var(--bg3);color:var(--text);border:1px solid var(--border2, var(--border));border-radius:12px;padding:12px 14px;font-size:.94rem}.gsearch-results{padding:14px 16px;overflow:auto}.gsearch-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg2);margin-bottom:8px;text-decoration:none;color:inherit}</style>
+<style>.curation-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.curation-kicker{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.curation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.curation-item{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.curation-item h4{margin:0 0 6px;font-size:.94rem}.curation-item p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.52}.curation-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.curation-chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--bg2);border:1px solid var(--border);color:var(--text2)}.curation-table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:12px}.curation-table td,.curation-table th{padding:12px 12px;vertical-align:top;text-align:left}.curation-table tbody tr{background:linear-gradient(180deg,var(--bg2),var(--bg3));box-shadow:var(--shadow)}.curation-table tbody td:first-child{border-radius:14px 0 0 14px}.curation-table tbody td:last-child{border-radius:0 14px 14px 0}.curation-table th{font-size:.62rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:1px}.track-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);font-weight:700;background:var(--a-bg);color:var(--accent)}@media (max-width:760px){.curation-grid{grid-template-columns:1fr}.curation-table,.curation-table tbody,.curation-table tr,.curation-table td,.curation-table th{display:block;width:100%}.curation-table thead{display:none}.curation-table tbody tr{display:block;padding:8px;border-radius:14px}.curation-table tbody td{display:block;padding:8px 10px}.curation-table tbody td:first-child,.curation-table tbody td:last-child{border-radius:0}}}</style>
 </head>
 <body>
 <header>
@@ -70,6 +118,7 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
 <div class="wrap">
+<div class="brandbar"><div class="brand-left"><div class="brand-kicker">Jideatom Learning Path</div><div class="brand-name">Python foundation</div><div class="brand-sub">Automation, scripting, API work, and AI engineering preparation.</div></div><div class="page-chip">Python</div></div>
 
 <div class="prog-card">
   <div class="prog-label">Python Progress</div>
@@ -118,6 +167,8 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 
 <!-- Phase 1 -->
 <div class="sec-hdr">Phase 1 — Python Basics (Week 3 · 100 Days 1–18) <span class="sec-count" id="cnt-p1">0/5</span></div>
+<div class="notes-toggle" onclick="_toggleNote('py1')"><span id="na_py1">▸</span> My notes — Phase 1</div><div class="notes-panel" id="np_py1"><textarea class="notes-area" data-nid="py1" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
 <div class="item" data-k="py1a" onclick="tog('py1a')"><div class="item-body"><div class="item-name">Variables, data types, strings, f-strings</div><div class="item-sub">100 Days 1–3 · type(), str formatting, input()</div></div><span class="ichk" id="k-py1a">○</span></div>
 <div class="item" data-k="py1b" onclick="tog('py1b')"><div class="item-body"><div class="item-name">Lists, dicts, tuples, sets</div><div class="item-sub">100 Days 4–6 · Think: dict = routing table, key→value</div></div><span class="ichk" id="k-py1b">○</span></div>
 <div class="item" data-k="py1c" onclick="tog('py1c')"><div class="item-body"><div class="item-name">if/else, for/while loops</div><div class="item-sub">100 Days 7–10 · Lab: loop through router list, filter by vendor</div></div><span class="ichk" id="k-py1c">○</span></div>
@@ -126,23 +177,29 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 
 <!-- Phase 2 -->
 <div class="sec-hdr">Phase 2 — Practical Python (Week 3–4 · Days 19–35) <span class="sec-count" id="cnt-p2">0/5</span></div>
+<div class="notes-toggle" onclick="_toggleNote('py2')"><span id="na_py2">▸</span> My notes — Phase 2</div><div class="notes-panel" id="np_py2"><textarea class="notes-area" data-nid="py2" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
 <div class="item" data-k="py2a" onclick="tog('py2a')"><div class="item-body"><div class="item-name">pip, virtual environments (venv), pyenv</div><div class="item-sub">python -m venv, pip install, requirements.txt — essential for every project</div></div><span class="ichk" id="k-py2a">○</span></div>
 <div class="item" data-k="py2b" onclick="tog('py2b')"><div class="item-body"><div class="item-name">Classes and OOP basics</div><div class="item-sub">100 Days 25–28 · Lab: build NetworkDevice class with netmiko inside</div></div><span class="ichk" id="k-py2b">○</span></div>
 <div class="item" data-k="py2c" onclick="tog('py2c')"><div class="item-body"><div class="item-name">Error handling — try/except/finally</div><div class="item-sub">100 Days 29–30 · Never let a network device timeout crash your script</div></div><span class="ichk" id="k-py2c">○</span></div>
-<div class="item" data-k="py2d" onclick="tog('py2d')"><div class="item-body"><div class="item-name">HTTP requests — requests library, REST APIs</div><div class="item-sub">Week 3 Fri · pip install requests · Lab: call ipinfo.io with your own IPs</div></div><span class="ichk" id="k-py2d">○</span></div>
+<div class="item" data-k="py2d" onclick="tog('py2d')"><div class="item-body"><div class="item-name">HTTP requests — requests library, REST APIs</div><div class="item-sub">Week 3 Fri · pip install requests · Lab: call <a href="https://ipinfo.io" target="_blank" class="rlink">ipinfo.io</a> with your own IPs</div></div><span class="ichk" id="k-py2d">○</span></div>
 <div class="item" data-k="py2e" onclick="tog('py2e')"><div class="item-body"><div class="item-name">Environment variables, .env files, dotenv</div><div class="item-sub">pip install python-dotenv · Never hardcode API keys — ever</div></div><span class="ichk" id="k-py2e">○</span></div>
 
 <!-- Phase 3 — Network automation -->
 <div class="sec-hdr">Phase 3 — Network Automation (Week 4 · OrhanErgun) <span class="sec-count" id="cnt-p3">0/5</span></div>
+<div class="notes-toggle" onclick="_toggleNote('py3')"><span id="na_py3">▸</span> My notes — Phase 3</div><div class="notes-panel" id="np_py3"><textarea class="notes-area" data-nid="py3" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
 <div class="item" data-k="py3a" onclick="tog('py3a')"><div class="item-body"><div class="item-name">Netmiko — SSH to Cisco/Juniper/Arista devices</div><div class="item-sub">OrhanErgun · pip install netmiko · run show commands, capture output</div></div><span class="ichk" id="k-py3a">○</span></div>
-<div class="item" data-k="py3b" onclick="tog('py3b')"><div class="item-body"><div class="item-name">Regex for config parsing (re module)</div><div class="item-sub">re.findall, re.search · Practice at regex101.com · parse running-config</div></div><span class="ichk" id="k-py3b">○</span></div>
+<div class="item" data-k="py3b" onclick="tog('py3b')"><div class="item-body"><div class="item-name">Regex for config parsing (re module)</div><div class="item-sub">re.findall, re.search · Practice at <a href="https://regex101.com" target="_blank" class="rlink">regex101.com</a> · parse running-config</div></div><span class="ichk" id="k-py3b">○</span></div>
 <div class="item" data-k="py3c" onclick="tog('py3c')"><div class="item-body"><div class="item-name">Project: multi-device config backup to S3</div><div class="item-sub">Week 4 Tue · netmiko + boto3 + S3 · your first real automation tool</div></div><span class="ichk" id="k-py3c">○</span></div>
-<div class="item" data-k="py3d" onclick="tog('py3d')"><div class="item-body"><div class="item-name">Project: IP enrichment tool (ipinfo.io API)</div><div class="item-sub">Week 3 Sat · reads IP list → calls API → writes JSON report. Push to GitHub.</div></div><span class="ichk" id="k-py3d">○</span></div>
-<div class="item" data-k="py3e" onclick="tog('py3e')"><div class="item-body"><div class="item-name">Project: config compliance checker</div><div class="item-sub">Week 4 Sat · regex checks: NTP, SSH v2, no telnet, encrypted passwords</div></div><span class="ichk" id="k-py3e">○</span></div>
+<div class="item" data-k="py3d" onclick="tog('py3d')"><div class="item-body"><div class="item-name">Project: IP enrichment tool (<a href="https://ipinfo.io" target="_blank" class="rlink">ipinfo.io</a> API)</div><div class="item-sub">Week 3 Sat · reads IP list → calls API → writes JSON report. Push to GitHub.</div></div><span class="ichk" id="k-py3d">○</span></div>
+<div class="item" data-k="py3e" onclick="tog('py3e')"><div class="item-body"><div class="item-name">Project: config compliance checker</div><div class="item-sub">Week 4 Sat · regex checks: NTP, SSH , no telnet, encrypted passwords</div></div><span class="ichk" id="k-py3e">○</span></div>
 
 <!-- Phase 4 — Python for AI -->
 <div class="sec-hdr">Phase 4 — Python for AI (Weeks 7–8 · Manning course) <span class="sec-count" id="cnt-p4">0/4</span></div>
-<div class="item" data-k="py4a" onclick="tog('py4a')"><div class="item-body"><div class="item-name">Anthropic Python SDK — first API call</div><div class="item-sub">pip install anthropic · client.messages.create() · Week 7</div></div><span class="ichk" id="k-py4a">○</span></div>
+<div class="notes-toggle" onclick="_toggleNote('py4')"><span id="na_py4">▸</span> My notes — Phase 4</div><div class="notes-panel" id="np_py4"><textarea class="notes-area" data-nid="py4" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
+<div class="item" data-k="py4a" onclick="tog('py4a')"><div class="item-body"><div class="item-name">Anthropic Python SDK — first API call</div><div class="item-sub">pip install anthropic · <a href="https://console.anthropic.com" target="_blank" class="rlink">console.anthropic.com</a> for API key · Week 7</div></div><span class="ichk" id="k-py4a">○</span></div>
 <div class="item" data-k="py4b" onclick="tog('py4b')"><div class="item-body"><div class="item-name">Streaming responses, async patterns</div><div class="item-sub">Manning course · stream=True · no loading spinners on your tools</div></div><span class="ichk" id="k-py4b">○</span></div>
 <div class="item" data-k="py4c" onclick="tog('py4c')"><div class="item-body"><div class="item-name">AI-assisted coding workflow (Claude + Copilot)</div><div class="item-sub">Manning course · how to prompt effectively for code generation + debugging</div></div><span class="ichk" id="k-py4c">○</span></div>
 <div class="item" data-k="py4d" onclick="tog('py4d')"><div class="item-body"><div class="item-name">Project: network ping + Claude summary tool</div><div class="item-sub">Week 8 · ping sweep → feed results to Claude → get natural language report</div></div><span class="ichk" id="k-py4d">○</span></div>
@@ -158,16 +215,17 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 
 </div>
 
-<nav class="bnav">
-  <div class="bnav-inner">
-    <a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
-    <a href="lp.html"    class="ni" id="bn-lp">  <span class="ni-icon">🤖</span><span class="ni-lbl">AI Path</span></a>
-    <a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
-    <a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
-    <a href="python.html" class="ni active" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
-    <a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
-  </div>
-</nav>
+<nav class="bnav"><div class="bnav-inner">
+<a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
+<a href="ai.html" class="ni" id="bn-ai"><span class="ni-icon">🧠</span><span class="ni-lbl">AI</span></a>
+<a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
+<a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
+<a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
+<a href="cloud.html" class="ni" id="bn-cloud"><span class="ni-icon">☁️</span><span class="ni-lbl">Cloud</span></a>
+<a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
+<a href="schedule.html" class="ni" id="bn-schedule"><span class="ni-icon">📅</span><span class="ni-lbl">Plan</span></a>
+<a href="goals.html" class="ni" id="bn-goals"><span class="ni-icon">🎯</span><span class="ni-lbl">Goals</span></a>
+</div></nav>
 <script>
 function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙';}
 function toggleTheme(){var d=document.body.classList.toggle('dark');localStorage.setItem('theme',d?'dark':'light');document.getElementById('themeBtn').textContent=d?'☀️':'🌙';}
@@ -189,5 +247,128 @@ function render(){
 render();
 try{sessionStorage.setItem('aiResume',JSON.stringify({href:'python.html',icon:'🐍',title:'Python Track',sub:'Weeks 3–4 · automation + AI scripting'}));}catch(e){}
 </script>
+
+<button class="float-timer" onclick="_ftOpen('Python Study Session')" title="Start focus timer">
+  ⏱️<span id="ftBadge" class="ft-badge" style="display:none"></span>
+</button>
+
+
+<div class="timer-overlay" id="globalTimerOverlay" aria-hidden="true">
+  <div class="timer-card">
+    <div class="timer-kicker">Focus Session</div>
+    <div class="timer-topic" id="globalTimerTopic">Study Session</div>
+    <div class="timer-readout" id="globalTimerReadout">25:00</div>
+    <div class="timer-actions">
+      <button class="timer-btn primary" id="globalTimerStart">Start</button>
+      <button class="timer-btn ghost" id="globalTimerReset">Reset</button>
+      <button class="timer-btn ghost" id="globalTimerClose">Close</button>
+    </div>
+    <div class="timer-mini">Space = start/pause · Escape = close · Completion updates today's activity</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(window.ftOpen) return;
+  var gt={mins:25,left:1500,id:null,topic:'Study Session',running:false};
+  function todayKey(){return new Date().toISOString().slice(0,10)}
+  function getStreak(){try{return JSON.parse(localStorage.getItem('streakData')||'{"current":0,"best":0,"lastStudy":"","days":{},"totalMins":0}')}catch(e){return {current:0,best:0,lastStudy:'',days:{},totalMins:0}}}
+  function setStreak(s){try{localStorage.setItem('streakData',JSON.stringify(s))}catch(e){}}
+  function recordStudy(mins){
+    var s=getStreak(), today=todayKey();
+    if(!s.days) s.days={};
+    s.days[today]=(s.days[today]||0)+mins;
+    s.totalMins=(s.totalMins||0)+mins;
+    var y=new Date(); y.setDate(y.getDate()-1);
+    var yk=y.toISOString().slice(0,10);
+    if(s.lastStudy!==today){
+      s.current = s.lastStudy===yk ? (s.current||0)+1 : 1;
+      s.best = Math.max(s.best||0,s.current||1);
+      s.lastStudy=today;
+    }
+    setStreak(s);
+    try{window.dispatchEvent(new StorageEvent('storage',{key:'streakData'}));}catch(e){}
+  }
+  function q(id){return document.getElementById(id)}
+  function fmt(){var m=Math.floor(gt.left/60), s=gt.left%60; q('globalTimerReadout').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+  function syncBadge(){var b=document.getElementById('ftBadge'); if(!b) return; var s=getStreak(); b.style.display='inline-block'; b.textContent=((s&&s.current)||0)+'d';}
+  function stopTick(){ if(gt.id){clearInterval(gt.id); gt.id=null;} gt.running=false; if(q('globalTimerStart')) q('globalTimerStart').textContent='Start'; }
+  function startPause(){
+    if(gt.running){ stopTick(); return; }
+    gt.running=true; q('globalTimerStart').textContent='Pause';
+    gt.id=setInterval(function(){ gt.left--; fmt(); if(gt.left<=0){ stopTick(); gt.left=gt.mins*60; fmt(); recordStudy(gt.mins); alert('Session complete: '+gt.topic); syncBadge(); } },1000);
+  }
+  function reset(){ stopTick(); gt.left=gt.mins*60; fmt(); }
+  function close(){ stopTick(); q('globalTimerOverlay').classList.remove('show'); }
+  window.ftOpen=function(topic, mins){ gt.topic=topic||'Study Session'; gt.mins=mins||25; gt.left=gt.mins*60; q('globalTimerTopic').textContent=gt.topic; fmt(); q('globalTimerOverlay').classList.add('show'); syncBadge(); };
+  window.addEventListener('DOMContentLoaded', function(){
+    if(!q('globalTimerOverlay')) return;
+    q('globalTimerStart').addEventListener('click', startPause);
+    q('globalTimerReset').addEventListener('click', reset);
+    q('globalTimerClose').addEventListener('click', close);
+    q('globalTimerOverlay').addEventListener('click', function(e){ if(e.target===q('globalTimerOverlay')) close(); });
+    document.addEventListener('keydown', function(e){ if(!q('globalTimerOverlay').classList.contains('show')) return; if(e.code==='Space'){ e.preventDefault(); startPause(); } if(e.key==='Escape'){ close(); } });
+    syncBadge();
+  });
+})();
+</script>
+
+
+<script>(function(){var id='bn-python';var el=document.getElementById(id);if(el) el.className='ni active';})();</script>
+
+
+<script>
+(function(){
+  window.addEventListener('load', function(){
+    try {
+      localStorage.setItem('jlp_build','gold-v4');
+      if (!('serviceWorker' in navigator)) return;
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      if (window.caches && caches.keys) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function applyTheme(){
+    var t='light';
+    try{ t=localStorage.getItem('theme')||'light'; }catch(e){}
+    if(t==='dark') document.body.classList.add('dark'); else document.body.classList.remove('dark');
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.textContent = t==='dark' ? '☀️' : '🌙';
+  }
+  window.initTheme = applyTheme;
+  window.toggleTheme = function(){
+    var dark=!document.body.classList.contains('dark');
+    document.body.classList.toggle('dark', dark);
+    try{ localStorage.setItem('theme', dark?'dark':'light'); }catch(e){}
+    applyTheme();
+  };
+  window.addEventListener('DOMContentLoaded', function(){
+    applyTheme();
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.onclick = window.toggleTheme;
+  });
+})();
+</script>
+
+<div class="gsearch-overlay" id="gsearchOverlay"><div class="gsearch-card"><div class="gsearch-head"><input id="gsearchInput" type="search" placeholder="Search topics, pages, courses, weeks..." autocomplete="off"><button class="theme-btn" id="gsearchCloseBtn">✕</button></div><div class="gsearch-results" id="gsearchResults"></div></div></div>
+<script>(function(){var ITEMS=[{title:'Home',sub:'Main dashboard',href:'index.html',icon:'🏠',tags:'home dashboard'},{title:'AI Path',sub:'Main AI roadmap and phases',href:'ai.html',icon:'🧠',tags:'ai roadmap path llm rag agents prompting'},{title:'Linux',sub:'RHCSA and Linux foundation',href:'linux.html',icon:'🐧',tags:'linux rhcsa bash shell selinux systemd'},{title:'Python',sub:'Automation and AI prep',href:'python.html',icon:'🐍',tags:'python automation api anthropic sdk paramiko'},{title:'Cloud',sub:'AWS and Azure path',href:'cloud.html',icon:'☁️',tags:'cloud aws azure sap ans az-700 az-305'},{title:'Claude',sub:'Claude, MCP, and tools',href:'claude.html',icon:'🟠',tags:'claude mcp claude code agents'},{title:'Courses',sub:'Curated course library',href:'courses.html',icon:'📚',tags:'courses library resources'},{title:'Schedule',sub:'Week-by-week execution plan',href:'schedule.html',icon:'📅',tags:'schedule weeks plan'},{title:'Career Builder',sub:'CV-enhancing project ideas',href:'index.html',icon:'🧰',tags:'career builder cv projects portfolio'},{title:'RAG Systems',sub:'Retrieval and evaluation path',href:'ai.html',icon:'🧠',tags:'rag retrieval evals embeddings'},{title:'Prompt Engineering',sub:'Foundation prompt skill',href:'ai.html',icon:'🧠',tags:'prompt engineering developers'},{title:'Bash scripting',sub:'Linux scripting focus',href:'linux.html',icon:'🐧',tags:'bash loops functions cron'},{title:'Anthropic SDK',sub:'First AI API call',href:'python.html',icon:'🐍',tags:'anthropic sdk api'},{title:'AWS Architecture',sub:'Cloud architecture path',href:'cloud.html',icon:'☁️',tags:'aws architecture well architected'}]; function $(id){return document.getElementById(id)} function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})} function render(q){var box=$('gsearchResults'); if(!box) return; q=(q||'').toLowerCase().trim(); var list=ITEMS.filter(function(x){var hay=(x.title+' '+x.sub+' '+x.tags+' '+x.href).toLowerCase(); return !q||hay.indexOf(q)>-1}).slice(0,q?20:12); box.innerHTML=list.length?('<div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);padding:2px 0 10px">'+(!q?'Quick picks':'Results')+'</div>'+list.map(function(x){return '<a class="gsearch-item" href="'+x.href+'"><div style="font-size:1.1rem">'+x.icon+'</div><div><div style="font-size:.84rem;font-weight:800;color:var(--text)">'+esc(x.title)+'</div><div style="font-size:.7rem;color:var(--text2);margin-top:3px">'+esc(x.sub)+'</div></div></a>'}).join('')):'<div style="padding:8px 2px;color:var(--text2)">No results found</div>';} function openSearch(){ $('gsearchOverlay').classList.add('open'); $('gsearchInput').focus(); render($('gsearchInput').value||''); } function closeSearch(){ $('gsearchOverlay').classList.remove('open'); } window.toggleSearch=openSearch; window.runSearch=render; window.addEventListener('DOMContentLoaded',function(){ var btn=document.getElementById('searchBtn') || document.querySelector('button[title="Search"]') || Array.from(document.querySelectorAll('button')).find(function(b){return (b.textContent||'').includes('🔍')}); if(btn) btn.onclick=function(){ var ov=$('gsearchOverlay'); ov.classList.contains('open')?closeSearch():openSearch(); }; if($('gsearchInput')) $('gsearchInput').addEventListener('input',function(){render(this.value)}); if($('gsearchCloseBtn')) $('gsearchCloseBtn').onclick=closeSearch; if($('gsearchOverlay')) $('gsearchOverlay').addEventListener('click',function(e){if(e.target===this) closeSearch()}); document.addEventListener('keydown',function(e){ if($('gsearchOverlay') && $('gsearchOverlay').classList.contains('open') && e.key==='Escape') closeSearch();}); render('');});})();
+// ── NOTES ──
+function _gN(pk){try{return JSON.parse(localStorage.getItem('notes_'+pk)||'{}');}catch(e){return {};}}
+function _sN(pk,id,v){var n=_gN(pk);n[id]=v;try{localStorage.setItem('notes_'+pk,JSON.stringify(n));}catch(e){}}
+function _toggleNote(id){var p=document.getElementById('np_'+id),a=document.getElementById('na_'+id);if(!p)return;var o=p.classList.toggle('open');if(a)a.textContent=o?'▾':'▸';}
+function _initNotes(pk){var notes=_gN(pk);document.querySelectorAll('.notes-area').forEach(function(ta){var id=ta.dataset.nid;if(id&&notes[id])ta.value=notes[id];ta.addEventListener('input',function(){_sN(pk,id,ta.value);var sv=ta.nextElementSibling;if(sv&&sv.classList.contains('notes-saved')){sv.style.display='block';clearTimeout(ta._t);ta._t=setTimeout(function(){sv.style.display='none';},1400);}});});}
+
+_initNotes("python");
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+<div class="curation-card"><div class="curation-kicker">Track standard</div><h3 style="margin:0 0 6px;font-size:1rem">Python course standard</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">Python works best when the path stays practical: one main coding bootcamp, one networking specialization, and one automation-friendly external reference.</p><div class="curation-grid"><a class="curation-item" href="courses.html"><h4>Best local anchor</h4><p>Keep your local main Python bootcamp as the core because daily project rhythm is exactly what builds fluency fastest.</p><div class="curation-meta"><span class="curation-chip">Local</span><span class="curation-chip">Core fluency</span></div></a><a class="curation-item" href="https://automatetheboringstuff.com" target="_blank" rel="noopener"><h4>Best external reference</h4><p>Automate the Boring Stuff is the strongest practical complement because it turns Python into useful scripts quickly and fits your operator mindset.</p><div class="curation-meta"><span class="curation-chip">Automation</span><span class="curation-chip">Practical</span></div></a><a class="curation-item" href="courses.html"><h4>Best specialization keep</h4><p>Retain the network-engineer Python specialization as a direct bridge from your background into scripts, APIs, regex, and real device tasks.</p><div class="curation-meta"><span class="curation-chip">Networking</span><span class="curation-chip">Bridge skill</span></div></a><a class="curation-item" href="courses.html"><h4>Defer</h4><p>Delay advanced FastAPI, deep learning, and clean-code refinement until you can already write and debug scripts comfortably.</p><div class="curation-meta"><span class="curation-chip">Later phase</span><span class="curation-chip">Avoid context switching</span></div></a></div></div>
 </body>
 </html>

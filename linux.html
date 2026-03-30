@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="description" content="RHCSA · Weeks 1–2 · foundation track"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a"><meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<title>Linux Track · AI Tracker</title>
+<title>Linux Path · Jideatom Learning Path</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -60,7 +61,54 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 .ms-hdr{font-size:0.58rem;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;font-family:var(--mono);margin-bottom:10px;}
 .ms-row{font-size:0.78rem;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:7px;line-height:1.5;}
 .ms-row:last-child{border-bottom:none;}.ms-arrow{color:var(--accent);flex-shrink:0;font-family:var(--mono);}
+
+/* ── FLOAT TIMER ── */
+.float-timer{position:fixed;bottom:70px;right:16px;z-index:90;background:var(--accent);color:#fff;border:none;border-radius:50%;width:50px;height:50px;font-size:1.2rem;box-shadow:0 4px 16px rgba(99,102,241,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:transform 0.15s;}
+.float-timer:active{transform:scale(0.9);}
+.ft-badge{position:absolute;top:-3px;right:-3px;background:#f97316;color:#fff;font-size:0.42rem;font-weight:700;padding:1px 5px;border-radius:10px;font-family:var(--mono);white-space:nowrap;}
+/* ── NOTES ── */
+.notes-toggle{display:flex;align-items:center;gap:5px;font-size:0.62rem;color:var(--text2);cursor:pointer;padding:7px 0 4px;user-select:none;-webkit-tap-highlight-color:transparent;}
+.notes-panel{display:none;margin-bottom:10px;}
+.notes-panel.open{display:block;}
+.notes-area{width:100%;min-height:80px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px;font-size:0.76rem;color:var(--text);font-family:var(--mono);resize:vertical;line-height:1.6;box-sizing:border-box;}
+.notes-area:focus{outline:none;border-color:var(--accent);}
+.notes-saved{font-size:0.58rem;color:var(--green);font-family:var(--mono);margin-top:2px;display:none;}
+/* ── RES LINKS ── */
+a.rlink{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+a.rlink:active{opacity:0.7;}
+/* ── EST DATE ── */
+.est-badge{display:inline-block;background:var(--g-bg);color:var(--green);font-size:0.56rem;font-weight:700;padding:2px 8px;border-radius:20px;font-family:var(--mono);margin-left:6px;vertical-align:middle;}
+/* ── SEC TIMER BTN ── */
+.stbtn{font-size:0.56rem;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--a-bg);color:var(--accent);border:none;cursor:pointer;font-family:var(--mono);}
+.stbtn:active{opacity:0.7;}
+
+
+/* Shared timer overlay */
+.timer-overlay{position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}
+.timer-overlay.show{display:flex}
+.timer-card{width:min(420px,100%);background:var(--bg2);border:1px solid var(--border2);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.35);padding:22px;text-align:center}
+.timer-kicker{font-size:.62rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-family:var(--mono);margin-bottom:8px}
+.timer-topic{font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text)}
+.timer-readout{font-family:var(--mono);font-size:2.2rem;font-weight:700;margin:12px 0 16px;color:var(--text)}
+.timer-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.timer-btn{min-width:108px;border:none;border-radius:12px;padding:12px 14px;font-weight:700}
+.timer-btn.primary{background:var(--accent);color:#fff}.timer-btn.ghost{background:var(--bg3);color:var(--text);border:1px solid var(--border2)}
+.timer-mini{font-size:.68rem;color:var(--text2);margin-top:12px;line-height:1.5}
+
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+.redirect-card{max-width:560px;margin:24px auto;padding:22px;border-radius:18px;background:#fff;border:1px solid #e2e8f0;font-family:Arial,sans-serif;color:#0f172a}
+.redirect-card a{color:#2563eb;text-decoration:none;font-weight:700}
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
 </style>
+<style>.gsearch-overlay{position:fixed;inset:0;background:rgba(8,12,20,.76);backdrop-filter:blur(8px);display:none;z-index:2500;padding:12px}.gsearch-overlay.open{display:flex}.gsearch-card{margin:auto;width:min(760px,100%);height:min(80vh,760px);background:var(--bg2);border:1px solid var(--border2, var(--border));border-radius:22px;box-shadow:0 28px 90px rgba(0,0,0,.36);display:flex;flex-direction:column;overflow:hidden}.gsearch-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.gsearch-head input{flex:1;background:var(--bg3);color:var(--text);border:1px solid var(--border2, var(--border));border-radius:12px;padding:12px 14px;font-size:.94rem}.gsearch-results{padding:14px 16px;overflow:auto}.gsearch-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg2);margin-bottom:8px;text-decoration:none;color:inherit}</style>
+<style>.curation-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.curation-kicker{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.curation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.curation-item{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.curation-item h4{margin:0 0 6px;font-size:.94rem}.curation-item p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.52}.curation-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.curation-chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--bg2);border:1px solid var(--border);color:var(--text2)}.curation-table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:12px}.curation-table td,.curation-table th{padding:12px 12px;vertical-align:top;text-align:left}.curation-table tbody tr{background:linear-gradient(180deg,var(--bg2),var(--bg3));box-shadow:var(--shadow)}.curation-table tbody td:first-child{border-radius:14px 0 0 14px}.curation-table tbody td:last-child{border-radius:0 14px 14px 0}.curation-table th{font-size:.62rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:1px}.track-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);font-weight:700;background:var(--a-bg);color:var(--accent)}@media (max-width:760px){.curation-grid{grid-template-columns:1fr}.curation-table,.curation-table tbody,.curation-table tr,.curation-table td,.curation-table th{display:block;width:100%}.curation-table thead{display:none}.curation-table tbody tr{display:block;padding:8px;border-radius:14px}.curation-table tbody td{display:block;padding:8px 10px}.curation-table tbody td:first-child,.curation-table tbody td:last-child{border-radius:0}}}</style>
 </head>
 <body>
 <header>
@@ -69,6 +117,7 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
 <div class="wrap">
+<div class="brandbar"><div class="brand-left"><div class="brand-kicker">Jideatom Learning Path</div><div class="brand-name">Linux foundation</div><div class="brand-sub">RHCSA-aligned systems practice for your AI and cloud base.</div></div><div class="page-chip">Linux</div></div>
 
 <!-- Progress card -->
 <div class="prog-card">
@@ -111,26 +160,32 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 <div class="sec-hdr" style="margin-top:22px;">Certification Target</div>
 <div class="cert-card">
   <span class="pill pill-blue">Target Cert</span>
-  <div class="cert-name">EX200 — RHCSA (RedHat Enterprise Linux 9)</div>
+  <div class="cert-name">EX200 — RHCSA<span class="est-badge">Est. complete: Jun 2026</span> (RedHat Enterprise Linux 9)</div>
   <p class="cert-note">RedHat Certified System Administrator. Covers file systems, user management, SELinux, networking, systemd, and Podman containers. Your networking background gives you Domain 4 almost for free.</p>
 </div>
 
 <!-- Domain 1 -->
 <div class="sec-hdr">Domain 1 — Essential Tools <span class="sec-count" id="cnt-d1">0/4</span></div>
-<div class="item" data-k="l1a" onclick="tog('l1a')"><div class="item-body"><div class="item-name">Shell basics, I/O redirection, grep, awk, sed</div><div class="item-sub">Week 1 Mon–Wed · linuxcommand.org Ch 1–7</div></div><span class="ichk" id="k-l1a">○</span></div>
+<div class="notes-toggle" onclick="_toggleNote('lx1')"><span id="na_lx1">▸</span> My notes — Domain 1</div><div class="notes-panel" id="np_lx1"><textarea class="notes-area" data-nid="lx1" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
+<div class="item" data-k="l1a" onclick="tog('l1a')"><div class="item-body"><div class="item-name">Shell basics, I/O redirection, grep, awk, sed</div><div class="item-sub">Week 1 Mon–Wed · <a href="https://linuxcommand.org" target="_blank" class="rlink">linuxcommand.org</a> Ch 1–7</div></div><span class="ichk" id="k-l1a">○</span></div>
 <div class="item" data-k="l1b" onclick="tog('l1b')"><div class="item-body"><div class="item-name">File permissions, ownership, ACLs</div><div class="item-sub">Week 1 Tue · chmod, chown, getfacl, setfacl</div></div><span class="ichk" id="k-l1b">○</span></div>
 <div class="item" data-k="l1c" onclick="tog('l1c')"><div class="item-body"><div class="item-name">SSH key management and remote access</div><div class="item-sub">Week 2 Mon · ssh-keygen, ~/.ssh/config, authorized_keys</div></div><span class="ichk" id="k-l1c">○</span></div>
 <div class="item" data-k="l1d" onclick="tog('l1d')"><div class="item-body"><div class="item-name">Archive and compression — tar, gzip, zip</div><div class="item-sub">Week 1 · tar -czf, -xzf, zip, unzip</div></div><span class="ichk" id="k-l1d">○</span></div>
 
 <!-- Domain 2 -->
 <div class="sec-hdr">Domain 2 — System Operations <span class="sec-count" id="cnt-d2">0/4</span></div>
+<div class="notes-toggle" onclick="_toggleNote('lx2')"><span id="na_lx2">▸</span> My notes — Domain 2</div><div class="notes-panel" id="np_lx2"><textarea class="notes-area" data-nid="lx2" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
 <div class="item" data-k="l2a" onclick="tog('l2a')"><div class="item-body"><div class="item-name">Boot process, GRUB2, systemd targets</div><div class="item-sub">Week 1 Thu · systemctl, systemd-analyze</div></div><span class="ichk" id="k-l2a">○</span></div>
 <div class="item" data-k="l2b" onclick="tog('l2b')"><div class="item-body"><div class="item-name">Process management — ps, top, kill, nice</div><div class="item-sub">Week 1 Thu · htop, kill, killall, nice, renice</div></div><span class="ichk" id="k-l2b">○</span></div>
-<div class="item" data-k="l2c" onclick="tog('l2c')"><div class="item-body"><div class="item-name">Scheduling — cron, at, systemd timers</div><div class="item-sub">Week 2 Thu · crontab -e, crontab.guru, at</div></div><span class="ichk" id="k-l2c">○</span></div>
+<div class="item" data-k="l2c" onclick="tog('l2c')"><div class="item-body"><div class="item-name">Scheduling — cron, at, systemd timers</div><div class="item-sub">Week 2 Thu · crontab -e, <a href="https://crontab.guru" target="_blank" class="rlink">crontab.guru</a>, at</div></div><span class="ichk" id="k-l2c">○</span></div>
 <div class="item" data-k="l2d" onclick="tog('l2d')"><div class="item-body"><div class="item-name">Log management — journalctl, rsyslog</div><div class="item-sub">Week 2 Thu · journalctl -u, -f, --since, logrotate</div></div><span class="ichk" id="k-l2d">○</span></div>
 
 <!-- Domain 3 -->
 <div class="sec-hdr">Domain 3 — Storage <span class="sec-count" id="cnt-d3">0/4</span></div>
+<div class="notes-toggle" onclick="_toggleNote('lx3')"><span id="na_lx3">▸</span> My notes — Domain 3</div><div class="notes-panel" id="np_lx3"><textarea class="notes-area" data-nid="lx3" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
 <div class="item" data-k="l3a" onclick="tog('l3a')"><div class="item-body"><div class="item-name">Partitioning — fdisk, gdisk, parted</div><div class="item-sub">Lab: create MBR + GPT partitions on a practice disk</div></div><span class="ichk" id="k-l3a">○</span></div>
 <div class="item" data-k="l3b" onclick="tog('l3b')"><div class="item-body"><div class="item-name">LVM — pvcreate, vgcreate, lvcreate, resize</div><div class="item-sub">Lab: create LV, extend it live without downtime</div></div><span class="ichk" id="k-l3b">○</span></div>
 <div class="item" data-k="l3c" onclick="tog('l3c')"><div class="item-body"><div class="item-name">File systems — ext4, XFS, mount, /etc/fstab</div><div class="item-sub">mkfs.xfs, mount, /etc/fstab with UUID</div></div><span class="ichk" id="k-l3c">○</span></div>
@@ -138,6 +193,8 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 
 <!-- Domain 4 -->
 <div class="sec-hdr">Domain 4 — Networking ⭐ Your Zone <span class="sec-count" id="cnt-d4">0/4</span></div>
+<div class="notes-toggle" onclick="_toggleNote('lx4')"><span id="na_lx4">▸</span> My notes — Domain 4</div><div class="notes-panel" id="np_lx4"><textarea class="notes-area" data-nid="lx4" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
 <div class="item" data-k="l4a" onclick="tog('l4a')"><div class="item-body"><div class="item-name">NetworkManager — nmcli, nmtui config</div><div class="item-sub">You know networking — just learn the Linux UI: nmcli con add, mod, up/down</div></div><span class="ichk" id="k-l4a">○</span></div>
 <div class="item" data-k="l4b" onclick="tog('l4b')"><div class="item-body"><div class="item-name">Static IP, routing, DNS (/etc/resolv.conf)</div><div class="item-sub">ip addr, ip route, ip link — replaces ifconfig. You know BGP, this is trivial.</div></div><span class="ichk" id="k-l4b">○</span></div>
 <div class="item" data-k="l4c" onclick="tog('l4c')"><div class="item-body"><div class="item-name">firewalld — zones, rules, services</div><div class="item-sub">firewall-cmd --zone, --add-service, --add-port, --permanent. Like ACLs.</div></div><span class="ichk" id="k-l4c">○</span></div>
@@ -145,16 +202,20 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 
 <!-- Domain 5 -->
 <div class="sec-hdr">Domain 5 — Users, Security & Containers <span class="sec-count" id="cnt-d5">0/3</span></div>
+<div class="notes-toggle" onclick="_toggleNote('lx5')"><span id="na_lx5">▸</span> My notes — Domain 5</div><div class="notes-panel" id="np_lx5"><textarea class="notes-area" data-nid="lx5" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
 <div class="item" data-k="l5a" onclick="tog('l5a')"><div class="item-body"><div class="item-name">User and group management, sudo config</div><div class="item-sub">useradd, groupadd, /etc/sudoers, visudo, wheel group</div></div><span class="ichk" id="k-l5a">○</span></div>
 <div class="item" data-k="l5b" onclick="tog('l5b')"><div class="item-body"><div class="item-name">Password policies, PAM, /etc/security</div><div class="item-sub">chage, /etc/login.defs, pam_pwquality, faillock</div></div><span class="ichk" id="k-l5b">○</span></div>
 <div class="item" data-k="l5c" onclick="tog('l5c')"><div class="item-body"><div class="item-name">Containers — Podman basics (RHCSA 9)</div><div class="item-sub">podman pull, run, ps, stop, rm — rootless containers, systemd integration</div></div><span class="ichk" id="k-l5c">○</span></div>
 
 <!-- Bash Scripting (Wk 2 PIKUMA focus) -->
 <div class="sec-hdr">Bash Scripting — Week 2 Focus (PIKUMA) <span class="sec-count" id="cnt-d6">0/4</span></div>
+<div class="notes-toggle" onclick="_toggleNote('lxbash')"><span id="na_lxbash">▸</span> My notes — Bash Scripting</div><div class="notes-panel" id="np_lxbash"><textarea class="notes-area" data-nid="lxbash" placeholder="Commands, patterns, cheat sheet…"></textarea><div class="notes-saved">✓ Saved</div></div>
+
 <div class="item" data-k="l6a" onclick="tog('l6a')"><div class="item-body"><div class="item-name">Variables, loops, conditionals, functions</div><div class="item-sub">PIKUMA course · write 3 scripts from scratch</div></div><span class="ichk" id="k-l6a">○</span></div>
 <div class="item" data-k="l6b" onclick="tog('l6b')"><div class="item-body"><div class="item-name">Script: network health monitor (ping + port check)</div><div class="item-sub">Week 2 Sat · reads IP list, logs results, GitHub push</div></div><span class="ichk" id="k-l6b">○</span></div>
 <div class="item" data-k="l6c" onclick="tog('l6c')"><div class="item-body"><div class="item-name">Script: config backup with S3 upload</div><div class="item-sub">Week 2 · combines bash + aws CLI · cron-scheduled</div></div><span class="ichk" id="k-l6c">○</span></div>
-<div class="item" data-k="l6d" onclick="tog('l6d')"><div class="item-body"><div class="item-name">OverTheWire Bandit levels 0–12</div><div class="item-sub">Week 1–2 Sat/Sun · overthewire.org/wargames/bandit</div></div><span class="ichk" id="k-l6d">○</span></div>
+<div class="item" data-k="l6d" onclick="tog('l6d')"><div class="item-body"><div class="item-name">OverTheWire Bandit levels 0–12</div><div class="item-sub">Week 1–2 Sat/Sun · <a href="https://overthewire.org/wargames/bandit" target="_blank" class="rlink">overthewire.org/wargames/bandit</a></div></div><span class="ichk" id="k-l6d">○</span></div>
 
 <div class="milestone">
   <div class="ms-hdr">Month 1 Checkpoint</div>
@@ -166,16 +227,17 @@ body.dark .item.done{background:#052e16;border-color:#065f46;}
 
 </div>
 
-<nav class="bnav">
-  <div class="bnav-inner">
-    <a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
-    <a href="lp.html"    class="ni" id="bn-lp">  <span class="ni-icon">🤖</span><span class="ni-lbl">AI Path</span></a>
-    <a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
-    <a href="linux.html" class="ni active" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
-    <a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
-    <a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
-  </div>
-</nav>
+<nav class="bnav"><div class="bnav-inner">
+<a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
+<a href="ai.html" class="ni" id="bn-ai"><span class="ni-icon">🧠</span><span class="ni-lbl">AI</span></a>
+<a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
+<a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
+<a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
+<a href="cloud.html" class="ni" id="bn-cloud"><span class="ni-icon">☁️</span><span class="ni-lbl">Cloud</span></a>
+<a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
+<a href="schedule.html" class="ni" id="bn-schedule"><span class="ni-icon">📅</span><span class="ni-lbl">Plan</span></a>
+<a href="goals.html" class="ni" id="bn-goals"><span class="ni-icon">🎯</span><span class="ni-lbl">Goals</span></a>
+</div></nav>
 
 <script>
 function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙';}
@@ -206,5 +268,128 @@ function render(){
 render();
 try{sessionStorage.setItem('aiResume',JSON.stringify({href:'linux.html',icon:'🐧',title:'Linux RHCSA',sub:'Weeks 1–2 · RHCSA domains'}));}catch(e){}
 </script>
+
+<button class="float-timer" onclick="_ftOpen('Linux RHCSA Study')" title="Start focus timer">
+  ⏱️<span id="ftBadge" class="ft-badge" style="display:none"></span>
+</button>
+
+
+<div class="timer-overlay" id="globalTimerOverlay" aria-hidden="true">
+  <div class="timer-card">
+    <div class="timer-kicker">Focus Session</div>
+    <div class="timer-topic" id="globalTimerTopic">Study Session</div>
+    <div class="timer-readout" id="globalTimerReadout">25:00</div>
+    <div class="timer-actions">
+      <button class="timer-btn primary" id="globalTimerStart">Start</button>
+      <button class="timer-btn ghost" id="globalTimerReset">Reset</button>
+      <button class="timer-btn ghost" id="globalTimerClose">Close</button>
+    </div>
+    <div class="timer-mini">Space = start/pause · Escape = close · Completion updates today's activity</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(window.ftOpen) return;
+  var gt={mins:25,left:1500,id:null,topic:'Study Session',running:false};
+  function todayKey(){return new Date().toISOString().slice(0,10)}
+  function getStreak(){try{return JSON.parse(localStorage.getItem('streakData')||'{"current":0,"best":0,"lastStudy":"","days":{},"totalMins":0}')}catch(e){return {current:0,best:0,lastStudy:'',days:{},totalMins:0}}}
+  function setStreak(s){try{localStorage.setItem('streakData',JSON.stringify(s))}catch(e){}}
+  function recordStudy(mins){
+    var s=getStreak(), today=todayKey();
+    if(!s.days) s.days={};
+    s.days[today]=(s.days[today]||0)+mins;
+    s.totalMins=(s.totalMins||0)+mins;
+    var y=new Date(); y.setDate(y.getDate()-1);
+    var yk=y.toISOString().slice(0,10);
+    if(s.lastStudy!==today){
+      s.current = s.lastStudy===yk ? (s.current||0)+1 : 1;
+      s.best = Math.max(s.best||0,s.current||1);
+      s.lastStudy=today;
+    }
+    setStreak(s);
+    try{window.dispatchEvent(new StorageEvent('storage',{key:'streakData'}));}catch(e){}
+  }
+  function q(id){return document.getElementById(id)}
+  function fmt(){var m=Math.floor(gt.left/60), s=gt.left%60; q('globalTimerReadout').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+  function syncBadge(){var b=document.getElementById('ftBadge'); if(!b) return; var s=getStreak(); b.style.display='inline-block'; b.textContent=((s&&s.current)||0)+'d';}
+  function stopTick(){ if(gt.id){clearInterval(gt.id); gt.id=null;} gt.running=false; if(q('globalTimerStart')) q('globalTimerStart').textContent='Start'; }
+  function startPause(){
+    if(gt.running){ stopTick(); return; }
+    gt.running=true; q('globalTimerStart').textContent='Pause';
+    gt.id=setInterval(function(){ gt.left--; fmt(); if(gt.left<=0){ stopTick(); gt.left=gt.mins*60; fmt(); recordStudy(gt.mins); alert('Session complete: '+gt.topic); syncBadge(); } },1000);
+  }
+  function reset(){ stopTick(); gt.left=gt.mins*60; fmt(); }
+  function close(){ stopTick(); q('globalTimerOverlay').classList.remove('show'); }
+  window.ftOpen=function(topic, mins){ gt.topic=topic||'Study Session'; gt.mins=mins||25; gt.left=gt.mins*60; q('globalTimerTopic').textContent=gt.topic; fmt(); q('globalTimerOverlay').classList.add('show'); syncBadge(); };
+  window.addEventListener('DOMContentLoaded', function(){
+    if(!q('globalTimerOverlay')) return;
+    q('globalTimerStart').addEventListener('click', startPause);
+    q('globalTimerReset').addEventListener('click', reset);
+    q('globalTimerClose').addEventListener('click', close);
+    q('globalTimerOverlay').addEventListener('click', function(e){ if(e.target===q('globalTimerOverlay')) close(); });
+    document.addEventListener('keydown', function(e){ if(!q('globalTimerOverlay').classList.contains('show')) return; if(e.code==='Space'){ e.preventDefault(); startPause(); } if(e.key==='Escape'){ close(); } });
+    syncBadge();
+  });
+})();
+</script>
+
+
+<script>(function(){var id='bn-linux';var el=document.getElementById(id);if(el) el.className='ni active';})();</script>
+
+
+<script>
+(function(){
+  window.addEventListener('load', function(){
+    try {
+      localStorage.setItem('jlp_build','gold-v4');
+      if (!('serviceWorker' in navigator)) return;
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      if (window.caches && caches.keys) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function applyTheme(){
+    var t='light';
+    try{ t=localStorage.getItem('theme')||'light'; }catch(e){}
+    if(t==='dark') document.body.classList.add('dark'); else document.body.classList.remove('dark');
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.textContent = t==='dark' ? '☀️' : '🌙';
+  }
+  window.initTheme = applyTheme;
+  window.toggleTheme = function(){
+    var dark=!document.body.classList.contains('dark');
+    document.body.classList.toggle('dark', dark);
+    try{ localStorage.setItem('theme', dark?'dark':'light'); }catch(e){}
+    applyTheme();
+  };
+  window.addEventListener('DOMContentLoaded', function(){
+    applyTheme();
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.onclick = window.toggleTheme;
+  });
+})();
+</script>
+
+<div class="gsearch-overlay" id="gsearchOverlay"><div class="gsearch-card"><div class="gsearch-head"><input id="gsearchInput" type="search" placeholder="Search topics, pages, courses, weeks..." autocomplete="off"><button class="theme-btn" id="gsearchCloseBtn">✕</button></div><div class="gsearch-results" id="gsearchResults"></div></div></div>
+<script>(function(){var ITEMS=[{title:'Home',sub:'Main dashboard',href:'index.html',icon:'🏠',tags:'home dashboard'},{title:'AI Path',sub:'Main AI roadmap and phases',href:'ai.html',icon:'🧠',tags:'ai roadmap path llm rag agents prompting'},{title:'Linux',sub:'RHCSA and Linux foundation',href:'linux.html',icon:'🐧',tags:'linux rhcsa bash shell selinux systemd'},{title:'Python',sub:'Automation and AI prep',href:'python.html',icon:'🐍',tags:'python automation api anthropic sdk paramiko'},{title:'Cloud',sub:'AWS and Azure path',href:'cloud.html',icon:'☁️',tags:'cloud aws azure sap ans az-700 az-305'},{title:'Claude',sub:'Claude, MCP, and tools',href:'claude.html',icon:'🟠',tags:'claude mcp claude code agents'},{title:'Courses',sub:'Curated course library',href:'courses.html',icon:'📚',tags:'courses library resources'},{title:'Schedule',sub:'Week-by-week execution plan',href:'schedule.html',icon:'📅',tags:'schedule weeks plan'},{title:'Career Builder',sub:'CV-enhancing project ideas',href:'index.html',icon:'🧰',tags:'career builder cv projects portfolio'},{title:'RAG Systems',sub:'Retrieval and evaluation path',href:'ai.html',icon:'🧠',tags:'rag retrieval evals embeddings'},{title:'Prompt Engineering',sub:'Foundation prompt skill',href:'ai.html',icon:'🧠',tags:'prompt engineering developers'},{title:'Bash scripting',sub:'Linux scripting focus',href:'linux.html',icon:'🐧',tags:'bash loops functions cron'},{title:'Anthropic SDK',sub:'First AI API call',href:'python.html',icon:'🐍',tags:'anthropic sdk api'},{title:'AWS Architecture',sub:'Cloud architecture path',href:'cloud.html',icon:'☁️',tags:'aws architecture well architected'}]; function $(id){return document.getElementById(id)} function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})} function render(q){var box=$('gsearchResults'); if(!box) return; q=(q||'').toLowerCase().trim(); var list=ITEMS.filter(function(x){var hay=(x.title+' '+x.sub+' '+x.tags+' '+x.href).toLowerCase(); return !q||hay.indexOf(q)>-1}).slice(0,q?20:12); box.innerHTML=list.length?('<div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);padding:2px 0 10px">'+(!q?'Quick picks':'Results')+'</div>'+list.map(function(x){return '<a class="gsearch-item" href="'+x.href+'"><div style="font-size:1.1rem">'+x.icon+'</div><div><div style="font-size:.84rem;font-weight:800;color:var(--text)">'+esc(x.title)+'</div><div style="font-size:.7rem;color:var(--text2);margin-top:3px">'+esc(x.sub)+'</div></div></a>'}).join('')):'<div style="padding:8px 2px;color:var(--text2)">No results found</div>';} function openSearch(){ $('gsearchOverlay').classList.add('open'); $('gsearchInput').focus(); render($('gsearchInput').value||''); } function closeSearch(){ $('gsearchOverlay').classList.remove('open'); } window.toggleSearch=openSearch; window.runSearch=render; window.addEventListener('DOMContentLoaded',function(){ var btn=document.getElementById('searchBtn') || document.querySelector('button[title="Search"]') || Array.from(document.querySelectorAll('button')).find(function(b){return (b.textContent||'').includes('🔍')}); if(btn) btn.onclick=function(){ var ov=$('gsearchOverlay'); ov.classList.contains('open')?closeSearch():openSearch(); }; if($('gsearchInput')) $('gsearchInput').addEventListener('input',function(){render(this.value)}); if($('gsearchCloseBtn')) $('gsearchCloseBtn').onclick=closeSearch; if($('gsearchOverlay')) $('gsearchOverlay').addEventListener('click',function(e){if(e.target===this) closeSearch()}); document.addEventListener('keydown',function(e){ if($('gsearchOverlay') && $('gsearchOverlay').classList.contains('open') && e.key==='Escape') closeSearch();}); render('');});})();
+// ── NOTES ──
+function _gN(pk){try{return JSON.parse(localStorage.getItem('notes_'+pk)||'{}');}catch(e){return {};}}
+function _sN(pk,id,v){var n=_gN(pk);n[id]=v;try{localStorage.setItem('notes_'+pk,JSON.stringify(n));}catch(e){}}
+function _toggleNote(id){var p=document.getElementById('np_'+id),a=document.getElementById('na_'+id);if(!p)return;var o=p.classList.toggle('open');if(a)a.textContent=o?'▾':'▸';}
+function _initNotes(pk){var notes=_gN(pk);document.querySelectorAll('.notes-area').forEach(function(ta){var id=ta.dataset.nid;if(id&&notes[id])ta.value=notes[id];ta.addEventListener('input',function(){_sN(pk,id,ta.value);var sv=ta.nextElementSibling;if(sv&&sv.classList.contains('notes-saved')){sv.style.display='block';clearTimeout(ta._t);ta._t=setTimeout(function(){sv.style.display='none';},1400);}});});}
+
+_initNotes("linux");
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+<div class="curation-card"><div class="curation-kicker">Track standard</div><h3 style="margin:0 0 6px;font-size:1rem">Linux course standard</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">Linux does not need a full replacement. The right improvement is to keep the strongest practical local courses and add one clean command-line reference.</p><div class="curation-grid"><a class="curation-item" href="courses.html"><h4>Best local anchor</h4><p>Keep your local hands-on Linux bootcamp as the main practical foundation because it already matches your beginner-to-systems progression.</p><div class="curation-meta"><span class="curation-chip">Local</span><span class="curation-chip">Hands-on</span></div></a><a class="curation-item" href="https://linuxcommand.org" target="_blank" rel="noopener"><h4>Best external reference</h4><p>LinuxCommand.org is the cleanest companion reference for command-line fluency and shell scripting reinforcement.</p><div class="curation-meta"><span class="curation-chip">Reference</span><span class="curation-chip">Shell</span></div></a><a class="curation-item" href="courses.html"><h4>Keep for phase 2+</h4><p>Retain your bash deep-dive and Linux-for-AI material, but use them after the foundation is stable rather than in parallel too early.</p><div class="curation-meta"><span class="curation-chip">Bash</span><span class="curation-chip">AI infra</span></div></a><a class="curation-item" href="courses.html"><h4>Defer</h4><p>Delay cert-depth, privilege escalation, and Ansible-heavy material until you have command-line confidence and consistent practice.</p><div class="curation-meta"><span class="curation-chip">Do later</span><span class="curation-chip">Avoid overload</span></div></a></div></div>
 </body>
 </html>

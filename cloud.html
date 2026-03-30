@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="AWS + Azure certification track">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<title>Cloud Certs · AI Tracker</title>
+<title>Cloud Path · Jideatom Learning Path</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -88,7 +89,20 @@ body.dark .adv-badge{background:#1c1400;color:#fde68a;}
 .skip-row:last-child{border-bottom:none;}
 .skip-name{flex:1;font-weight:500;color:var(--text);}
 .skip-when{font-size:0.6rem;color:var(--text3);font-family:var(--mono);margin-top:2px;}
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+.redirect-card{max-width:560px;margin:24px auto;padding:22px;border-radius:18px;background:#fff;border:1px solid #e2e8f0;font-family:Arial,sans-serif;color:#0f172a}
+.redirect-card a{color:#2563eb;text-decoration:none;font-weight:700}
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
 </style>
+<style>.gsearch-overlay{position:fixed;inset:0;background:rgba(8,12,20,.76);backdrop-filter:blur(8px);display:none;z-index:2500;padding:12px}.gsearch-overlay.open{display:flex}.gsearch-card{margin:auto;width:min(760px,100%);height:min(80vh,760px);background:var(--bg2);border:1px solid var(--border2, var(--border));border-radius:22px;box-shadow:0 28px 90px rgba(0,0,0,.36);display:flex;flex-direction:column;overflow:hidden}.gsearch-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.gsearch-head input{flex:1;background:var(--bg3);color:var(--text);border:1px solid var(--border2, var(--border));border-radius:12px;padding:12px 14px;font-size:.94rem}.gsearch-results{padding:14px 16px;overflow:auto}.gsearch-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg2);margin-bottom:8px;text-decoration:none;color:inherit}</style>
+<style>.curation-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.curation-kicker{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.curation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.curation-item{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.curation-item h4{margin:0 0 6px;font-size:.94rem}.curation-item p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.52}.curation-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.curation-chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--bg2);border:1px solid var(--border);color:var(--text2)}.curation-table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:12px}.curation-table td,.curation-table th{padding:12px 12px;vertical-align:top;text-align:left}.curation-table tbody tr{background:linear-gradient(180deg,var(--bg2),var(--bg3));box-shadow:var(--shadow)}.curation-table tbody td:first-child{border-radius:14px 0 0 14px}.curation-table tbody td:last-child{border-radius:0 14px 14px 0}.curation-table th{font-size:.62rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:1px}.track-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);font-weight:700;background:var(--a-bg);color:var(--accent)}@media (max-width:760px){.curation-grid{grid-template-columns:1fr}.curation-table,.curation-table tbody,.curation-table tr,.curation-table td,.curation-table th{display:block;width:100%}.curation-table thead{display:none}.curation-table tbody tr{display:block;padding:8px;border-radius:14px}.curation-table tbody td{display:block;padding:8px 10px}.curation-table tbody td:first-child,.curation-table tbody td:last-child{border-radius:0}}}</style>
 </head>
 <body>
 <header>
@@ -97,6 +111,7 @@ body.dark .adv-badge{background:#1c1400;color:#fde68a;}
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
 <div class="wrap">
+<div class="brandbar"><div class="brand-left"><div class="brand-kicker">Jideatom Learning Path</div><div class="brand-name">Cloud certification track</div><div class="brand-sub">AWS and Azure paths selected for practical job readiness.</div></div><div class="page-chip">Cloud</div></div>
 
 <div class="tabs">
   <div class="tab aws-active" id="tab-aws" onclick="sw('aws',this)">☁️ AWS Track</div>
@@ -211,7 +226,7 @@ body.dark .adv-badge{background:#1c1400;color:#fde68a;}
 <div class="item" data-k="a-saa2" onclick="tog('a-saa2')"><div class="item-body"><div class="item-name">EC2 advanced — placement groups, EBS types, Auto Scaling, Launch Templates</div><div class="item-sub">Cluster vs Partition vs Spread. gp3 vs io2. Target tracking vs step scaling.</div></div><span class="ichk" id="k-a-saa2">○</span></div>
 <div class="item" data-k="a-saa3" onclick="tog('a-saa3')"><div class="item-body"><div class="item-name">HA patterns — ALB, NLB, Route 53 routing policies, multi-AZ RDS</div><div class="item-sub">Weighted · latency · failover · geolocation routing. ALB vs NLB. RDS Multi-AZ vs Read Replica.</div></div><span class="ichk" id="k-a-saa3">○</span></div>
 <div class="item" data-k="a-saa4" onclick="tog('a-saa4')"><div class="item-body"><div class="item-name">Storage — S3 tiers, lifecycle, replication, encryption, pre-signed URLs</div><div class="item-sub">Standard vs IA vs Glacier. CRR vs SRR. SSE-S3 vs SSE-KMS vs SSE-C.</div></div><span class="ichk" id="k-a-saa4">○</span></div>
-<div class="item" data-k="a-saa5" onclick="tog('a-saa5')"><div class="item-body"><div class="item-name">Databases — RDS, Aurora, DynamoDB, ElastiCache selection patterns</div><div class="item-sub">Aurora Serverless v2. DynamoDB on-demand vs provisioned. ElastiCache Redis vs Memcached.</div></div><span class="ichk" id="k-a-saa5">○</span></div>
+<div class="item" data-k="a-saa5" onclick="tog('a-saa5')"><div class="item-body"><div class="item-name">Databases — RDS, Aurora, DynamoDB, ElastiCache selection patterns</div><div class="item-sub">Aurora Serverless . DynamoDB on-demand vs provisioned. ElastiCache Redis vs Memcached.</div></div><span class="ichk" id="k-a-saa5">○</span></div>
 <div class="item" data-k="a-saa6" onclick="tog('a-saa6')"><div class="item-body"><div class="item-name">Serverless — Lambda, API Gateway, SQS, SNS, EventBridge patterns</div><div class="item-sub">Fan-out pattern. Lambda concurrency and cold starts. SQS FIFO vs Standard.</div></div><span class="ichk" id="k-a-saa6">○</span></div>
 <div class="item" data-k="a-saa7" onclick="tog('a-saa7')"><div class="item-body"><div class="item-name">Security — KMS, Secrets Manager, WAF, Shield, GuardDuty, Inspector</div><div class="item-sub">CMK vs AWS managed. Shield Standard vs Advanced. GuardDuty threat detection.</div></div><span class="ichk" id="k-a-saa7">○</span></div>
 <div class="item" data-k="a-saa8" onclick="tog('a-saa8')"><div class="item-body"><div class="item-name">Practice exam — 80%+ TutorialsDojo before booking</div><div class="item-sub">TutorialsDojo SAA is the hardest available. 80% here = confident pass on exam day.</div></div><span class="ichk" id="k-a-saa8">○</span></div>
@@ -372,16 +387,17 @@ body.dark .adv-badge{background:#1c1400;color:#fde68a;}
 
 </div><!-- /wrap -->
 
-<nav class="bnav">
-  <div class="bnav-inner">
-    <a href="index.html"   class="ni" id="bn-home">  <span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
-    <a href="lp.html"      class="ni" id="bn-lp">    <span class="ni-icon">🤖</span><span class="ni-lbl">AI Path</span></a>
-    <a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
-    <a href="linux.html"   class="ni" id="bn-linux">  <span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
-    <a href="cloud.html"   class="ni active" id="bn-cloud"><span class="ni-icon">☁️</span><span class="ni-lbl">Cloud</span></a>
-    <a href="claude.html"  class="ni" id="bn-claude"> <span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
-  </div>
-</nav>
+<nav class="bnav"><div class="bnav-inner">
+<a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
+<a href="ai.html" class="ni" id="bn-ai"><span class="ni-icon">🧠</span><span class="ni-lbl">AI</span></a>
+<a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
+<a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
+<a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
+<a href="cloud.html" class="ni" id="bn-cloud"><span class="ni-icon">☁️</span><span class="ni-lbl">Cloud</span></a>
+<a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
+<a href="schedule.html" class="ni" id="bn-schedule"><span class="ni-icon">📅</span><span class="ni-lbl">Plan</span></a>
+<a href="goals.html" class="ni" id="bn-goals"><span class="ni-icon">🎯</span><span class="ni-lbl">Goals</span></a>
+</div></nav>
 
 <script>
 function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙';}
@@ -434,5 +450,54 @@ function render(){
 render();
 try{sessionStorage.setItem('aiResume',JSON.stringify({href:'cloud.html',icon:'☁️',title:'Cloud Certifications',sub:'AWS SAP + ANS · Azure AZ-700 + AZ-305'}));}catch(e){}
 </script>
+
+<script>(function(){var id='bn-cloud';var el=document.getElementById(id);if(el) el.className='ni active';})();</script>
+
+
+<script>
+(function(){
+  window.addEventListener('load', function(){
+    try {
+      localStorage.setItem('jlp_build','gold-v4');
+      if (!('serviceWorker' in navigator)) return;
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      if (window.caches && caches.keys) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function applyTheme(){
+    var t='light';
+    try{ t=localStorage.getItem('theme')||'light'; }catch(e){}
+    if(t==='dark') document.body.classList.add('dark'); else document.body.classList.remove('dark');
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.textContent = t==='dark' ? '☀️' : '🌙';
+  }
+  window.initTheme = applyTheme;
+  window.toggleTheme = function(){
+    var dark=!document.body.classList.contains('dark');
+    document.body.classList.toggle('dark', dark);
+    try{ localStorage.setItem('theme', dark?'dark':'light'); }catch(e){}
+    applyTheme();
+  };
+  window.addEventListener('DOMContentLoaded', function(){
+    applyTheme();
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.onclick = window.toggleTheme;
+  });
+})();
+</script>
+
+<div class="gsearch-overlay" id="gsearchOverlay"><div class="gsearch-card"><div class="gsearch-head"><input id="gsearchInput" type="search" placeholder="Search topics, pages, courses, weeks..." autocomplete="off"><button class="theme-btn" id="gsearchCloseBtn">✕</button></div><div class="gsearch-results" id="gsearchResults"></div></div></div>
+<script>(function(){var ITEMS=[{title:'Home',sub:'Main dashboard',href:'index.html',icon:'🏠',tags:'home dashboard'},{title:'AI Path',sub:'Main AI roadmap and phases',href:'ai.html',icon:'🧠',tags:'ai roadmap path llm rag agents prompting'},{title:'Linux',sub:'RHCSA and Linux foundation',href:'linux.html',icon:'🐧',tags:'linux rhcsa bash shell selinux systemd'},{title:'Python',sub:'Automation and AI prep',href:'python.html',icon:'🐍',tags:'python automation api anthropic sdk paramiko'},{title:'Cloud',sub:'AWS and Azure path',href:'cloud.html',icon:'☁️',tags:'cloud aws azure sap ans az-700 az-305'},{title:'Claude',sub:'Claude, MCP, and tools',href:'claude.html',icon:'🟠',tags:'claude mcp claude code agents'},{title:'Courses',sub:'Curated course library',href:'courses.html',icon:'📚',tags:'courses library resources'},{title:'Schedule',sub:'Week-by-week execution plan',href:'schedule.html',icon:'📅',tags:'schedule weeks plan'},{title:'Career Builder',sub:'CV-enhancing project ideas',href:'index.html',icon:'🧰',tags:'career builder cv projects portfolio'},{title:'RAG Systems',sub:'Retrieval and evaluation path',href:'ai.html',icon:'🧠',tags:'rag retrieval evals embeddings'},{title:'Prompt Engineering',sub:'Foundation prompt skill',href:'ai.html',icon:'🧠',tags:'prompt engineering developers'},{title:'Bash scripting',sub:'Linux scripting focus',href:'linux.html',icon:'🐧',tags:'bash loops functions cron'},{title:'Anthropic SDK',sub:'First AI API call',href:'python.html',icon:'🐍',tags:'anthropic sdk api'},{title:'AWS Architecture',sub:'Cloud architecture path',href:'cloud.html',icon:'☁️',tags:'aws architecture well architected'}]; function $(id){return document.getElementById(id)} function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})} function render(q){var box=$('gsearchResults'); if(!box) return; q=(q||'').toLowerCase().trim(); var list=ITEMS.filter(function(x){var hay=(x.title+' '+x.sub+' '+x.tags+' '+x.href).toLowerCase(); return !q||hay.indexOf(q)>-1}).slice(0,q?20:12); box.innerHTML=list.length?('<div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);padding:2px 0 10px">'+(!q?'Quick picks':'Results')+'</div>'+list.map(function(x){return '<a class="gsearch-item" href="'+x.href+'"><div style="font-size:1.1rem">'+x.icon+'</div><div><div style="font-size:.84rem;font-weight:800;color:var(--text)">'+esc(x.title)+'</div><div style="font-size:.7rem;color:var(--text2);margin-top:3px">'+esc(x.sub)+'</div></div></a>'}).join('')):'<div style="padding:8px 2px;color:var(--text2)">No results found</div>';} function openSearch(){ $('gsearchOverlay').classList.add('open'); $('gsearchInput').focus(); render($('gsearchInput').value||''); } function closeSearch(){ $('gsearchOverlay').classList.remove('open'); } window.toggleSearch=openSearch; window.runSearch=render; window.addEventListener('DOMContentLoaded',function(){ var btn=document.getElementById('searchBtn') || document.querySelector('button[title="Search"]') || Array.from(document.querySelectorAll('button')).find(function(b){return (b.textContent||'').includes('🔍')}); if(btn) btn.onclick=function(){ var ov=$('gsearchOverlay'); ov.classList.contains('open')?closeSearch():openSearch(); }; if($('gsearchInput')) $('gsearchInput').addEventListener('input',function(){render(this.value)}); if($('gsearchCloseBtn')) $('gsearchCloseBtn').onclick=closeSearch; if($('gsearchOverlay')) $('gsearchOverlay').addEventListener('click',function(e){if(e.target===this) closeSearch()}); document.addEventListener('keydown',function(e){ if($('gsearchOverlay') && $('gsearchOverlay').classList.contains('open') && e.key==='Escape') closeSearch();}); render('');});})();
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+<div class="curation-card"><div class="curation-kicker">Track standard</div><h3 style="margin:0 0 6px;font-size:1rem">Cloud course standard</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">Cloud should stay architecture-led, not course-count-led. The best improvement is to keep the cert path but force every step through architecture review thinking.</p><div class="curation-grid"><a class="curation-item" href="courses.html"><h4>Best local anchor</h4><p>Keep your AWS and Azure certification path as the main local structure because it already aligns to your architecture and networking direction.</p><div class="curation-meta"><span class="curation-chip">AWS</span><span class="curation-chip">Azure</span></div></a><a class="curation-item" href="https://aws.amazon.com/architecture/well-architected/" target="_blank" rel="noopener"><h4>Best external reference</h4><p>AWS Well-Architected gives you the architectural questions and trade-off language that make cert study useful in real designs.</p><div class="curation-meta"><span class="curation-chip">Architecture</span><span class="curation-chip">Best practices</span></div></a><a class="curation-item" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank" rel="noopener"><h4>Use for design reviews</h4><p>Use the framework docs as the standard you apply to your case studies, diagrams, and cloud project writeups.</p><div class="curation-meta"><span class="curation-chip">Docs</span><span class="curation-chip">Design review</span></div></a><a class="curation-item" href="courses.html"><h4>Defer</h4><p>Do not add too many extra cloud courses now. The bottleneck is architecture application and project documentation, not platform count.</p><div class="curation-meta"><span class="curation-chip">Focus</span><span class="curation-chip">Portfolio first</span></div></a></div></div>
 </body>
 </html>

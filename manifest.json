@@ -1,14 +1,22 @@
 {
-  "name": "AI Tracker · Jideatom",
-  "short_name": "AI Tracker",
-  "description": "6-month AI Engineering learning tracker — Lagos",
-  "start_url": "/index.html",
+  "name": "Jideatom Learning Path",
+  "short_name": "Jideatom LP",
+  "description": "Jideatom Learning Path \u2014 standardized AI, Linux, Python, cloud, and Claude learning system",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#6366f1",
   "orientation": "portrait",
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="description" content="Recommended learning resources from your library"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<title>Course Library · AI Tracker</title>
+<title>Courses · Jideatom Learning Path</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -48,7 +49,55 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
 .skip-body{flex:1;line-height:1.5;}
 .skip-name{font-weight:600;color:var(--text);}
 .skip-reason{color:var(--text2);font-size:0.68rem;margin-top:2px;font-family:var(--mono);}
+
+/* ── FLOAT TIMER ── */
+.float-timer{position:fixed;bottom:70px;right:16px;z-index:90;background:var(--accent);color:#fff;border:none;border-radius:50%;width:50px;height:50px;font-size:1.2rem;box-shadow:0 4px 16px rgba(99,102,241,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:transform 0.15s;}
+.float-timer:active{transform:scale(0.9);}
+.ft-badge{position:absolute;top:-3px;right:-3px;background:#f97316;color:#fff;font-size:0.42rem;font-weight:700;padding:1px 5px;border-radius:10px;font-family:var(--mono);white-space:nowrap;}
+/* ── NOTES ── */
+.notes-toggle{display:flex;align-items:center;gap:5px;font-size:0.62rem;color:var(--text2);cursor:pointer;padding:7px 0 4px;user-select:none;-webkit-tap-highlight-color:transparent;}
+.notes-panel{display:none;margin-bottom:10px;}
+.notes-panel.open{display:block;}
+.notes-area{width:100%;min-height:80px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px;font-size:0.76rem;color:var(--text);font-family:var(--mono);resize:vertical;line-height:1.6;box-sizing:border-box;}
+.notes-area:focus{outline:none;border-color:var(--accent);}
+.notes-saved{font-size:0.58rem;color:var(--green);font-family:var(--mono);margin-top:2px;display:none;}
+/* ── RES LINKS ── */
+a.rlink{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+a.rlink:active{opacity:0.7;}
+/* ── EST DATE ── */
+.est-badge{display:inline-block;background:var(--g-bg);color:var(--green);font-size:0.56rem;font-weight:700;padding:2px 8px;border-radius:20px;font-family:var(--mono);margin-left:6px;vertical-align:middle;}
+/* ── SEC TIMER BTN ── */
+.stbtn{font-size:0.56rem;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--a-bg);color:var(--accent);border:none;cursor:pointer;font-family:var(--mono);}
+.stbtn:active{opacity:0.7;}
+
+
+/* Shared timer overlay */
+.timer-overlay{position:fixed;inset:0;background:rgba(2,6,23,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}
+.timer-overlay.show{display:flex}
+.timer-card{width:min(420px,100%);background:var(--bg2);border:1px solid var(--border2);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.35);padding:22px;text-align:center}
+.timer-kicker{font-size:.62rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-family:var(--mono);margin-bottom:8px}
+.timer-topic{font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--text)}
+.timer-readout{font-family:var(--mono);font-size:2.2rem;font-weight:700;margin:12px 0 16px;color:var(--text)}
+.timer-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.timer-btn{min-width:108px;border:none;border-radius:12px;padding:12px 14px;font-weight:700}
+.timer-btn.primary{background:var(--accent);color:#fff}.timer-btn.ghost{background:var(--bg3);color:var(--text);border:1px solid var(--border2)}
+.timer-mini{font-size:.68rem;color:var(--text2);margin-top:12px;line-height:1.5}
+
+
+/* Standardized brand shell */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:18px;padding:12px 14px;margin:0 0 14px;box-shadow:var(--shadow)}
+.brand-left{display:flex;flex-direction:column;gap:2px;min-width:0}.brand-kicker{font-size:.58rem;text-transform:uppercase;letter-spacing:1.6px;color:var(--accent);font-weight:700;font-family:var(--mono)}
+.brand-name{font-size:.92rem;font-weight:800;color:var(--text);letter-spacing:-.02em}.brand-sub{font-size:.68rem;color:var(--text2);line-height:1.4}
+.page-chip{font-size:.58rem;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--a-bg);color:var(--accent);border:1px solid rgba(59,130,246,.18);white-space:nowrap}
+.redirect-card{max-width:560px;margin:24px auto;padding:22px;border-radius:18px;background:#fff;border:1px solid #e2e8f0;font-family:Arial,sans-serif;color:#0f172a}
+.redirect-card a{color:#2563eb;text-decoration:none;font-weight:700}
+
+.bnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.bnav-inner{min-width:max-content;padding:0 8px}.ni{min-width:64px}
+
 </style>
+<style>.gsearch-overlay{position:fixed;inset:0;background:rgba(8,12,20,.76);backdrop-filter:blur(8px);display:none;z-index:2500;padding:12px}.gsearch-overlay.open{display:flex}.gsearch-card{margin:auto;width:min(760px,100%);height:min(80vh,760px);background:var(--bg2);border:1px solid var(--border2, var(--border));border-radius:22px;box-shadow:0 28px 90px rgba(0,0,0,.36);display:flex;flex-direction:column;overflow:hidden}.gsearch-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.gsearch-head input{flex:1;background:var(--bg3);color:var(--text);border:1px solid var(--border2, var(--border));border-radius:12px;padding:12px 14px;font-size:.94rem}.gsearch-results{padding:14px 16px;overflow:auto}.gsearch-item{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--bg2);margin-bottom:8px;text-decoration:none;color:inherit}</style>
+<style>.curator-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.curator-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.curator-item{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.curator-kicker{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.curator-item h4{margin:0 0 6px;font-size:.94rem}.curator-item p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.52}.curator-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.curator-chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--bg2);border:1px solid var(--border);color:var(--text2)}@media (max-width:700px){.curator-grid{grid-template-columns:1fr}}</style>
+<style>.curation-card{margin-top:18px;background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.curation-kicker{font-size:.58rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;color:var(--accent);font-weight:700;margin-bottom:6px}.curation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.curation-item{display:block;background:linear-gradient(180deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:16px;padding:14px;text-decoration:none;color:inherit}.curation-item h4{margin:0 0 6px;font-size:.94rem}.curation-item p{margin:0;color:var(--text2);font-size:.74rem;line-height:1.52}.curation-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.curation-chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);background:var(--bg2);border:1px solid var(--border);color:var(--text2)}.curation-table{width:100%;border-collapse:separate;border-spacing:0 10px;margin-top:12px}.curation-table td,.curation-table th{padding:12px 12px;vertical-align:top;text-align:left}.curation-table tbody tr{background:linear-gradient(180deg,var(--bg2),var(--bg3));box-shadow:var(--shadow)}.curation-table tbody td:first-child{border-radius:14px 0 0 14px}.curation-table tbody td:last-child{border-radius:0 14px 14px 0}.curation-table th{font-size:.62rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:1px}.track-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.56rem;font-family:var(--mono);font-weight:700;background:var(--a-bg);color:var(--accent)}@media (max-width:760px){.curation-grid{grid-template-columns:1fr}.curation-table,.curation-table tbody,.curation-table tr,.curation-table td,.curation-table th{display:block;width:100%}.curation-table thead{display:none}.curation-table tbody tr{display:block;padding:8px;border-radius:14px}.curation-table tbody td{display:block;padding:8px 10px}.curation-table tbody td:first-child,.curation-table tbody td:last-child{border-radius:0}}}</style>
 </head>
 <body>
 <header>
@@ -57,11 +106,15 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 </header>
 <div class="wrap">
+<div class="curation-card"><div class="curation-kicker">Once and for all</div><h3 style="margin:0 0 6px;font-size:1rem">Curriculum standard across all tracks</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">This is the final selection logic for the learning path: one strongest paid or external reference, one strongest local anchor, and a clear defer note where adding more courses would create drag instead of progress.</p><table class="curation-table"><thead><tr><th>Track</th><th>Best upgrade</th><th>Keep</th><th>Defer</th></tr></thead><tbody><tr><td><span class="track-badge">AI</span></td><td><a href="https://frontendmasters.com/courses/prompt-engineering/" target="_blank" rel="noopener">Practical Prompt Engineering</a> + <a href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" rel="noopener">Advanced RAG</a></td><td>Local LLM fundamentals block</td><td>Generic AI survey content</td></tr><tr><td><span class="track-badge">Linux</span></td><td><a href="https://linuxcommand.org" target="_blank" rel="noopener">LinuxCommand.org</a> as reference layer</td><td>Local Linux bootcamp + bash deep-dive</td><td>Privilege escalation and Ansible too early</td></tr><tr><td><span class="track-badge">Python</span></td><td><a href="https://automatetheboringstuff.com" target="_blank" rel="noopener">Automate the Boring Stuff</a></td><td>Main Python bootcamp + network Python specialization</td><td>FastAPI/deep learning before fluency</td></tr><tr><td><span class="track-badge">Cloud</span></td><td><a href="https://aws.amazon.com/architecture/well-architected/" target="_blank" rel="noopener">AWS Well-Architected</a></td><td>AWS + Azure cert path</td><td>Extra cloud course sprawl</td></tr><tr><td><span class="track-badge">Claude</span></td><td><a href="https://www.coursera.org/specializations/mastering-claude-ai-prompting-apis-rag-and-mcp" target="_blank" rel="noopener">Mastering Claude AI</a></td><td>Local Claude roadmap + architect milestones</td><td>Overlapping beginner Claude intros</td></tr></tbody></table></div>
+<div class="curator-card"><div class="curator-kicker">Premium AI upgrades</div><h3 style="margin:0 0 6px;font-size:1rem">Best external additions to the learning path</h3><p style="margin:0;color:var(--text2);font-size:.78rem;line-height:1.55">Course selection is tightened around practical transfer: prompt quality first, then mental model, then evaluated RAG, then Claude systems.</p><div class="curator-grid"><a class="curator-item" href="https://frontendmasters.com/courses/prompt-engineering/" target="_blank" rel="noopener"><div class="curator-kicker">Add</div><h4>Frontend Masters — Practical Prompt Engineering</h4><p>Use this instead of treating prompt engineering as a lightweight side topic. It deserves dedicated study because it shapes every later build.</p><div class="curator-meta"><span class="curator-chip">High priority</span><span class="curator-chip">Paid</span></div></a><a class="curator-item" href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" rel="noopener"><div class="curator-kicker">Upgrade</div><h4>DeepLearning.AI — Advanced RAG</h4><p>Prefer this for RAG quality because it teaches evaluation, groundedness, and retrieval improvements rather than only baseline assembly.</p><div class="curator-meta"><span class="curator-chip">RAG</span><span class="curator-chip">Evaluation</span></div></a><a class="curator-item" href="https://www.coursera.org/specializations/mastering-claude-ai-prompting-apis-rag-and-mcp" target="_blank" rel="noopener"><div class="curator-kicker">Anchor</div><h4>Coursera — Mastering Claude AI</h4><p>Make this the premium Claude anchor when you want one structured paid path from prompt skill to API, RAG, and MCP workflows.</p><div class="curator-meta"><span class="curator-chip">Claude</span><span class="curator-chip">Structured path</span></div></a><a class="curator-item" href="ai.html"><div class="curator-kicker">Keep</div><h4>Local LLM Fundamentals</h4><p>Retain your local 10-hour fundamentals block because it still plays an important role in conceptual grounding before systems work.</p><div class="curator-meta"><span class="curator-chip">Foundation</span><span class="curator-chip">Local</span></div></a></div></div>
+<div class="brandbar"><div class="brand-left"><div class="brand-kicker">Jideatom Learning Path</div><div class="brand-name">Course library</div><div class="brand-sub">Curated picks from your local learning collection.</div></div><div class="page-chip">Courses</div></div>
 
 <div class="tabs">
   <div class="tab active" onclick="sw(0,this)">Linux</div>
   <div class="tab" onclick="sw(1,this)">Python</div>
   <div class="tab" onclick="sw(2,this)">Later</div>
+  <div class="tab" onclick="sw(3,this)">📖 Ebooks</div>
 </div>
 
 <!-- LINUX PICKS -->
@@ -166,23 +219,272 @@ header{background:var(--bg2);padding:14px 16px;padding-top:calc(14px + env(safe-
   </div>
 </div>
 
+
+<!-- EBOOKS PANEL -->
+<div class="panel" id="p3">
+  <div class="tip">📖 Reference books that pair with your video courses. Read alongside — not instead of — the course for that track. Physical books beat screens for conceptual depth.</div>
+
+  <p class="sec-label">Linux &amp; Systems</p>
+  <div class="ebook-grid">
+    <div class="ebook-card">
+      <div class="ebook-cover">🐧</div>
+      <span class="ebook-badge eb-linux">Linux · Week 1</span>
+      <div class="ebook-title">The Linux Command Line</div>
+      <div class="ebook-author">William Shotts · No Starch Press · Free online</div>
+      <div class="ebook-when">Read Ch 1–10 alongside Week 1 bootcamp. Best companion to any Linux video course.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">⚙️</div>
+      <span class="ebook-badge eb-linux">Linux · Week 2</span>
+      <div class="ebook-title">How Linux Works, 3rd Ed.</div>
+      <div class="ebook-author">Brian Ward · No Starch Press</div>
+      <div class="ebook-when">Read after Week 1. Explains what's happening under the hood — systemd, kernel, devices. Builds mental model the video course assumes.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">🔧</div>
+      <span class="ebook-badge eb-linux">Systems · Phase 2</span>
+      <div class="ebook-title">Unix and Linux System Administration Handbook</div>
+      <div class="ebook-author">Nemeth et al. · Addison-Wesley · 5th Ed.</div>
+      <div class="ebook-when">The definitive sysadmin reference. Don't read cover-to-cover — use as a lookup when a topic comes up in the RHCSA labs.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">🛡️</div>
+      <span class="ebook-badge eb-linux">Bash · Week 2</span>
+      <div class="ebook-title">Learning the bash Shell, 3rd Ed.</div>
+      <div class="ebook-author">Cameron Newham · O'Reilly</div>
+      <div class="ebook-when">Read Ch 1–5 alongside the PIKUMA bash course in Week 2. Reinforces scripting patterns with clear explanations.</div>
+    </div>
+  </div>
+
+  <p class="sec-label">Python</p>
+  <div class="ebook-grid">
+    <div class="ebook-card">
+      <div class="ebook-cover">🐍</div>
+      <span class="ebook-badge eb-python">Python · Week 3</span>
+      <div class="ebook-title">Automate the Boring Stuff with Python, 2nd Ed.</div>
+      <div class="ebook-author">Al Sweigart · No Starch Press · Free online</div>
+      <div class="ebook-when">Read Ch 1–9 alongside 100 Days of Code Week 3. Best practical Python book for your use case — file ops, web scraping, APIs.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">📘</div>
+      <span class="ebook-badge eb-python">Python · Week 4</span>
+      <div class="ebook-title">Python for Network Engineers</div>
+      <div class="ebook-author">Eric Chou · O'Reilly</div>
+      <div class="ebook-when">Perfect companion to the OrhanErgun course in Week 4. Practical scripts for Cisco, Juniper, and Arista devices — maps to your day job.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">🤖</div>
+      <span class="ebook-badge eb-python">Python + AI · Week 7</span>
+      <div class="ebook-title">Fluent Python, 2nd Ed.</div>
+      <div class="ebook-author">Luciano Ramalho · O'Reilly</div>
+      <div class="ebook-when">Read selected chapters during Week 7–8. Not a beginner book — read after you can write real Python. Makes your AI code idiomatic and clean.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">🔬</div>
+      <span class="ebook-badge eb-ai">AI Engineering · Month 2</span>
+      <div class="ebook-title">AI Engineering</div>
+      <div class="ebook-author">Chip Huyen · O'Reilly · 2025</div>
+      <div class="ebook-when">Read alongside Month 2 LLM work. Covers model selection, RAG, agents, and production deployment from an engineering — not research — perspective.</div>
+    </div>
+  </div>
+
+  <p class="sec-label">AI &amp; LLMs</p>
+  <div class="ebook-grid">
+    <div class="ebook-card">
+      <div class="ebook-cover">🧠</div>
+      <span class="ebook-badge eb-ai">AI · Month 2</span>
+      <div class="ebook-title">Build a Large Language Model (From Scratch)</div>
+      <div class="ebook-author">Sebastian Raschka · Manning · 2024</div>
+      <div class="ebook-when">Read Ch 1–4 during Month 2 LLM Fundamentals. Best technical explanation of how transformers work without requiring research math. Pairs with TOWARDS AI course.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">📊</div>
+      <span class="ebook-badge eb-ai">RAG · Month 3</span>
+      <div class="ebook-title">Designing Large Language Model Applications</div>
+      <div class="ebook-author">Suhas Pai · O'Reilly · 2024</div>
+      <div class="ebook-when">Read during Month 3 RAG work. Covers retrieval strategies, chunking, embedding models, and production trade-offs — exactly what the Maven course builds on.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">⚡</div>
+      <span class="ebook-badge eb-ai">Agents · Month 4</span>
+      <div class="ebook-title">LLM Engineers Handbook</div>
+      <div class="ebook-author">Paul Iusztin &amp; Maxime Labonne · Packt · 2024</div>
+      <div class="ebook-when">Read alongside Month 4 Agents work. End-to-end LLM engineering from data to deployment. The most practical engineering-focused LLM book currently available.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">🔗</div>
+      <span class="ebook-badge eb-ai">MCP · Month 5</span>
+      <div class="ebook-title">Prompt Engineering for LLMs</div>
+      <div class="ebook-author">John Berryman &amp; Albert Ziegler · O'Reilly · 2024</div>
+      <div class="ebook-when">Read before Month 2 and revisit during Month 4. Covers system prompts, few-shot, chain-of-thought, and tool use — everything the Claude courses assume you know.</div>
+    </div>
+  </div>
+
+  <p class="sec-label">Cloud &amp; Architecture</p>
+  <div class="ebook-grid">
+    <div class="ebook-card">
+      <div class="ebook-cover">☁️</div>
+      <span class="ebook-badge eb-cloud">AWS · Month 5</span>
+      <div class="ebook-title">AWS Certified Solutions Architect Study Guide</div>
+      <div class="ebook-author">Ben Piper &amp; David Clinton · Sybex · SAA-C03</div>
+      <div class="ebook-when">Use as exam reference during SAA-C03 prep. Don't read linearly — look up topics as they appear in practice exams. Pairs with Adrian Cantrill course.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">🔷</div>
+      <span class="ebook-badge eb-cloud">Azure · Month 6</span>
+      <div class="ebook-title">Microsoft Azure Infrastructure Services</div>
+      <div class="ebook-author">John Savill · Reference guide</div>
+      <div class="ebook-when">Reference during AZ-700 prep. John Savill's written materials pair directly with his YouTube deep-dives on Azure networking.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">🏗️</div>
+      <span class="ebook-badge eb-cloud">Architecture · Month 5</span>
+      <div class="ebook-title">Designing Distributed Systems, 2nd Ed.</div>
+      <div class="ebook-author">Brendan Burns · O'Reilly · 2023 · Free from Microsoft</div>
+      <div class="ebook-when">Read during Cloud week 9. Covers distributed patterns — sidecars, ambassadors, adapters. Directly applicable to your SAP-C02 and AZ-305 architecture questions.</div>
+    </div>
+    <div class="ebook-card">
+      <div class="ebook-cover">🌐</div>
+      <span class="ebook-badge eb-net">Networking · Reference</span>
+      <div class="ebook-title">TCP/IP Illustrated, Vol. 1, 2nd Ed.</div>
+      <div class="ebook-author">W. Richard Stevens · Addison-Wesley</div>
+      <div class="ebook-when">You already know this material — keep it as a reference when AWS/Azure networking concepts map back to TCP/IP fundamentals. Validates your existing knowledge.</div>
+    </div>
+  </div>
 </div>
 
-<nav class="bnav">
-  <div class="bnav-inner">
-    <a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
-    <a href="lp.html"    class="ni" id="bn-lp">  <span class="ni-icon">🤖</span><span class="ni-lbl">AI Path</span></a>
-    <a href="courses.html" class="ni active" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
-    <a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
-    <a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
-    <a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
-  </div>
-</nav>
+</div>
+
+<nav class="bnav"><div class="bnav-inner">
+<a href="index.html" class="ni" id="bn-home"><span class="ni-icon">🏠</span><span class="ni-lbl">Home</span></a>
+<a href="ai.html" class="ni" id="bn-ai"><span class="ni-icon">🧠</span><span class="ni-lbl">AI</span></a>
+<a href="courses.html" class="ni" id="bn-courses"><span class="ni-icon">📚</span><span class="ni-lbl">Courses</span></a>
+<a href="linux.html" class="ni" id="bn-linux"><span class="ni-icon">🐧</span><span class="ni-lbl">Linux</span></a>
+<a href="python.html" class="ni" id="bn-python"><span class="ni-icon">🐍</span><span class="ni-lbl">Python</span></a>
+<a href="cloud.html" class="ni" id="bn-cloud"><span class="ni-icon">☁️</span><span class="ni-lbl">Cloud</span></a>
+<a href="claude.html" class="ni" id="bn-claude"><span class="ni-icon">🟠</span><span class="ni-lbl">Claude</span></a>
+<a href="schedule.html" class="ni" id="bn-schedule"><span class="ni-icon">📅</span><span class="ni-lbl">Plan</span></a>
+<a href="goals.html" class="ni" id="bn-goals"><span class="ni-icon">🎯</span><span class="ni-lbl">Goals</span></a>
+</div></nav>
 <script>
 function initTheme(){var t=localStorage.getItem('theme')||'light';if(t==='dark')document.body.classList.add('dark');document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙';}
 function toggleTheme(){var d=document.body.classList.toggle('dark');localStorage.setItem('theme',d?'dark':'light');document.getElementById('themeBtn').textContent=d?'☀️':'🌙';}
 initTheme();
 function sw(i,btn){document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});document.getElementById('p'+i).classList.add('active');btn.classList.add('active');}
+</script>
+
+<button class="float-timer" onclick="_ftOpen('Study Session')" title="Start focus timer">
+  ⏱️<span id="ftBadge" class="ft-badge" style="display:none"></span>
+</button>
+
+
+<div class="timer-overlay" id="globalTimerOverlay" aria-hidden="true">
+  <div class="timer-card">
+    <div class="timer-kicker">Focus Session</div>
+    <div class="timer-topic" id="globalTimerTopic">Study Session</div>
+    <div class="timer-readout" id="globalTimerReadout">25:00</div>
+    <div class="timer-actions">
+      <button class="timer-btn primary" id="globalTimerStart">Start</button>
+      <button class="timer-btn ghost" id="globalTimerReset">Reset</button>
+      <button class="timer-btn ghost" id="globalTimerClose">Close</button>
+    </div>
+    <div class="timer-mini">Space = start/pause · Escape = close · Completion updates today's activity</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(window.ftOpen) return;
+  var gt={mins:25,left:1500,id:null,topic:'Study Session',running:false};
+  function todayKey(){return new Date().toISOString().slice(0,10)}
+  function getStreak(){try{return JSON.parse(localStorage.getItem('streakData')||'{"current":0,"best":0,"lastStudy":"","days":{},"totalMins":0}')}catch(e){return {current:0,best:0,lastStudy:'',days:{},totalMins:0}}}
+  function setStreak(s){try{localStorage.setItem('streakData',JSON.stringify(s))}catch(e){}}
+  function recordStudy(mins){
+    var s=getStreak(), today=todayKey();
+    if(!s.days) s.days={};
+    s.days[today]=(s.days[today]||0)+mins;
+    s.totalMins=(s.totalMins||0)+mins;
+    var y=new Date(); y.setDate(y.getDate()-1);
+    var yk=y.toISOString().slice(0,10);
+    if(s.lastStudy!==today){
+      s.current = s.lastStudy===yk ? (s.current||0)+1 : 1;
+      s.best = Math.max(s.best||0,s.current||1);
+      s.lastStudy=today;
+    }
+    setStreak(s);
+    try{window.dispatchEvent(new StorageEvent('storage',{key:'streakData'}));}catch(e){}
+  }
+  function q(id){return document.getElementById(id)}
+  function fmt(){var m=Math.floor(gt.left/60), s=gt.left%60; q('globalTimerReadout').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+  function syncBadge(){var b=document.getElementById('ftBadge'); if(!b) return; var s=getStreak(); b.style.display='inline-block'; b.textContent=((s&&s.current)||0)+'d';}
+  function stopTick(){ if(gt.id){clearInterval(gt.id); gt.id=null;} gt.running=false; if(q('globalTimerStart')) q('globalTimerStart').textContent='Start'; }
+  function startPause(){
+    if(gt.running){ stopTick(); return; }
+    gt.running=true; q('globalTimerStart').textContent='Pause';
+    gt.id=setInterval(function(){ gt.left--; fmt(); if(gt.left<=0){ stopTick(); gt.left=gt.mins*60; fmt(); recordStudy(gt.mins); alert('Session complete: '+gt.topic); syncBadge(); } },1000);
+  }
+  function reset(){ stopTick(); gt.left=gt.mins*60; fmt(); }
+  function close(){ stopTick(); q('globalTimerOverlay').classList.remove('show'); }
+  window.ftOpen=function(topic, mins){ gt.topic=topic||'Study Session'; gt.mins=mins||25; gt.left=gt.mins*60; q('globalTimerTopic').textContent=gt.topic; fmt(); q('globalTimerOverlay').classList.add('show'); syncBadge(); };
+  window.addEventListener('DOMContentLoaded', function(){
+    if(!q('globalTimerOverlay')) return;
+    q('globalTimerStart').addEventListener('click', startPause);
+    q('globalTimerReset').addEventListener('click', reset);
+    q('globalTimerClose').addEventListener('click', close);
+    q('globalTimerOverlay').addEventListener('click', function(e){ if(e.target===q('globalTimerOverlay')) close(); });
+    document.addEventListener('keydown', function(e){ if(!q('globalTimerOverlay').classList.contains('show')) return; if(e.code==='Space'){ e.preventDefault(); startPause(); } if(e.key==='Escape'){ close(); } });
+    syncBadge();
+  });
+})();
+</script>
+
+
+<script>(function(){var id='bn-courses';var el=document.getElementById(id);if(el) el.className='ni active';})();</script>
+
+
+<script>
+(function(){
+  window.addEventListener('load', function(){
+    try {
+      localStorage.setItem('jlp_build','gold-v4');
+      if (!('serviceWorker' in navigator)) return;
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); });
+      if (window.caches && caches.keys) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+    } catch(e) {}
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function applyTheme(){
+    var t='light';
+    try{ t=localStorage.getItem('theme')||'light'; }catch(e){}
+    if(t==='dark') document.body.classList.add('dark'); else document.body.classList.remove('dark');
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.textContent = t==='dark' ? '☀️' : '🌙';
+  }
+  window.initTheme = applyTheme;
+  window.toggleTheme = function(){
+    var dark=!document.body.classList.contains('dark');
+    document.body.classList.toggle('dark', dark);
+    try{ localStorage.setItem('theme', dark?'dark':'light'); }catch(e){}
+    applyTheme();
+  };
+  window.addEventListener('DOMContentLoaded', function(){
+    applyTheme();
+    var btn=document.getElementById('themeBtn');
+    if(btn) btn.onclick = window.toggleTheme;
+  });
+})();
+</script>
+
+<div class="gsearch-overlay" id="gsearchOverlay"><div class="gsearch-card"><div class="gsearch-head"><input id="gsearchInput" type="search" placeholder="Search topics, pages, courses, weeks..." autocomplete="off"><button class="theme-btn" id="gsearchCloseBtn">✕</button></div><div class="gsearch-results" id="gsearchResults"></div></div></div>
+<script>(function(){var ITEMS=[{title:'Home',sub:'Main dashboard',href:'index.html',icon:'🏠',tags:'home dashboard'},{title:'AI Path',sub:'Main AI roadmap and phases',href:'ai.html',icon:'🧠',tags:'ai roadmap path llm rag agents prompting'},{title:'Linux',sub:'RHCSA and Linux foundation',href:'linux.html',icon:'🐧',tags:'linux rhcsa bash shell selinux systemd'},{title:'Python',sub:'Automation and AI prep',href:'python.html',icon:'🐍',tags:'python automation api anthropic sdk paramiko'},{title:'Cloud',sub:'AWS and Azure path',href:'cloud.html',icon:'☁️',tags:'cloud aws azure sap ans az-700 az-305'},{title:'Claude',sub:'Claude, MCP, and tools',href:'claude.html',icon:'🟠',tags:'claude mcp claude code agents'},{title:'Courses',sub:'Curated course library',href:'courses.html',icon:'📚',tags:'courses library resources'},{title:'Schedule',sub:'Week-by-week execution plan',href:'schedule.html',icon:'📅',tags:'schedule weeks plan'},{title:'Career Builder',sub:'CV-enhancing project ideas',href:'index.html',icon:'🧰',tags:'career builder cv projects portfolio'},{title:'RAG Systems',sub:'Retrieval and evaluation path',href:'ai.html',icon:'🧠',tags:'rag retrieval evals embeddings'},{title:'Prompt Engineering',sub:'Foundation prompt skill',href:'ai.html',icon:'🧠',tags:'prompt engineering developers'},{title:'Bash scripting',sub:'Linux scripting focus',href:'linux.html',icon:'🐧',tags:'bash loops functions cron'},{title:'Anthropic SDK',sub:'First AI API call',href:'python.html',icon:'🐍',tags:'anthropic sdk api'},{title:'AWS Architecture',sub:'Cloud architecture path',href:'cloud.html',icon:'☁️',tags:'aws architecture well architected'}]; function $(id){return document.getElementById(id)} function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})} function render(q){var box=$('gsearchResults'); if(!box) return; q=(q||'').toLowerCase().trim(); var list=ITEMS.filter(function(x){var hay=(x.title+' '+x.sub+' '+x.tags+' '+x.href).toLowerCase(); return !q||hay.indexOf(q)>-1}).slice(0,q?20:12); box.innerHTML=list.length?('<div style="font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;font-family:var(--mono);padding:2px 0 10px">'+(!q?'Quick picks':'Results')+'</div>'+list.map(function(x){return '<a class="gsearch-item" href="'+x.href+'"><div style="font-size:1.1rem">'+x.icon+'</div><div><div style="font-size:.84rem;font-weight:800;color:var(--text)">'+esc(x.title)+'</div><div style="font-size:.7rem;color:var(--text2);margin-top:3px">'+esc(x.sub)+'</div></div></a>'}).join('')):'<div style="padding:8px 2px;color:var(--text2)">No results found</div>';} function openSearch(){ $('gsearchOverlay').classList.add('open'); $('gsearchInput').focus(); render($('gsearchInput').value||''); } function closeSearch(){ $('gsearchOverlay').classList.remove('open'); } window.toggleSearch=openSearch; window.runSearch=render; window.addEventListener('DOMContentLoaded',function(){ var btn=document.getElementById('searchBtn') || document.querySelector('button[title="Search"]') || Array.from(document.querySelectorAll('button')).find(function(b){return (b.textContent||'').includes('🔍')}); if(btn) btn.onclick=function(){ var ov=$('gsearchOverlay'); ov.classList.contains('open')?closeSearch():openSearch(); }; if($('gsearchInput')) $('gsearchInput').addEventListener('input',function(){render(this.value)}); if($('gsearchCloseBtn')) $('gsearchCloseBtn').onclick=closeSearch; if($('gsearchOverlay')) $('gsearchOverlay').addEventListener('click',function(e){if(e.target===this) closeSearch()}); document.addEventListener('keydown',function(e){ if($('gsearchOverlay') && $('gsearchOverlay').classList.contains('open') && e.key==='Escape') closeSearch();}); render('');});})();
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
 </script>
 </body>
 </html>
